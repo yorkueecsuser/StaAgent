@@ -1,0 +1,887 @@
+[
+    {
+        "id": 1,
+        "title": "AlwaysThrows",
+        "description": "Detects calls that will fail at runtime"
+    },
+    {
+        "id": 2,
+        "title": "ArrayEquals",
+        "description": "Reference equality used to compare arrays Generally when comparing arrays for equality, the programmer intends to check\nthat the contents of the arrays are equal rather than that they are actually the\nsame object. But many commonly used equals methods compare arrays for reference\nequality rather than content equality. These include the instance .equals()\nmethod, Guava\u2019s com.google.common.base.Objects#equal(), JDK\u2019s\njava.util.Objects#equals(), and Android\u2019s\nandroidx.core.ObjectsCompat#equals(). If reference equality is needed, == should be used instead for clarity.\nOtherwise, use java.util.Arrays#equals() to compare the contents of the\narrays."
+    },
+    {
+        "id": 3,
+        "title": "ArrayFillIncompatibleType",
+        "description": "Arrays.fill(Object[], Object) called with incompatible types. Arrays.fill(Object[], Object) is used to copy a reference into every slot of\nan array. For example: String[] foo = new String[42];\nArrays.fill(foo, \"life\");\n// 42 references to the same String instance of \"life\" in the foo array String[] foo = new String[42];\nArrays.fill(foo, \"life\");\n// 42 references to the same String instance of \"life\" in the foo array However, because of Array covariance (e.g.: String[] is assignable to\nObject[]), and the signature of Arrays.fill is Arrays.fill(Object[],\nObject), this also allows you to do the following: String[] foo = new String[42];\nArrays.fill(foo, 42); // ArrayStoreException! Integer can't be put into a String[] String[] foo = new String[42];\nArrays.fill(foo, 42); // ArrayStoreException! Integer can't be put into a String[] This check detects the above circumstances, and won\u2019t let you attempt to put\nIntegers into a String[]. List<T> doesn\u2019t have the same issue, since generic types are not covariant. List<String> foo = new ArrayList<>();\nfoo.add(42); // Compile time error: Integer is not assignable to String List<String> foo = new ArrayList<>();\nfoo.add(42); // Compile time error: Integer is not assignable to String"
+    },
+    {
+        "id": 4,
+        "title": "ArrayHashCode",
+        "description": "hashcode method on array does not hash array contents Computing a hashcode for an array is tricky. Typically you want a hashcode that\ndepends on the value of each element in the array, but many of the common ways\nto do this actually return a hashcode based on the identity of the array\nrather than its contents. This check flags attempts to compute a hashcode from an array that do not take\nthe contents of the array into account. There are several ways to mess this up: Call the instance .hashCode() method on an array.\n\n\nCall the JDK method java.util.Objects#hashCode() with an argument of array\ntype.\n\n\nCall the JDK method java.util.Objects#hash() or the Guava method\ncom.google.common.base.Objects#hashCode() with multiple arguments, at\nleast one of which is an array.\n\n\nCall the JDK method java.util.Objects#hash() or the Guava method\ncom.google.common.base.Objects#hashCode() with a single argument of\nprimitive array type. Because these are varags methods that take\nObject..., the primitive array is autoboxed into a single-element Object\narray, and these methods use the identity hashcode of the primitive array\nrather than examining its contents. Note that calling these methods on an\nargument of Object array type actually does the right thing because no\nboxing is needed. Call the instance .hashCode() method on an array. Call the JDK method java.util.Objects#hashCode() with an argument of array\ntype. Call the JDK method java.util.Objects#hash() or the Guava method\ncom.google.common.base.Objects#hashCode() with multiple arguments, at\nleast one of which is an array. Call the JDK method java.util.Objects#hash() or the Guava method\ncom.google.common.base.Objects#hashCode() with a single argument of\nprimitive array type. Because these are varags methods that take\nObject..., the primitive array is autoboxed into a single-element Object\narray, and these methods use the identity hashcode of the primitive array\nrather than examining its contents. Note that calling these methods on an\nargument of Object array type actually does the right thing because no\nboxing is needed. Please use either java.util.Arrays#hashCode() (for single-dimensional arrays)\nor java.util.Arrays#deepHashCode() (for multidimensional arrays) to compute a\nhash value that depends on the contents of the array. If you really intended to\ncompute the identity hash code, consider using\njava.lang.System#identityHashCode() instead for clarity."
+    },
+    {
+        "id": 5,
+        "title": "ArrayToString",
+        "description": "Calling toString on an array does not provide useful information The toString method on an array will print its identity, such as\n[I@4488aabb. This is almost never needed. Use Arrays.toString to print a\nhuman-readable summary."
+    },
+    {
+        "id": 6,
+        "title": "ArraysAsListPrimitiveArray",
+        "description": "Arrays.asList does not autobox primitive arrays, as one might expect. Arrays.asList does not autobox primitive arrays, as one might expect. If you\nintended to autobox the primitive array, use an asList method from Guava that\ndoes autobox. If you intended to create a singleton list containing the\nprimitive array, use Collections.singletonList to make your intent clearer."
+    },
+    {
+        "id": 7,
+        "title": "AsyncCallableReturnsNull",
+        "description": "AsyncCallable should not return a null Future, only a Future whose result is null. Methods like Futures.whenAllComplete(\u2026).callAsync(\u2026) will throw a\nNullPointerException if the provided AsyncCallable returns a null Future. To\nproduce a Future with an output of null, instead return immediateFuture(null)."
+    },
+    {
+        "id": 8,
+        "title": "AsyncFunctionReturnsNull",
+        "description": "AsyncFunction should not return a null Future, only a Future whose result is null. Methods like Futures.transformAsync and Futures.catchingAsync will throw a\nNullPointerException if the provided AsyncFunction returns a null Future. To\nproduce a Future with an output of null, instead return immediateFuture(null)."
+    },
+    {
+        "id": 9,
+        "title": "AutoValueBuilderDefaultsInConstructor",
+        "description": "Defaults for AutoValue Builders should be set in the factory method returning Builder instances, not the constructor"
+    },
+    {
+        "id": 10,
+        "title": "AutoValueConstructorOrderChecker",
+        "description": "Arguments to AutoValue constructor are in the wrong order AutoValue constructors are synthesized with their parameters in the same order\nas the abstract accessor methods. Calls to the constructor need to match this\nordering."
+    },
+    {
+        "id": 11,
+        "title": "BadAnnotationImplementation",
+        "description": "Classes that implement Annotation must override equals and hashCode. Consider using AutoAnnotation instead of implementing Annotation by hand. Implementations of Annotation must override equals and hashCode to match\nthe expectations defined in that interface, to ensure compatibility with the\nannotation instances that source annotations create. Without this, operations\nthat care about equality of annotations (such as qualified dependency injection\nbindings) will fail in mysterious ways. class Foo {\n  @SomeAnnotation(\"hello\") public void annotatedMethod() {}\n\n  private static class HelloAnnotationImpl implements SomeAnnotation {\n    @Override\n    public Class<? extends Annotation> annotationType() {\n      return SomeAnnotation.class;\n    }\n\n    @Override\n    public String value() {\n      return \"hello\";\n    }\n  }\n\n  static void test() {\n    Annotation manual = new HelloAnnotationImpl();\n    Annotation fromMethod = Foo.class.getMethod(\"annotatedMethod\").getDeclaredAnnotations()[0];\n\n    manual.equals(fromMethod); // false, violating equality expectations of Annotation!\n  }\n} class Foo {\n  @SomeAnnotation(\"hello\") public void annotatedMethod() {}\n\n  private static class HelloAnnotationImpl implements SomeAnnotation {\n    @Override\n    public Class<? extends Annotation> annotationType() {\n      return SomeAnnotation.class;\n    }\n\n    @Override\n    public String value() {\n      return \"hello\";\n    }\n  }\n\n  static void test() {\n    Annotation manual = new HelloAnnotationImpl();\n    Annotation fromMethod = Foo.class.getMethod(\"annotatedMethod\").getDeclaredAnnotations()[0];\n\n    manual.equals(fromMethod); // false, violating equality expectations of Annotation!\n  }\n} It is very difficult to write these methods correctly, so consider using\n@AutoAnnotation to generate a properly-functioning implementation of\nAnnotation: class Foo {\n  @SomeAnnotation(\"hello\") public void annotatedMethod() {}\n\n  @AutoAnnotation\n  private static SomeAnnotation someAnnotationInstance(String value) {\n    return new AutoAnnotation_Foo_someAnnotationInstance(value);\n  }\n\n  static void test() {\n    Annotation manual = someAnnotationInstance(\"hello\");\n    Annotation fromMethod = Foo.class.getMethod(\"annotatedMethod\").getDeclaredAnnotations()[0];\n\n    manual.equals(fromMethod); // true, hooray!\n  }\n} class Foo {\n  @SomeAnnotation(\"hello\") public void annotatedMethod() {}\n\n  @AutoAnnotation\n  private static SomeAnnotation someAnnotationInstance(String value) {\n    return new AutoAnnotation_Foo_someAnnotationInstance(value);\n  }\n\n  static void test() {\n    Annotation manual = someAnnotationInstance(\"hello\");\n    Annotation fromMethod = Foo.class.getMethod(\"annotatedMethod\").getDeclaredAnnotations()[0];\n\n    manual.equals(fromMethod); // true, hooray!\n  }\n}"
+    },
+    {
+        "id": 12,
+        "title": "BadShiftAmount",
+        "description": "Shift by an amount that is out of range For shift operations on int types, only the five lowest-order bits of the shift\namount are used as the shift distance. This means that shift amounts that are\nnot in the range 0 to 31, inclusive, are silently mapped to values in that\nrange. For example, a shift of an int by 32 is equivalent to shifting by 0,\ni.e., a no-op. See JLS 15.19, \u201cShift Operators\u201d, for more details."
+    },
+    {
+        "id": 13,
+        "title": "BanJNDI",
+        "description": "Using JNDI may deserialize user input via the `Serializable` API which is extremely dangerous JNDI (\u201cJava Naming and Directory Interface\u201d) is a Java JDK API representing an\nabstract directory service such as DNS, a file system or LDAP. Critically, JNDI\nallows Java objects to be serialized and deserialized on the wire in\nimplementing systems. This means that if a Java application is allowed to\nperform a JNDI lookup over some transport protocol then the server it connects\nto can execute arbitrary attacker-defined code. See\nthis\nBlack Hat talk for more information. This checker bans usage of every API in the Java JDK that can result in\ndeserialising an unsafe object via JNDI. The list of APIs is generated from\nstatic callgraph analysis of the JDK, rooted at javax.naming.Context.lookup\nand is as follows: javax.naming.Context.lookup\njavax.jdo.JDOHelper.getPersistenceManagerFactory\njavax.jdo.JDOHelperTest.testGetPMFBadJNDI\njavax.jdo.JDOHelperTest.testGetPMFBadJNDIGoodClassLoader\njavax.jdo.JDOHelperTest.testGetPMFNullJNDI\njavax.jdo.JDOHelperTest.testGetPMFNullJNDIGoodClassLoader\njavax.management.remote.JMXConnectorFactory.connect\njavax.management.remote.rmi.RMIConnector.connect\njavax.management.remote.rmi.RMIConnector.findRMIServer\njavax.management.remote.rmi.RMIConnector.findRMIServerJNDI\njavax.management.remote.rmi.RMIConnector.RMIClientCommunicatorAdmin.doStart\njavax.naming.directory.InitialDirContext.bind\njavax.naming.directory.InitialDirContext.createSubcontext\njavax.naming.directory.InitialDirContext.getAttributes\njavax.naming.directory.InitialDirContext.getSchema\njavax.naming.directory.InitialDirContext.getSchemaClassDefinition\njavax.naming.directory.InitialDirContext.modifyAttributes\njavax.naming.directory.InitialDirContext.rebind\njavax.naming.directory.InitialDirContext.search\njavax.naming.InitialContext.doLookup\njavax.naming.InitialContext.lookup\njavax.naming.spi.ContinuationContext.lookup\njavax.naming.spi.ContinuationDirContext.bind\njavax.naming.spi.ContinuationDirContext.createSubcontext\njavax.naming.spi.ContinuationDirContext.getAttributes\njavax.naming.spi.ContinuationDirContext.getSchema\njavax.naming.spi.ContinuationDirContext.getSchemaClassDefinition\njavax.naming.spi.ContinuationDirContext.getTargetContext\njavax.naming.spi.ContinuationDirContext.modifyAttributes\njavax.naming.spi.ContinuationDirContext.rebind\njavax.naming.spi.ContinuationDirContext.search\njavax.sql.rowset.spi.ProviderImpl.getDataSourceLock\njavax.sql.rowset.spi.ProviderImpl.getProviderGrade\njavax.sql.rowset.spi.ProviderImpl.getRowSetReader\njavax.sql.rowset.spi.ProviderImpl.getRowSetWriter\njavax.sql.rowset.spi.ProviderImpl.setDataSourceLock\njavax.sql.rowset.spi.ProviderImpl.supportsUpdatableView\njavax.sql.rowset.spi.SyncFactory.enumerateBindings\njavax.sql.rowset.spi.SyncFactory.getInstance\njavax.sql.rowset.spi.SyncFactory.initJNDIContext\njavax.sql.rowset.spi.SyncFactory.parseJNDIContext A small subset of these are banned directly. The rest are banned indirectly by\nbanning the lookup(), bind(), rebind(), getAttributes(),\nmodifyAttriutes(), createSubcontext(), getSchema(),\ngetSchemaClassDefinition() and search() methods on any subclass\n(implementer) of javax.naming.Context. The indirect ban is necessary due to\nthese methods being vulnerable in previously noted subclasses in the JDK. If\nthey were not banned at the Context level, a cast to Context would make the\nvulnerable call invisible to static analysis."
+    },
+    {
+        "id": 14,
+        "title": "BoxedPrimitiveEquality",
+        "description": "Comparison using reference equality instead of value equality. Reference equality of boxed primitive types is usually not useful, as they are value objects, and it is bug-prone, as instances are cached for some values but not others. Comparison using reference equality instead of value equality. The inputs to\nthis comparison are boxed primitive types, where reference equality is\nparticularly bug-prone: Primitive wrapper classes cache instances for some (but\nusually not all) values, so == may be equivalent to equals() for some values but\nnot others. Additionally, not all versions of the runtime and other libraries\nuse the cache in the same cases, so upgrades may change behavior. Furthermore,\nreference identity is usually not useful for primitive wrappers, as they are\nimmutable types whose equals() method fully compares their values."
+    },
+    {
+        "id": 15,
+        "title": "BundleDeserializationCast",
+        "description": "Object serialized in Bundle may have been flattened to base type."
+    },
+    {
+        "id": 16,
+        "title": "ChainingConstructorIgnoresParameter",
+        "description": "The called constructor accepts a parameter with the same name and type as one of its caller's parameters, but its caller doesn't pass that parameter to it.  It's likely that it was intended to. When a class exposes multiple constructors, they\u2019re generally used as a means of\ninitializing default parameters. If a chaining constructor ignores a parameter,\nit\u2019s likely the parameter needed to be plumbed to the chained constructor. MissileLauncher(Location target) {\n  this(target, false);\n}\nMissileLauncher(boolean askForConfirmation) {\n  this(TEST_TARGET, false); // should be askForConfirmation\n}\nMissileLauncher(Location target, boolean askForConfirmation) {\n   ...\n} MissileLauncher(Location target) {\n  this(target, false);\n}\nMissileLauncher(boolean askForConfirmation) {\n  this(TEST_TARGET, false); // should be askForConfirmation\n}\nMissileLauncher(Location target, boolean askForConfirmation) {\n   ...\n}"
+    },
+    {
+        "id": 17,
+        "title": "CheckNotNullMultipleTimes",
+        "description": "A variable was checkNotNulled multiple times. Did you mean to check something else?"
+    },
+    {
+        "id": 18,
+        "title": "CheckReturnValue",
+        "description": "The result of this call must be used When code calls a non-void method, it should usually use the value that the\nmethod returns. Consider the following code, which ignores the return value of concat: string.concat(\"\\n\"); string.concat(\"\\n\"); That code is a no-op because concat doesn\u2019t modify string; it returns a new\nstring for the caller to use, as in: string = string.concat(\"\\n\"); string = string.concat(\"\\n\"); To avoid this bug, Error Prone requires callers to use the return value of\nconcat and some other well-known methods. Additionally, Error Prone can be configured to require callers to use the return\nvalue of any methods that you choose. Most methods are like concat: Calls to those methods must use their return\nvalues. However, there are exceptions. For example, set.add(element) returns a\nboolean: The return value is false if element was already contained in\nset. Typically, callers don\u2019t need to know this, so they don\u2019t need to use the\nreturn value. For Error Prone\u2019s CheckReturnValue check to be useful, it needs to know which\nmethods are like concat and which are like add. The @CheckReturnValue annotation (available in JSR-3051 or in\nError Prone) marks methods whose return values must be used. This error\nis triggered when one of these methods is called but the result is not used. @CheckReturnValue may be applied to a class or package 2 to\nindicate that all methods in that class or package must have their return values\nused. For convenience, we provide an annotation, @CanIgnoreReturnValue, to\nexempt specific methods or classes from this behavior. @CanIgnoreReturnValue\nis available from the Error Prone annotations package,\ncom.google.errorprone.annotations. If you really want to ignore the return value of a method annotated with\n@CheckReturnValue, a cleaner alternative to @SuppressWarnings is to assign\nthe result to a variable that starts with unused: public void setNameFormat(String nameFormat) {\n  String unused = format(nameFormat, 0); // fail fast if the format is bad or null\n  this.nameFormat = nameFormat;\n} public void setNameFormat(String nameFormat) {\n  String unused = format(nameFormat, 0); // fail fast if the format is bad or null\n  this.nameFormat = nameFormat;\n} @CheckReturnValue is ignored under the following conditions (which saves users\nfrom having to use either an unused variable or @SuppressWarnings): Calls from Mockito.verify() or Stubber.when(); e.g.,\nMockito.verify(t).foo() or doReturn(val).when(t).foo() (where foo() is\nannotated with @CheckReturnValue). Here, the method calls are just used to\nprogram the mock object, not to be consumed directly. Code that does exception testing with JUnit, where the intent is that the\nmethod call should throw an exception: Uses of JUnit 4.13 or JUnit5\u2019s assertThrows methods:\nassertThrows(IndexOutOfBoundsException.class, () -> list.get(-1));\n \n\n\nThe try/execute/fail/catch pattern\n try {\n   list.get(-1);\n   fail(\"Expected a IndexOutOfBoundsException to be thrown on a negative index\");\n } catch (IndexOutOfBoundsException expected) {\n }\n \n\n\nJUnit\u2019s ExpectedException\nexpectedException.expect(IndexOutOfBoundsException.class);\nlist.get(-1); // If this throws IOOBE, the test passes. Uses of JUnit 4.13 or JUnit5\u2019s assertThrows methods: assertThrows(IndexOutOfBoundsException.class, () -> list.get(-1)); assertThrows(IndexOutOfBoundsException.class, () -> list.get(-1)); The try/execute/fail/catch pattern try {\n   list.get(-1);\n   fail(\"Expected a IndexOutOfBoundsException to be thrown on a negative index\");\n } catch (IndexOutOfBoundsException expected) {\n } try {\n   list.get(-1);\n   fail(\"Expected a IndexOutOfBoundsException to be thrown on a negative index\");\n } catch (IndexOutOfBoundsException expected) {\n } JUnit\u2019s ExpectedException expectedException.expect(IndexOutOfBoundsException.class);\nlist.get(-1); // If this throws IOOBE, the test passes. expectedException.expect(IndexOutOfBoundsException.class);\nlist.get(-1); // If this throws IOOBE, the test passes. Of note, the JSR-305 project was never fully approved, so the\nJSR-305 version of the annotation is not actually official and causes\nissues with Java 9 and the Module System. Prefer to use the\nError Prone version.\u00a0\u21a9\n\n\nTo annotate a package, create a\npackage-info.java file in the package directory, add a package statement,\nand annotate the package statement.\u00a0\u21a9 Of note, the JSR-305 project was never fully approved, so the\nJSR-305 version of the annotation is not actually official and causes\nissues with Java 9 and the Module System. Prefer to use the\nError Prone version.\u00a0\u21a9 To annotate a package, create a\npackage-info.java file in the package directory, add a package statement,\nand annotate the package statement.\u00a0\u21a9"
+    },
+    {
+        "id": 19,
+        "title": "CollectionIncompatibleType",
+        "description": "Incompatible type as argument to Object-accepting Java collections method Querying a collection for an element it cannot possibly contain is almost\ncertainly a bug. In a generic collection type, query methods such as Map.get(Object) and\nCollection.remove(Object) accept a parameter that identifies a potential\nelement to look for in that collection. This check reports cases where this\nelement cannot be present because its type and the collection\u2019s generic\nelement type are \u201cincompatible.\u201d A typical example: Set<Long> values = ...\nif (values.contains(42)) { ... } Set<Long> values = ...\nif (values.contains(42)) { ... } This code looks reasonable, but there\u2019s a problem: The Set contains Long\ninstances, but the argument to contains is an Integer. Because no instance\ncan be of type Integer and of type Long at the same time, the contains\ncheck always fails. This is clearly not what the developer intended. Why does the collection API permit this kind of mistake? Why not declare the\nmethod as contains(E)? After all, that is what the collections API does for\nmethods that store an element in the collection: They require that passed type\nbe strictly assignable to the collection\u2019s element type. For example: void addIntegerOne(Set<? extends Number> numbers) {\n  numbers.add(42); // won't compile\n} void addIntegerOne(Set<? extends Number> numbers) {\n  numbers.add(42); // won't compile\n} The code above rightly won\u2019t compile, because numbers might be a (for\nexample) Set<Long>, and adding an Integer value would corrupt it. But this restriction is necessary only for methods that insert elements. Methods\nthat only query or remove elements cannot corrupt the collection: void removeIntegerOne(Set<? extends Number> numbers) {\n  numbers.remove(42); // should compile (and does)\n} void removeIntegerOne(Set<? extends Number> numbers) {\n  numbers.remove(42); // should compile (and does)\n} In this case, the Integer 42 might be contained in numbers, and should be\nremoved if it is, but if numbers is a Set<Long>, no harm is done. We\u2019d like to define contains in a way that rejects the bad call but permits\nthe good one. But Java\u2019s type system is not powerful enough. Our solution is\nstatic analysis. The specific restriction we would like to express for the two types is not\nassignability, but \u201ccompatibility\u201d. Informally, we mean that it must at least be\npossible for some instance to be of both types. Formally, we require that a\n\u201ccasting conversion\u201d exist between the types as defined by\nJLS 5.5.1. The result is that the method can be defined as contains(Object), permitting\nthe \u201cgood\u201d call above, but that Error Prone will give errors for incompatible\narguments, preventing the \u201cbad.\u201d We might say: Sure, a buggy remove call can\u2019t corrupt a collection. And sure,\nsomeone might want to pass an Object reference that happens to contain an E.\nBut isn\u2019t that a low standard for an API? We don\u2019t normally write code that way: void throwIfUnchecked(Object throwable) { // no \"need\" to require Throwable\n  if (throwable instanceof RuntimeException) {\n    throw (RuntimeException) throwable;\n  }\n  if (throwable instanceof Error) {\n    throw (Error) throwable;\n  }\n} void throwIfUnchecked(Object throwable) { // no \"need\" to require Throwable\n  if (throwable instanceof RuntimeException) {\n    throw (RuntimeException) throwable;\n  }\n  if (throwable instanceof Error) {\n    throw (Error) throwable;\n  }\n} Such code would invite bugs. To avoid that, we require a Throwable. Users who\nhave an Object reference that might be a Throwable can test instanceof and\ncast. So why not require the same thing in the collections API? Of course, we can\u2019t really change the API of Collection. But if we were\ndesigning a similar API, what would we do \u2013 require E or accept any Object? The burden of proof falls on accepting Object, since doing so permits buggy\ncode. And we\u2019re not going to settle for \u201cit occasionally saves users a cast.\u201d The main reason to accept Object is to permit a fast, type-safe Set.equals\nimplementation. (equals is actually just one example of the general problem, which arises with\nmany uses of wildcards. Once you\u2019ve read the following, consider the problem of\nimplementing Collection.removeAll(Collection<?>) without contains(Object).\nThen consider how the problem would exist even if the signature were\nremoveAll(Collection<? extends E>). The removeAll problem is at least\n\u201csolvable\u201d by changing the signature to removeAll(Collection<E>), but that\nsignature may reject useful calls.) Here\u2019s how: equals necessarily accepts a plain Object. It can test whether\nthat Object is a Set, but it can\u2019t know the element type it was originally\ndeclared with. In short, equals has to operate on a Set<?>. If contains were to require an E, equals would be in trouble because it\ndoesn\u2019t know what E is. In particular, it wouldn\u2019t be able to call\notherSet.contains(myElement) for any of its elements. It would have only two options: It could copy the entire other Set into a\nSet<Object>, or it could perform an unchecked cast. Copying is wasteful, so in\npractice, equals would need an unchecked cast. This is probably acceptable,\nbut we might feel strange for defining an API that can be implemented only by\nperforming unchecked casts. Does a cleaner implementation (and occasional convenience to callers) outweigh\nthe bugs that accepting Object enables? That\u2019s a tough question. The good news\nis that this Error Prone check gives you some of the best of both worlds. It is technically possible for a Set<Integer> to contain a String element,\nbut only if an unchecked warning was earlier ignored or improperly suppressed.\nSuch practice should never be treated as acceptable, so it makes no practical\ndifference to our arguments above."
+    },
+    {
+        "id": 20,
+        "title": "CollectionToArraySafeParameter",
+        "description": "The type of the array parameter of Collection.toArray needs to be compatible with the array type"
+    },
+    {
+        "id": 21,
+        "title": "ComparableType",
+        "description": "Implementing 'Comparable' where T is not the same as the implementing class is incorrect, since it violates the symmetry contract of compareTo. The type argument of Comparable should always be the type of the current\nclass. For example, do this: class Foo implements Comparable<Foo> {\n  public int compareTo(Foo other) { ... }\n} class Foo implements Comparable<Foo> {\n  public int compareTo(Foo other) { ... }\n} not this: class Foo implements Comparable<Bar> {\n  public int compareTo(Bar other) { ... }\n} class Foo implements Comparable<Bar> {\n  public int compareTo(Bar other) { ... }\n} Implementing Comparable for a different type breaks the API contract, which\nrequires x.compareTo(y) == -y.compareTo(x) for all x and y. If x and y\nare different types, this behaviour can\u2019t be guaranteed."
+    },
+    {
+        "id": 22,
+        "title": "ComparingThisWithNull",
+        "description": "this == null is always false, this != null is always true The boolean expression this != null always returns true and similarly this == null always returns false."
+    },
+    {
+        "id": 23,
+        "title": "ComparisonOutOfRange",
+        "description": "Comparison to value that is out of range for the compared type This checker looks for comparisons to values that are too high or too low for the compared type.  For example, bytes may have a value in the range -128 to 127. Comparing a byte for equality with a value outside that range will always evaluate to false and usually indicates an error in the code."
+    },
+    {
+        "id": 24,
+        "title": "CompatibleWithAnnotationMisuse",
+        "description": "@CompatibleWith's value is not a type argument. The @CompatibleWith annotation is used to mark parameters that need extra type\nchecking on arguments passed to the method. The annotation was not appropriately\nplaced on a parameter with a valid type argument. See the javadoc for more\ndetails."
+    },
+    {
+        "id": 25,
+        "title": "CompileTimeConstant",
+        "description": "Non-compile-time constant expression passed to parameter with @CompileTimeConstant type annotation. A method or constructor with one or more parameters whose declaration is\nannotated with the @CompileTimeConstant type annotation must only be invoked\nwith corresponding actual parameters that are computed as compile-time constant\nexpressions, specifically expressions that: the Java compiler can determine a constant value for at compile time (see\nJLS \u00a715.28),\nor\nconsist of the literal {@code null}, or\nconsist of a single identifier, where the identifier is a formal method\nparameter or class field that is effectively final and has the\n@CompileTimeConstant annotation, or\nare ternary expressions with both branches being compile-time constants, or\nare formed from the concatenation of other compile time constant Strings,\nor\nare Guava immutable collection factories with compile-time constant entries. For example, the following are valid compile-time constants: \"some literal string\"\n\"literal string\" + compileTimeConstantParameter\ndebug ? compileTimeConstantParameter : \"foo\"\nImmutableList.of(\"a\", \"b\", \"c\") When applied to fields, this check enforces that the field is final and has an\ninitializer which satisfies the above conditions. Getting Java 8 references to methods with @CompileTimeConstant parameters is\ndisallowed because we couldn\u2019t check if the method reference is later applied to\na compile-time constant. Use the methods directly instead. For the same reason, it\u2019s also disallowed to create lambda expressions with\n@CompileTimeConstant parameters."
+    },
+    {
+        "id": 26,
+        "title": "ComputeIfAbsentAmbiguousReference",
+        "description": "computeIfAbsent passes the map key to the provided class's constructor With ambiguous constructor references used in java.util.Map#computeIfAbsent\nfunction parameter, it becomes unclear what the code intends to do. map.computeIfAbsent(someLong, AtomicLong::new).incrementAndGet() map.computeIfAbsent(someLong, AtomicLong::new).incrementAndGet() Code of this form can seemingly look like it\u2019s trying to make a counter,\ncreating the key if absent. Unfortunately the code is surprising, because it\nwill call the wrong AtomicLong constructor. Instead, it will create the\ncounter initialized with the key value, which is probably not desired."
+    },
+    {
+        "id": 27,
+        "title": "ConditionalExpressionNumericPromotion",
+        "description": "A conditional expression with numeric operands of differing types will perform binary numeric promotion of the operands; when these operands are of reference types, the expression's result may not be of the expected type. A conditional expression with numeric second and third operands of differing\ntypes may give surprising results. For example: Object t = true ? Double.valueOf(0) : Integer.valueOf(0);\nSystem.out.println(t.getClass());  // class java.lang.Double\n\nObject f = false ? Double.valueOf(0) : Integer.valueOf(0);\nSystem.out.println(f.getClass());  // class java.lang.Double !! Object t = true ? Double.valueOf(0) : Integer.valueOf(0);\nSystem.out.println(t.getClass());  // class java.lang.Double\n\nObject f = false ? Double.valueOf(0) : Integer.valueOf(0);\nSystem.out.println(f.getClass());  // class java.lang.Double !! Despite the apparent intent to get a Double in one case, and an Integer in\nthe other, the result is a Double in both cases. This is because the rules in\nJLS \u00a7 15.25.2\nstate that differing numeric types will undergo binary numeric promotion. As\nsuch, the latter case is evaluated as: Object f =\n    Double.valueOf(\n        false\n            ? Double.valueOf(0).doubleValue()\n            : (double) Integer.valueOf(0).intValue()); Object f =\n    Double.valueOf(\n        false\n            ? Double.valueOf(0).doubleValue()\n            : (double) Integer.valueOf(0).intValue()); To get a different type in the two cases, one can either explicitly cast the\noperands to a non-boxable type: Object f = false ? ((Object) Double.valueOf(0)) : ((Object) Integer.valueOf(0));\nSystem.out.println(t.getClass());  // class java.lang.Integer Object f = false ? ((Object) Double.valueOf(0)) : ((Object) Integer.valueOf(0));\nSystem.out.println(t.getClass());  // class java.lang.Integer Or use if/else: Object f;\nif (false) {\n  f = Double.valueOf(0);\n} else {\n  f = Integer.valueOf(0);\n} Object f;\nif (false) {\n  f = Double.valueOf(0);\n} else {\n  f = Integer.valueOf(0);\n}"
+    },
+    {
+        "id": 28,
+        "title": "ConstantOverflow",
+        "description": "Compile-time constant expression overflows Compile-time constant expressions that overflow are a potential source of bugs. Literals without an explicit L suffix have type int, so the following\nmultiplication expression is evaluated as an integer before being widened to\nlong. The value is greater than Integer.MAX_VALUE, so it wraps around to\n-1857093632. static final long NANOS_PER_DAY = 24  * 60 * 60 * 1000 * 1000 * 1000; static final long NANOS_PER_DAY = 24  * 60 * 60 * 1000 * 1000 * 1000; The intent was probably for the multiplication expression to be evaluated as a\nlong instead of an int. static final long NANOS_PER_DAY = 24L * 60 * 60 * 1000 * 1000 * 1000; static final long NANOS_PER_DAY = 24L * 60 * 60 * 1000 * 1000 * 1000; If you find yourself doing this kind of time-based math, consider using an API\nthat provides a safer, more readable and strongly-typed solution like the\njava.time.Duration\nAPI."
+    },
+    {
+        "id": 29,
+        "title": "DaggerProvidesNull",
+        "description": "Dagger @Provides methods may not return null unless annotated with @Nullable Dagger @Provides methods may not return null unless annotated with\n@Nullable. Such a method will cause a NullPointerException at runtime if the\nreturn null path is ever taken. If you believe the return null path can never be taken, please throw a\nRuntimeException instead. Otherwise, please annotate the method with\n@Nullable."
+    },
+    {
+        "id": 30,
+        "title": "DangerousLiteralNull",
+        "description": "This method is null-hostile: passing a null literal to it is always wrong"
+    },
+    {
+        "id": 31,
+        "title": "DeadException",
+        "description": "Exception created but not thrown The exception is created with new, but is not thrown, and the reference is\nlost. Creating an exception without using it is unlikely to be correct, so we assume\nthat you wanted to throw the exception."
+    },
+    {
+        "id": 32,
+        "title": "DeadThread",
+        "description": "Thread created but not started The Thread is created with new, but is never started and is not otherwise\ncaptured. Threads must be started with start() to actually execute."
+    },
+    {
+        "id": 33,
+        "title": "DereferenceWithNullBranch",
+        "description": "Dereference of an expression with a null branch"
+    },
+    {
+        "id": 34,
+        "title": "DiscardedPostfixExpression",
+        "description": "The result of this unary operation on a lambda parameter is discarded"
+    },
+    {
+        "id": 35,
+        "title": "DoNotCall",
+        "description": "This method should not be called. This check prevents calls to methods annotated with Error Prone\u2019s @DoNotCall\nannotation (com.google.errorprone.annotations.DoNotCall). The check disallows invocations and method references of the annotated method. There are a few situations where this can be useful, including methods that are\nrequired to satisfy the contract of an interface, but that are not supported. A method annotated with @DoNotCall should always be final or abstract. If\nan abstract method is annotated @DoNotCall Error Prone will ensure all\nimplementations of that method also have the annotation. Methods annotated with\n@DoNotCall should not be private, since a private method that should not be\ncalled can simply be removed. TIP: Marking methods annotated with @DoNotCall as @Deprecated is\nrecommended, since it provides IDE users with more immediate feedback. Example: java.util.Collection#add should never be called on an immutable collection\nimplementation: package com.google.common.collect.ImmutableList;\n\nclass ImmutableList<E> implements List<E> {\n\n // ...\n\n /**\n  * Guaranteed to throw an exception and leave the list unmodified.\n  *\n  * @deprecated Unsupported operation.\n  */\n @Deprecated\n @DoNotCall(\"guaranteed to throw an exception and leave the list unmodified\")\n @Override\n public final void add(E e) {\n   throw new UnsupportedOperationException();\n }\n} package com.google.common.collect.ImmutableList;\n\nclass ImmutableList<E> implements List<E> {\n\n // ...\n\n /**\n  * Guaranteed to throw an exception and leave the list unmodified.\n  *\n  * @deprecated Unsupported operation.\n  */\n @Deprecated\n @DoNotCall(\"guaranteed to throw an exception and leave the list unmodified\")\n @Override\n public final void add(E e) {\n   throw new UnsupportedOperationException();\n }\n}"
+    },
+    {
+        "id": 36,
+        "title": "DoNotMock",
+        "description": "Identifies undesirable mocks."
+    },
+    {
+        "id": 37,
+        "title": "DoubleBraceInitialization",
+        "description": "Prefer collection factory methods or builders to the double-brace initialization pattern. The double-brace initialization pattern should be avoided\u2014especially in\nnon-static contexts. The double-brace pattern uses an instance-initializer in an anonymous inner\nclass to express the initialization of a class (often a collection) in a single\nstep. Inner classes in a non-static context are terrific sources of memory leaks! If\nyou pass the collection somewhere that retains it, the entire instance you\ncreated it from can no longer be garbage collected. Even if it is completely\nunreachable. And if someone serializes the map? Yep, the entire creating\ninstance goes along for the ride (or if that fails, serializing the map fails,\nwhich is also awfully strange). All this is completely nonobvious. Luckily, there are more readable and more performant alternatives in the factory\nmethods and builders for ImmutableList, ImmutableSet, and ImmutableMap. The List.of, Set.of, and Map.of static factories\nadded in Java 9 are also a good choice. That is, prefer this: ImmutableList.of(\"Denmark\", \"Norway\", \"Sweden\"); ImmutableList.of(\"Denmark\", \"Norway\", \"Sweden\"); Not this: new ArrayList<>() {\n  {\n    add(\"Denmark\");\n    add(\"Norway\");\n    add(\"Sweden\");\n  }\n}; new ArrayList<>() {\n  {\n    add(\"Denmark\");\n    add(\"Norway\");\n    add(\"Sweden\");\n  }\n}; TIP: Neither the guava immutable collections nor the static factory methods\nadded in a JDK 9 support null elements. The double-brace pattern is still best\navoided for collections that contain null. Consider using Arrays.asList to\ninitialize Lists and Sets with null values, and refactoring Map\ninitializers into a helper method."
+    },
+    {
+        "id": 38,
+        "title": "DuplicateBranches",
+        "description": "Both branches contain identical code Branching constructs (if statements, conditional expressions) should contain\ndifference code in the two branches. Repeating identical code in both branches\nis usually a bug. For example: condition ? same : same condition ? same : same if (condition) {\n  same();\n} else {\n  same();\n} if (condition) {\n  same();\n} else {\n  same();\n} this usually indicates a typo where one of the branches was supposed to contain\ndifferent logic: condition ? something : somethingElse condition ? something : somethingElse if (condition) {\n  doSomething();\n} else {\n  doSomethingElse();\n} if (condition) {\n  doSomething();\n} else {\n  doSomethingElse();\n}"
+    },
+    {
+        "id": 39,
+        "title": "DuplicateMapKeys",
+        "description": "Map#ofEntries will throw an IllegalArgumentException if there are any duplicate keys JDK 9 has\nMap#ofEntries\nfactory which throws runtime error when provided multiple entries with the same\nkey. For eg, the following code is erroneously adding two entries with Foo as key. Map<String, String> map = Map.ofEntries(\n    Map.entry(\"Foo\", \"Bar\"),\n    Map.entry(\"Ping\", \"Pong\"),\n    Map.entry(\"Kit\", \"Kat\"),\n    Map.entry(\"Foo\", \"Bar\")); Map<String, String> map = Map.ofEntries(\n    Map.entry(\"Foo\", \"Bar\"),\n    Map.entry(\"Ping\", \"Pong\"),\n    Map.entry(\"Kit\", \"Kat\"),\n    Map.entry(\"Foo\", \"Bar\"));"
+    },
+    {
+        "id": 40,
+        "title": "DurationFrom",
+        "description": "Duration.from(Duration) returns itself; from(Period) throws a runtime exception. Duration.from(TemporalAmount) will always throw a UnsupportedTemporalTypeException when passed a Period and return itself when passed a Duration."
+    },
+    {
+        "id": 41,
+        "title": "DurationGetTemporalUnit",
+        "description": "Duration.get() only works with SECONDS or NANOS. Duration.get(TemporalUnit) only works when passed ChronoUnit.SECONDS or ChronoUnit.NANOS. All other values are guaranteed to throw a UnsupportedTemporalTypeException. In general, you should avoid duration.get(ChronoUnit). Instead, please use duration.toNanos(), Durations.toMicros(duration), duration.toMillis(), duration.getSeconds(), duration.toMinutes(), duration.toHours(), or duration.toDays()."
+    },
+    {
+        "id": 42,
+        "title": "DurationTemporalUnit",
+        "description": "Duration APIs only work for DAYS or exact durations. Duration APIs only work for TemporalUnits with exact durations or ChronoUnit.DAYS. E.g., Duration.of(1, ChronoUnit.YEARS) is guaranteed to throw a DateTimeException."
+    },
+    {
+        "id": 43,
+        "title": "DurationToLongTimeUnit",
+        "description": "Unit mismatch when decomposing a Duration or Instant to call a  API"
+    },
+    {
+        "id": 44,
+        "title": "EqualsHashCode",
+        "description": "Classes that override equals should also override hashCode. The contract for Object.hashCode states that if two objects are equal, then\ncalling the hashCode() method on each of the two objects must produce the same\nresult. Implementing equals() but not hashCode() causes broken behaviour\nwhen trying to store the object in a collection. See Effective Java 3rd Edition \u00a711 for more information and a\ndiscussion of how to correctly implement hashCode()."
+    },
+    {
+        "id": 45,
+        "title": "EqualsNaN",
+        "description": "== NaN always returns false; use the isNaN methods instead As per JLS 15.21.1, == NaN comparisons always return false, even NaN == NaN.\nInstead, use the isNaN methods to check for NaN."
+    },
+    {
+        "id": 46,
+        "title": "EqualsNull",
+        "description": "The contract of Object.equals() states that for any non-null reference value x, x.equals(null) should return false. If x is null, a NullPointerException is thrown. Consider replacing equals() with the == operator. The contract of Object.equals() states that for any non-null reference value\nx, x.equals(null) should return false. Thus code such as if (x.equals(null)) {\n  ...\n} if (x.equals(null)) {\n  ...\n} either returns false, or throws a NullPointerException if x is null. The\nnested block may never execute. This check replaces x.equals(null) with x == null, and !x.equals(null)\nwith x != null. If the author intended for x.equals(null) to return true,\nconsider this as fragile code as it breaks the contract of Object.equals(). See Effective Java 3rd Edition \u00a710: Objey the general contract when overriding\nequals for more details."
+    },
+    {
+        "id": 47,
+        "title": "EqualsReference",
+        "description": "== must be used in equals method to check equality to itself or an infinite loop will occur. .equals() to the same object will result in infinite recursion"
+    },
+    {
+        "id": 48,
+        "title": "EqualsWrongThing",
+        "description": "Comparing different pairs of fields/getters in an equals implementation is probably a mistake. An equals method compares non-corresponding fields from itself and the other\ninstance: class Frobnicator {\n  private int a;\n  private int b;\n\n  @Override\n  public boolean equals(@Nullable Object other) {\n    if (!(other instanceof Frobnicator)) {\n      return false;\n    }\n    Frobnicator that = (Frobnicator) other;\n    return a == that.a && b == that.a; // BUG: should be b == that.b\n  }\n} class Frobnicator {\n  private int a;\n  private int b;\n\n  @Override\n  public boolean equals(@Nullable Object other) {\n    if (!(other instanceof Frobnicator)) {\n      return false;\n    }\n    Frobnicator that = (Frobnicator) other;\n    return a == that.a && b == that.a; // BUG: should be b == that.b\n  }\n}"
+    },
+    {
+        "id": 49,
+        "title": "FloggerFormatString",
+        "description": "Invalid printf-style format string"
+    },
+    {
+        "id": 50,
+        "title": "FloggerLogString",
+        "description": "Arguments to log(String) must be compile-time constants or parameters annotated with @CompileTimeConstant. If possible, use Flogger's formatting log methods instead."
+    },
+    {
+        "id": 51,
+        "title": "FloggerLogVarargs",
+        "description": "logVarargs should be used to pass through format strings and arguments."
+    },
+    {
+        "id": 52,
+        "title": "FloggerSplitLogStatement",
+        "description": "Splitting log statements and using Api instances directly breaks logging."
+    },
+    {
+        "id": 53,
+        "title": "ForOverride",
+        "description": "Method annotated @ForOverride must be protected or package-private and only invoked from declaring class, or from an override of the method A method that overrides a @ForOverride method should not be invoked directly.\nInstead, it should be invoked only from the class in which it was declared. For\nexample, if overriding Converter.doForward, you should invoke it through\nConverter.convert. For testing, factor out the code you want to run to a\nseparate method."
+    },
+    {
+        "id": 54,
+        "title": "FormatString",
+        "description": "Invalid printf-style format string Format strings for the printf family of functions must follow the specification\nin the documentation for java.util.Formatter. The syntax for format specifiers is: %[argument_index$][flags][width][.precision]conversion %[argument_index$][flags][width][.precision]conversion Format strings can have the following errors: Duplicate flags are provided in the format specifier: String.format(\"e = %++10.4f\", Math.E); String.format(\"e = %++10.4f\", Math.E); A conversion and flag are incompatible: String.format(\"%#b\", Math.E); String.format(\"%#b\", Math.E); The argument is a character with an invalid Unicode code point. String.format(\"%c\", 0x110000); String.format(\"%c\", 0x110000); The argument corresponding to the format specifier is of an incompatible type: String.format(\"%f\", \"abcd\"); String.format(\"%f\", \"abcd\"); An illegal combination of flags is given: String.format(\"%-010d\", 5); String.format(\"%-010d\", 5); The conversion does not support a precision: String.format(\"%.c\", 'c'); String.format(\"%.c\", 'c'); The conversion does not support a width: String.format(\"%1n\"); String.format(\"%1n\"); There is a format specifier which does not have a corresponding argument or if\nan argument index refers to an argument that does not exist: String.format(\"%<s\", \"test\"); String.format(\"%<s\", \"test\"); The format width is required: String.format(\"e = %-f\", Math.E); String.format(\"e = %-f\", Math.E); An unknown conversion is given: String.format(\"%r\", \"hello\"); String.format(\"%r\", \"hello\");"
+    },
+    {
+        "id": 55,
+        "title": "FormatStringAnnotation",
+        "description": "Invalid format string passed to formatting method. Methods can be annotated with Error Prone\u2019s @FormatMethod annotation to\nindicate that calls to this function should be treated similarly to\nString.format: One of the parameters is a \u2018format string\u2019 (the first String\nparameter or the only parameter annotated with @FormatString), and the\nsubsequent parameters are used as format arguments to that format string. For example: @FormatMethod\nvoid myLogMethod(@FormatString String fmt, Object... args) {}\n\n// ERROR: 2nd format argument isn't a number\nmyLogMessage(\"My log message: %d and %d\", 3, \"has a message\"); @FormatMethod\nvoid myLogMethod(@FormatString String fmt, Object... args) {}\n\n// ERROR: 2nd format argument isn't a number\nmyLogMessage(\"My log message: %d and %d\", 3, \"has a message\"); In order to avoid complex runtime issues when the format string part is\ndynamically constructed, leading to a mismatch between the arguments and format\nstrings, we require that the \u2018format string\u2019 argument in calls to\n@FormatMethod-annotated methods be one of: Another @FormatString-annotated variable\nA compile time constant string\nA final or effectively final variable assigned to a compile time constant\nstring\nA string literal We will then check that the format string and format arguments match. For more information on possible format string errors, see the documentation on\nthe FormatString check. The import for @FormatMethod is: import com.google.errorprone.annotations.FormatMethod; import com.google.errorprone.annotations.FormatMethod;"
+    },
+    {
+        "id": 56,
+        "title": "FromTemporalAccessor",
+        "description": "Certain combinations of javaTimeType.from(TemporalAccessor) will always throw a DateTimeException or return the parameter directly. Not all java.time types can be created via from(TemporalAccessor). For example, you can create a Month from a LocalDate (Month.from(localDate)) because a LocalDate consists of a year, month, and day. However, you cannot create a LocalDate from a Month (since it doesn\u2019t have the year or day information). Instead of throwing a DateTimeException at runtime, this checker validates the type transformations at compile time using static type information."
+    },
+    {
+        "id": 57,
+        "title": "FunctionalInterfaceMethodChanged",
+        "description": "Casting a lambda to this @FunctionalInterface can cause a behavior change from casting to a functional superinterface, which is surprising to users.  Prefer decorator methods to this surprising behavior. There are only two correct ways to have one @FunctionalInterface extend\nanother @FunctionalInterface\u2014the way where you leave the abstract method\nalone, and the way where you make a different abstract method but a default\nmethod for the original abstract method simply delegates to the new name. If you do anything else, you create a situation where what looks like a \u201ccast\u201d\nactually changes behavior. That is really quite bad for understandability. For example, if the method bar() changes the behaviour of qux(), then the\nsame lambda cast to A or B could have completely different behaviour. @FunctionalInterface\ninterface A {\n  Foo bar();\n}\n\n@FunctionalInterface\ninterface B extends A {\n  Foo qux();\n  @Override\n  default Foo bar() {\n    // anything here but exactly `return qux();` or perhaps `return (SomeType) qux();`\n  }\n} @FunctionalInterface\ninterface A {\n  Foo bar();\n}\n\n@FunctionalInterface\ninterface B extends A {\n  Foo qux();\n  @Override\n  default Foo bar() {\n    // anything here but exactly `return qux();` or perhaps `return (SomeType) qux();`\n  }\n} If you need to change the behaviour of an existing lambda, prefer an explicit\ndecorator method, e.g.: static Runnable crashTerminating(Runnable r) {\n  return () -> { ...wrapping behavior goes here... }\n} static Runnable crashTerminating(Runnable r) {\n  return () -> { ...wrapping behavior goes here... }\n}"
+    },
+    {
+        "id": 58,
+        "title": "FuturesGetCheckedIllegalExceptionType",
+        "description": "Futures.getChecked requires a checked exception type with a standard constructor. The passed exception type must not be a RuntimeException, and it must expose a\npublic constructor whose only parameters are of type String or Throwable.\ngetChecked will reject any other type with an IllegalArgumentException."
+    },
+    {
+        "id": 59,
+        "title": "FuzzyEqualsShouldNotBeUsedInEqualsMethod",
+        "description": "DoubleMath.fuzzyEquals should never be used in an Object.equals() method From documentation: DoubleMath.fuzzyEquals is not transitive, so it is not\nsuitable for use in Object#equals implementations."
+    },
+    {
+        "id": 60,
+        "title": "GetClassOnAnnotation",
+        "description": "Calling getClass() on an annotation may return a proxy class Instances of an annotation interface generally return a random proxy class when\ngetClass() is called on them; to get the actual annotation type use\nannotationType(). In the following example, calling getClass() on the annotation instance\nreturns a proxy class like com.sun.proxy.$Proxy1, while annotationType()\nreturns Deprecated. @Deprecated\npublic class Test {\n  static void printAnnotationClass(Annotation annotation) {\n    System.err.println(annotation.getClass());\n    System.err.println(annotation.annotationType());\n  }\n\n  public static void main(String[] args) {\n    printAnnotationClass(Test.class.getAnnotation(Deprecated.class));\n  }\n} @Deprecated\npublic class Test {\n  static void printAnnotationClass(Annotation annotation) {\n    System.err.println(annotation.getClass());\n    System.err.println(annotation.annotationType());\n  }\n\n  public static void main(String[] args) {\n    printAnnotationClass(Test.class.getAnnotation(Deprecated.class));\n  }\n} Prints: class com.sun.proxy.$Proxy1\ninterface java.lang.Deprecated class com.sun.proxy.$Proxy1\ninterface java.lang.Deprecated"
+    },
+    {
+        "id": 61,
+        "title": "GetClassOnClass",
+        "description": "Calling getClass() on an object of type Class returns the Class object for java.lang.Class; you probably meant to operate on the object directly Calling getClass() on an object of type Class returns the Class object for\njava.lang.Class. Usually this is a mistake, and people intend to operate on the\nobject itself (for example, to print an error message). If you really did intend\nto operate on the Class object for java.lang.Class, please use Class.class\ninstead for clarity."
+    },
+    {
+        "id": 62,
+        "title": "GuardedBy",
+        "description": "Checks for unguarded accesses to fields and methods with @GuardedBy annotations The GuardedBy analysis checks that fields or methods annotated with\n@GuardedBy(lock) are only accessed when the specified lock is held. Example: import com.google.errorprone.annotations.concurrent.GuardedBy;\n\nclass Account {\n  @GuardedBy(\"this\")\n  private int balance;\n\n  public synchronized int getBalance() {\n    return balance; // OK: implicit 'this' lock is held.\n  }\n\n  public synchronized void withdraw(int amount) {\n    setBalance(balance - amount); // OK: implicit 'this' lock is held.\n  }\n\n  public void deposit(int amount) {\n    setBalance(balance + amount); // ERROR: access to 'balance' not guarded by 'this'.\n  }\n\n  @GuardedBy(\"this\")\n  private void setBalance(int newBalance) {\n    checkState(newBalance >= 0, \"Balance cannot be negative.\");\n    balance = newBalance; // OK: 'this' must be held by caller of 'setBalance'.\n  }\n} import com.google.errorprone.annotations.concurrent.GuardedBy;\n\nclass Account {\n  @GuardedBy(\"this\")\n  private int balance;\n\n  public synchronized int getBalance() {\n    return balance; // OK: implicit 'this' lock is held.\n  }\n\n  public synchronized void withdraw(int amount) {\n    setBalance(balance - amount); // OK: implicit 'this' lock is held.\n  }\n\n  public void deposit(int amount) {\n    setBalance(balance + amount); // ERROR: access to 'balance' not guarded by 'this'.\n  }\n\n  @GuardedBy(\"this\")\n  private void setBalance(int newBalance) {\n    checkState(newBalance >= 0, \"Balance cannot be negative.\");\n    balance = newBalance; // OK: 'this' must be held by caller of 'setBalance'.\n  }\n} This above example uses implicit locks (via the \u2018synchronized\u2019 modifier). The\nanalysis also supports synchronized statements and java.util.concurrent locks. The analysis provides a way of associating members with locks. A member is a\nfield or a method. A lock can be the implicit lock of an object, or a\njava.util.concurrent Lock. An implicit lock is acquired using the built in synchronization features of the\nlanguage. Adding the \u2018synchronized\u2019 modifier to an instance method causes the\nimplicit lock of the enclosing instance to be acquired for the duration of the\nmethod. Adding the \u2018synchronized\u2019 modifier to a static method is similar, except\nthe implicit lock of the Class object is acquired instead. The Locks defined in java.util.concurrent are acquired with explicit\nlock()/unlock() methods. The use of these methods in Java should always\ncorrespond to a try/finally block, to ensure that the locks are released on all\nexecution paths. The following syntax can be used to describe a lock: com.google.errorprone.annotations.concurrent.GuardedBy The @GuardedBy annotation is used to document that a member (a field or a\nmethod) can only be accessed when the specified lock is held. @GuardedBy can be used with both implicit locks and java.util.concurrent Locks. final Lock lock = new ReentrantLock();\n\n@GuardedBy(\"lock\")\nint x;\n\nvoid m() {\n  x++;  // error: access of 'x' not guarded by 'lock'\n  lock.lock();\n  try {\n    x++;  // OK: guarded by 'lock'\n  } finally {\n    lock.unlock();\n  }\n} final Lock lock = new ReentrantLock();\n\n@GuardedBy(\"lock\")\nint x;\n\nvoid m() {\n  x++;  // error: access of 'x' not guarded by 'lock'\n  lock.lock();\n  try {\n    x++;  // OK: guarded by 'lock'\n  } finally {\n    lock.unlock();\n  }\n} Note: there are a couple more annotations called @GuardedBy, including\njavax.annotation.concurrent.GuardedBy and\norg.checkerframework.checker.lock.qual.GuardedBy. The check recognizes those\nversions of the annotation, but we recommend using\ncom.google.errorprone.annotations.concurrent.GuardedBy. Anonymous classes and lambdas need to re-acquire locks that may be held by an\nenclosing block. For example, consider: class Transaction {\n  @GuardedBy(\"this\")\n  int x;\n\n  public synchronized void handle() {\n    doSomething(() -> {\n      x++;  // Error: access of 'x' not guarded by 'Transaction.this'\n    });\n  }\n} class Transaction {\n  @GuardedBy(\"this\")\n  int x;\n\n  public synchronized void handle() {\n    doSomething(() -> {\n      x++;  // Error: access of 'x' not guarded by 'Transaction.this'\n    });\n  }\n} The analysis is intra-procedural, meaning it doesn\u2019t consider the implementation\nof doSomething. In general, the checker doesn\u2019t know if doSomething immediately calls the\nprovided lambda while the lock is still held by the enclosing method handle,\nfor example: private void doSomething(Runnable r) {\n  r.run();\n} private void doSomething(Runnable r) {\n  r.run();\n} \u2026 or whether the lambda could be called later after handle has released the\nlock, for example: private void doSomething(Runnable r) {\n  // runs `r` at some point in the future\n  someExecutor.execute(r);\n} private void doSomething(Runnable r) {\n  // runs `r` at some point in the future\n  someExecutor.execute(r);\n} However, the check does special-case some method calls which are known to\nimmediately call the provided lambda or method reference. class Names {\n  @GuardedBy(\"this\")\n  List<String> names = new ArrayList<>();\n\n  public void addName(String name) {\n    List<String> copyOfNames;\n    synchronized (this) {\n      copyOfNames = names;  // OK: access of 'names' guarded by 'this'\n    }\n    copyOfNames.add(name);  // should be an error: this access is not thread-safe!\n  }\n} class Names {\n  @GuardedBy(\"this\")\n  List<String> names = new ArrayList<>();\n\n  public void addName(String name) {\n    List<String> copyOfNames;\n    synchronized (this) {\n      copyOfNames = names;  // OK: access of 'names' guarded by 'this'\n    }\n    copyOfNames.add(name);  // should be an error: this access is not thread-safe!\n  }\n} The analysis does not track aliasing, so it\u2019s possible to circumvent the safety\nit provides by copying references to guarded members. In the example, the guarded field \u2018names\u2019 can be accessed via a copy even if the\nrequired lock is not held."
+    },
+    {
+        "id": 63,
+        "title": "GuiceAssistedInjectScoping",
+        "description": "Scope annotation on implementation class of AssistedInject factory is not allowed Classes that AssistedInject factories create may not be annotated with scope\nannotations, such as @Singleton. This will cause a Guice error at runtime. See\nthis bug report\nfor details."
+    },
+    {
+        "id": 64,
+        "title": "GuiceAssistedParameters",
+        "description": "A constructor cannot have two @Assisted parameters of the same type unless they are disambiguated with named @Assisted annotations. From the javadoc of FactoryModuleBuilder: The types of the factory method\u2019s parameters must be distinct. To use multiple\nparameters of the same type, use a named @Assisted annotation to\ndisambiguate the parameters. The names must be applied to the factory method\u2019s\nparameters: public interface PaymentFactory {\n   Payment create(\n        @Assisted(\"startDate\") Date startDate,\n        @Assisted(\"dueDate\") Date dueDate,\n       Money amount);\n } public interface PaymentFactory {\n   Payment create(\n        @Assisted(\"startDate\") Date startDate,\n        @Assisted(\"dueDate\") Date dueDate,\n       Money amount);\n } \u2026and to the concrete type\u2019s constructor parameters: public class RealPayment implements Payment {\n    @Inject\n   public RealPayment(\n      CreditService creditService,\n      AuthService authService,\n       @Assisted(\"startDate\") Date startDate,\n       @Assisted(\"dueDate\") Date dueDate,\n       @Assisted Money amount) {\n     ...\n   }\n } public class RealPayment implements Payment {\n    @Inject\n   public RealPayment(\n      CreditService creditService,\n      AuthService authService,\n       @Assisted(\"startDate\") Date startDate,\n       @Assisted(\"dueDate\") Date dueDate,\n       @Assisted Money amount) {\n     ...\n   }\n }"
+    },
+    {
+        "id": 65,
+        "title": "GuiceInjectOnFinalField",
+        "description": "Although Guice allows injecting final fields, doing so is disallowed because the injected value may not be visible to other threads. From the Guice wiki: Injecting final fields is not recommended because the injected value may not\nbe visible to other threads."
+    },
+    {
+        "id": 66,
+        "title": "HashtableContains",
+        "description": "contains() is a legacy method that is equivalent to containsValue() Hashtable.contains(Object) and ConcurrentHashMap.contains(Object) are legacy\nmethods for testing if the given object is a value in the hash table. They are\noften mistaken for containsKey, which checks whether the given object is a\nkey in the hash table. If you intended to check whether the given object is a key in the hash table,\nuse containsKey instead. If you really intended to check whether the given\nobject is a value in the hash table, use containsValue for clarity."
+    },
+    {
+        "id": 67,
+        "title": "IdentityBinaryExpression",
+        "description": "A binary expression where both operands are the same is usually incorrect. Using the same expressions as both arguments to the following binary expressions\nis usually a mistake: a && a, a || a, a & a, or a | a is equivalent to a\na <= a, a >= a, or a == a is always true\na < a, a > a, a != a, or a ^ a is always false\na / a is always 1\na % a or a - a is always 0 If the expression has side-effects, consider refactoring one of the expressions\nwith side effects into a local. For example, prefer this: // check twice, just to be sure\nboolean isTrue = foo.isTrue();\nif (isTrue && foo.isTrue()) {\n  // ...\n} // check twice, just to be sure\nboolean isTrue = foo.isTrue();\nif (isTrue && foo.isTrue()) {\n  // ...\n} to this: if (foo.isTrue() && foo.isTrue()) {\n  // ...\n} if (foo.isTrue() && foo.isTrue()) {\n  // ...\n}"
+    },
+    {
+        "id": 68,
+        "title": "IdentityHashMapBoxing",
+        "description": "Using IdentityHashMap with a boxed type as the key is risky since boxing may produce distinct instances Usage of java.util.IdentityHashMap with a boxed primitive type as a key is\nrisky and can yield unexpected results because java.util.IdentityHashMap uses\nreference-equality when comparing keys and reference equality for primitive\nwrappers is particularly bug-prone: Primitive wrapper classes cache instances\nfor some (but usually not all) values, so == may be equivalent to equals() for\nsome values but not others. Additionally, not all versions of the runtime and\nother libraries use the cache in the same cases, so upgrades may change\nbehavior. Thus: Map<Integer, Foo> map = new IdentityHashMap<>();\n  int n = randomInt();\n  map.put(n, x);\n  map.get(n);  // This could be null since boxing happens twice and could produce distinct values. Map<Integer, Foo> map = new IdentityHashMap<>();\n  int n = randomInt();\n  map.put(n, x);\n  map.get(n);  // This could be null since boxing happens twice and could produce distinct values. But: Map<Integer, Foo> map = new IdentityHashMap<>();\n  Integer n = randomInt();\n  map.put(n, x);\n  map.get(n);  // This cannot be null because it's the same instance. Map<Integer, Foo> map = new IdentityHashMap<>();\n  Integer n = randomInt();\n  map.put(n, x);\n  map.get(n);  // This cannot be null because it's the same instance."
+    },
+    {
+        "id": 69,
+        "title": "Immutable",
+        "description": "Type declaration annotated with @Immutable is not immutable This check validates that all classes annotated with Error Prone\u2019s @Immutable\nannotation (com.google.errorprone.annotations.Immutable) are deeply immutable.\nIt also checks that any class extending an @Immutable-annotated class or\nimplementing an @Immutable-annotated interface are also immutable. NOTE: Other versions of the annotation, such as\njavax.annotation.concurrent.Immutable, are currently not enforced. An object is immutable if its state cannot be observed to change after\nconstruction. Immutable objects are inherently thread-safe. A class is immutable if all instances of that class are immutable. The\nimmutability of a class can only be fully guaranteed if the class is final,\notherwise one must ensure all subclasses are also immutable. A conservative definition of object immutability is: All fields are final;\nAll reference fields are of immutable type, or null;\nIt is properly constructed (the this reference does not escape the\nconstructor). The requirement that all reference fields be immutable ensures deep\nimmutability, meaning all contained state is also immutable. A weaker property,\ncommon with container classes, is shallow immutability, which allows some of\nthe object\u2019s fields to point to mutable objects. One example of shallow\nimmutability is guava\u2019s ImmutableList, which may contain mutable elements. It is possible to implement immutable classes with some internal mutable state,\nas long as callers can never observe changes to that state. For example, some\nstate may be lazily initialized to improve performance. It is also technically possible to have an immutable object with non-final\nfields (see the implementation of String#hashCode() for an example), but doing\nthis correctly requires subtle reasoning about safe data races and deep\nknowledge of the Java Memory Model. If you have an immutable class with mutable fields as described above, you can\nmark it as such by suppressing the Immutable check on it. This\nwill allow your class to be included in other @Immutable classes. For more information about immutability, see: Java Concurrency in Practice \u00a73.4\nEffective Java 3rd Edition \u00a717 When an @Immutable class has type parameters that are used in the type of that\nclass\u2019s fields, that class is called an immutable generic container. Usages of\nimmutable generic container classes, such as ImmutableList, are only actually\ndeemed immutable if the arguments to all such type parameters are also deemed\nimmutable. For example, an ImmutableList<String> is deemed immutable since\nStrings are immutable. However, an ImmutableList<Object> is not deemed\nimmutable since Objects are not provably immutable. When creating generic container classes, Error Prone requires that you declare\nwhether that container is allowed to be used with mutable, or only with\nimmutable type parameters. If you want to allow your immutable generic container to possibly contain\nmutable types, use @Immutable\u2019s containerOf method: @Immutable(containerOf = \"T\")\nclass ImmutableHolder<T> {\n  final T ref;\n  ...\n} @Immutable(containerOf = \"T\")\nclass ImmutableHolder<T> {\n  final T ref;\n  ...\n} Error Prone will allow you to instantiate an ImmutableHolder<String> and use\nit as a field in another @Immutable class. You may instantiate an\nImmutableHolder<Object>, but since it is mutable, Error Prone would report an\nerror if that was a field of another @Immutable class. If you want to allow your @Immutable generic container to only contain\nimmutable types, use @ImmutableTypeParameter: @Immutable\nclass ImmutableContainer<@ImmutableTypeParameter T> {\n  final T ref;\n  ...\n} @Immutable\nclass ImmutableContainer<@ImmutableTypeParameter T> {\n  final T ref;\n  ...\n} Error Prone will allow you to instantiate a ImmutableContainer<String> and use\nit as a field in another @Immutable class. However, it is a compiler error to\ninstantiate an ImmutableContainer<Object>. @ImmutableTypeParameter can restrict generic parameters to immutable types\nonly but the generic itself may not be immutable. class MutableContainer<@ImmutableTypeParameter T> {\n  ...\n} class MutableContainer<@ImmutableTypeParameter T> {\n  ...\n} You can also use @ImmutableTypeParameter to annotate a method\u2019s type\nparameters: class SomeMutableClass {\n  <@ImmutableTypeParameter T> ImmutableList<T> putInImmutableList(T t) {\n    return ImmutableList.of(t);\n  }\n} class SomeMutableClass {\n  <@ImmutableTypeParameter T> ImmutableList<T> putInImmutableList(T t) {\n    return ImmutableList.of(t);\n  }\n} If your @Immutable class has a type parameter that is not used in the type of\nyour class\u2019s fields, then there is no need to use containerOf or\n@ImmutableTypeParameter: @Immutable\nclass NonContainer<T> {\n  ... // No fields whose type contains T\n  void process(T element) {\n    // process 'element', which won't violate NonContainer's immutability.\n  }\n} @Immutable\nclass NonContainer<T> {\n  ... // No fields whose type contains T\n  void process(T element) {\n    // process 'element', which won't violate NonContainer's immutability.\n  }\n}"
+    },
+    {
+        "id": 70,
+        "title": "ImpossibleNullComparison",
+        "description": "This value cannot be null, and comparing it to null may be misleading. This checker looks for comparisons of protocol buffer fields with null. If a\nproto field is not specified, its field accessor will return a non-null default\nvalue. Thus, the result of calling one of these accessors can never be null, and\ncomparisons like these often indicate a nearby error. If you need to distinguish between an unset optional value and a default value,\nyou have two options. In most cases, you can simply use the hasField() method.\nproto3 however does not generate hasField() methods for primitive types\n(including string and bytes). In those cases you will need to wrap your\nfield in google.protobuf.StringValue or similar. NOTE: This check applies to normal (server) protos and Lite protos. The\ndeprecated nano runtime does produce objects which use null values to indicate\nfield absence. void test(MyProto proto) {\n  if (proto.getField() == null) {\n    ...\n  }\n  if (proto.getRepeatedFieldList() != null) {\n    ...\n  }\n  if (proto.getRepeatedField(1) != null) {\n    ...\n  }\n} void test(MyProto proto) {\n  if (proto.getField() == null) {\n    ...\n  }\n  if (proto.getRepeatedFieldList() != null) {\n    ...\n  }\n  if (proto.getRepeatedField(1) != null) {\n    ...\n  }\n} void test(MyProto proto) {\n  if (!proto.hasField()) {\n    ...\n  }\n  if (!proto.getRepeatedFieldList().isEmpty()) {\n    ...\n  }\n  if (proto.getRepeatedFieldCount() > 1) {\n    ...\n  }\n} void test(MyProto proto) {\n  if (!proto.hasField()) {\n    ...\n  }\n  if (!proto.getRepeatedFieldList().isEmpty()) {\n    ...\n  }\n  if (proto.getRepeatedFieldCount() > 1) {\n    ...\n  }\n} If the presence of a field is required information in proto3, the field can be\nwrapped. For example, message MyMessage {\n  google.protobuf.StringValue my_string = 1;\n} message MyMessage {\n  google.protobuf.StringValue my_string = 1;\n} Presence can then be tested using myMessage.hasMyString(), and the value\nretrieved using myMessage.getMyString().getValue()."
+    },
+    {
+        "id": 71,
+        "title": "Incomparable",
+        "description": "Types contained in sorted collections must implement Comparable."
+    },
+    {
+        "id": 72,
+        "title": "IncompatibleArgumentType",
+        "description": "Passing argument to a generic method with an incompatible type. The called method is annotated with @CompatibleWith, which enforces that the\nparameter passed to the method can potentially be cast to the appropriate\ngeneric type. However, the type of the parameter passed can\u2019t be cast to the\nappropriate generic type. This is useful when a method can\u2019t just take a parameter of the generic type to\nallow developers to safely operate with instances held with a wildcard type when\nusing an instance as both a consumer and producer of values. This should\nnot be the default, as most interfaces are either one or the other. Containers\nand container-like class are the most likely places to use this tool. TIP: More explanation can be found on the page for CollectionIncompatibleType interface Container<T> {\n  void add(T thing);\n  boolean contains(@CompatibleWith(\"T\") Object thing);\n  boolean containsAsT(T thing);\n}\n\nvoid containmentCheck(Container<? extends Number> container) {\n  container.contains(2); // OK, int can be cast to Number\n  container.contains(2.0); // OK, double can be cast to Number\n  container.contains(\"a\"); // Not OK, String can't be cast to number\n\n  // Does not compile, since, for example, container might be Container<Double>, and Integer\n  // can't be cast to Double.\n  container.containsAsT(2);\n\n  Container<String> stringContainer = ...;\n  stringContainer.contains(\"a\"); // OK\n  // OK, since Object *could* be cast to String\n  stringContainer.contains(new Object() {});\n} interface Container<T> {\n  void add(T thing);\n  boolean contains(@CompatibleWith(\"T\") Object thing);\n  boolean containsAsT(T thing);\n}\n\nvoid containmentCheck(Container<? extends Number> container) {\n  container.contains(2); // OK, int can be cast to Number\n  container.contains(2.0); // OK, double can be cast to Number\n  container.contains(\"a\"); // Not OK, String can't be cast to number\n\n  // Does not compile, since, for example, container might be Container<Double>, and Integer\n  // can't be cast to Double.\n  container.containsAsT(2);\n\n  Container<String> stringContainer = ...;\n  stringContainer.contains(\"a\"); // OK\n  // OK, since Object *could* be cast to String\n  stringContainer.contains(new Object() {});\n}"
+    },
+    {
+        "id": 73,
+        "title": "IncompatibleModifiers",
+        "description": "This annotation has incompatible modifiers as specified by its @IncompatibleModifiers annotation The @IncompatibleModifiers annotation declares that the target annotation is\nincompatible with a set of provided modifiers. This check ensures that all\nannotations respect their @IncompatibleModifiers specifications."
+    },
+    {
+        "id": 74,
+        "title": "IndexOfChar",
+        "description": "The first argument to indexOf is a Unicode code point, and the second is the index to start the search from"
+    },
+    {
+        "id": 75,
+        "title": "InexactVarargsConditional",
+        "description": "Conditional expression in varargs call contains array and non-array arguments When calling a varargs method, you can either pass an explicit array of\narguments, or individual arguments: void f(Object... xs) {\n  System.err.println(Arrays.deepToString(xs));\n} void f(Object... xs) {\n  System.err.println(Arrays.deepToString(xs));\n} Both of the following print [1, 2]: f(new Object[] {1, 2}) // prints \"[1, 2]\"\nf(1, 2) // prints \"[1, 2]\" f(new Object[] {1, 2}) // prints \"[1, 2]\"\nf(1, 2) // prints \"[1, 2]\" If the argument to the varargs method is a conditional expression, and either\nbranch is not an array, the result of the expression will be implicitly wrapped\nin an array. f(flag ? 1 : 2) // prints [1] or [2] f(flag ? 1 : 2) // prints [1] or [2] This means that if one branch is an array and the other branch is not, the array\nbranch will become a multi-dimensional array: f(flag ? new Object[] {1, 2} : 3); // prints [[1, 2]] or [3] f(flag ? new Object[] {1, 2} : 3); // prints [[1, 2]] or [3] To avoid the implicit array creation, the other argument can be explicitly\nwrapped in an array: f(flag ? new Object[] {1, 2} : new Object[] {3}); // prints [1, 2] or [3] f(flag ? new Object[] {1, 2} : new Object[] {3}); // prints [1, 2] or [3] Or, if the multi-dimensional array was intentional, it can be written explicitly\nas: f(flag ? new Object[][] 1 : new Object[] {3}); // prints [[1, 2]] or [3] f(flag ? new Object[][] 1 : new Object[] {3}); // prints [[1, 2]] or [3]"
+    },
+    {
+        "id": 76,
+        "title": "InfiniteRecursion",
+        "description": "This method always recurses, and will cause a StackOverflowError A method that always calls itself will cause a StackOverflowError. int oops() {\n  return oops();\n} int oops() {\n  return oops();\n} Exception in thread \"main\" java.lang.StackOverflowError\n  at Test.oops(X.java:3)\n  at Test.oops(X.java:3)\n  ... Exception in thread \"main\" java.lang.StackOverflowError\n  at Test.oops(X.java:3)\n  at Test.oops(X.java:3)\n  ... The fix may be to call another method with the same name: void process(String name, int id) {\n  process(name, id); // error\n  process(name, id, /*verbose=*/ true); // ok\n}\n\nvoid process(String name, int id, boolean verbose) {\n  // ...\n} void process(String name, int id) {\n  process(name, id); // error\n  process(name, id, /*verbose=*/ true); // ok\n}\n\nvoid process(String name, int id, boolean verbose) {\n  // ...\n} or to call the method on a different instance: class Delegate implements Processor {\n  Processor delegate;\n\n  void process(String name, int id) {\n    process(name, id); // error\n    delegate.process(name, id); // ok\n  }\n} class Delegate implements Processor {\n  Processor delegate;\n\n  void process(String name, int id) {\n    process(name, id); // error\n    delegate.process(name, id); // ok\n  }\n}"
+    },
+    {
+        "id": 77,
+        "title": "InjectMoreThanOneScopeAnnotationOnClass",
+        "description": "A class can be annotated with at most one scope annotation. Annotating a class with more than one scope annotation is invalid according to\nthe JSR-330 specification."
+    },
+    {
+        "id": 78,
+        "title": "InjectOnMemberAndConstructor",
+        "description": "Members shouldn't be annotated with @Inject if constructor is already annotated @Inject"
+    },
+    {
+        "id": 79,
+        "title": "InlineMeValidator",
+        "description": "Ensures that the @InlineMe annotation is used correctly."
+    },
+    {
+        "id": 80,
+        "title": "InstantTemporalUnit",
+        "description": "Instant APIs only work for NANOS, MICROS, MILLIS, SECONDS, MINUTES, HOURS, HALF_DAYS and DAYS."
+    },
+    {
+        "id": 81,
+        "title": "InvalidJavaTimeConstant",
+        "description": "This checker errors on calls to java.time methods using values that are guaranteed to throw a DateTimeException."
+    },
+    {
+        "id": 82,
+        "title": "InvalidPatternSyntax",
+        "description": "Invalid syntax used for a regular expression This error is triggered by calls to regex-accepting methods with invalid string\nliterals. These calls would cause a PatternSyntaxException at runtime. We deliberately do not check java.util.regex.Pattern#compile as many of its\nusers are deliberately testing the regex compiler or using a vacuously true\nregex. \".\" is also discouraged, as it is a valid regex but is easy to mistake for\n\"\\\\.\". Instead of e.g. str.replaceAll(\".\", \"x\"), prefer Strings.repeat(\"x\",\nstr.length()) or CharMatcher.ANY.replaceFrom(str, \"x\")."
+    },
+    {
+        "id": 83,
+        "title": "InvalidTimeZoneID",
+        "description": "Invalid time zone identifier. TimeZone.getTimeZone(String) will silently return GMT instead of the time zone you intended. TimeZone.getTimeZone(String) silently returns GMT when an invalid time zone\nidentifier is passed in."
+    },
+    {
+        "id": 84,
+        "title": "InvalidZoneId",
+        "description": "Invalid zone identifier. ZoneId.of(String) will throw exception at runtime."
+    },
+    {
+        "id": 85,
+        "title": "IsInstanceIncompatibleType",
+        "description": "This use of isInstance will always evaluate to false."
+    },
+    {
+        "id": 86,
+        "title": "IsInstanceOfClass",
+        "description": "The argument to Class#isInstance(Object) should not be a Class Passing an argument of type Class to Class#instanceOf(Class) is usually a\nmistake. Calling clazz.instanceOf(obj) for some clazz with type Class<T> is\nequivalent to obj instanceof T. The instanceOf method exists for cases where\nthe type T is not known statically. When a class literal is passed as the argument of instanceOf, the result will\nonly be true if the class literal on left hand side is equal to Class.class. For example, the following code returns true if and only if the type A is\nequal to Class (i.e. lhs is equal to Class.class). <A, B> boolean f(Class<A> lhs, Class<B> rhs) {\n  return lhs.instanceOf(rhs); // equivalent to 'lhs == Class.class'\n} <A, B> boolean f(Class<A> lhs, Class<B> rhs) {\n  return lhs.instanceOf(rhs); // equivalent to 'lhs == Class.class'\n} To test if the type represented by a class literal is a subtype of the type\nrepresented by some other class literal, isAssignableFrom should be used\ninstead: <A, B> boolean f(Class<A> lhs, Class<B> rhs) {\n  return lhs.isAssignableFrom(rhs); // equivalent to 'B instanceof A'\n} <A, B> boolean f(Class<A> lhs, Class<B> rhs) {\n  return lhs.isAssignableFrom(rhs); // equivalent to 'B instanceof A'\n}"
+    },
+    {
+        "id": 87,
+        "title": "IsLoggableTagLength",
+        "description": "Log tag too long, cannot exceed 23 characters. Log.isLoggable(tag, level) throws an IllegalArgumentException if its tag\nargument is more than 23 characters long."
+    },
+    {
+        "id": 88,
+        "title": "JUnit3TestNotRun",
+        "description": "Test method will not be run; please correct method signature (Should be public, non-static, and method name should begin with \"test\"). JUnit 3 requires that test method names start with \u201ctest\u201d. The method that\ntriggered this error looks like it is supposed to be a test, but misspells the\nrequired prefix; has @Test annotation, but no prefix; or has the wrong method\nsignature. As a consequence, JUnit 3 will ignore it. If you meant to disable this test on purpose, or this is a helper method, change\nthe name to something more descriptive, like \u201cdisabledTestSomething()\u201d. You\ndon\u2019t need an @Test annotation, but if you want to keep it, add @Ignore too."
+    },
+    {
+        "id": 89,
+        "title": "JUnit4ClassAnnotationNonStatic",
+        "description": "This method should be static JUnit4 provides two annotations (@BeforeClass and\n@AfterClass) that are applied to methods that are run once per\ntest class. These complement the more-often used @Before and @After\nwhich are applied to methods that are run once per test method. JUnit4 runs @BeforeClass and @AfterClass methods without making an instance\nof the test class, meaning that the methods must be static. JUnit4 will fail\nto run any @BeforeClass or @AfterClass method that isn\u2019t also static."
+    },
+    {
+        "id": 90,
+        "title": "JUnit4SetUpNotRun",
+        "description": "setUp() method will not be run; please add JUnit's @Before annotation JUnit 3 provides the method setUp(), to be overridden by subclasses when the\ntest needs to perform some pre-test initialization. In JUnit 4, this is\naccomplished by annotating such a method with @Before. The method that triggered this error matches the definition of setUp() from\nJUnit3, but was not annotated with @Before and thus won\u2019t be run by the JUnit4\nrunner. If you intend for this setUp() method not to run by the JUnit4 runner, but\nperhaps manually be invoked in certain test methods, please rename the method or\nmark it private. If the method is part of an abstract test class hierarchy where this class\u2019s\nsetUp() is invoked by a superclass method that is annotated with @Before, then\nplease rename the abstract method or add @Before to the superclass\u2019s definition\nof setUp()"
+    },
+    {
+        "id": 91,
+        "title": "JUnit4TearDownNotRun",
+        "description": "tearDown() method will not be run; please add JUnit's @After annotation JUnit 3 provides the overridable method tearDown(), to be overridden by\nsubclasses when the test needs to perform some post-test de-initialization. In\nJUnit 4, this is accomplished by annotating such a method with @After. The\nmethod that triggered this error matches the definition of tearDown() from\nJUnit3, but was not annotated with @After and thus won\u2019t be run by the JUnit4\nrunner. If you intend for this tearDown() method not to be run by the JUnit4 runner, but\nperhaps be manually invoked after certain test methods, please rename the method\nor mark it private. If the method is part of an abstract test class hierarchy where this class\u2019s\ntearDown() is invoked by a superclass method that is annotated with @After, then\nplease rename the abstract method or add @After to the superclass\u2019s definition\nof tearDown()."
+    },
+    {
+        "id": 92,
+        "title": "JUnit4TestNotRun",
+        "description": "This looks like a test method but is not run; please add @Test and @Ignore, or, if this is a helper method, reduce its visibility. Unlike in JUnit 3, JUnit 4 tests will not be run unless annotated with @Test.\nThe test method that triggered this error looks like it was meant to be a test,\nbut was not so annotated, so it will not be run. If you intend for this test\nmethod not to run, please add both an @Test and an @Ignore annotation to make it\nclear that you are purposely disabling it. If this is a helper method and not a\ntest, consider reducing its visibility to non-public, if possible."
+    },
+    {
+        "id": 93,
+        "title": "JUnit4TestsNotRunWithinEnclosed",
+        "description": "This test is annotated @Test, but given it's within a class using the Enclosed runner, will not run."
+    },
+    {
+        "id": 94,
+        "title": "JUnitAssertSameCheck",
+        "description": "An object is tested for reference equality to itself using JUnit library."
+    },
+    {
+        "id": 95,
+        "title": "JUnitParameterMethodNotFound",
+        "description": "The method for providing parameters was not found."
+    },
+    {
+        "id": 96,
+        "title": "JavaxInjectOnAbstractMethod",
+        "description": "Abstract and default methods are not injectable with javax.inject.Inject The Inject annotation cannot be applied to abstract methods, per the JSR-330\nspec, since injectors will only inject those methods if the concrete implementer\nof the abstract method has the Inject annotation as well. See\nOverridesJavaxInjectableMethod for more examples of this interaction. Currently, default methods in interfaces are not injected if they have\nInject for similar reasons, although future updates to dependency injection\nframeworks may allow this, since the default methods are not abstract. See the Guice wiki page on JSR-330 for more."
+    },
+    {
+        "id": 97,
+        "title": "JodaToSelf",
+        "description": "Use of Joda-Time's DateTime.toDateTime(), Duration.toDuration(), Instant.toInstant(), Interval.toInterval(), and Period.toPeriod() are not allowed. Joda-Time\u2019s DateTime.toDateTime(), Duration.toDuration(), Instant.toInstant(), Interval.toInterval(), and Period.toPeriod() are always unnecessary, since they simply \u2018return this\u2019. There is no reason to ever call them."
+    },
+    {
+        "id": 98,
+        "title": "LenientFormatStringValidation",
+        "description": "The number of arguments provided to lenient format methods should match the positional specifiers. This check ensures that the number of arguments passed to \u2018lenient\u2019 formatting\nmethods like Preconditions.checkArgument match the number of format\nspecifiers. WARNING: Only the exact two-character placeholder sequence %s is recognized by\nthese methods. Any others will be ignored, and not used for argument\nsubstitution. The APIs checked by this bugpattern include: com.google.common.base.Strings#lenientFormat\ncom.google.common.base.Preconditions#check*\ncom.google.common.base.Verify#verify*\ncom.google.common.truth.Truth#assertWithMessage\ncom.google.common.truth.Subject#check\ncom.google.common.truth.StandardSubjectBuilder#withMessage"
+    },
+    {
+        "id": 99,
+        "title": "LiteByteStringUtf8",
+        "description": "This pattern will silently corrupt certain byte sequences from the serialized protocol message. Use ByteString or byte[] directly When serializing bytes from a MessageLite, one can use toByteString to get a\nByteString, effectively an immutable wrapper over a byte[]. This ByteString\ncan be passed around and deserialized into a message using\nMyMessage.Builder.mergeFrom(ByteString). ByteString#toStringUtf8 copies UTF-8 encoded byte data living inside the\nByteString to a java.lang.String, replacing any\ninvalid UTF-8 byte sequences with \ufffd (the Unicode\nreplacement character). In this circumstance, a protocol message is being serialized to a ByteString,\nthen immediately turned into a Java String using the toStringUtf8 method.\nHowever, serialized protocol buffers are arbitrary binary data and not\nUTF-8-encoded data. Thus, the resulting String may not match the actual\nserialized bytes from the protocol message. Instead of holding the serialized protocol message in a Java String, carry\naround the actual bytes in a ByteString, byte[], or some other equivalent\ncontainer for arbitrary binary data."
+    },
+    {
+        "id": 100,
+        "title": "LocalDateTemporalAmount",
+        "description": "LocalDate.plus() and minus() does not work with Durations. LocalDate represents civil time (years/months/days), so java.time.Period is the appropriate thing to add or subtract instead."
+    },
+    {
+        "id": 101,
+        "title": "LockOnBoxedPrimitive",
+        "description": "It is dangerous to use a boxed primitive as a lock as it can unintentionally lead to sharing a lock with another piece of code. Instances of boxed primitive types may be cached by the standard library\nvalueOf method. This method is used for autoboxing. This means that using a\nboxed primitive as a lock can result in unintentionally sharing a lock with\nanother piece of code. Consider using an explicit lock Object instead of locking on a boxed\nprimitive. That is, prefer this: private final Object lock = new Object();\n\nvoid doSomething() {\n  synchronized (lock) {\n    // ...\n  }\n} private final Object lock = new Object();\n\nvoid doSomething() {\n  synchronized (lock) {\n    // ...\n  }\n} instead of this: private final Integer lock = 42;\n\nvoid doSomething() {\n  synchronized (lock) {\n    // ...\n  }\n} private final Integer lock = 42;\n\nvoid doSomething() {\n  synchronized (lock) {\n    // ...\n  }\n}"
+    },
+    {
+        "id": 102,
+        "title": "LoopConditionChecker",
+        "description": "Loop condition is never modified in loop body."
+    },
+    {
+        "id": 103,
+        "title": "LossyPrimitiveCompare",
+        "description": "Using an unnecessarily-wide comparison method can lead to lossy comparison Implicit widening conversions when comparing two primitives with methods like Float.compare can lead to lossy comparison. For example, Float.compare(Integer.MAX_VALUE, Integer.MAX_VALUE - 1) == 0. Use a compare method with non-lossy conversion, or ideally no conversion if possible."
+    },
+    {
+        "id": 104,
+        "title": "MathRoundIntLong",
+        "description": "Math.round(Integer) results in truncation Math.round() called with an integer or long type results in truncation because Math.round only accepts floats or doubles and some integers and longs can\u2019t be represented with float."
+    },
+    {
+        "id": 105,
+        "title": "MisleadingEscapedSpace",
+        "description": "Using \\s anywhere except at the end of a line in a text block is potentially misleading. When Java introduced text blocks as a feature, it also introduced a new string\nescape sequence \\s. This escape sequence is another way to write a normal\nspace, but it has the advantage that it can be used at the end of a line in a\ntext block, where a normal space would be stripped. This new escape sequence can easily be confused with the regex \\s, which is a\nmetacharacter that matches any kind of whitespace character. To write that\nmetacharacter in a Java string, you must still write \\\\s: an escaped backslash\nfollowed by an s. There is little reason to ever write the Java escape \\s except at the end of a\nline. Either use a normal space, or switch to \\\\s if you are trying to write\nthe regex metacharacter. // Each line here is five characters long.\nString colors = \"\"\"\n    one \\s\n    two \\s\n    three\n    \"\"\"; // Each line here is five characters long.\nString colors = \"\"\"\n    one \\s\n    two \\s\n    three\n    \"\"\";"
+    },
+    {
+        "id": 106,
+        "title": "MisplacedScopeAnnotations",
+        "description": "Scope annotations used as qualifier annotations don't have any effect. Move the scope annotation to the binding location or delete it."
+    },
+    {
+        "id": 107,
+        "title": "MissingSuperCall",
+        "description": "Overriding method is missing a call to overridden super method API providers may annotate a method with an annotation like\nandroidx.annotation.CallSuper or\njavax.annotation.OverridingMethodsMustInvokeSuper to require that overriding\nmethods invoke the super method. This check enforces those annotations."
+    },
+    {
+        "id": 108,
+        "title": "MissingTestCall",
+        "description": "A terminating method call is required for a test helper to have any effect. Some test helpers such as EqualsTester require a terminating method call to be\nof any use. @Test\n  public void string() {\n    new EqualsTester()\n        .addEqualityGroup(\"hello\", new String(\"hello\"))\n        .addEqualityGroup(\"world\", new String(\"world\"))\n        .addEqualityGroup(2, Integer.valueOf(2));\n    // Oops: forgot to call `testEquals()`\n  } @Test\n  public void string() {\n    new EqualsTester()\n        .addEqualityGroup(\"hello\", new String(\"hello\"))\n        .addEqualityGroup(\"world\", new String(\"world\"))\n        .addEqualityGroup(2, Integer.valueOf(2));\n    // Oops: forgot to call `testEquals()`\n  }"
+    },
+    {
+        "id": 109,
+        "title": "MisusedDayOfYear",
+        "description": "Use of 'DD' (day of year) in a date pattern with 'MM' (month of year) is not likely to be intentional, as it would lead to dates like 'March 73rd'."
+    },
+    {
+        "id": 110,
+        "title": "MisusedWeekYear",
+        "description": "Use of \"YYYY\" (week year) in a date pattern without \"ww\" (week in year). You probably meant to use \"yyyy\" (year) instead. \u201cYYYY\u201d in a date pattern means \u201cweek year\u201d. The week year is defined to begin at\nthe beginning of the week that contains the year\u2019s first Thursday. For example,\nthe week year 2015 began on Monday, December 29, 2014, since January 1, 2015,\nwas on a Thursday. \u201cWeek year\u201d is intended to be used for week dates, e.g. \u201c2015-W01-1\u201d, but is\noften mistakenly used for calendar dates, e.g. 2014-12-29, in which case the\nyear may be incorrect during the last week of the year. If you are formatting\nanything other than a week date, you should use the year specifier \u201cyyyy\u201d\ninstead."
+    },
+    {
+        "id": 111,
+        "title": "MixedDescriptors",
+        "description": "The field number passed into #findFieldByNumber belongs to a different proto to the Descriptor. A proto\u2019s Descriptor was created by mixing the Descriptors class from one\nproto with the field number from another. E.g.: Foo.getDescriptors().findFieldByNumber(Bar.ID_FIELD_NUMBER) Foo.getDescriptors().findFieldByNumber(Bar.ID_FIELD_NUMBER) This accesses the Descriptor of a field in Foo with a field number from\nBar. One of these was probably intended: Foo.getDescriptors().findFieldByNumber(Foo.ID_FIELD_NUMBER)\nBar.getDescriptors().findFieldByNumber(Bar.ID_FIELD_NUMBER) Foo.getDescriptors().findFieldByNumber(Foo.ID_FIELD_NUMBER)\nBar.getDescriptors().findFieldByNumber(Bar.ID_FIELD_NUMBER)"
+    },
+    {
+        "id": 112,
+        "title": "MockitoUsage",
+        "description": "Missing method call for verify(mock) here Calls to Mockito.when should always be accompanied by a call to a method like\nthenReturn. when(mock.get()).thenReturn(answer); // correct\nwhen(mock.get())                     // oops! when(mock.get()).thenReturn(answer); // correct\nwhen(mock.get())                     // oops! Similarly, calls to Mockito.verify should call the verified method outside\nthe call to verify. verify(mock).execute(); // correct\nverify(mock.execute()); // oops! verify(mock).execute(); // correct\nverify(mock.execute()); // oops! For more information, see the Mockito documentation."
+    },
+    {
+        "id": 113,
+        "title": "ModifyingCollectionWithItself",
+        "description": "Using a collection function with itself as the argument. Invoking a collection method with the same collection as the argument is likely\nincorrect. collection.addAll(collection) may cause an infinite loop, duplicate the\nelements, or do nothing, depending on the type of Collection and\nimplementation class.\ncollection.retainAll(collection) is a no-op.\ncollection.removeAll(collection) is the same as collection.clear().\ncollection.containsAll(collection) is always true."
+    },
+    {
+        "id": 114,
+        "title": "MoreThanOneInjectableConstructor",
+        "description": "This class has more than one @Inject-annotated constructor. Please remove the @Inject annotation from all but one of them. Injection frameworks may use @Inject to determine how to construct an object\nin the absence of other instructions. Annotating @Inject on a constructor\ntells the injection framework to use that constructor. However, if multiple\n@Inject constructors exist, injection frameworks can\u2019t reliably choose between\nthem."
+    },
+    {
+        "id": 115,
+        "title": "MustBeClosedChecker",
+        "description": "This method returns a resource which must be managed carefully, not just left for garbage collection. If it is a constant that will persist for the lifetime of your program, move it to a private static final field. Otherwise, you should use it in a try-with-resources. Methods or constructors annotated with @MustBeClosed require that the returned\nresource is closed. This is enforced by checking that invocations occur within\nthe resource variable initializer of a try-with-resources statement: try (AutoCloseable resource = createTheResource()) {\n  doSomething(resource);\n} try (AutoCloseable resource = createTheResource()) {\n  doSomething(resource);\n} or the return statement of another method annotated with @MustBeClosed: @MustBeClosed\nAutoCloseable createMyResource() {\n  return createTheResource();\n} @MustBeClosed\nAutoCloseable createMyResource() {\n  return createTheResource();\n} To support legacy code, the following pattern is also supported: AutoCloseable resource = createTheResource();\ntry {\n  doSomething(resource);\n} finally {\n  resource.close();\n} AutoCloseable resource = createTheResource();\ntry {\n  doSomething(resource);\n} finally {\n  resource.close();\n}"
+    },
+    {
+        "id": 116,
+        "title": "NCopiesOfChar",
+        "description": "The first argument to nCopies is the number of copies, and the second is the item to copy Calling nCopies('a', 10) returns a list with 97 copies of 10, not a list with\n10 copies of \u2018a\u2019."
+    },
+    {
+        "id": 117,
+        "title": "NoCanIgnoreReturnValueOnClasses",
+        "description": "@CanIgnoreReturnValue should not be applied to classes as it almost always overmatches (as it applies to constructors and all methods), and the CIRVness isn't conferred to its subclasses."
+    },
+    {
+        "id": 118,
+        "title": "NonCanonicalStaticImport",
+        "description": "Static import of type uses non-canonical name Types should always be imported by their canonical name. The canonical name of a\ntop-level class is the fully-qualified name of the package, followed by a \u2018.\u2019,\nfollowed by the name of the class. The canonical name of a member class is the\ncanonical name of its declaring class, followed by a \u2018.\u2019, followed by the name\nof the member class. Fully-qualified member class names are not guaranteed to be canonical. Consider\nsome member class M declared in a class C. There may be another class D that\nextends C and inherits M. Therefore M can be accessed using the fully-qualified\nname of D, followed by a \u2018.\u2019, followed by \u2018M\u2019. Since M is not declared in D,\nthis name is not canonical. The JLS \u00a77.5.3 requires all single static imports to start with a canonical\ntype name, but the fully-qualified name of the imported member is not required\nto be canonical. Importing types using non-canonical names is unnecessary and unclear, and should\nbe avoided. Example: package a;\n\nclass One {\n  static class Inner {}\n} package a;\n\nclass One {\n  static class Inner {}\n} package a;\n\nclass Two extends One {} package a;\n\nclass Two extends One {} An import of Inner should always refer to it using the canonical name\na.One.Inner, not a.Two.Inner."
+    },
+    {
+        "id": 119,
+        "title": "NonFinalCompileTimeConstant",
+        "description": "@CompileTimeConstant parameters should be final or effectively final If a method\u2019s formal parameter is annotated with @CompileTimeConstant, the\nmethod will always be invoked with an argument that is a static constant. If the\nparameter itself is non-final, then it is a mutable reference to immutable data.\nThis is rarely useful, and can be confusing when trying to use the parameter in\na context that requires an compile-time constant. For example: void f(@CompileTimeConstant y) {}\nvoid g(@CompileTimeConstant x) {\n  x = f(x); // x is not a constant\n} void f(@CompileTimeConstant y) {}\nvoid g(@CompileTimeConstant x) {\n  x = f(x); // x is not a constant\n}"
+    },
+    {
+        "id": 120,
+        "title": "NonRuntimeAnnotation",
+        "description": "Calling getAnnotation on an annotation that is not retained at runtime Calling getAnnotation on an annotation that does not have its Retention set to\nRetentionPolicy.RUNTIME will always return null."
+    },
+    {
+        "id": 121,
+        "title": "NullArgumentForNonNullParameter",
+        "description": "Null is not permitted for this parameter."
+    },
+    {
+        "id": 122,
+        "title": "NullTernary",
+        "description": "This conditional expression may evaluate to null, which will result in an NPE when the result is unboxed. If a conditional expression evaluates to null, unboxing it will result in a\nNullPointerException. For example: int x = flag ? foo : null: int x = flag ? foo : null: If flag is false, null will be auto-unboxed from an Integer to int,\nresulting in a NullPointerException."
+    },
+    {
+        "id": 123,
+        "title": "NullableOnContainingClass",
+        "description": "Type-use nullability annotations should annotate the inner class, not the outer class (e.g., write `A.@Nullable B` instead of `@Nullable A.B`). The correct syntax to apply a TYPE_USE annotation to an inner class is\nA.@Nullable B. For a TYPE_USE @Nullable annotation, @Nullable A.B is legal Java if B is\na non-static inner class: class A {\n  @Target(TYPE_USE)\n  @interface Nullable {}\n\n  class B {}\n  static class C {}\n\n  void test(A.@Nullable B x) {} // B is annotated ('A' is the enclosing instance type)\n  void test(A.@Nullable C x) {} // C is annotated ('A' is a 'scoping construct' here)\n} class A {\n  @Target(TYPE_USE)\n  @interface Nullable {}\n\n  class B {}\n  static class C {}\n\n  void test(A.@Nullable B x) {} // B is annotated ('A' is the enclosing instance type)\n  void test(A.@Nullable C x) {} // C is annotated ('A' is a 'scoping construct' here)\n} void test(@Nullable A.B x) {} // compiles, but likely incorrect: annotates the enclosing instance type 'A', which can never be null\n  void test(@Nullable A.C x) {} // compile error: 'A' cannot be annotated void test(@Nullable A.B x) {} // compiles, but likely incorrect: annotates the enclosing instance type 'A', which can never be null\n  void test(@Nullable A.C x) {} // compile error: 'A' cannot be annotated However, for @Nullable (and @NonNull, and friends), annotating the outer\nclass is meaningless. The reference to the outer class (A.this) can never be\nnull, so any nullability annotations are redundant."
+    },
+    {
+        "id": 124,
+        "title": "OptionalEquality",
+        "description": "Comparison using reference equality instead of value equality Optionals should be compared for value equality using .equals(), and not for\nreference equality using == and !=."
+    },
+    {
+        "id": 125,
+        "title": "OptionalMapUnusedValue",
+        "description": "Optional.ifPresent is preferred over Optional.map when the return value is unused"
+    },
+    {
+        "id": 126,
+        "title": "OptionalOfRedundantMethod",
+        "description": "Optional.of() always returns a non-empty optional. Using ifPresent/isPresent/orElse/orElseGet/orElseThrow/isPresent/or/orNull method on it is unnecessary and most probably a bug."
+    },
+    {
+        "id": 127,
+        "title": "OverlappingQualifierAndScopeAnnotation",
+        "description": "Annotations cannot be both Scope annotations and Qualifier annotations: this causes confusion when trying to use them. Qualifiers and Scoping annotations have different semantic meanings and a single\nannotation should not be both a qualifier and a scoping annotation. If an annotation is both a scoping annotation and a qualifier, unless great care\nis taken with its application and usage, the semantics of objects annotated with\nthe annotation are unclear. Take a look at this example: @Retention(RetentionPolicy.RUNTIME)\n@Scope\n@Qualifier\n@interface DayScoped {}\n\nstatic class Allowance {}\nstatic class DailyAllowance extends Allowance {}\nstatic class Spender {\n  @Inject\n  Spender(Allowance allowance) {}\n}\n\nstatic class BindingModule extends AbstractModule {\n  ...\n  @Provides\n  @DayScoped\n  Allowance providesAllowance() {\n    return new DailyAllowance();\n  }\n} @Retention(RetentionPolicy.RUNTIME)\n@Scope\n@Qualifier\n@interface DayScoped {}\n\nstatic class Allowance {}\nstatic class DailyAllowance extends Allowance {}\nstatic class Spender {\n  @Inject\n  Spender(Allowance allowance) {}\n}\n\nstatic class BindingModule extends AbstractModule {\n  ...\n  @Provides\n  @DayScoped\n  Allowance providesAllowance() {\n    return new DailyAllowance();\n  }\n} Here, the Allowance instance used by Spender isn\u2019t actually scoped to a single\nday, as the @Provides method applies the DayScoped scoping only to the\n@DayScoped Allowance. Instead, the default constructor of Allowance is used\nto create a new instance every time a Spender is created. If @DayScope wasn\u2019t a Qualifier, the provider method would do the right\nthing: the un-annotated Allowance binding would be scoped to DayScope,\nimplemented by a single DailyAllowance instance per day."
+    },
+    {
+        "id": 128,
+        "title": "OverridesJavaxInjectableMethod",
+        "description": "This method is not annotated with @Inject, but it overrides a method that is  annotated with @javax.inject.Inject. The method will not be Injected. When classes declare that they have an @javax.inject.Injected method,\ndependency injection tools must call those methods after first calling any\n@javax.inject.Inject constructor, and performing any field injection. These\nmethods are part of the initialization contract for the object. When subclasses override methods annotated with @javax.inject.Inject and\ndon\u2019t also annotate themselves with @javax.inject.Inject, the injector will\nnot call those methods as part of the subclass\u2019s initialization. This may\nunexpectedly cause assumptions taken in the superclass (e.g.: this\npost-initialization routine is finished, meaning that I can safely use this\nfield) to no longer hold. This compile error is intended to prevent this unintentional breaking of\nassumptions. Possible resolutions to this error include: @Inject the overridden method, calling the super method to maintain the\ninitialization contract.\nMake the superclass\u2019 method final to avoid subclasses unintentionally\nmasking the injected method.\nMove the initialization work performed by the superclass method into the\nconstructor.\nSuppress this error, and very carefully inspect the initialization routine\nperformed by the superclass, making sure that any work that needs to be done\nthere is done in an @Inject method in the subclass. You may want to refactor\nportions of the body of the superclass method into a protected method for\nthis subclass to use."
+    },
+    {
+        "id": 129,
+        "title": "PackageInfo",
+        "description": "Declaring types inside package-info.java files is very bad form Classes should not be declared inside package-info.java files. Typically package-info.java contains only a package declaration, preceded\nimmediately by the annotations on the package. While the file could\ntechnically contain the source code for one or more classes with package\naccess, it would be very bad form. \u2013 JLS 7.4"
+    },
+    {
+        "id": 130,
+        "title": "ParametersButNotParameterized",
+        "description": "This test has @Parameters but is using the default JUnit4 runner. The parameters will have no effect."
+    },
+    {
+        "id": 131,
+        "title": "ParcelableCreator",
+        "description": "Detects classes which implement Parcelable but don't have CREATOR"
+    },
+    {
+        "id": 132,
+        "title": "PeriodFrom",
+        "description": "Period.from(Period) returns itself; from(Duration) throws a runtime exception. Period.from(TemporalAmount) will always throw a DateTimeException when passed a Duration and return itself when passed a Period."
+    },
+    {
+        "id": 133,
+        "title": "PeriodGetTemporalUnit",
+        "description": "Period.get() only works with YEARS, MONTHS, or DAYS. Period.get(TemporalUnit) only works when passed ChronoUnit.YEARS, ChronoUnit.MONTHS, or ChronoUnit.DAYS. All other values are guaranteed to throw an UnsupportedTemporalTypeException."
+    },
+    {
+        "id": 134,
+        "title": "PeriodTimeMath",
+        "description": "When adding or subtracting from a Period, Duration is incompatible. Period.(plus|minus)(TemporalAmount) will always throw a DateTimeException when passed a Duration."
+    },
+    {
+        "id": 135,
+        "title": "PreconditionsInvalidPlaceholder",
+        "description": "Preconditions only accepts the %s placeholder in error message strings The Guava Preconditions checks take error message template strings that look\nsimilar to format strings, but only accept the %s format (not %d, %f, etc.).\nThis check points out places where a Preconditions error message template string\nhas a non-%s format, or where the number of arguments does not match the number\nof %s formats in the string."
+    },
+    {
+        "id": 136,
+        "title": "PrivateSecurityContractProtoAccess",
+        "description": "Access to a private protocol buffer field is forbidden. This protocol buffer carries a security contract, and can only be created using an approved library. Direct access to the fields is forbidden."
+    },
+    {
+        "id": 137,
+        "title": "ProtoBuilderReturnValueIgnored",
+        "description": "Unnecessary call to proto's #build() method.  If you don't consume the return value of #build(), the result is discarded and the only effect is to verify that all required fields are set, which can be expressed more directly with #isInitialized()."
+    },
+    {
+        "id": 138,
+        "title": "ProtoStringFieldReferenceEquality",
+        "description": "Comparing protobuf fields of type String using reference equality Comparing strings with == is almost always an error, but it is an error 100% of\nthe time when one of the strings is a protobuf field. Additionally, protobuf\nfields cannot be null, so Object.equals(Object) is always more correct."
+    },
+    {
+        "id": 139,
+        "title": "ProtoTruthMixedDescriptors",
+        "description": "The arguments passed to `ignoringFields` are inconsistent with the proto which is the subject of the assertion. ProtoTruth\u2019s #ignoringFields method accepts integer field numbers, so\nsupplying field numbers from the wrong protocol buffers is possible. For\nexample: message Bar {\n  optional string name = 1;\n}\nmessage Foo {\n  optional string name = 1;\n  optional Bar bar = 2;\n} message Bar {\n  optional string name = 1;\n}\nmessage Foo {\n  optional string name = 1;\n  optional Bar bar = 2;\n} void assertOnFoo(Foo foo) {\n  assertThat(foo).ignoringFields(Bar.NAME_FIELD_NUMBER).isEqualTo(...);\n} void assertOnFoo(Foo foo) {\n  assertThat(foo).ignoringFields(Bar.NAME_FIELD_NUMBER).isEqualTo(...);\n} This will ignore the Foo#name field rather than Bar#name. The field number\ncan be turned into a Descriptor object to resolve the correct nested field to\nignore: void assertOnFoo(Foo foo) {\n  assertThat(foo)\n      .ignoringFieldDescriptors(\n          Bar.getDescriptor().findFieldByNumber(Bar.NAME_FIELD_NUMBER))\n      .isEqualTo(...);\n} void assertOnFoo(Foo foo) {\n  assertThat(foo)\n      .ignoringFieldDescriptors(\n          Bar.getDescriptor().findFieldByNumber(Bar.NAME_FIELD_NUMBER))\n      .isEqualTo(...);\n}"
+    },
+    {
+        "id": 140,
+        "title": "ProtocolBufferOrdinal",
+        "description": "To get the tag number of a protocol buffer enum, use getNumber() instead. The generated Java source files for Protocol Buffer enums have getNumber() as\naccessors for the tag number in the protobuf file. In addition, since it\u2019s a java enum, it also has the ordinal() method,\nreturning its positional index within the generated java enum. The ordinal() order of the generated Java enums isn\u2019t guaranteed, and can\nchange when a new enum value is inserted into a proto enum. The getNumber()\nvalue won\u2019t change for an enum value (since making that change is a\nbackwards-incompatible change for the protocol buffer). You should very likely use getNumber() in preference to ordinal() in all\ncircumstances since it\u2019s a more stable value. Note: If you\u2019re changing code that was already using ordinal(), it\u2019s likely that\ngetNumber() will return a different real value. Tread carefully to avoid\nmismatches if the ordinal was persisted elsewhere."
+    },
+    {
+        "id": 141,
+        "title": "ProvidesMethodOutsideOfModule",
+        "description": "@Provides methods need to be declared in a Module to have any effect. Guice @Provides methods annotate methods that are used as a means of declaring\nbindings. However, this is only helpful inside of a module. Methods outside of\nthese modules are not used for binding declaration."
+    },
+    {
+        "id": 142,
+        "title": "RandomCast",
+        "description": "Casting a random number in the range [0.0, 1.0) to an integer or long always results in 0. Math.random(), Random#nextFloat, and Random#nextDouble return results in\nthe range [0.0, 1.0). Therefore, casting the result to (int) or (long)\nalways results in the value of 0."
+    },
+    {
+        "id": 143,
+        "title": "RandomModInteger",
+        "description": "Use Random.nextInt(int).  Random.nextInt() % n can have negative results Random.nextInt() % n has a 1/n chance of being 0\na 1/2n chance of being each number from 1 to n-1 inclusive\na 1/2n chance of being each number from -1 to -(n-1) inclusive Many users expect a uniformly distributed random integer between 0 and n-1\ninclusive, but you must use random.nextInt(n) to get that behavior. If the\noriginal behavior is truly desired, use (random.nextBoolean() ? 1 : -1) *\nrandom.nextInt(n)."
+    },
+    {
+        "id": 144,
+        "title": "RedundantSetterCall",
+        "description": "A field was set twice in the same chained expression. Proto and AutoValue builders provide a fluent interface for constructing\ninstances. Unlike argument lists, however, they do not prevent the user from\nproviding multiple values for the same field. Setting the same field multiple times in the same chained expression is\npointless (as the intermediate value will be overwritten), and can easily mask a\nbug, especially if the setter is called with different arguments. return MyProto.newBuilder()\n    .setFoo(copy.getFoo())\n    .setFoo(copy.getBar())\n    .build(); return MyProto.newBuilder()\n    .setFoo(copy.getFoo())\n    .setFoo(copy.getBar())\n    .build();"
+    },
+    {
+        "id": 145,
+        "title": "RequiredModifiers",
+        "description": "This annotation is missing required modifiers as specified by its @RequiredModifiers annotation This annotation is itself annotated with @RequiredModifiers and can only be used\nwhen the specified modifiers are present. You are attempting to use it on an\nelement that is missing one or more required modifiers."
+    },
+    {
+        "id": 146,
+        "title": "RestrictedApi",
+        "description": "Check for non-allowlisted callers to RestrictedApiChecker. Calls to APIs marked @RestrictedApi are prohibited without a corresponding\nallowlist annotation. The intended use-case for @RestrictedApi is to restrict calls to annotated\nmethods so that each usage of those APIs must be reviewed separately. For\nexample, an API might lead to security bugs unless the programmer uses it\ncorrectly. See the\njavadoc for @RestrictedApi\nfor more details."
+    },
+    {
+        "id": 147,
+        "title": "ReturnValueIgnored",
+        "description": "Return value of this method must be used Certain library methods do nothing useful if their return value is ignored. For\nexample, String.trim() has no side effects, and you must store the return value\nof String.intern() to access the interned string. This check encodes a list of\nmethods in the JDK whose return value must be used and issues an error if they\nare not. Don\u2019t call orElseThrow just for its side-effects. When the result of a call to\norElseThrow is discarded, it may be unclear to future readers whether the\nresult is being discarded deliberately or accidentally. That is, avoid: // return value of orElseThrow() is silently ignored here\noptional.orElseThrow(() -> new AssertionError(\"something has gone terribly wrong\")); // return value of orElseThrow() is silently ignored here\noptional.orElseThrow(() -> new AssertionError(\"something has gone terribly wrong\")); Instead of calling orElseThrow for its side-effects, prefer an explicit call\nto isPresent(), or use one of checkState or checkArgument from\nGuava\u2019s Preconditions class. if (!optional.isPresent()) {\n  throw new AssertionError(\"something has gone terribly wrong\");\n} if (!optional.isPresent()) {\n  throw new AssertionError(\"something has gone terribly wrong\");\n}"
+    },
+    {
+        "id": 148,
+        "title": "SelfAssertion",
+        "description": "This assertion will always fail or succeed. If a test subject and the argument to isEqualTo are the same instance (e.g.\nassertThat(x).isEqualTo(x)), then the assertion will always pass. Truth\nimplements isEqualTo using [Objects#equal] , which tests its arguments for\nreference equality and returns true without calling equals() if both arguments\nare the same instance. To test the implementation of an equals method, use\nGuava\u2019s EqualsTester."
+    },
+    {
+        "id": 149,
+        "title": "SelfAssignment",
+        "description": "Variable assigned to itself The left-hand side and right-hand side of this assignment are the same. It has\nno effect. This also handles assignments in which the right-hand side is a call to\nPreconditions.checkNotNull(), which returns the variable that was checked for\nnon-nullity. If you just intended to check that the variable is non-null, please\ndon\u2019t assign the result to the checked variable; just call\nPreconditions.checkNotNull() as a bare statement."
+    },
+    {
+        "id": 150,
+        "title": "SelfComparison",
+        "description": "An object is compared to itself The arguments to compareTo method are the same object, so it always returns 0.\nEither change the arguments to point to different objects or substitute 0."
+    },
+    {
+        "id": 151,
+        "title": "SelfEquals",
+        "description": "Testing an object for equality with itself will always be true. The arguments to equals method are the same object, so it always returns true.\nEither change the arguments to point to different objects or substitute true. For test cases, instead of explicitly testing equals, use\nEqualsTester from Guava."
+    },
+    {
+        "id": 152,
+        "title": "SetUnrecognized",
+        "description": "Setting a proto field to an UNRECOGNIZED value will result in an exception at runtime when building."
+    },
+    {
+        "id": 153,
+        "title": "ShouldHaveEvenArgs",
+        "description": "This method must be called with an even number of arguments."
+    },
+    {
+        "id": 154,
+        "title": "SizeGreaterThanOrEqualsZero",
+        "description": "Comparison of a size >= 0 is always true, did you intend to check for non-emptiness? A standard means of checking non-emptiness of an array or collection is to test\nif the size of that collection is greater than 0. However, one may accidentally\ncheck if the size is greater than or equal to 0, which is always true."
+    },
+    {
+        "id": 155,
+        "title": "StreamToString",
+        "description": "Calling toString on a Stream does not provide useful information The toString method on a Stream will print its identity, such as\njava.util.stream.ReferencePipeline$Head@6d06d69c. This is rarely what was\nintended."
+    },
+    {
+        "id": 156,
+        "title": "StringBuilderInitWithChar",
+        "description": "StringBuilder does not have a char constructor; this invokes the int constructor. StringBuilder does not have a char constructor, so instead this code creates a\nStringBuilder with initial size equal to the code point of the specified char."
+    },
+    {
+        "id": 157,
+        "title": "SubstringOfZero",
+        "description": "String.substring(0) returns the original String String.substring(int) gives you the substring from the index to the end, inclusive. Calling that method with an index of 0 will return the same String."
+    },
+    {
+        "id": 158,
+        "title": "SuppressWarningsDeprecated",
+        "description": "Suppressing \"deprecated\" is probably a typo for \"deprecation\" To suppress warnings to deprecated methods, you should add the annotation\n@SuppressWarnings(\"deprecation\") and not @SuppressWarnings(\"deprecated\")"
+    },
+    {
+        "id": 159,
+        "title": "TemporalAccessorGetChronoField",
+        "description": "TemporalAccessor.get() only works for certain values of ChronoField. TemporalAccessor.get(ChronoField) only works for certain values of ChronoField. E.g., DayOfWeek only supports DAY_OF_WEEK. All other values are guaranteed to throw an UnsupportedTemporalTypeException."
+    },
+    {
+        "id": 160,
+        "title": "TestParametersNotInitialized",
+        "description": "This test has @TestParameter fields but is using the default JUnit4 runner. The parameters will not be initialised beyond their default value."
+    },
+    {
+        "id": 161,
+        "title": "TheoryButNoTheories",
+        "description": "This test has members annotated with @Theory, @DataPoint, or @DataPoints but is using the default JUnit4 runner."
+    },
+    {
+        "id": 162,
+        "title": "ThrowIfUncheckedKnownChecked",
+        "description": "throwIfUnchecked(knownCheckedException) is a no-op. throwIfUnchecked(knownCheckedException) is a no-op (aside from performing a\nnull check). propagateIfPossible(knownCheckedException) is a complete no-op."
+    },
+    {
+        "id": 163,
+        "title": "ThrowNull",
+        "description": "Throwing 'null' always results in a NullPointerException being thrown."
+    },
+    {
+        "id": 164,
+        "title": "TreeToString",
+        "description": "Tree#toString shouldn't be used for Trees deriving from the code being compiled, as it discards whitespace and comments. Tree#toString shouldn\u2019t be used for Trees deriving from the code being\ncompiled, as it discards whitespace and comments. This check only runs inside Error Prone code. Suggested replacements include: Prefer VisitorState#getConstantExpression for escaping constants in\ngenerated code.\nVisitorState#getSourceForNode : it will give you the original source text.\nNote that for synthetic trees (e.g.: implicit constructors), that source may\nbe null.\nIf the string representation was being used for comparison with keywords\nlike this and super, try tree.getName().contentEquals(\"this\")\nOne can also get the symbol name and use it for comparison :\nASTHelpers.getSymbol(tree).getSimpleName().toString()"
+    },
+    {
+        "id": 165,
+        "title": "TryFailThrowable",
+        "description": "Catching Throwable/Error masks failures from fail() or assert*() in the try block When testing that a line of code throws an expected exception, it is typical to\nexecute that line in a try block with a fail() or assert*() on the line\nfollowing. The expectation is that the expected exception will be thrown, and\nexecution will continue in the catch block, and the fail() or assert*() will\nnot be executed. fail() and assert*() throw AssertionErrors, which are a subtype of\nThrowable. That means that if the catch block catches Throwable, then execution\nwill always jump to the catch block, and the test will always pass. To fix this, you usually want to catch Exception rather than Throwable. If you\nneed to catch throwable (e.g., the expected exception is an AssertionError),\nthen add logic in your catch block to ensure that the AssertionError that was\ncaught is not the same one thrown by the call to fail() or assert*()."
+    },
+    {
+        "id": 166,
+        "title": "TypeParameterQualifier",
+        "description": "Type parameter used as type qualifier Using a type parameter as a qualifier in the name of a type or expression is\nequivalent to referencing the type parameter\u2019s upper bound directly. For example, this signature: static <T extends Message> T populate(T.Builder builder) {} static <T extends Message> T populate(T.Builder builder) {} Is identical to the following: static <T extends Message> T populate(Message.Builder builder) {} static <T extends Message> T populate(Message.Builder builder) {} The use of T.Builder is unnecessary and misleading. Always refer to the type\nby its canonical name Message.Builder instead."
+    },
+    {
+        "id": 167,
+        "title": "UnicodeDirectionalityCharacters",
+        "description": "Unicode directionality modifiers can be used to conceal code in many editors."
+    },
+    {
+        "id": 168,
+        "title": "UnicodeInCode",
+        "description": "Avoid using non-ASCII Unicode characters outside of comments and literals, as they can be confusing. Using non-ASCII Unicode characters in code can be confusing, and potentially\nunsafe. For example, homoglyphs can result in a different method to the one that was\nexpected being invoked. import static com.google.common.base.Objects.equal;\n\npublic void isAuthenticated(String password) {\n  // The \"l\" here is not what it seems.\n  return equa\u217c(password, this.password());\n}\n\n// ...\n\nprivate boolean equa\u217c(String a, String b) {\n  return true;\n} import static com.google.common.base.Objects.equal;\n\npublic void isAuthenticated(String password) {\n  // The \"l\" here is not what it seems.\n  return equa\u217c(password, this.password());\n}\n\n// ...\n\nprivate boolean equa\u217c(String a, String b) {\n  return true;\n}"
+    },
+    {
+        "id": 169,
+        "title": "UnnecessaryCheckNotNull",
+        "description": "This null check is unnecessary; the expression can never be null"
+    },
+    {
+        "id": 170,
+        "title": "UnnecessaryTypeArgument",
+        "description": "Non-generic methods should not be invoked with type arguments JLS \u00a715.12.2.1 allows non-generic methods to be invoked with type arguments: a non-generic method may be potentially applicable to an invocation that\nsupplies explicit type arguments. Indeed, it may turn out to be applicable. In\nsuch a case, the type arguments will simply be ignored. This rule stems from issues of compatibility and principles of\nsubstitutability. Since interfaces or superclasses may be generified\nindependently of their subtypes, we may override a generic method with a\nnon-generic one. However, the overriding (non-generic) method must be\napplicable to calls to the generic method, including calls that explicitly\npass type arguments. Otherwise the subtype would not be substitutable for its\ngenerified supertype. There is no reason to do this in cases where the method being called is not an\noverride of a generic method."
+    },
+    {
+        "id": 171,
+        "title": "UnsafeWildcard",
+        "description": "Certain wildcard types can confuse the compiler."
+    },
+    {
+        "id": 172,
+        "title": "UnusedAnonymousClass",
+        "description": "Instance created but never used Creating a side-effect-free anonymous class and never using it is usually a\nmistake. For example: public static void main(String[] args) {\n  new Thread(new Runnable() {\n    @Override public void run() {\n      preventMissionCriticalDisasters();\n    }\n  }); // did you mean to call Thread#start()?\n} public static void main(String[] args) {\n  new Thread(new Runnable() {\n    @Override public void run() {\n      preventMissionCriticalDisasters();\n    }\n  }); // did you mean to call Thread#start()?\n}"
+    },
+    {
+        "id": 173,
+        "title": "UnusedCollectionModifiedInPlace",
+        "description": "Collection is modified in place, but the result is not used Several of the methods in java.util.Collections, such as sort and shuffle,\nmodify collections in place. If you call one of these methods on a\nnewly-allocated collection and don\u2019t use it later, you are doing unnecessary\nwork. You probably meant to keep a reference to the newly-allocated copy of your\ncollection and use that in the rest of your code. For example, this code sorts a new ArrayList and then throws away the result,\nreturning the unsorted original collection: public Collection<String> sort(Collection<String> foos) {\n  Collections.sort(new ArrayList<>(foos));\n  return foos;\n} public Collection<String> sort(Collection<String> foos) {\n  Collections.sort(new ArrayList<>(foos));\n  return foos;\n} The author probably meant: public Collection<String> sort(Collection<String> foos) {\n  List<String> sortedFoos = new ArrayList<>(foos);\n  Collections.sort(sortedFoos);\n  return sortedFoos;\n} public Collection<String> sort(Collection<String> foos) {\n  List<String> sortedFoos = new ArrayList<>(foos);\n  Collections.sort(sortedFoos);\n  return sortedFoos;\n}"
+    },
+    {
+        "id": 174,
+        "title": "VarTypeName",
+        "description": "`var` should not be used as a type name. As of JDK 10 var is a restricted local variable type and cannot be used for\ntype declarations (see JEP 286)."
+    },
+    {
+        "id": 175,
+        "title": "WrongOneof",
+        "description": "This field is guaranteed not to be set given it's within a switch over a one_of. When switching over a proto one_of, getters that don\u2019t match the current case\nare guaranteed to be return a default instance: switch (foo.getBlahCase()) {\n  case FOO:\n    return foo.getFoo();\n  case BAR:\n    return foo.getFoo(); // should be foo.getBar()\n} switch (foo.getBlahCase()) {\n  case FOO:\n    return foo.getFoo();\n  case BAR:\n    return foo.getFoo(); // should be foo.getBar()\n}"
+    },
+    {
+        "id": 176,
+        "title": "XorPower",
+        "description": "The `^` operator is binary XOR, not a power operator. The ^ binary XOR operator is sometimes mistaken for a power operator, but e.g.\n2 ^ 2 evaluates to 0, not 4. Consider expressing powers of 2 using a bit shift instead."
+    },
+    {
+        "id": 177,
+        "title": "ZoneIdOfZ",
+        "description": "Use ZoneOffset.UTC instead of ZoneId.of(\"Z\"). Avoid the magic constant (ZoneId.of(\u201cZ\u201d)) in favor of a more descriptive API:  ZoneOffset.UTC"
+    }
+]
