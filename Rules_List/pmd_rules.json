@@ -1,0 +1,1252 @@
+[
+    {
+        "index": 1,
+        "title": "AssignmentInOperand",
+        "description_only": "Avoid assignments in operands; this can make code more complicated and harder to read.",
+        "rule_type": "errorprone",
+        "example": "public void bar() {\n    int x = 2;\n    if ((x = getX()) == 3) {\n      System.out.println(\"3!\");\n    }\n}",
+        "description": "Avoid assignments in operands; this can make code more complicated and harder to read.\nExamples:\npublic void bar() {\n    int x = 2;\n    if ((x = getX()) == 3) {\n      System.out.println(\"3!\");\n    }\n}",
+        "errorMessage": "Avoid assignments in operands",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#assignmentinoperand"
+    },
+    {
+        "index": 2,
+        "title": "AssignmentToNonFinalStatic",
+        "description_only": "Identifies a possible unsafe usage of a static field.",
+        "rule_type": "errorprone",
+        "example": "public class StaticField {\n   static int x;\n   public FinalFields(int y) {\n    x = y; // unsafe\n   }\n}",
+        "description": "Identifies a possible unsafe usage of a static field.\nExamples:\npublic class StaticField {\n   static int x;\n   public FinalFields(int y) {\n    x = y; // unsafe\n   }\n}",
+        "errorMessage": "Possible unsafe assignment to non-final static field ''{0}'' in a constructor.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#assignmenttononfinalstatic"
+    },
+    {
+        "index": 3,
+        "title": "AvoidAccessibilityAlteration",
+        "description_only": "Methods such as `getDeclaredConstructors()`, `getDeclaredMethods()`, and `getDeclaredFields()` also\nreturn private constructors, methods and fields. These can be made accessible by calling `setAccessible(true)`.\nThis gives access to normally protected data which violates the principle of encapsulation.\n\nThis rule detects calls to `setAccessible` and finds possible accessibility alterations.\nIf the call to `setAccessible` is wrapped within a `PrivilegedAction`, then the access alteration\nis assumed to be deliberate and is not reported.\n\nNote that with Java 17 the Security Manager, which is used for `PrivilegedAction` execution,\nis deprecated: [JEP 411: Deprecate the Security Manager for Removal](https://openjdk.org/jeps/411).\nFor future-proof code, deliberate access alteration should be suppressed using the usual\nsuppression methods (e.g. by using `@SuppressWarnings` annotation).",
+        "rule_type": "errorprone",
+        "example": "import java.lang.reflect.Constructor;\nimport java.lang.reflect.Field;\nimport java.lang.reflect.Method;\nimport java.security.AccessController;\nimport java.security.PrivilegedAction;\n\npublic class Violation {\n    private void invalidSetAccessCalls() throws NoSuchMethodException, SecurityException {\n        Constructor<?> constructor = this.getClass().getDeclaredConstructor(String.class);\n        // call to forbidden setAccessible\n        constructor.setAccessible(true);\n\n        Method privateMethod = this.getClass().getDeclaredMethod(\"aPrivateMethod\");\n        // call to forbidden setAccessible\n        privateMethod.setAccessible(true);\n\n        // deliberate accessibility alteration\n        String privateField = AccessController.doPrivileged(new PrivilegedAction<String>() {\n            @Override\n            public String run() {\n                try {\n                    Field field = Violation.class.getDeclaredField(\"aPrivateField\");\n                    field.setAccessible(true);\n                    return (String) field.get(null);\n                } catch (ReflectiveOperationException | SecurityException e) {\n                    throw new RuntimeException(e);\n                }\n            }\n        });\n    }\n}",
+        "description": "Methods such as `getDeclaredConstructors()`, `getDeclaredMethods()`, and `getDeclaredFields()` also\nreturn private constructors, methods and fields. These can be made accessible by calling `setAccessible(true)`.\nThis gives access to normally protected data which violates the principle of encapsulation.\n\nThis rule detects calls to `setAccessible` and finds possible accessibility alterations.\nIf the call to `setAccessible` is wrapped within a `PrivilegedAction`, then the access alteration\nis assumed to be deliberate and is not reported.\n\nNote that with Java 17 the Security Manager, which is used for `PrivilegedAction` execution,\nis deprecated: [JEP 411: Deprecate the Security Manager for Removal](https://openjdk.org/jeps/411).\nFor future-proof code, deliberate access alteration should be suppressed using the usual\nsuppression methods (e.g. by using `@SuppressWarnings` annotation).\nExamples:\nimport java.lang.reflect.Constructor;\nimport java.lang.reflect.Field;\nimport java.lang.reflect.Method;\nimport java.security.AccessController;\nimport java.security.PrivilegedAction;\n\npublic class Violation {\n    private void invalidSetAccessCalls() throws NoSuchMethodException, SecurityException {\n        Constructor<?> constructor = this.getClass().getDeclaredConstructor(String.class);\n        // call to forbidden setAccessible\n        constructor.setAccessible(true);\n\n        Method privateMethod = this.getClass().getDeclaredMethod(\"aPrivateMethod\");\n        // call to forbidden setAccessible\n        privateMethod.setAccessible(true);\n\n        // deliberate accessibility alteration\n        String privateField = AccessController.doPrivileged(new PrivilegedAction<String>() {\n            @Override\n            public String run() {\n                try {\n                    Field field = Violation.class.getDeclaredField(\"aPrivateField\");\n                    field.setAccessible(true);\n                    return (String) field.get(null);\n                } catch (ReflectiveOperationException | SecurityException e) {\n                    throw new RuntimeException(e);\n                }\n            }\n        });\n    }\n}",
+        "errorMessage": "You should not modify visibility of constructors, methods or fields using setAccessible()",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#avoidaccessibilityalteration"
+    },
+    {
+        "index": 4,
+        "title": "AvoidAssertAsIdentifier",
+        "description_only": "Use of the term `assert` will conflict with newer versions of Java since it is a reserved word.\n\nSince Java 1.4, the token `assert` became a reserved word and using it as an identifier will\nresult in a compilation failure for Java 1.4 and later. This rule is therefore only useful\nfor old Java code before Java 1.4. It can be used to identify problematic code prior to a Java update.",
+        "rule_type": "errorprone",
+        "example": "public class A {\n    public class Foo {\n        String assert = \"foo\";\n    }\n}",
+        "description": "Use of the term `assert` will conflict with newer versions of Java since it is a reserved word.\n\nSince Java 1.4, the token `assert` became a reserved word and using it as an identifier will\nresult in a compilation failure for Java 1.4 and later. This rule is therefore only useful\nfor old Java code before Java 1.4. It can be used to identify problematic code prior to a Java update.\nExamples:\npublic class A {\n    public class Foo {\n        String assert = \"foo\";\n    }\n}",
+        "errorMessage": "Avoid using assert as an identifier; it became a reserved word in JDK 1.4",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#avoidassertasidentifier"
+    },
+    {
+        "index": 5,
+        "title": "AvoidBranchingStatementAsLastInLoop",
+        "description_only": "Using a branching statement as the last part of a loop may be a bug, and/or is confusing.\nEnsure that the usage is not a bug, or consider using another approach.",
+        "rule_type": "errorprone",
+        "example": "// unusual use of branching statement in a loop\nfor (int i = 0; i < 10; i++) {\n    if (i*i <= 25) {\n        continue;\n    }\n    break;\n}\n\n// this makes more sense...\nfor (int i = 0; i < 10; i++) {\n    if (i*i > 25) {\n        break;\n    }\n}",
+        "description": "Using a branching statement as the last part of a loop may be a bug, and/or is confusing.\nEnsure that the usage is not a bug, or consider using another approach.\nExamples:\n// unusual use of branching statement in a loop\nfor (int i = 0; i < 10; i++) {\n    if (i*i <= 25) {\n        continue;\n    }\n    break;\n}\n\n// this makes more sense...\nfor (int i = 0; i < 10; i++) {\n    if (i*i > 25) {\n        break;\n    }\n}",
+        "errorMessage": "Avoid using a branching statement as the last in a loop.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#avoidbranchingstatementaslastinloop"
+    },
+    {
+        "index": 6,
+        "title": "AvoidCallingFinalize",
+        "description_only": "The method Object.finalize() is called by the garbage collector on an object when garbage collection determines\nthat there are no more references to the object. It should not be invoked by application logic.\n\nNote that Oracle has declared Object.finalize() as deprecated since JDK 9.",
+        "rule_type": "errorprone",
+        "example": "void foo() {\n    Bar b = new Bar();\n    b.finalize();\n}",
+        "description": "The method Object.finalize() is called by the garbage collector on an object when garbage collection determines\nthat there are no more references to the object. It should not be invoked by application logic.\n\nNote that Oracle has declared Object.finalize() as deprecated since JDK 9.\nExamples:\nvoid foo() {\n    Bar b = new Bar();\n    b.finalize();\n}",
+        "errorMessage": "Avoid calling finalize() explicitly",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#avoidcallingfinalize"
+    },
+    {
+        "index": 7,
+        "title": "AvoidCatchingNPE",
+        "description_only": "Code should never throw NullPointerExceptions under normal circumstances.  A catch block may hide the\noriginal error, causing other, more subtle problems later on.",
+        "rule_type": "errorprone",
+        "example": "public class Foo {\n    void bar() {\n        try {\n            // do something\n        } catch (NullPointerException npe) {\n        }\n    }\n}",
+        "description": "Code should never throw NullPointerExceptions under normal circumstances.  A catch block may hide the\noriginal error, causing other, more subtle problems later on.\nExamples:\npublic class Foo {\n    void bar() {\n        try {\n            // do something\n        } catch (NullPointerException npe) {\n        }\n    }\n}",
+        "errorMessage": "Avoid catching NullPointerException; consider removing the cause of the NPE.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#avoidcatchingnpe"
+    },
+    {
+        "index": 8,
+        "title": "AvoidCatchingThrowable",
+        "description_only": "Catching Throwable errors is not recommended since its scope is very broad. It includes runtime issues such as\nOutOfMemoryError that should be exposed and managed separately.",
+        "rule_type": "errorprone",
+        "example": "public void bar() {\n    try {\n        // do something\n    } catch (Throwable th) {  // should not catch Throwable\n        th.printStackTrace();\n    }\n}",
+        "description": "Catching Throwable errors is not recommended since its scope is very broad. It includes runtime issues such as\nOutOfMemoryError that should be exposed and managed separately.\nExamples:\npublic void bar() {\n    try {\n        // do something\n    } catch (Throwable th) {  // should not catch Throwable\n        th.printStackTrace();\n    }\n}",
+        "errorMessage": "A catch statement should never catch throwable since it includes errors.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#avoidcatchingthrowable"
+    },
+    {
+        "index": 9,
+        "title": "AvoidDecimalLiteralsInBigDecimalConstructor",
+        "description_only": "One might assume that the result of \"new BigDecimal(0.1)\" is exactly equal to 0.1, but it is actually\nequal to .1000000000000000055511151231257827021181583404541015625.\nThis is because 0.1 cannot be represented exactly as a double (or as a binary fraction of any finite\nlength). Thus, the long value that is being passed in to the constructor is not exactly equal to 0.1,\nappearances notwithstanding.\n\nThe (String) constructor, on the other hand, is perfectly predictable: 'new BigDecimal(\"0.1\")' is\nexactly equal to 0.1, as one would expect.  Therefore, it is generally recommended that the\n(String) constructor be used in preference to this one.",
+        "rule_type": "errorprone",
+        "example": "BigDecimal bd = new BigDecimal(1.123);       // loss of precision, this would trigger the rule\n\nBigDecimal bd = new BigDecimal(\"1.123\");     // preferred approach\n\nBigDecimal bd = new BigDecimal(12);          // preferred approach, ok for integer values",
+        "description": "One might assume that the result of \"new BigDecimal(0.1)\" is exactly equal to 0.1, but it is actually\nequal to .1000000000000000055511151231257827021181583404541015625.\nThis is because 0.1 cannot be represented exactly as a double (or as a binary fraction of any finite\nlength). Thus, the long value that is being passed in to the constructor is not exactly equal to 0.1,\nappearances notwithstanding.\n\nThe (String) constructor, on the other hand, is perfectly predictable: 'new BigDecimal(\"0.1\")' is\nexactly equal to 0.1, as one would expect.  Therefore, it is generally recommended that the\n(String) constructor be used in preference to this one.\nExamples:\nBigDecimal bd = new BigDecimal(1.123);       // loss of precision, this would trigger the rule\n\nBigDecimal bd = new BigDecimal(\"1.123\");     // preferred approach\n\nBigDecimal bd = new BigDecimal(12);          // preferred approach, ok for integer values",
+        "errorMessage": "Avoid creating BigDecimal with a decimal (float/double) literal. Use a String literal",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#avoiddecimalliteralsinbigdecimalconstructor"
+    },
+    {
+        "index": 10,
+        "title": "AvoidDuplicateLiterals",
+        "description_only": "Code containing duplicate String literals can usually be improved by declaring the String as a constant field.",
+        "rule_type": "errorprone",
+        "example": "private void bar() {\n     buz(\"Howdy\");\n     buz(\"Howdy\");\n     buz(\"Howdy\");\n     buz(\"Howdy\");\n}\nprivate void buz(String x) {}",
+        "description": "Code containing duplicate String literals can usually be improved by declaring the String as a constant field.\nExamples:\nprivate void bar() {\n     buz(\"Howdy\");\n     buz(\"Howdy\");\n     buz(\"Howdy\");\n     buz(\"Howdy\");\n}\nprivate void buz(String x) {}",
+        "errorMessage": "The String literal {0} appears {1} times in this file; the first occurrence is on line {2}",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#avoidduplicateliterals"
+    },
+    {
+        "index": 11,
+        "title": "AvoidEnumAsIdentifier",
+        "description_only": "Use of the term `enum` will conflict with newer versions of Java since it is a reserved word.\n\nSince Java 1.5, the token `enum` became a reserved word and using it as an identifier will\nresult in a compilation failure for Java 1.5 and later. This rule is therefore only useful\nfor old Java code before Java 1.5. It can be used to identify problematic code prior to a Java update.",
+        "rule_type": "errorprone",
+        "example": "public class A {\n    public class Foo {\n        String enum = \"foo\";\n    }\n}",
+        "description": "Use of the term `enum` will conflict with newer versions of Java since it is a reserved word.\n\nSince Java 1.5, the token `enum` became a reserved word and using it as an identifier will\nresult in a compilation failure for Java 1.5 and later. This rule is therefore only useful\nfor old Java code before Java 1.5. It can be used to identify problematic code prior to a Java update.\nExamples:\npublic class A {\n    public class Foo {\n        String enum = \"foo\";\n    }\n}",
+        "errorMessage": "Avoid using enum as an identifier; it's a reserved word in JDK 1.5",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#avoidenumasidentifier"
+    },
+    {
+        "index": 12,
+        "title": "AvoidFieldNameMatchingMethodName",
+        "description_only": "It can be confusing to have a field name with the same name as a method. While this is permitted,\nhaving information (field) and actions (method) is not clear naming. Developers versed in\nSmalltalk often prefer this approach as the methods denote accessor methods.",
+        "rule_type": "errorprone",
+        "example": "public class Foo {\n    Object bar;\n    // bar is data or an action or both?\n    void bar() {\n    }\n}",
+        "description": "It can be confusing to have a field name with the same name as a method. While this is permitted,\nhaving information (field) and actions (method) is not clear naming. Developers versed in\nSmalltalk often prefer this approach as the methods denote accessor methods.\nExamples:\npublic class Foo {\n    Object bar;\n    // bar is data or an action or both?\n    void bar() {\n    }\n}",
+        "errorMessage": "Field {0} has the same name as a method",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#avoidfieldnamematchingmethodname"
+    },
+    {
+        "index": 13,
+        "title": "AvoidFieldNameMatchingTypeName",
+        "description_only": "It is somewhat confusing to have a field name matching the declaring type name.\nThis probably means that type and/or field names should be chosen more carefully.",
+        "rule_type": "errorprone",
+        "example": "public class Foo extends Bar {\n    int foo;    // There is probably a better name that can be used\n}\npublic interface Operation {\n    int OPERATION = 1; // There is probably a better name that can be used\n}",
+        "description": "It is somewhat confusing to have a field name matching the declaring type name.\nThis probably means that type and/or field names should be chosen more carefully.\nExamples:\npublic class Foo extends Bar {\n    int foo;    // There is probably a better name that can be used\n}\npublic interface Operation {\n    int OPERATION = 1; // There is probably a better name that can be used\n}",
+        "errorMessage": "It is somewhat confusing to have a field name matching the declaring class name",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#avoidfieldnamematchingtypename"
+    },
+    {
+        "index": 14,
+        "title": "AvoidInstanceofChecksInCatchClause",
+        "description_only": "Each caught exception type should be handled in its own catch clause.",
+        "rule_type": "errorprone",
+        "example": "try { // Avoid this\n    // do something\n} catch (Exception ee) {\n    if (ee instanceof IOException) {\n        cleanup();\n    }\n}\n\ntry {  // Prefer this:\n    // do something\n} catch (IOException ee) {\n    cleanup();\n}",
+        "description": "Each caught exception type should be handled in its own catch clause.\nExamples:\ntry { // Avoid this\n    // do something\n} catch (Exception ee) {\n    if (ee instanceof IOException) {\n        cleanup();\n    }\n}\n\ntry {  // Prefer this:\n    // do something\n} catch (IOException ee) {\n    cleanup();\n}",
+        "errorMessage": "An instanceof check is being performed on the caught exception.  Create a separate catch clause for this exception type.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#avoidinstanceofchecksincatchclause"
+    },
+    {
+        "index": 15,
+        "title": "AvoidLiteralsInIfCondition",
+        "description_only": "Avoid using hard-coded literals in conditional statements. By declaring them as static variables\nor private members with descriptive names maintainability is enhanced. By default, the literals \"-1\" and \"0\" are ignored.\nMore exceptions can be defined with the property \"ignoreMagicNumbers\".\n\nThe rule doesn't consider deeper expressions by default, but this can be enabled via the property `ignoreExpressions`.\nWith this property set to false, if-conditions like `i == 1 + 5` are reported as well. Note that in that case,\nthe property ignoreMagicNumbers is not taken into account, if there are multiple literals involved in such an expression.",
+        "rule_type": "errorprone",
+        "example": "private static final int MAX_NUMBER_OF_REQUESTS = 10;\n\npublic void checkRequests() {\n\n    if (i == 10) {                        // magic number, buried in a method\n      doSomething();\n    }\n\n    if (i == MAX_NUMBER_OF_REQUESTS) {    // preferred approach\n      doSomething();\n    }\n\n    if (aString.indexOf('.') != -1) {}     // magic number -1, by default ignored\n    if (aString.indexOf('.') >= 0) { }     // alternative approach\n\n    if (aDouble > 0.0) {}                  // magic number 0.0\n    if (aDouble >= Double.MIN_VALUE) {}    // preferred approach\n\n    // with rule property \"ignoreExpressions\" set to \"false\"\n    if (i == pos + 5) {}  // violation: magic number 5 within an (additive) expression\n    if (i == pos + SUFFIX_LENGTH) {} // preferred approach\n    if (i == 5 && \"none\".equals(aString)) {} // 2 violations: magic number 5 and literal \"none\"\n}",
+        "description": "Avoid using hard-coded literals in conditional statements. By declaring them as static variables\nor private members with descriptive names maintainability is enhanced. By default, the literals \"-1\" and \"0\" are ignored.\nMore exceptions can be defined with the property \"ignoreMagicNumbers\".\n\nThe rule doesn't consider deeper expressions by default, but this can be enabled via the property `ignoreExpressions`.\nWith this property set to false, if-conditions like `i == 1 + 5` are reported as well. Note that in that case,\nthe property ignoreMagicNumbers is not taken into account, if there are multiple literals involved in such an expression.\nExamples:\nprivate static final int MAX_NUMBER_OF_REQUESTS = 10;\n\npublic void checkRequests() {\n\n    if (i == 10) {                        // magic number, buried in a method\n      doSomething();\n    }\n\n    if (i == MAX_NUMBER_OF_REQUESTS) {    // preferred approach\n      doSomething();\n    }\n\n    if (aString.indexOf('.') != -1) {}     // magic number -1, by default ignored\n    if (aString.indexOf('.') >= 0) { }     // alternative approach\n\n    if (aDouble > 0.0) {}                  // magic number 0.0\n    if (aDouble >= Double.MIN_VALUE) {}    // preferred approach\n\n    // with rule property \"ignoreExpressions\" set to \"false\"\n    if (i == pos + 5) {}  // violation: magic number 5 within an (additive) expression\n    if (i == pos + SUFFIX_LENGTH) {} // preferred approach\n    if (i == 5 && \"none\".equals(aString)) {} // 2 violations: magic number 5 and literal \"none\"\n}",
+        "errorMessage": "Avoid using literals in if statements",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#avoidliteralsinifcondition"
+    },
+    {
+        "index": 16,
+        "title": "AvoidLosingExceptionInformation",
+        "description_only": "Statements in a catch block that invoke accessors on the exception without using the information\nonly add to code size.  Either remove the invocation, or use the return result.",
+        "rule_type": "errorprone",
+        "example": "public void bar() {\n    try {\n        // do something\n    } catch (SomeException se) {\n        se.getMessage();\n    }\n}",
+        "description": "Statements in a catch block that invoke accessors on the exception without using the information\nonly add to code size.  Either remove the invocation, or use the return result.\nExamples:\npublic void bar() {\n    try {\n        // do something\n    } catch (SomeException se) {\n        se.getMessage();\n    }\n}",
+        "errorMessage": "Avoid statements in a catch block that invoke accessors on the exception without using the information",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#avoidlosingexceptioninformation"
+    },
+    {
+        "index": 17,
+        "title": "AvoidMultipleUnaryOperators",
+        "description_only": "The use of multiple unary operators may be problematic, and/or confusing.\nEnsure that the intended usage is not a bug, or consider simplifying the expression.",
+        "rule_type": "errorprone",
+        "example": "// These are typo bugs, or at best needlessly complex and confusing:\nint i = - -1;\nint j = + - +1;\nint z = ~~2;\nboolean b = !!true;\nboolean c = !!!true;\n\n// These are better:\nint i = 1;\nint j = -1;\nint z = 2;\nboolean b = true;\nboolean c = false;\n\n// And these just make your brain hurt:\nint i = ~-2;\nint j = -~7;",
+        "description": "The use of multiple unary operators may be problematic, and/or confusing.\nEnsure that the intended usage is not a bug, or consider simplifying the expression.\nExamples:\n// These are typo bugs, or at best needlessly complex and confusing:\nint i = - -1;\nint j = + - +1;\nint z = ~~2;\nboolean b = !!true;\nboolean c = !!!true;\n\n// These are better:\nint i = 1;\nint j = -1;\nint z = 2;\nboolean b = true;\nboolean c = false;\n\n// And these just make your brain hurt:\nint i = ~-2;\nint j = -~7;",
+        "errorMessage": "Using multiple unary operators may be a bug, and/or is confusing.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#avoidmultipleunaryoperators"
+    },
+    {
+        "index": 18,
+        "title": "AvoidUsingOctalValues",
+        "description_only": "Integer literals should not start with zero since this denotes that the rest of literal will be\ninterpreted as an octal value.",
+        "rule_type": "errorprone",
+        "example": "int i = 012;    // set i with 10 not 12\nint j = 010;    // set j with 8 not 10\nk = i * j;      // set k with 80 not 120",
+        "description": "Integer literals should not start with zero since this denotes that the rest of literal will be\ninterpreted as an octal value.\nExamples:\nint i = 012;    // set i with 10 not 12\nint j = 010;    // set j with 8 not 10\nk = i * j;      // set k with 80 not 120",
+        "errorMessage": "Do not start a literal by 0 unless it's an octal value",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#avoidusingoctalvalues"
+    },
+    {
+        "index": 19,
+        "title": "BrokenNullCheck",
+        "description_only": "The null check is broken since it will throw a NullPointerException itself.\nIt is likely that you used || instead of && or vice versa.",
+        "rule_type": "errorprone",
+        "example": "public String bar(String string) {\n  // should be &&\n    if (string!=null || !string.equals(\"\"))\n        return string;\n  // should be ||\n    if (string==null && string.equals(\"\"))\n        return string;\n}",
+        "description": "The null check is broken since it will throw a NullPointerException itself.\nIt is likely that you used || instead of && or vice versa.\nExamples:\npublic String bar(String string) {\n  // should be &&\n    if (string!=null || !string.equals(\"\"))\n        return string;\n  // should be ||\n    if (string==null && string.equals(\"\"))\n        return string;\n}",
+        "errorMessage": "This expression will throw a NullPointerException",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#brokennullcheck"
+    },
+    {
+        "index": 20,
+        "title": "CallSuperFirst",
+        "description_only": "Super should be called at the start of the method",
+        "rule_type": "errorprone",
+        "example": "import android.app.Activity;\nimport android.os.Bundle;\n\npublic class DummyActivity extends Activity {\n    public void onCreate(Bundle bundle) {\n        // missing call to super.onCreate(bundle)\n        foo();\n    }\n}",
+        "description": "Super should be called at the start of the method\nExamples:\nimport android.app.Activity;\nimport android.os.Bundle;\n\npublic class DummyActivity extends Activity {\n    public void onCreate(Bundle bundle) {\n        // missing call to super.onCreate(bundle)\n        foo();\n    }\n}",
+        "errorMessage": "super should be called at the start of the method",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#callsuperfirst"
+    },
+    {
+        "index": 21,
+        "title": "CallSuperLast",
+        "description_only": "Super should be called at the end of the method",
+        "rule_type": "errorprone",
+        "example": "import android.app.Activity;\n\npublic class DummyActivity extends Activity {\n    public void onPause() {\n        foo();\n        // missing call to super.onPause()\n    }\n}",
+        "description": "Super should be called at the end of the method\nExamples:\nimport android.app.Activity;\n\npublic class DummyActivity extends Activity {\n    public void onPause() {\n        foo();\n        // missing call to super.onPause()\n    }\n}",
+        "errorMessage": "super should be called at the end of the method",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#callsuperlast"
+    },
+    {
+        "index": 22,
+        "title": "CheckSkipResult",
+        "description_only": "The skip() method may skip a smaller number of bytes than requested. Check the returned value to find out if it was the case or not.",
+        "rule_type": "errorprone",
+        "example": "public class Foo {\n\n   private FileInputStream _s = new FileInputStream(\"file\");\n\n   public void skip(int n) throws IOException {\n      _s.skip(n); // You are not sure that exactly n bytes are skipped\n   }\n\n   public void skipExactly(int n) throws IOException {\n      while (n != 0) {\n         long skipped = _s.skip(n);\n         if (skipped == 0)\n            throw new EOFException();\n         n -= skipped;\n      }\n   }",
+        "description": "The skip() method may skip a smaller number of bytes than requested. Check the returned value to find out if it was the case or not.\nExamples:\npublic class Foo {\n\n   private FileInputStream _s = new FileInputStream(\"file\");\n\n   public void skip(int n) throws IOException {\n      _s.skip(n); // You are not sure that exactly n bytes are skipped\n   }\n\n   public void skipExactly(int n) throws IOException {\n      while (n != 0) {\n         long skipped = _s.skip(n);\n         if (skipped == 0)\n            throw new EOFException();\n         n -= skipped;\n      }\n   }",
+        "errorMessage": "Check the value returned by the skip() method of an InputStream to see if the requested number of bytes has been skipped.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#checkskipresult"
+    },
+    {
+        "index": 23,
+        "title": "ClassCastExceptionWithToArray",
+        "description_only": "When deriving an array of a specific class from your Collection, one should provide an array of\nthe same class as the parameter of the `toArray()` method. Doing otherwise will result\nin a `ClassCastException`.",
+        "rule_type": "errorprone",
+        "example": "Collection c = new ArrayList();\nInteger obj = new Integer(1);\nc.add(obj);\n\n    // this would trigger the rule (and throw a ClassCastException if executed)\nInteger[] a = (Integer [])c.toArray();\n\n   // this is fine and will not trigger the rule\nInteger[] b = (Integer [])c.toArray(new Integer[0]);",
+        "description": "When deriving an array of a specific class from your Collection, one should provide an array of\nthe same class as the parameter of the `toArray()` method. Doing otherwise will result\nin a `ClassCastException`.\nExamples:\nCollection c = new ArrayList();\nInteger obj = new Integer(1);\nc.add(obj);\n\n    // this would trigger the rule (and throw a ClassCastException if executed)\nInteger[] a = (Integer [])c.toArray();\n\n   // this is fine and will not trigger the rule\nInteger[] b = (Integer [])c.toArray(new Integer[0]);",
+        "errorMessage": "This usage of the Collection.toArray() method will throw a ClassCastException.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#classcastexceptionwithtoarray"
+    },
+    {
+        "index": 24,
+        "title": "CloneMethodMustBePublic",
+        "description_only": "The java manual says \"By convention, classes that implement this interface should override\nObject.clone (which is protected) with a public method.\"",
+        "rule_type": "errorprone",
+        "example": "public class Foo implements Cloneable {\n    @Override\n    protected Object clone() throws CloneNotSupportedException { // Violation, must be public\n    }\n}\n\npublic class Foo implements Cloneable {\n    @Override\n    protected Foo clone() { // Violation, must be public\n    }\n}\n\npublic class Foo implements Cloneable {\n    @Override\n    public Object clone() // Ok\n}",
+        "description": "The java manual says \"By convention, classes that implement this interface should override\nObject.clone (which is protected) with a public method.\"\nExamples:\npublic class Foo implements Cloneable {\n    @Override\n    protected Object clone() throws CloneNotSupportedException { // Violation, must be public\n    }\n}\n\npublic class Foo implements Cloneable {\n    @Override\n    protected Foo clone() { // Violation, must be public\n    }\n}\n\npublic class Foo implements Cloneable {\n    @Override\n    public Object clone() // Ok\n}",
+        "errorMessage": "clone() method must be public if the class implements Cloneable",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#clonemethodmustbepublic"
+    },
+    {
+        "index": 25,
+        "title": "CloneMethodMustImplementCloneable",
+        "description_only": "The method clone() should only be implemented if the class implements the Cloneable interface with the exception of\na final method that only throws CloneNotSupportedException.\n\nThe rule can also detect, if the class implements or extends a Cloneable class.",
+        "rule_type": "errorprone",
+        "example": "public class MyClass {\n public Object clone() throws CloneNotSupportedException {\n  return foo;\n }\n}",
+        "description": "The method clone() should only be implemented if the class implements the Cloneable interface with the exception of\na final method that only throws CloneNotSupportedException.\n\nThe rule can also detect, if the class implements or extends a Cloneable class.\nExamples:\npublic class MyClass {\n public Object clone() throws CloneNotSupportedException {\n  return foo;\n }\n}",
+        "errorMessage": "clone() method should be implemented only if implementing Cloneable interface",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#clonemethodmustimplementcloneable"
+    },
+    {
+        "index": 26,
+        "title": "CloneMethodReturnTypeMustMatchClassName",
+        "description_only": "If a class implements `Cloneable` the return type of the method `clone()` must be the class name. That way, the caller\nof the clone method doesn't need to cast the returned clone to the correct type.\n\nNote: Such a covariant return type is only possible with Java 1.5 or higher.",
+        "rule_type": "errorprone",
+        "example": "public class Foo implements Cloneable {\n    @Override\n    protected Object clone() { // Violation, Object must be Foo\n    }\n}\n\npublic class Foo implements Cloneable {\n    @Override\n    public Foo clone() { //Ok\n    }\n}",
+        "description": "If a class implements `Cloneable` the return type of the method `clone()` must be the class name. That way, the caller\nof the clone method doesn't need to cast the returned clone to the correct type.\n\nNote: Such a covariant return type is only possible with Java 1.5 or higher.\nExamples:\npublic class Foo implements Cloneable {\n    @Override\n    protected Object clone() { // Violation, Object must be Foo\n    }\n}\n\npublic class Foo implements Cloneable {\n    @Override\n    public Foo clone() { //Ok\n    }\n}",
+        "errorMessage": "The return type of the clone() method must be the class name when implements Cloneable",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#clonemethodreturntypemustmatchclassname"
+    },
+    {
+        "index": 27,
+        "title": "CloseResource",
+        "description_only": "Ensure that resources (like `java.sql.Connection`, `java.sql.Statement`, and `java.sql.ResultSet` objects\nand any subtype of `java.lang.AutoCloseable`) are always closed after use.\nFailing to do so might result in resource leaks.\n\nNote: It suffices to configure the super type, e.g. `java.lang.AutoCloseable`, so that this rule automatically triggers\non any subtype (e.g. `java.io.FileInputStream`). Additionally specifying `java.sql.Connection` helps in detecting\nthe types, if the type resolution / auxclasspath is not correctly setup.\n\nNote: Since PMD 6.16.0 the default value for the property `types` contains `java.lang.AutoCloseable` and detects\nnow cases where the standard `java.io.*Stream` classes are involved. In order to restore the old behaviour,\njust remove \"AutoCloseable\" from the types.",
+        "rule_type": "errorprone",
+        "example": "public class Bar {\n    public void withSQL() {\n        Connection c = pool.getConnection();\n        try {\n            // do stuff\n        } catch (SQLException ex) {\n           // handle exception\n        } finally {\n            // oops, should close the connection using 'close'!\n            // c.close();\n        }\n    }\n\n    public void withFile() {\n        InputStream file = new FileInputStream(new File(\"/tmp/foo\"));\n        try {\n            int c = file.in();\n        } catch (IOException e) {\n            // handle exception\n        } finally {\n            // TODO: close file\n        }\n    }\n}",
+        "description": "Ensure that resources (like `java.sql.Connection`, `java.sql.Statement`, and `java.sql.ResultSet` objects\nand any subtype of `java.lang.AutoCloseable`) are always closed after use.\nFailing to do so might result in resource leaks.\n\nNote: It suffices to configure the super type, e.g. `java.lang.AutoCloseable`, so that this rule automatically triggers\non any subtype (e.g. `java.io.FileInputStream`). Additionally specifying `java.sql.Connection` helps in detecting\nthe types, if the type resolution / auxclasspath is not correctly setup.\n\nNote: Since PMD 6.16.0 the default value for the property `types` contains `java.lang.AutoCloseable` and detects\nnow cases where the standard `java.io.*Stream` classes are involved. In order to restore the old behaviour,\njust remove \"AutoCloseable\" from the types.\nExamples:\npublic class Bar {\n    public void withSQL() {\n        Connection c = pool.getConnection();\n        try {\n            // do stuff\n        } catch (SQLException ex) {\n           // handle exception\n        } finally {\n            // oops, should close the connection using 'close'!\n            // c.close();\n        }\n    }\n\n    public void withFile() {\n        InputStream file = new FileInputStream(new File(\"/tmp/foo\"));\n        try {\n            int c = file.in();\n        } catch (IOException e) {\n            // handle exception\n        } finally {\n            // TODO: close file\n        }\n    }\n}",
+        "errorMessage": "Ensure that resources like this {0} object are closed after use",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#closeresource"
+    },
+    {
+        "index": 28,
+        "title": "CompareObjectsWithEquals",
+        "description_only": "Use `equals()` to compare object references; avoid comparing them with `==`.\n\nSince comparing objects with named constants is useful in some cases (eg, when\ndefining constants for sentinel values), the rule ignores comparisons against\nfields with all-caps name (eg `this == SENTINEL`), which is a common naming\nconvention for constant fields.\n\nYou may allow some types to be compared by reference by listing the exceptions\nin the `typesThatCompareByReference` property.",
+        "rule_type": "errorprone",
+        "example": "class Foo {\n  boolean bar(String a, String b) {\n    return a == b;\n  }\n}",
+        "description": "Use `equals()` to compare object references; avoid comparing them with `==`.\n\nSince comparing objects with named constants is useful in some cases (eg, when\ndefining constants for sentinel values), the rule ignores comparisons against\nfields with all-caps name (eg `this == SENTINEL`), which is a common naming\nconvention for constant fields.\n\nYou may allow some types to be compared by reference by listing the exceptions\nin the `typesThatCompareByReference` property.\nExamples:\nclass Foo {\n  boolean bar(String a, String b) {\n    return a == b;\n  }\n}",
+        "errorMessage": "Use equals() to compare object references.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#compareobjectswithequals"
+    },
+    {
+        "index": 29,
+        "title": "ComparisonWithNaN",
+        "description_only": "Reports comparisons with double and float `NaN` (Not-a-Number) values.\n            These are [specified](https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.21.1)\n            to have unintuitive behavior: NaN is considered unequal to itself.\n            This means a check like `someDouble == Double.NaN` will always return\n            false, even if `someDouble` is really the NaN value. To test whether a\n            value is the NaN value, one should instead use `Double.isNaN(someDouble)`\n            (or `Float.isNaN`). The `!=` operator should be treated similarly.\n            Finally, comparisons like `someDouble <= Double.NaN` are nonsensical\n            and will always evaluate to false.\n            \n            This rule has been renamed from \"BadComparison\" in PMD 6.36.0.",
+        "rule_type": "errorprone",
+        "example": "boolean x = (y == Double.NaN);",
+        "description": "Reports comparisons with double and float `NaN` (Not-a-Number) values.\n            These are [specified](https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.21.1)\n            to have unintuitive behavior: NaN is considered unequal to itself.\n            This means a check like `someDouble == Double.NaN` will always return\n            false, even if `someDouble` is really the NaN value. To test whether a\n            value is the NaN value, one should instead use `Double.isNaN(someDouble)`\n            (or `Float.isNaN`). The `!=` operator should be treated similarly.\n            Finally, comparisons like `someDouble <= Double.NaN` are nonsensical\n            and will always evaluate to false.\n            \n            This rule has been renamed from \"BadComparison\" in PMD 6.36.0.\nExamples:\nboolean x = (y == Double.NaN);",
+        "errorMessage": "Comparisons with NaN always return false",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#comparisonwithnan"
+    },
+    {
+        "index": 30,
+        "title": "ConfusingArgumentToVarargsMethod",
+        "description_only": "Reports a confusing argument passed to a varargs method.\n\n            This can occur when an array is passed as a single varargs argument, when the array type is not exactly the\n            type of array that the varargs method expects. If, that array is a subtype of the component type of the expected\n            array type, then it might not be clear what value the called varargs method will receive.\n            For instance if you have:\n            ```java\n            void varargs(Object... parm);\n            ```\n            and call it like so:\n            ```java\n            varargs(new String[]{\"a\"});\n            ```\n            it is not clear whether you intended the method to receive the value `new Object[]{ new String[] {\"a\"} }` or\n            just `new String[] {\"a\"}` (the latter happens). This confusion occurs because `String[]` is both a subtype\n            of `Object[]` and of `Object`. To clarify your intent in this case, use a cast or pass individual elements like so:\n            ```java\n            // varargs call\n            // parm will be `new Object[] { \"a\" }`\n            varargs(\"a\");\n\n            // non-varargs call\n            // parm will be `new String[] { \"a\" }`\n            varargs((Object[]) new String[]{\"a\"});\n\n            // varargs call\n            // parm will be `new Object[] { new String[] { \"a\" } }`\n            varargs((Object) new String[]{\"a\"});\n            ```\n\n            Another confusing case is when you pass `null` as the varargs argument. Here it is not clear whether you intended\n            to pass an array with a single null element, or a null array (the latter happens). This can similarly be clarified\n            with a cast.",
+        "rule_type": "errorprone",
+        "example": "import java.util.Arrays;\n\n            abstract class C {\n                abstract void varargs(Object... args);\n                static {\n                    varargs(new String[] { \"a\" });\n                    varargs(null);\n                }\n            }",
+        "description": "Reports a confusing argument passed to a varargs method.\n\n            This can occur when an array is passed as a single varargs argument, when the array type is not exactly the\n            type of array that the varargs method expects. If, that array is a subtype of the component type of the expected\n            array type, then it might not be clear what value the called varargs method will receive.\n            For instance if you have:\n            ```java\n            void varargs(Object... parm);\n            ```\n            and call it like so:\n            ```java\n            varargs(new String[]{\"a\"});\n            ```\n            it is not clear whether you intended the method to receive the value `new Object[]{ new String[] {\"a\"} }` or\n            just `new String[] {\"a\"}` (the latter happens). This confusion occurs because `String[]` is both a subtype\n            of `Object[]` and of `Object`. To clarify your intent in this case, use a cast or pass individual elements like so:\n            ```java\n            // varargs call\n            // parm will be `new Object[] { \"a\" }`\n            varargs(\"a\");\n\n            // non-varargs call\n            // parm will be `new String[] { \"a\" }`\n            varargs((Object[]) new String[]{\"a\"});\n\n            // varargs call\n            // parm will be `new Object[] { new String[] { \"a\" } }`\n            varargs((Object) new String[]{\"a\"});\n            ```\n\n            Another confusing case is when you pass `null` as the varargs argument. Here it is not clear whether you intended\n            to pass an array with a single null element, or a null array (the latter happens). This can similarly be clarified\n            with a cast.\nExamples:\nimport java.util.Arrays;\n\n            abstract class C {\n                abstract void varargs(Object... args);\n                static {\n                    varargs(new String[] { \"a\" });\n                    varargs(null);\n                }\n            }",
+        "errorMessage": "Unclear if a varargs or non-varargs call is intended. Cast to {0} or {0}[], or pass varargs parameters separately to clarify intent.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#confusingargumenttovarargsmethod"
+    },
+    {
+        "index": 31,
+        "title": "ConstructorCallsOverridableMethod",
+        "description_only": "Reports calls to overridable methods on `this` during object initialization. These\nare invoked on an incompletely constructed object and can be difficult to debug if overridden.\nThis is because the subclass usually assumes that the superclass is completely initialized\nin all methods. If that is not the case, bugs can appear in the constructor, for instance,\nsome fields that are still null may cause a NullPointerException or be stored somewhere\nelse to blow up later.\n\nTo avoid this problem, only use methods that are static, private, or final in constructors.\nNote that those methods also must not call overridable methods transitively to be safe.",
+        "rule_type": "errorprone",
+        "example": "public class SeniorClass {\n  public SeniorClass(){\n      toString(); //may throw NullPointerException if overridden\n  }\n  public String toString(){\n    return \"IAmSeniorClass\";\n  }\n}\npublic class JuniorClass extends SeniorClass {\n  private String name;\n  public JuniorClass(){\n    super(); //Automatic call leads to NullPointerException\n    name = \"JuniorClass\";\n  }\n  public String toString(){\n    return name.toUpperCase();\n  }\n}",
+        "description": "Reports calls to overridable methods on `this` during object initialization. These\nare invoked on an incompletely constructed object and can be difficult to debug if overridden.\nThis is because the subclass usually assumes that the superclass is completely initialized\nin all methods. If that is not the case, bugs can appear in the constructor, for instance,\nsome fields that are still null may cause a NullPointerException or be stored somewhere\nelse to blow up later.\n\nTo avoid this problem, only use methods that are static, private, or final in constructors.\nNote that those methods also must not call overridable methods transitively to be safe.\nExamples:\npublic class SeniorClass {\n  public SeniorClass(){\n      toString(); //may throw NullPointerException if overridden\n  }\n  public String toString(){\n    return \"IAmSeniorClass\";\n  }\n}\npublic class JuniorClass extends SeniorClass {\n  private String name;\n  public JuniorClass(){\n    super(); //Automatic call leads to NullPointerException\n    name = \"JuniorClass\";\n  }\n  public String toString(){\n    return name.toUpperCase();\n  }\n}",
+        "errorMessage": "Overridable {0} called during object construction{1}",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#constructorcallsoverridablemethod"
+    },
+    {
+        "index": 32,
+        "title": "DetachedTestCase",
+        "description_only": "The method appears to be a test case since it has public or default visibility,\nnon-static access, no arguments, no return value, has no annotations, but is a\nmember of a class that has one or more JUnit test cases. If it is a utility\nmethod, it should likely have private visibility. If it is an ignored test, it\nshould be annotated with @Test and @Ignore.",
+        "rule_type": "errorprone",
+        "example": "public class MyTest {\n    @Test\n    public void someTest() {\n    }\n\n    // violation: Not annotated\n    public void someOtherTest () {\n    }\n\n}",
+        "description": "The method appears to be a test case since it has public or default visibility,\nnon-static access, no arguments, no return value, has no annotations, but is a\nmember of a class that has one or more JUnit test cases. If it is a utility\nmethod, it should likely have private visibility. If it is an ignored test, it\nshould be annotated with @Test and @Ignore.\nExamples:\npublic class MyTest {\n    @Test\n    public void someTest() {\n    }\n\n    // violation: Not annotated\n    public void someOtherTest () {\n    }\n\n}",
+        "errorMessage": "Probable detached JUnit test case.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#detachedtestcase"
+    },
+    {
+        "index": 33,
+        "title": "DoNotCallGarbageCollectionExplicitly",
+        "description_only": "Calls to `System.gc()`, `Runtime.getRuntime().gc()`, and `System.runFinalization()` are not advised.\nCode should have the same behavior whether the garbage collection is disabled using the option\n`-Xdisableexplicitgc` or not.\n\nMoreover, \"modern\" JVMs do a very good job handling garbage collections. If memory usage issues unrelated to memory\nleaks develop within an application, it should be dealt with JVM options rather than within the code itself.",
+        "rule_type": "errorprone",
+        "example": "public class GCCall {\n    public GCCall() {\n        // Explicit gc call !\n        System.gc();\n    }\n\n    public void doSomething() {\n        // Explicit gc call !\n        Runtime.getRuntime().gc();\n    }\n\n    public explicitGCcall() {\n        // Explicit gc call !\n        System.gc();\n    }\n\n    public void doSomething() {\n        // Explicit gc call !\n        Runtime.getRuntime().gc();\n    }\n}",
+        "description": "Calls to `System.gc()`, `Runtime.getRuntime().gc()`, and `System.runFinalization()` are not advised.\nCode should have the same behavior whether the garbage collection is disabled using the option\n`-Xdisableexplicitgc` or not.\n\nMoreover, \"modern\" JVMs do a very good job handling garbage collections. If memory usage issues unrelated to memory\nleaks develop within an application, it should be dealt with JVM options rather than within the code itself.\nExamples:\npublic class GCCall {\n    public GCCall() {\n        // Explicit gc call !\n        System.gc();\n    }\n\n    public void doSomething() {\n        // Explicit gc call !\n        Runtime.getRuntime().gc();\n    }\n\n    public explicitGCcall() {\n        // Explicit gc call !\n        System.gc();\n    }\n\n    public void doSomething() {\n        // Explicit gc call !\n        Runtime.getRuntime().gc();\n    }\n}",
+        "errorMessage": "Do not explicitly trigger a garbage collection.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#donotcallgarbagecollectionexplicitly"
+    },
+    {
+        "index": 34,
+        "title": "DoNotExtendJavaLangThrowable",
+        "description_only": "Extend Exception or RuntimeException instead of Throwable.",
+        "rule_type": "errorprone",
+        "example": "public class Foo extends Throwable { }",
+        "description": "Extend Exception or RuntimeException instead of Throwable.\nExamples:\npublic class Foo extends Throwable { }",
+        "errorMessage": "Exceptions should not extend java.lang.Throwable",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#donotextendjavalangthrowable"
+    },
+    {
+        "index": 35,
+        "title": "DoNotHardCodeSDCard",
+        "description_only": "Use Environment.getExternalStorageDirectory() instead of \"/sdcard\"",
+        "rule_type": "errorprone",
+        "example": "public class MyActivity extends Activity {\n    protected void foo() {\n        String storageLocation = \"/sdcard/mypackage\";   // hard-coded, poor approach\n\n       storageLocation = Environment.getExternalStorageDirectory() + \"/mypackage\"; // preferred approach\n    }\n}",
+        "description": "Use Environment.getExternalStorageDirectory() instead of \"/sdcard\"\nExamples:\npublic class MyActivity extends Activity {\n    protected void foo() {\n        String storageLocation = \"/sdcard/mypackage\";   // hard-coded, poor approach\n\n       storageLocation = Environment.getExternalStorageDirectory() + \"/mypackage\"; // preferred approach\n    }\n}",
+        "errorMessage": "Do not hardcode /sdcard.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#donothardcodesdcard"
+    },
+    {
+        "index": 36,
+        "title": "DoNotTerminateVM",
+        "description_only": "Web applications should not call `System.exit()`, since only the web container or the\napplication server should stop the JVM. Otherwise a web application would terminate all other applications\nrunning on the same application server.\n\nThis rule also checks for the equivalent calls `Runtime.getRuntime().exit()` and `Runtime.getRuntime().halt()`.\n\nThis rule has been renamed from \"DoNotCallSystemExit\" in PMD 6.29.0.",
+        "rule_type": "errorprone",
+        "example": "public void bar() {\n    System.exit(0);                 // never call this when running in an application server!\n}\npublic void foo() {\n    Runtime.getRuntime().exit(0);   // never stop the JVM manually, the container will do this.\n}",
+        "description": "Web applications should not call `System.exit()`, since only the web container or the\napplication server should stop the JVM. Otherwise a web application would terminate all other applications\nrunning on the same application server.\n\nThis rule also checks for the equivalent calls `Runtime.getRuntime().exit()` and `Runtime.getRuntime().halt()`.\n\nThis rule has been renamed from \"DoNotCallSystemExit\" in PMD 6.29.0.\nExamples:\npublic void bar() {\n    System.exit(0);                 // never call this when running in an application server!\n}\npublic void foo() {\n    Runtime.getRuntime().exit(0);   // never stop the JVM manually, the container will do this.\n}",
+        "errorMessage": "System.exit() should not be used in J2EE/JEE apps",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#donotterminatevm"
+    },
+    {
+        "index": 37,
+        "title": "DoNotThrowExceptionInFinally",
+        "description_only": "Throwing exceptions within a 'finally' block is confusing since they may mask other exceptions\nor code defects.\nNote: This is a PMD implementation of the Lint4j rule \"A throw in a finally block\"",
+        "rule_type": "errorprone",
+        "example": "public class Foo {\n    public void bar() {\n        try {\n            // Here do some stuff\n        } catch( Exception e) {\n            // Handling the issue\n        } finally {\n            // is this really a good idea ?\n            throw new Exception();\n        }\n    }\n}",
+        "description": "Throwing exceptions within a 'finally' block is confusing since they may mask other exceptions\nor code defects.\nNote: This is a PMD implementation of the Lint4j rule \"A throw in a finally block\"\nExamples:\npublic class Foo {\n    public void bar() {\n        try {\n            // Here do some stuff\n        } catch( Exception e) {\n            // Handling the issue\n        } finally {\n            // is this really a good idea ?\n            throw new Exception();\n        }\n    }\n}",
+        "errorMessage": "A throw statement in a finally block makes the control flow hard to understand.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#donotthrowexceptioninfinally"
+    },
+    {
+        "index": 38,
+        "title": "DontImportSun",
+        "description_only": "Avoid importing anything from the 'sun.*' packages. These packages are not portable\nand are likely to change.\n\nIf you find yourself having to depend on Sun APIs, confine this dependency to as\nsmall a scope as possible, for instance by writing a stable wrapper class around\nthe unstable API. You can then suppress this rule in the implementation of the wrapper.",
+        "rule_type": "errorprone",
+        "example": "import sun.misc.foo;\npublic class Foo {}",
+        "description": "Avoid importing anything from the 'sun.*' packages. These packages are not portable\nand are likely to change.\n\nIf you find yourself having to depend on Sun APIs, confine this dependency to as\nsmall a scope as possible, for instance by writing a stable wrapper class around\nthe unstable API. You can then suppress this rule in the implementation of the wrapper.\nExamples:\nimport sun.misc.foo;\npublic class Foo {}",
+        "errorMessage": "Avoid importing anything from the 'sun.*' packages",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#dontimportsun"
+    },
+    {
+        "index": 39,
+        "title": "DontUseFloatTypeForLoopIndices",
+        "description_only": "Don't use floating point for loop indices. If you must use floating point, use double\nunless you're certain that float provides enough precision and you have a compelling\nperformance need (space or time).",
+        "rule_type": "errorprone",
+        "example": "public class Count {\n  public static void main(String[] args) {\n    final int START = 2000000000;\n    int count = 0;\n    for (float f = START; f < START + 50; f++)\n      count++;\n      //Prints 0 because (float) START == (float) (START + 50).\n      System.out.println(count);\n      //The termination test misbehaves due to floating point granularity.\n    }\n}",
+        "description": "Don't use floating point for loop indices. If you must use floating point, use double\nunless you're certain that float provides enough precision and you have a compelling\nperformance need (space or time).\nExamples:\npublic class Count {\n  public static void main(String[] args) {\n    final int START = 2000000000;\n    int count = 0;\n    for (float f = START; f < START + 50; f++)\n      count++;\n      //Prints 0 because (float) START == (float) (START + 50).\n      System.out.println(count);\n      //The termination test misbehaves due to floating point granularity.\n    }\n}",
+        "errorMessage": "Don't use floating point for loop indices. If you must use floating point, use double.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#dontusefloattypeforloopindices"
+    },
+    {
+        "index": 40,
+        "title": "EmptyCatchBlock",
+        "description_only": "Empty Catch Block finds instances where an exception is caught, but nothing is done.\nIn most circumstances, this swallows an exception which should either be acted on\nor reported.",
+        "rule_type": "errorprone",
+        "example": "public void doSomething() {\n    try {\n        FileInputStream fis = new FileInputStream(\"/tmp/bugger\");\n    } catch (IOException ioe) {\n        // not good\n    }\n}",
+        "description": "Empty Catch Block finds instances where an exception is caught, but nothing is done.\nIn most circumstances, this swallows an exception which should either be acted on\nor reported.\nExamples:\npublic void doSomething() {\n    try {\n        FileInputStream fis = new FileInputStream(\"/tmp/bugger\");\n    } catch (IOException ioe) {\n        // not good\n    }\n}",
+        "errorMessage": "Avoid empty catch blocks",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#emptycatchblock"
+    },
+    {
+        "index": 41,
+        "title": "EmptyFinalizer",
+        "description_only": "Empty finalize methods serve no purpose and should be removed. Note that Oracle has declared Object.finalize() as deprecated since JDK 9.",
+        "rule_type": "errorprone",
+        "example": "public class Foo {\n   protected void finalize() {}\n}",
+        "description": "Empty finalize methods serve no purpose and should be removed. Note that Oracle has declared Object.finalize() as deprecated since JDK 9.\nExamples:\npublic class Foo {\n   protected void finalize() {}\n}",
+        "errorMessage": "Avoid empty finalize methods",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#emptyfinalizer"
+    },
+    {
+        "index": 42,
+        "title": "EqualsNull",
+        "description_only": "Tests for null should not use the equals() method. The '==' operator should be used instead.",
+        "rule_type": "errorprone",
+        "example": "String x = \"foo\";\n\nif (x.equals(null)) {   // bad form\n    doSomething();\n}\n\nif (x == null) {        // preferred\n    doSomething();\n}",
+        "description": "Tests for null should not use the equals() method. The '==' operator should be used instead.\nExamples:\nString x = \"foo\";\n\nif (x.equals(null)) {   // bad form\n    doSomething();\n}\n\nif (x == null) {        // preferred\n    doSomething();\n}",
+        "errorMessage": "Avoid using equals() to compare against null",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#equalsnull"
+    },
+    {
+        "index": 43,
+        "title": "FinalizeDoesNotCallSuperFinalize",
+        "description_only": "If the finalize() is implemented, its last action should be to call super.finalize. Note that Oracle has declared Object.finalize() as deprecated since JDK 9.",
+        "rule_type": "errorprone",
+        "example": "protected void finalize() {\n    something();\n    // neglected to call super.finalize()\n}",
+        "description": "If the finalize() is implemented, its last action should be to call super.finalize. Note that Oracle has declared Object.finalize() as deprecated since JDK 9.\nExamples:\nprotected void finalize() {\n    something();\n    // neglected to call super.finalize()\n}",
+        "errorMessage": "Last statement in finalize method should be a call to super.finalize()",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#finalizedoesnotcallsuperfinalize"
+    },
+    {
+        "index": 44,
+        "title": "FinalizeOnlyCallsSuperFinalize",
+        "description_only": "If the finalize() is implemented, it should do something besides just calling super.finalize(). Note that Oracle has declared Object.finalize() as deprecated since JDK 9.",
+        "rule_type": "errorprone",
+        "example": "protected void finalize() {\n    super.finalize();\n}",
+        "description": "If the finalize() is implemented, it should do something besides just calling super.finalize(). Note that Oracle has declared Object.finalize() as deprecated since JDK 9.\nExamples:\nprotected void finalize() {\n    super.finalize();\n}",
+        "errorMessage": "Finalize should do something besides just calling super.finalize()",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#finalizeonlycallssuperfinalize"
+    },
+    {
+        "index": 45,
+        "title": "FinalizeOverloaded",
+        "description_only": "Methods named finalize() should not have parameters.  It is confusing and most likely an attempt to\noverload Object.finalize(). It will not be called by the VM.\n\nNote that Oracle has declared Object.finalize() as deprecated since JDK 9.",
+        "rule_type": "errorprone",
+        "example": "public class Foo {\n    // this is confusing and probably a bug\n    protected void finalize(int a) {\n    }\n}",
+        "description": "Methods named finalize() should not have parameters.  It is confusing and most likely an attempt to\noverload Object.finalize(). It will not be called by the VM.\n\nNote that Oracle has declared Object.finalize() as deprecated since JDK 9.\nExamples:\npublic class Foo {\n    // this is confusing and probably a bug\n    protected void finalize(int a) {\n    }\n}",
+        "errorMessage": "Finalize methods should not be overloaded",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#finalizeoverloaded"
+    },
+    {
+        "index": 46,
+        "title": "FinalizeShouldBeProtected",
+        "description_only": "When overriding the finalize(), the new method should be set as protected.  If made public,\nother classes may invoke it at inappropriate times.\n\nNote that Oracle has declared Object.finalize() as deprecated since JDK 9.",
+        "rule_type": "errorprone",
+        "example": "public void finalize() {\n    // do something\n}",
+        "description": "When overriding the finalize(), the new method should be set as protected.  If made public,\nother classes may invoke it at inappropriate times.\n\nNote that Oracle has declared Object.finalize() as deprecated since JDK 9.\nExamples:\npublic void finalize() {\n    // do something\n}",
+        "errorMessage": "If you override finalize(), make it protected",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#finalizeshouldbeprotected"
+    },
+    {
+        "index": 47,
+        "title": "IdempotentOperations",
+        "description_only": "Avoid idempotent operations - they have no effect.",
+        "rule_type": "errorprone",
+        "example": "public class Foo {\n public void bar() {\n  int x = 2;\n  x = x;\n }\n}",
+        "description": "Avoid idempotent operations - they have no effect.\nExamples:\npublic class Foo {\n public void bar() {\n  int x = 2;\n  x = x;\n }\n}",
+        "errorMessage": "Avoid idempotent operations (like assigning a variable to itself).",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#idempotentoperations"
+    },
+    {
+        "index": 48,
+        "title": "ImplicitSwitchFallThrough",
+        "description_only": "Switch statements without break or return statements for each case option\nmay indicate problematic behaviour. Empty cases are ignored as these indicate\nan intentional fall-through.\n\nYou can ignore a violation by commenting `// fallthrough` before the case label\nwhich is reached by fallthrough, or with `@SuppressWarnings(\"fallthrough\")`.\n\nThis rule has been renamed from \"MissingBreakInSwitch\" in PMD 6.37.0.",
+        "rule_type": "errorprone",
+        "example": "public void bar(int status) {\n    switch(status) {\n      case CANCELLED:\n        doCancelled();\n        // break; hm, should this be commented out?\n      case NEW:\n        doNew();\n        // is this really a fall-through?\n        // what happens if you add another case after this one?\n      case REMOVED:\n        doRemoved();\n        // fallthrough - this comment just clarifies that you want a fallthrough\n      case OTHER: // empty case - this is interpreted as an intentional fall-through\n      case ERROR:\n        doErrorHandling();\n        break;\n    }\n}",
+        "description": "Switch statements without break or return statements for each case option\nmay indicate problematic behaviour. Empty cases are ignored as these indicate\nan intentional fall-through.\n\nYou can ignore a violation by commenting `// fallthrough` before the case label\nwhich is reached by fallthrough, or with `@SuppressWarnings(\"fallthrough\")`.\n\nThis rule has been renamed from \"MissingBreakInSwitch\" in PMD 6.37.0.\nExamples:\npublic void bar(int status) {\n    switch(status) {\n      case CANCELLED:\n        doCancelled();\n        // break; hm, should this be commented out?\n      case NEW:\n        doNew();\n        // is this really a fall-through?\n        // what happens if you add another case after this one?\n      case REMOVED:\n        doRemoved();\n        // fallthrough - this comment just clarifies that you want a fallthrough\n      case OTHER: // empty case - this is interpreted as an intentional fall-through\n      case ERROR:\n        doErrorHandling();\n        break;\n    }\n}",
+        "errorMessage": "This switch case may be reached by fallthrough from the previous case",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#implicitswitchfallthrough"
+    },
+    {
+        "index": 49,
+        "title": "InstantiationToGetClass",
+        "description_only": "Avoid instantiating an object just to call getClass() on it; use the .class public member instead.",
+        "rule_type": "errorprone",
+        "example": "// replace this\nClass c = new String().getClass();\n\n// with this:\nClass c = String.class;",
+        "description": "Avoid instantiating an object just to call getClass() on it; use the .class public member instead.\nExamples:\n// replace this\nClass c = new String().getClass();\n\n// with this:\nClass c = String.class;",
+        "errorMessage": "Avoid instantiating an object just to call getClass() on it; use the .class public member instead",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#instantiationtogetclass"
+    },
+    {
+        "index": 50,
+        "title": "InvalidLogMessageFormat",
+        "description_only": "Check for messages in slf4j and log4j2 (since 6.19.0) loggers with non matching number of arguments and placeholders.\n\nSince 6.32.0 in addition to parameterized message placeholders (`{}`) also format specifiers of string formatted\nmessages are supported (`%s`).\n\nThis rule has been renamed from \"InvalidSlf4jMessageFormat\" in PMD 6.19.0.",
+        "rule_type": "errorprone",
+        "example": "LOGGER.error(\"forget the arg {}\");\nLOGGER.error(\"forget the arg %s\");\nLOGGER.error(\"too many args {}\", \"arg1\", \"arg2\");\nLOGGER.error(\"param {}\", \"arg1\", new IllegalStateException(\"arg\")); //The exception is shown separately, so is correct.",
+        "description": "Check for messages in slf4j and log4j2 (since 6.19.0) loggers with non matching number of arguments and placeholders.\n\nSince 6.32.0 in addition to parameterized message placeholders (`{}`) also format specifiers of string formatted\nmessages are supported (`%s`).\n\nThis rule has been renamed from \"InvalidSlf4jMessageFormat\" in PMD 6.19.0.\nExamples:\nLOGGER.error(\"forget the arg {}\");\nLOGGER.error(\"forget the arg %s\");\nLOGGER.error(\"too many args {}\", \"arg1\", \"arg2\");\nLOGGER.error(\"param {}\", \"arg1\", new IllegalStateException(\"arg\")); //The exception is shown separately, so is correct.",
+        "errorMessage": "Invalid message format",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#invalidlogmessageformat"
+    },
+    {
+        "index": 51,
+        "title": "JumbledIncrementer",
+        "description_only": "Avoid jumbled loop incrementers - it's usually a mistake, and is confusing even if intentional.",
+        "rule_type": "errorprone",
+        "example": "public class JumbledIncrementerRule1 {\n    public void foo() {\n        for (int i = 0; i < 10; i++) {          // only references 'i'\n            for (int k = 0; k < 20; i++) {      // references both 'i' and 'k'\n                System.out.println(\"Hello\");\n            }\n        }\n    }\n}",
+        "description": "Avoid jumbled loop incrementers - it's usually a mistake, and is confusing even if intentional.\nExamples:\npublic class JumbledIncrementerRule1 {\n    public void foo() {\n        for (int i = 0; i < 10; i++) {          // only references 'i'\n            for (int k = 0; k < 20; i++) {      // references both 'i' and 'k'\n                System.out.println(\"Hello\");\n            }\n        }\n    }\n}",
+        "errorMessage": "Avoid modifying an outer loop incrementer in an inner loop for update expression",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#jumbledincrementer"
+    },
+    {
+        "index": 52,
+        "title": "JUnitSpelling",
+        "description_only": "In JUnit 3, the setUp method is used to set up all data entities required in running tests.\n            The tearDown method is used to clean up all data entities required in running tests.\n            You should not misspell method name if you want your test to set up and clean up everything correctly.",
+        "rule_type": "errorprone",
+        "example": "import junit.framework.*;\n\npublic class Foo extends TestCase {\n    public void setup() {}    // oops, should be setUp\n    public void TearDown() {} // oops, should be tearDown\n}",
+        "description": "In JUnit 3, the setUp method is used to set up all data entities required in running tests.\n            The tearDown method is used to clean up all data entities required in running tests.\n            You should not misspell method name if you want your test to set up and clean up everything correctly.\nExamples:\nimport junit.framework.*;\n\npublic class Foo extends TestCase {\n    public void setup() {}    // oops, should be setUp\n    public void TearDown() {} // oops, should be tearDown\n}",
+        "errorMessage": "You may have misspelled a JUnit framework method (setUp or tearDown)",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#junitspelling"
+    },
+    {
+        "index": 53,
+        "title": "JUnitStaticSuite",
+        "description_only": "The suite() method in a JUnit test needs to be both public and static.",
+        "rule_type": "errorprone",
+        "example": "import junit.framework.*;\n\npublic class Foo extends TestCase {\n    public void suite() {}         // oops, should be static\n}\n---\nimport junit.framework.*;\n\npublic class Foo extends TestCase {\n    private static void suite() {} // oops, should be public\n}",
+        "description": "The suite() method in a JUnit test needs to be both public and static.\nExamples:\nimport junit.framework.*;\n\npublic class Foo extends TestCase {\n    public void suite() {}         // oops, should be static\n}\n---\nimport junit.framework.*;\n\npublic class Foo extends TestCase {\n    private static void suite() {} // oops, should be public\n}",
+        "errorMessage": "You have a suite() method that is not both public and static, so JUnit won't call it to get your TestSuite.  Is that what you wanted to do?",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#junitstaticsuite"
+    },
+    {
+        "index": 54,
+        "title": "MethodWithSameNameAsEnclosingClass",
+        "description_only": "A method should not have the same name as its containing class.\nThis would be confusing as it would look like a constructor.",
+        "rule_type": "errorprone",
+        "example": "public class MyClass {\n\n    public MyClass() {}         // this is OK because it is a constructor\n\n    public void MyClass() {}    // this is bad because it is a method\n}",
+        "description": "A method should not have the same name as its containing class.\nThis would be confusing as it would look like a constructor.\nExamples:\npublic class MyClass {\n\n    public MyClass() {}         // this is OK because it is a constructor\n\n    public void MyClass() {}    // this is bad because it is a method\n}",
+        "errorMessage": "A method should not have the same name as its containing class",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#methodwithsamenameasenclosingclass"
+    },
+    {
+        "index": 55,
+        "title": "MisplacedNullCheck",
+        "description_only": "The null check here is misplaced. If the variable is null a `NullPointerException` will be thrown.\nEither the check is useless (the variable will never be `null`) or it is incorrect.",
+        "rule_type": "errorprone",
+        "example": "public class Foo {\n    void bar() {\n        if (a.equals(baz) && a != null) {} // a could be null, misplaced null check\n\n        if (a != null && a.equals(baz)) {} // correct null check\n    }\n}\n---\npublic class Foo {\n    void bar() {\n        if (a.equals(baz) || a == null) {} // a could be null, misplaced null check\n\n        if (a == null || a.equals(baz)) {} // correct null check\n    }\n}",
+        "description": "The null check here is misplaced. If the variable is null a `NullPointerException` will be thrown.\nEither the check is useless (the variable will never be `null`) or it is incorrect.\nExamples:\npublic class Foo {\n    void bar() {\n        if (a.equals(baz) && a != null) {} // a could be null, misplaced null check\n\n        if (a != null && a.equals(baz)) {} // correct null check\n    }\n}\n---\npublic class Foo {\n    void bar() {\n        if (a.equals(baz) || a == null) {} // a could be null, misplaced null check\n\n        if (a == null || a.equals(baz)) {} // correct null check\n    }\n}",
+        "errorMessage": "The null check here is misplaced; if the variable ''{0}'' is null there will be a NullPointerException",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#misplacednullcheck"
+    },
+    {
+        "index": 56,
+        "title": "MissingSerialVersionUID",
+        "description_only": "Serializable classes should provide a serialVersionUID field.\nThe serialVersionUID field is also needed for abstract base classes. Each individual class in the inheritance\nchain needs an own serialVersionUID field. See also [Should an abstract class have a serialVersionUID](https://stackoverflow.com/questions/893259/should-an-abstract-class-have-a-serialversionuid).",
+        "rule_type": "errorprone",
+        "example": "public class Foo implements java.io.Serializable {\n    String name;\n    // Define serialization id to avoid serialization related bugs\n    // i.e., public static final long serialVersionUID = 4328743;\n}",
+        "description": "Serializable classes should provide a serialVersionUID field.\nThe serialVersionUID field is also needed for abstract base classes. Each individual class in the inheritance\nchain needs an own serialVersionUID field. See also [Should an abstract class have a serialVersionUID](https://stackoverflow.com/questions/893259/should-an-abstract-class-have-a-serialversionuid).\nExamples:\npublic class Foo implements java.io.Serializable {\n    String name;\n    // Define serialization id to avoid serialization related bugs\n    // i.e., public static final long serialVersionUID = 4328743;\n}",
+        "errorMessage": "Classes implementing Serializable should set a serialVersionUID",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#missingserialversionuid"
+    },
+    {
+        "index": 57,
+        "title": "MissingStaticMethodInNonInstantiatableClass",
+        "description_only": "A class that has private constructors and does not have any static methods or fields cannot be used.\n\nWhen one of the private constructors is annotated with one of the annotations, then the class is not considered\nnon-instantiatable anymore and no violation will be reported.\nSee the property `annotations`.",
+        "rule_type": "errorprone",
+        "example": "// This class is unusable, since it cannot be\n// instantiated (private constructor),\n// and no static method can be called.\n\npublic class Foo {\n  private Foo() {}\n  void foo() {}\n}",
+        "description": "A class that has private constructors and does not have any static methods or fields cannot be used.\n\nWhen one of the private constructors is annotated with one of the annotations, then the class is not considered\nnon-instantiatable anymore and no violation will be reported.\nSee the property `annotations`.\nExamples:\n// This class is unusable, since it cannot be\n// instantiated (private constructor),\n// and no static method can be called.\n\npublic class Foo {\n  private Foo() {}\n  void foo() {}\n}",
+        "errorMessage": "Class cannot be instantiated and does not provide any static methods or fields",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#missingstaticmethodinnoninstantiatableclass"
+    },
+    {
+        "index": 58,
+        "title": "MoreThanOneLogger",
+        "description_only": "Normally only one logger is used in each class. This rule supports slf4j, log4j, Java Util Logging and\nlog4j2 (since 6.19.0).",
+        "rule_type": "errorprone",
+        "example": "public class Foo {\n    Logger log = Logger.getLogger(Foo.class.getName());\n    // It is very rare to see two loggers on a class, normally\n    // log information is multiplexed by levels\n    Logger log2= Logger.getLogger(Foo.class.getName());\n}",
+        "description": "Normally only one logger is used in each class. This rule supports slf4j, log4j, Java Util Logging and\nlog4j2 (since 6.19.0).\nExamples:\npublic class Foo {\n    Logger log = Logger.getLogger(Foo.class.getName());\n    // It is very rare to see two loggers on a class, normally\n    // log information is multiplexed by levels\n    Logger log2= Logger.getLogger(Foo.class.getName());\n}",
+        "errorMessage": "Class contains more than one logger.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#morethanonelogger"
+    },
+    {
+        "index": 59,
+        "title": "NonCaseLabelInSwitchStatement",
+        "description_only": "",
+        "rule_type": "errorprone",
+        "example": "",
+        "description": "",
+        "errorMessage": "",
+        "url": ""
+    },
+    {
+        "index": 60,
+        "title": "NonCaseLabelInSwitch",
+        "description_only": "A non-case label (e.g. a named break/continue label) was present in a switch statement or switch expression.\nThis is legal, but confusing. It is easy to mix up the case labels and the non-case labels.\n\nNote: This rule was renamed from `NonCaseLabelInSwitchStatement` with PMD 7.7.0.",
+        "rule_type": "errorprone",
+        "example": "public class Foo {\n  void bar(int a) {\n   switch (a) {\n     case 1:\n       // do something\n     mylabel: // this is legal, but confusing!\n       break;\n     default:\n       break;\n    }\n  }\n}",
+        "description": "A non-case label (e.g. a named break/continue label) was present in a switch statement or switch expression.\nThis is legal, but confusing. It is easy to mix up the case labels and the non-case labels.\n\nNote: This rule was renamed from `NonCaseLabelInSwitchStatement` with PMD 7.7.0.\nExamples:\npublic class Foo {\n  void bar(int a) {\n   switch (a) {\n     case 1:\n       // do something\n     mylabel: // this is legal, but confusing!\n       break;\n     default:\n       break;\n    }\n  }\n}",
+        "errorMessage": "A non-case label was present in a switch statement or expression",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#noncaselabelinswitch"
+    },
+    {
+        "index": 61,
+        "title": "NonSerializableClass",
+        "description_only": "If a class is marked as `Serializable`, then all fields need to be serializable as well. In order to exclude\na field, it can be marked as transient. Static fields are not considered.\n\nThis rule reports all fields, that are not serializable.\n\nIf a class implements the methods to perform manual serialization (`writeObject`, `readObject`) or uses\na replacement object (`writeReplace`, `readResolve`) then this class is ignored.\n\nNote: This rule has been revamped with PMD 6.52.0. It was previously called \"BeanMembersShouldSerialize\".\nThe property `prefix` has been deprecated, since in a serializable class all fields have to be\nserializable regardless of the name.",
+        "rule_type": "errorprone",
+        "example": "class Buzz implements java.io.Serializable {\n    private static final long serialVersionUID = 1L;\n\n    private transient int someFoo;          // good, it's transient\n    private static int otherFoo;            // also OK, it's static\n    private java.io.FileInputStream stream; // bad - FileInputStream is not serializable\n\n    public void setStream(FileInputStream stream) {\n        this.stream = stream;\n    }\n\n    public int getSomeFoo() {\n          return this.someFoo;\n    }\n}",
+        "description": "If a class is marked as `Serializable`, then all fields need to be serializable as well. In order to exclude\na field, it can be marked as transient. Static fields are not considered.\n\nThis rule reports all fields, that are not serializable.\n\nIf a class implements the methods to perform manual serialization (`writeObject`, `readObject`) or uses\na replacement object (`writeReplace`, `readResolve`) then this class is ignored.\n\nNote: This rule has been revamped with PMD 6.52.0. It was previously called \"BeanMembersShouldSerialize\".\nThe property `prefix` has been deprecated, since in a serializable class all fields have to be\nserializable regardless of the name.\nExamples:\nclass Buzz implements java.io.Serializable {\n    private static final long serialVersionUID = 1L;\n\n    private transient int someFoo;          // good, it's transient\n    private static int otherFoo;            // also OK, it's static\n    private java.io.FileInputStream stream; // bad - FileInputStream is not serializable\n\n    public void setStream(FileInputStream stream) {\n        this.stream = stream;\n    }\n\n    public int getSomeFoo() {\n          return this.someFoo;\n    }\n}",
+        "errorMessage": "The field ''{0}'' of serializable class ''{1}'' is of non-serializable type ''{2}''.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#nonserializableclass"
+    },
+    {
+        "index": 62,
+        "title": "NonStaticInitializer",
+        "description_only": "A non-static initializer block will be called any time a constructor is invoked (just prior to\ninvoking the constructor).  While this is a valid language construct, it is rarely used and is\nconfusing.",
+        "rule_type": "errorprone",
+        "example": "public class MyClass {\n  // this block gets run before any call to a constructor\n  {\n    System.out.println(\"I am about to construct myself\");\n  }\n}",
+        "description": "A non-static initializer block will be called any time a constructor is invoked (just prior to\ninvoking the constructor).  While this is a valid language construct, it is rarely used and is\nconfusing.\nExamples:\npublic class MyClass {\n  // this block gets run before any call to a constructor\n  {\n    System.out.println(\"I am about to construct myself\");\n  }\n}",
+        "errorMessage": "Non-static initializers are confusing",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#nonstaticinitializer"
+    },
+    {
+        "index": 63,
+        "title": "NullAssignment",
+        "description_only": "Assigning a \"null\" to a variable (outside of its declaration) is usually bad form.  Sometimes, this type\nof assignment is an indication that the programmer doesn't completely understand what is going on in the code.\n\nNOTE: This sort of assignment may used in some cases to dereference objects and encourage garbage collection.",
+        "rule_type": "errorprone",
+        "example": "public void bar() {\n  Object x = null; // this is OK\n  x = new Object();\n     // big, complex piece of code here\n  x = null; // this is not required\n     // big, complex piece of code here\n}",
+        "description": "Assigning a \"null\" to a variable (outside of its declaration) is usually bad form.  Sometimes, this type\nof assignment is an indication that the programmer doesn't completely understand what is going on in the code.\n\nNOTE: This sort of assignment may used in some cases to dereference objects and encourage garbage collection.\nExamples:\npublic void bar() {\n  Object x = null; // this is OK\n  x = new Object();\n     // big, complex piece of code here\n  x = null; // this is not required\n     // big, complex piece of code here\n}",
+        "errorMessage": "Assigning an Object to null is a code smell.  Consider refactoring.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#nullassignment"
+    },
+    {
+        "index": 64,
+        "title": "OverrideBothEqualsAndHashcode",
+        "description_only": "Override both public boolean Object.equals(Object other), and public int Object.hashCode(), or override neither.  Even if you are inheriting a hashCode() from a parent class, consider implementing hashCode and explicitly delegating to your superclass.",
+        "rule_type": "errorprone",
+        "example": "public class Bar {        // poor, missing a hashcode() method\n    public boolean equals(Object o) {\n      // do some comparison\n    }\n}\n\npublic class Baz {        // poor, missing an equals() method\n    public int hashCode() {\n      // return some hash value\n    }\n}\n\npublic class Foo {        // perfect, both methods provided\n    public boolean equals(Object other) {\n      // do some comparison\n    }\n    public int hashCode() {\n      // return some hash value\n    }\n}",
+        "description": "Override both public boolean Object.equals(Object other), and public int Object.hashCode(), or override neither.  Even if you are inheriting a hashCode() from a parent class, consider implementing hashCode and explicitly delegating to your superclass.\nExamples:\npublic class Bar {        // poor, missing a hashcode() method\n    public boolean equals(Object o) {\n      // do some comparison\n    }\n}\n\npublic class Baz {        // poor, missing an equals() method\n    public int hashCode() {\n      // return some hash value\n    }\n}\n\npublic class Foo {        // perfect, both methods provided\n    public boolean equals(Object other) {\n      // do some comparison\n    }\n    public int hashCode() {\n      // return some hash value\n    }\n}",
+        "errorMessage": "Ensure you override both equals() and hashCode()",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#overridebothequalsandhashcode"
+    },
+    {
+        "index": 65,
+        "title": "ProperCloneImplementation",
+        "description_only": "Object clone() should be implemented with super.clone().",
+        "rule_type": "errorprone",
+        "example": "class Foo{\n    public Object clone(){\n        return new Foo(); // This is bad\n    }\n}",
+        "description": "Object clone() should be implemented with super.clone().\nExamples:\nclass Foo{\n    public Object clone(){\n        return new Foo(); // This is bad\n    }\n}",
+        "errorMessage": "Object clone() should be implemented with super.clone()",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#propercloneimplementation"
+    },
+    {
+        "index": 66,
+        "title": "ProperLogger",
+        "description_only": "A logger should normally be defined private static final and be associated with the correct class.\n`private final Log log;` is also allowed for rare cases where loggers need to be passed around,\nwith the restriction that the logger needs to be passed into the constructor.",
+        "rule_type": "errorprone",
+        "example": "public class Foo {\n\n    private static final Log LOG = LogFactory.getLog(Foo.class);    // proper way\n\n    protected Log LOG = LogFactory.getLog(Testclass.class);         // wrong approach\n}",
+        "description": "A logger should normally be defined private static final and be associated with the correct class.\n`private final Log log;` is also allowed for rare cases where loggers need to be passed around,\nwith the restriction that the logger needs to be passed into the constructor.\nExamples:\npublic class Foo {\n\n    private static final Log LOG = LogFactory.getLog(Foo.class);    // proper way\n\n    protected Log LOG = LogFactory.getLog(Testclass.class);         // wrong approach\n}",
+        "errorMessage": "Logger should be defined private static final and have the correct class",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#properlogger"
+    },
+    {
+        "index": 67,
+        "title": "ReturnEmptyCollectionRatherThanNull",
+        "description_only": "For any method that returns an collection (such as an array, Collection or Map), it is better to return\nan empty one rather than a null reference. This removes the need for null checking all results and avoids\ninadvertent NullPointerExceptions.\n\nSee Effective Java, 3rd Edition, Item 54: Return empty collections or arrays instead of null",
+        "rule_type": "errorprone",
+        "example": "public class Example {\n    // Not a good idea...\n    public int[] badBehavior() {\n        // ...\n        return null;\n    }\n\n    // Good behavior\n    public String[] bonnePratique() {\n        //...\n        return new String[0];\n    }\n}",
+        "description": "For any method that returns an collection (such as an array, Collection or Map), it is better to return\nan empty one rather than a null reference. This removes the need for null checking all results and avoids\ninadvertent NullPointerExceptions.\n\nSee Effective Java, 3rd Edition, Item 54: Return empty collections or arrays instead of null\nExamples:\npublic class Example {\n    // Not a good idea...\n    public int[] badBehavior() {\n        // ...\n        return null;\n    }\n\n    // Good behavior\n    public String[] bonnePratique() {\n        //...\n        return new String[0];\n    }\n}",
+        "errorMessage": "Return an empty collection rather than 'null'.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#returnemptycollectionratherthannull"
+    },
+    {
+        "index": 68,
+        "title": "ReturnFromFinallyBlock",
+        "description_only": "Avoid returning from a finally block, this can discard exceptions.",
+        "rule_type": "errorprone",
+        "example": "public class Bar {\n    public String foo() {\n        try {\n            throw new Exception( \"My Exception\" );\n        } catch (Exception e) {\n            throw e;\n        } finally {\n            return \"A. O. K.\"; // return not recommended here\n        }\n    }\n}",
+        "description": "Avoid returning from a finally block, this can discard exceptions.\nExamples:\npublic class Bar {\n    public String foo() {\n        try {\n            throw new Exception( \"My Exception\" );\n        } catch (Exception e) {\n            throw e;\n        } finally {\n            return \"A. O. K.\"; // return not recommended here\n        }\n    }\n}",
+        "errorMessage": "Avoid returning from a finally block",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#returnfromfinallyblock"
+    },
+    {
+        "index": 69,
+        "title": "SimpleDateFormatNeedsLocale",
+        "description_only": "Be sure to specify a Locale when creating SimpleDateFormat instances to ensure that locale-appropriate\nformatting is used.",
+        "rule_type": "errorprone",
+        "example": "public class Foo {\n  // Should specify Locale.US (or whatever)\n  private SimpleDateFormat sdf = new SimpleDateFormat(\"pattern\");\n}",
+        "description": "Be sure to specify a Locale when creating SimpleDateFormat instances to ensure that locale-appropriate\nformatting is used.\nExamples:\npublic class Foo {\n  // Should specify Locale.US (or whatever)\n  private SimpleDateFormat sdf = new SimpleDateFormat(\"pattern\");\n}",
+        "errorMessage": "When instantiating a SimpleDateFormat object, specify a Locale",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#simpledateformatneedslocale"
+    },
+    {
+        "index": 70,
+        "title": "SingleMethodSingleton",
+        "description_only": "Some classes contain overloaded getInstance. The problem with overloaded getInstance methods\nis that the instance created using the overloaded method is not cached and so,\nfor each call and new objects will be created for every invocation.",
+        "rule_type": "errorprone",
+        "example": "public class Singleton {\n\n    private static Singleton singleton = new Singleton( );\n\n    private Singleton(){ }\n\n    public static Singleton getInstance( ) {\n        return singleton;\n    }\n\n    public static Singleton getInstance(Object obj){\n        Singleton singleton = (Singleton) obj;\n        return singleton;           //violation\n    }\n}",
+        "description": "Some classes contain overloaded getInstance. The problem with overloaded getInstance methods\nis that the instance created using the overloaded method is not cached and so,\nfor each call and new objects will be created for every invocation.\nExamples:\npublic class Singleton {\n\n    private static Singleton singleton = new Singleton( );\n\n    private Singleton(){ }\n\n    public static Singleton getInstance( ) {\n        return singleton;\n    }\n\n    public static Singleton getInstance(Object obj){\n        Singleton singleton = (Singleton) obj;\n        return singleton;           //violation\n    }\n}",
+        "errorMessage": "Class contains multiple getInstance methods. Please review.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#singlemethodsingleton"
+    },
+    {
+        "index": 71,
+        "title": "SingletonClassReturningNewInstance",
+        "description_only": "A singleton class should only ever have one instance. Failure to check\n            whether an instance has already been created may result in multiple\n            instances being created.",
+        "rule_type": "errorprone",
+        "example": "class Singleton {\n    private static Singleton instance = null;\n    public static Singleton getInstance() {\n        synchronized(Singleton.class) {\n            return new Singleton(); // this should be assigned to the field\n        }\n    }\n}",
+        "description": "A singleton class should only ever have one instance. Failure to check\n            whether an instance has already been created may result in multiple\n            instances being created.\nExamples:\nclass Singleton {\n    private static Singleton instance = null;\n    public static Singleton getInstance() {\n        synchronized(Singleton.class) {\n            return new Singleton(); // this should be assigned to the field\n        }\n    }\n}",
+        "errorMessage": "getInstance method always creates a new object and hence does not comply to Singleton Design Pattern behaviour. Please review",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#singletonclassreturningnewinstance"
+    },
+    {
+        "index": 72,
+        "title": "StaticEJBFieldShouldBeFinal",
+        "description_only": "According to the J2EE specification, an EJB should not have any static fields\nwith write access. However, static read-only fields are allowed. This ensures proper\nbehavior especially when instances are distributed by the container on several JREs.",
+        "rule_type": "errorprone",
+        "example": "public class SomeEJB extends EJBObject implements EJBLocalHome {\n\n    private static int CountA;          // poor, field can be edited\n\n    private static final int CountB;    // preferred, read-only access\n}",
+        "description": "According to the J2EE specification, an EJB should not have any static fields\nwith write access. However, static read-only fields are allowed. This ensures proper\nbehavior especially when instances are distributed by the container on several JREs.\nExamples:\npublic class SomeEJB extends EJBObject implements EJBLocalHome {\n\n    private static int CountA;          // poor, field can be edited\n\n    private static final int CountB;    // preferred, read-only access\n}",
+        "errorMessage": "EJB's shouldn't have non-final static fields",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#staticejbfieldshouldbefinal"
+    },
+    {
+        "index": 73,
+        "title": "StringBufferInstantiationWithChar",
+        "description_only": "Individual character values provided as initialization arguments will be converted into integers.\nThis can lead to internal buffer sizes that are larger than expected. Some examples:\n\n```\nnew StringBuffer()      //  16\nnew StringBuffer(6)     //  6\nnew StringBuffer(\"hello world\")  // 11 + 16 = 27\nnew StringBuffer('A')   //  chr(A) = 65\nnew StringBuffer(\"A\")   //  1 + 16 = 17\n\nnew StringBuilder()     //  16\nnew StringBuilder(6)    //  6\nnew StringBuilder(\"hello world\")  // 11 + 16 = 27\nnew StringBuilder('C')   //  chr(C) = 67\nnew StringBuilder(\"A\")   //  1 + 16 = 17\n```",
+        "rule_type": "errorprone",
+        "example": "// misleading instantiation, these buffers\n// are actually sized to 99 characters long\nStringBuffer  sb1 = new StringBuffer('c');\nStringBuilder sb2 = new StringBuilder('c');\n\n// in these forms, just single characters are allocated\nStringBuffer  sb3 = new StringBuffer(\"c\");\nStringBuilder sb4 = new StringBuilder(\"c\");",
+        "description": "Individual character values provided as initialization arguments will be converted into integers.\nThis can lead to internal buffer sizes that are larger than expected. Some examples:\n\n```\nnew StringBuffer()      //  16\nnew StringBuffer(6)     //  6\nnew StringBuffer(\"hello world\")  // 11 + 16 = 27\nnew StringBuffer('A')   //  chr(A) = 65\nnew StringBuffer(\"A\")   //  1 + 16 = 17\n\nnew StringBuilder()     //  16\nnew StringBuilder(6)    //  6\nnew StringBuilder(\"hello world\")  // 11 + 16 = 27\nnew StringBuilder('C')   //  chr(C) = 67\nnew StringBuilder(\"A\")   //  1 + 16 = 17\n```\nExamples:\n// misleading instantiation, these buffers\n// are actually sized to 99 characters long\nStringBuffer  sb1 = new StringBuffer('c');\nStringBuilder sb2 = new StringBuilder('c');\n\n// in these forms, just single characters are allocated\nStringBuffer  sb3 = new StringBuffer(\"c\");\nStringBuilder sb4 = new StringBuilder(\"c\");",
+        "errorMessage": "Argument to `new StringBuilder()` or `new StringBuffer()` is implicitly converted from char to int",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#stringbufferinstantiationwithchar"
+    },
+    {
+        "index": 74,
+        "title": "SuspiciousEqualsMethodName",
+        "description_only": "The method name and parameter number are suspiciously close to `Object.equals`, which can denote an\nintention to override it. However, the method does not override `Object.equals`, but overloads it instead.\nOverloading `Object.equals` method is confusing for other programmers, error-prone and hard to maintain,\nespecially when using inheritance, because `@Override` annotations used in subclasses can provide a false\nsense of security. For more information on `Object.equals` method, see Effective Java, 3rd Edition,\nItem 10: Obey the general contract when overriding equals.",
+        "rule_type": "errorprone",
+        "example": "public class Foo {\n   public int equals(Object o) {\n     // oops, this probably was supposed to be boolean equals\n   }\n   public boolean equals(String s) {\n     // oops, this probably was supposed to be equals(Object)\n   }\n   public boolean equals(Object o1, Object o2) {\n     // oops, this probably was supposed to be equals(Object)\n   }\n}",
+        "description": "The method name and parameter number are suspiciously close to `Object.equals`, which can denote an\nintention to override it. However, the method does not override `Object.equals`, but overloads it instead.\nOverloading `Object.equals` method is confusing for other programmers, error-prone and hard to maintain,\nespecially when using inheritance, because `@Override` annotations used in subclasses can provide a false\nsense of security. For more information on `Object.equals` method, see Effective Java, 3rd Edition,\nItem 10: Obey the general contract when overriding equals.\nExamples:\npublic class Foo {\n   public int equals(Object o) {\n     // oops, this probably was supposed to be boolean equals\n   }\n   public boolean equals(String s) {\n     // oops, this probably was supposed to be equals(Object)\n   }\n   public boolean equals(Object o1, Object o2) {\n     // oops, this probably was supposed to be equals(Object)\n   }\n}",
+        "errorMessage": "The method name and parameter number are suspiciously close to equals(Object)",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#suspiciousequalsmethodname"
+    },
+    {
+        "index": 75,
+        "title": "SuspiciousHashcodeMethodName",
+        "description_only": "The method name and return type are suspiciously close to hashCode(), which may denote an intention\nto override the hashCode() method.",
+        "rule_type": "errorprone",
+        "example": "public class Foo {\n    public int hashcode() { // oops, this probably was supposed to be 'hashCode'\n    }\n}",
+        "description": "The method name and return type are suspiciously close to hashCode(), which may denote an intention\nto override the hashCode() method.\nExamples:\npublic class Foo {\n    public int hashcode() { // oops, this probably was supposed to be 'hashCode'\n    }\n}",
+        "errorMessage": "The method name and return type are suspiciously close to hashCode()",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#suspicioushashcodemethodname"
+    },
+    {
+        "index": 76,
+        "title": "SuspiciousOctalEscape",
+        "description_only": "A suspicious octal escape sequence was found inside a String literal.\nThe Java language specification (section 3.10.6) says an octal\nescape sequence inside a literal String shall consist of a backslash\nfollowed by:\n\n    OctalDigit | OctalDigit OctalDigit | ZeroToThree OctalDigit OctalDigit\n\nAny octal escape sequence followed by non-octal digits can be confusing,\ne.g. \"\\038\" is interpreted as the octal escape sequence \"\\03\" followed by\nthe literal character \"8\".",
+        "rule_type": "errorprone",
+        "example": "public void foo() {\n  // interpreted as octal 12, followed by character '8'\n  System.out.println(\"suspicious: \\128\");\n}",
+        "description": "A suspicious octal escape sequence was found inside a String literal.\nThe Java language specification (section 3.10.6) says an octal\nescape sequence inside a literal String shall consist of a backslash\nfollowed by:\n\n    OctalDigit | OctalDigit OctalDigit | ZeroToThree OctalDigit OctalDigit\n\nAny octal escape sequence followed by non-octal digits can be confusing,\ne.g. \"\\038\" is interpreted as the octal escape sequence \"\\03\" followed by\nthe literal character \"8\".\nExamples:\npublic void foo() {\n  // interpreted as octal 12, followed by character '8'\n  System.out.println(\"suspicious: \\128\");\n}",
+        "errorMessage": "Suspicious decimal characters following octal escape in string literal: {0}",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#suspiciousoctalescape"
+    },
+    {
+        "index": 77,
+        "title": "TestClassWithoutTestCases",
+        "description_only": "Test classes typically end with the suffix \"Test\", \"Tests\" or \"TestCase\". Having a non-test class with that name\nis not a good practice, since most people will assume it is a test case. Test classes have test methods\nnamed \"testXXX\" (JUnit3) or use annotations (e.g. `@Test`).\n\nThe suffix can be configured using the property `testClassPattern`. To disable the detection of possible test classes\nby name, set this property to an empty string.",
+        "rule_type": "errorprone",
+        "example": "//Consider changing the name of the class if it is not a test\n//Consider adding test methods if it is a test\npublic class CarTest {\n   public static void main(String[] args) {\n    // do something\n   }\n   // code\n}",
+        "description": "Test classes typically end with the suffix \"Test\", \"Tests\" or \"TestCase\". Having a non-test class with that name\nis not a good practice, since most people will assume it is a test case. Test classes have test methods\nnamed \"testXXX\" (JUnit3) or use annotations (e.g. `@Test`).\n\nThe suffix can be configured using the property `testClassPattern`. To disable the detection of possible test classes\nby name, set this property to an empty string.\nExamples:\n//Consider changing the name of the class if it is not a test\n//Consider adding test methods if it is a test\npublic class CarTest {\n   public static void main(String[] args) {\n    // do something\n   }\n   // code\n}",
+        "errorMessage": "The class ''{0}'' might be a test class, but it contains no test cases.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#testclasswithouttestcases"
+    },
+    {
+        "index": 78,
+        "title": "UnconditionalIfStatement",
+        "description_only": "Do not use \"if\" statements whose conditionals are always true or always false.",
+        "rule_type": "errorprone",
+        "example": "public class Foo {\n    public void close() {\n        if (true) {        // fixed conditional, not recommended\n            // ...\n        }\n    }\n}",
+        "description": "Do not use \"if\" statements whose conditionals are always true or always false.\nExamples:\npublic class Foo {\n    public void close() {\n        if (true) {        // fixed conditional, not recommended\n            // ...\n        }\n    }\n}",
+        "errorMessage": "Do not use 'if' statements that are always true or always false",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#unconditionalifstatement"
+    },
+    {
+        "index": 79,
+        "title": "UnnecessaryBooleanAssertion",
+        "description_only": "A JUnit test assertion with a boolean literal is unnecessary since it always will evaluate to the same thing.\nConsider using flow control (in case of `assertTrue(false)` or similar) or simply removing\nstatements like `assertTrue(true)` and `assertFalse(false)`. If you just want a test to halt after finding\nan error, use the `fail()` method and provide an indication message of why it did.",
+        "rule_type": "errorprone",
+        "example": "public class SimpleTest extends TestCase {\n    public void testX() {\n        assertTrue(true);            // serves no real purpose - remove it\n    }\n}",
+        "description": "A JUnit test assertion with a boolean literal is unnecessary since it always will evaluate to the same thing.\nConsider using flow control (in case of `assertTrue(false)` or similar) or simply removing\nstatements like `assertTrue(true)` and `assertFalse(false)`. If you just want a test to halt after finding\nan error, use the `fail()` method and provide an indication message of why it did.\nExamples:\npublic class SimpleTest extends TestCase {\n    public void testX() {\n        assertTrue(true);            // serves no real purpose - remove it\n    }\n}",
+        "errorMessage": "assertTrue(true) or similar statements are unnecessary",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#unnecessarybooleanassertion"
+    },
+    {
+        "index": 80,
+        "title": "UnnecessaryCaseChange",
+        "description_only": "Using equalsIgnoreCase() is faster than using toUpperCase/toLowerCase().equals()",
+        "rule_type": "errorprone",
+        "example": "boolean answer1 = buz.toUpperCase().equals(\"BAZ\");              // should be buz.equalsIgnoreCase(\"BAZ\")\n\nboolean answer2 = buz.toUpperCase().equalsIgnoreCase(\"BAZ\");    // another unnecessary toUpperCase()",
+        "description": "Using equalsIgnoreCase() is faster than using toUpperCase/toLowerCase().equals()\nExamples:\nboolean answer1 = buz.toUpperCase().equals(\"BAZ\");              // should be buz.equalsIgnoreCase(\"BAZ\")\n\nboolean answer2 = buz.toUpperCase().equalsIgnoreCase(\"BAZ\");    // another unnecessary toUpperCase()",
+        "errorMessage": "Using equalsIgnoreCase() is cleaner than using toUpperCase/toLowerCase().equals().",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#unnecessarycasechange"
+    },
+    {
+        "index": 81,
+        "title": "UnnecessaryConversionTemporary",
+        "description_only": "Avoid the use temporary objects when converting primitives to Strings. Use the static conversion methods\non the wrapper classes instead.",
+        "rule_type": "errorprone",
+        "example": "public String convert(int x) {\n    String foo = new Integer(x).toString(); // this wastes an object\n\n    return Integer.toString(x);             // preferred approach\n}",
+        "description": "Avoid the use temporary objects when converting primitives to Strings. Use the static conversion methods\non the wrapper classes instead.\nExamples:\npublic String convert(int x) {\n    String foo = new Integer(x).toString(); // this wastes an object\n\n    return Integer.toString(x);             // preferred approach\n}",
+        "errorMessage": "Avoid unnecessary temporaries when converting primitives to Strings",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#unnecessaryconversiontemporary"
+    },
+    {
+        "index": 82,
+        "title": "UnusedNullCheckInEquals",
+        "description_only": "After checking an object reference for null, you should invoke equals() on that object rather than passing\nit to another object's equals() method.",
+        "rule_type": "errorprone",
+        "example": "public class Test {\n\n    public String method1() { return \"ok\";}\n    public String method2() { return null;}\n\n    public void method(String a) {\n        String b;\n        // I don't know it method1() can be \"null\"\n        // but I know \"a\" is not null..\n        // I'd better write a.equals(method1())\n\n        if (a!=null && method1().equals(a)) { // will trigger the rule\n            //whatever\n        }\n\n        if (method1().equals(a) && a != null) { // won't trigger the rule\n            //whatever\n        }\n\n        if (a!=null && method1().equals(b)) { // won't trigger the rule\n            //whatever\n        }\n\n        if (a!=null && \"LITERAL\".equals(a)) { // won't trigger the rule\n            //whatever\n        }\n\n        if (a!=null && !a.equals(\"go\")) { // won't trigger the rule\n            a=method2();\n            if (method1().equals(a)) {\n                //whatever\n            }\n        }\n    }\n}",
+        "description": "After checking an object reference for null, you should invoke equals() on that object rather than passing\nit to another object's equals() method.\nExamples:\npublic class Test {\n\n    public String method1() { return \"ok\";}\n    public String method2() { return null;}\n\n    public void method(String a) {\n        String b;\n        // I don't know it method1() can be \"null\"\n        // but I know \"a\" is not null..\n        // I'd better write a.equals(method1())\n\n        if (a!=null && method1().equals(a)) { // will trigger the rule\n            //whatever\n        }\n\n        if (method1().equals(a) && a != null) { // won't trigger the rule\n            //whatever\n        }\n\n        if (a!=null && method1().equals(b)) { // won't trigger the rule\n            //whatever\n        }\n\n        if (a!=null && \"LITERAL\".equals(a)) { // won't trigger the rule\n            //whatever\n        }\n\n        if (a!=null && !a.equals(\"go\")) { // won't trigger the rule\n            a=method2();\n            if (method1().equals(a)) {\n                //whatever\n            }\n        }\n    }\n}",
+        "errorMessage": "Invoke equals() on the object you''ve already ensured is not null",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#unusednullcheckinequals"
+    },
+    {
+        "index": 83,
+        "title": "UseCorrectExceptionLogging",
+        "description_only": "To make sure the full stacktrace is printed out, use the logging statement with two arguments: a String and a Throwable.\n\nThis rule only applies to [Apache Commons Logging](https://commons.apache.org/proper/commons-logging/).",
+        "rule_type": "errorprone",
+        "example": "public class Main {\n    private static final Log _LOG = LogFactory.getLog( Main.class );\n    void bar() {\n        try {\n        } catch( Exception e ) {\n            _LOG.error( e ); //Wrong!\n        } catch( OtherException oe ) {\n            _LOG.error( oe.getMessage(), oe ); //Correct\n        }\n    }\n}",
+        "description": "To make sure the full stacktrace is printed out, use the logging statement with two arguments: a String and a Throwable.\n\nThis rule only applies to [Apache Commons Logging](https://commons.apache.org/proper/commons-logging/).\nExamples:\npublic class Main {\n    private static final Log _LOG = LogFactory.getLog( Main.class );\n    void bar() {\n        try {\n        } catch( Exception e ) {\n            _LOG.error( e ); //Wrong!\n        } catch( OtherException oe ) {\n            _LOG.error( oe.getMessage(), oe ); //Correct\n        }\n    }\n}",
+        "errorMessage": "Use the correct logging statement for logging exceptions",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#usecorrectexceptionlogging"
+    },
+    {
+        "index": 84,
+        "title": "UseEqualsToCompareStrings",
+        "description_only": "Using '==' or '!=' to compare strings is only reliable if the interned string (`String#intern()`)\nis used on both sides.\n\nUse the `equals()` method instead.",
+        "rule_type": "errorprone",
+        "example": "public boolean test(String s) {\n    if (s == \"one\") return true;        // unreliable\n    if (\"two\".equals(s)) return true;   // better\n    return false;\n}",
+        "description": "Using '==' or '!=' to compare strings is only reliable if the interned string (`String#intern()`)\nis used on both sides.\n\nUse the `equals()` method instead.\nExamples:\npublic boolean test(String s) {\n    if (s == \"one\") return true;        // unreliable\n    if (\"two\".equals(s)) return true;   // better\n    return false;\n}",
+        "errorMessage": "Use equals() to compare strings instead of ''=='' or ''!=''",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#useequalstocomparestrings"
+    },
+    {
+        "index": 85,
+        "title": "UselessOperationOnImmutable",
+        "description_only": "An operation on an immutable object will not change the object itself since the result of the operation is a new object.\nTherefore, ignoring the result of such an operation is likely a mistake. The operation can probably be removed.\n\nThis rule recognizes the types `String`, `BigDecimal`, `BigInteger` or any type from `java.time.*` as immutable.",
+        "rule_type": "errorprone",
+        "example": "import java.math.*;\n\nclass Test {\n    void method1() {\n        BigDecimal bd=new BigDecimal(10);\n        bd.add(new BigDecimal(5));      // this will trigger the rule\n    }\n    void method2() {\n        BigDecimal bd=new BigDecimal(10);\n        bd = bd.add(new BigDecimal(5)); // this won't trigger the rule\n    }\n}",
+        "description": "An operation on an immutable object will not change the object itself since the result of the operation is a new object.\nTherefore, ignoring the result of such an operation is likely a mistake. The operation can probably be removed.\n\nThis rule recognizes the types `String`, `BigDecimal`, `BigInteger` or any type from `java.time.*` as immutable.\nExamples:\nimport java.math.*;\n\nclass Test {\n    void method1() {\n        BigDecimal bd=new BigDecimal(10);\n        bd.add(new BigDecimal(5));      // this will trigger the rule\n    }\n    void method2() {\n        BigDecimal bd=new BigDecimal(10);\n        bd = bd.add(new BigDecimal(5)); // this won't trigger the rule\n    }\n}",
+        "errorMessage": "The result of an operation on an immutable object is ignored",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#uselessoperationonimmutable"
+    },
+    {
+        "index": 86,
+        "title": "UseLocaleWithCaseConversions",
+        "description_only": "When doing `String::toLowerCase()/toUpperCase()` conversions, use an explicit locale argument to specify the case\ntransformation rules.\n\nUsing `String::toLowerCase()` without arguments implicitly uses `Locale::getDefault()`.\nThe problem is that the default locale depends on the current JVM setup (and usually on the system in which\nit is running). Using the system default may be exactly what you want (e.g. if you are manipulating strings\nyou got through standard input), but it may as well not be the case (e.g. if you are getting the string over\nthe network or a file, and the encoding is well-defined and independent of the environment). In the latter case,\nusing the default locale makes the case transformation brittle, as it may yield unexpected results on a machine\nwhose locale has other case translation rules. For example, in Turkish, the uppercase form of `i` is `İ` (U+0130,\nnot ASCII) and not `I` (U+0049) as in English.\n\nThe rule is intended to *force* developers to think about locales when dealing with strings. By taking a\nconscious decision about the choice of locale at the time of writing, you reduce the risk of surprising\nbehaviour down the line, and communicate your intent to future readers.",
+        "rule_type": "errorprone",
+        "example": "// violation - implicitly system-dependent conversion\nif (x.toLowerCase().equals(\"list\")) {}\n\n// The above will not match \"LIST\" on a system with a Turkish locale.\n// It could be replaced with\nif (x.toLowerCase(Locale.US).equals(\"list\")) { }\n// or simply\nif (x.equalsIgnoreCase(\"list\")) { }\n\n// ok - system independent conversion\nString z = a.toLowerCase(Locale.ROOT);\n\n// ok - explicit system-dependent conversion\nString z2 = a.toLowerCase(Locale.getDefault());",
+        "description": "When doing `String::toLowerCase()/toUpperCase()` conversions, use an explicit locale argument to specify the case\ntransformation rules.\n\nUsing `String::toLowerCase()` without arguments implicitly uses `Locale::getDefault()`.\nThe problem is that the default locale depends on the current JVM setup (and usually on the system in which\nit is running). Using the system default may be exactly what you want (e.g. if you are manipulating strings\nyou got through standard input), but it may as well not be the case (e.g. if you are getting the string over\nthe network or a file, and the encoding is well-defined and independent of the environment). In the latter case,\nusing the default locale makes the case transformation brittle, as it may yield unexpected results on a machine\nwhose locale has other case translation rules. For example, in Turkish, the uppercase form of `i` is `İ` (U+0130,\nnot ASCII) and not `I` (U+0049) as in English.\n\nThe rule is intended to *force* developers to think about locales when dealing with strings. By taking a\nconscious decision about the choice of locale at the time of writing, you reduce the risk of surprising\nbehaviour down the line, and communicate your intent to future readers.\nExamples:\n// violation - implicitly system-dependent conversion\nif (x.toLowerCase().equals(\"list\")) {}\n\n// The above will not match \"LIST\" on a system with a Turkish locale.\n// It could be replaced with\nif (x.toLowerCase(Locale.US).equals(\"list\")) { }\n// or simply\nif (x.equalsIgnoreCase(\"list\")) { }\n\n// ok - system independent conversion\nString z = a.toLowerCase(Locale.ROOT);\n\n// ok - explicit system-dependent conversion\nString z2 = a.toLowerCase(Locale.getDefault());",
+        "errorMessage": "When doing a String.toLowerCase()/toUpperCase() call, use a Locale",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#uselocalewithcaseconversions"
+    },
+    {
+        "index": 87,
+        "title": "UseProperClassLoader",
+        "description_only": "In J2EE, the getClassLoader() method might not work as expected. Use\nThread.currentThread().getContextClassLoader() instead.",
+        "rule_type": "errorprone",
+        "example": "public class Foo {\n    ClassLoader cl = Bar.class.getClassLoader();\n}",
+        "description": "In J2EE, the getClassLoader() method might not work as expected. Use\nThread.currentThread().getContextClassLoader() instead.\nExamples:\npublic class Foo {\n    ClassLoader cl = Bar.class.getClassLoader();\n}",
+        "errorMessage": "In J2EE, getClassLoader() might not work as expected.  Use Thread.currentThread().getContextClassLoader() instead.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_errorprone.html#useproperclassloader"
+    },
+    {
+        "index": 88,
+        "title": "AvoidSynchronizedAtMethodLevel",
+        "description_only": "Method-level synchronization will pin virtual threads and can cause performance problems. Additionally, it can cause\nproblems when new code is added to the method.  Block-level ReentrantLock helps to ensure that only the code that\nneeds mutual exclusion will be locked.",
+        "rule_type": "multithreading",
+        "example": "public class Foo {\n    // Try to avoid this:\n    synchronized void foo() {\n        // code, that doesn't need synchronization\n        // ...\n        // code, that requires synchronization\n        if (!sharedData.has(\"bar\")) {\n            sharedData.add(\"bar\");\n        }\n        // more code, that doesn't need synchronization\n        // ...\n    }\n    // Prefer this:\n    Lock instanceLock = new ReentrantLock();\n\n    void bar() {\n        // code, that doesn't need synchronization\n        // ...\n        try {\n            instanceLock.lock();  // or instanceLock.tryLock(long time, TimeUnit unit)\n            if (!sharedData.has(\"bar\")) {\n                sharedData.add(\"bar\");\n            }\n        } finally {\n            instanceLock.unlock();\n        }\n        // more code, that doesn't need synchronization\n        // ...\n    }\n\n    // Try to avoid this for static methods:\n    static synchronized void fooStatic() {\n    }\n\n    // Prefer this:\n    private static Lock CLASS_LOCK = new ReentrantLock();\n\n    static void barStatic() {\n        // code, that doesn't need synchronization\n        // ...\n        try {\n            CLASS_LOCK.lock();\n            // code, that requires synchronization\n        } finally {\n            CLASS_LOCK.unlock();\n        }\n        // more code, that doesn't need synchronization\n        // ...\n    }\n}",
+        "description": "Method-level synchronization will pin virtual threads and can cause performance problems. Additionally, it can cause\nproblems when new code is added to the method.  Block-level ReentrantLock helps to ensure that only the code that\nneeds mutual exclusion will be locked.\nExamples:\npublic class Foo {\n    // Try to avoid this:\n    synchronized void foo() {\n        // code, that doesn't need synchronization\n        // ...\n        // code, that requires synchronization\n        if (!sharedData.has(\"bar\")) {\n            sharedData.add(\"bar\");\n        }\n        // more code, that doesn't need synchronization\n        // ...\n    }\n    // Prefer this:\n    Lock instanceLock = new ReentrantLock();\n\n    void bar() {\n        // code, that doesn't need synchronization\n        // ...\n        try {\n            instanceLock.lock();  // or instanceLock.tryLock(long time, TimeUnit unit)\n            if (!sharedData.has(\"bar\")) {\n                sharedData.add(\"bar\");\n            }\n        } finally {\n            instanceLock.unlock();\n        }\n        // more code, that doesn't need synchronization\n        // ...\n    }\n\n    // Try to avoid this for static methods:\n    static synchronized void fooStatic() {\n    }\n\n    // Prefer this:\n    private static Lock CLASS_LOCK = new ReentrantLock();\n\n    static void barStatic() {\n        // code, that doesn't need synchronization\n        // ...\n        try {\n            CLASS_LOCK.lock();\n            // code, that requires synchronization\n        } finally {\n            CLASS_LOCK.unlock();\n        }\n        // more code, that doesn't need synchronization\n        // ...\n    }\n}",
+        "errorMessage": "Use block level locking rather than method level synchronization",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_multithreading.html#avoidsynchronizedatmethodlevel"
+    },
+    {
+        "index": 89,
+        "title": "AvoidSynchronizedStatement",
+        "description_only": "Synchronization will pin virtual threads and can cause performance problems.",
+        "rule_type": "multithreading",
+        "example": "public class Foo {\n    // Try to avoid this:\n    void foo() {\n        // code that doesn't need mutual exclusion\n        synchronized(this) {\n            // code that requires mutual exclusion\n        }\n        // more code that doesn't need mutual exclusion\n    }\n    // Prefer this:\n    Lock instanceLock = new ReentrantLock();\n\n    void foo() {\n        // code that doesn't need mutual exclusion\n        try {\n            instanceLock.lock();  // or instanceLock.tryLock(long time, TimeUnit unit)\n            // code that requires mutual exclusion\n        } finally {\n            instanceLock.unlock();\n        }\n        // more code that doesn't need mutual exclusion\n    }\n}",
+        "description": "Synchronization will pin virtual threads and can cause performance problems.\nExamples:\npublic class Foo {\n    // Try to avoid this:\n    void foo() {\n        // code that doesn't need mutual exclusion\n        synchronized(this) {\n            // code that requires mutual exclusion\n        }\n        // more code that doesn't need mutual exclusion\n    }\n    // Prefer this:\n    Lock instanceLock = new ReentrantLock();\n\n    void foo() {\n        // code that doesn't need mutual exclusion\n        try {\n            instanceLock.lock();  // or instanceLock.tryLock(long time, TimeUnit unit)\n            // code that requires mutual exclusion\n        } finally {\n            instanceLock.unlock();\n        }\n        // more code that doesn't need mutual exclusion\n    }\n}",
+        "errorMessage": "Use ReentrantLock rather than synchronization",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_multithreading.html#avoidsynchronizedstatement"
+    },
+    {
+        "index": 90,
+        "title": "AvoidThreadGroup",
+        "description_only": "Avoid using java.lang.ThreadGroup; although it is intended to be used in a threaded environment\nit contains methods that are not thread-safe.",
+        "rule_type": "multithreading",
+        "example": "public class Bar {\n    void buz() {\n        ThreadGroup tg = new ThreadGroup(\"My threadgroup\");\n        tg = new ThreadGroup(tg, \"my thread group\");\n        tg = Thread.currentThread().getThreadGroup();\n        tg = System.getSecurityManager().getThreadGroup();\n    }\n}",
+        "description": "Avoid using java.lang.ThreadGroup; although it is intended to be used in a threaded environment\nit contains methods that are not thread-safe.\nExamples:\npublic class Bar {\n    void buz() {\n        ThreadGroup tg = new ThreadGroup(\"My threadgroup\");\n        tg = new ThreadGroup(tg, \"my thread group\");\n        tg = Thread.currentThread().getThreadGroup();\n        tg = System.getSecurityManager().getThreadGroup();\n    }\n}",
+        "errorMessage": "Avoid using java.lang.ThreadGroup; it is not thread safe",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_multithreading.html#avoidthreadgroup"
+    },
+    {
+        "index": 91,
+        "title": "AvoidUsingVolatile",
+        "description_only": "Use of the keyword 'volatile' is generally used to fine tune a Java application, and therefore, requires\na good expertise of the Java Memory Model. Moreover, its range of action is somewhat misknown. Therefore,\nthe volatile keyword should not be used for maintenance purpose and portability.",
+        "rule_type": "multithreading",
+        "example": "public class ThrDeux {\n  private volatile String var1; // not suggested\n  private          String var2; // preferred\n}",
+        "description": "Use of the keyword 'volatile' is generally used to fine tune a Java application, and therefore, requires\na good expertise of the Java Memory Model. Moreover, its range of action is somewhat misknown. Therefore,\nthe volatile keyword should not be used for maintenance purpose and portability.\nExamples:\npublic class ThrDeux {\n  private volatile String var1; // not suggested\n  private          String var2; // preferred\n}",
+        "errorMessage": "Use of modifier volatile is not recommended.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_multithreading.html#avoidusingvolatile"
+    },
+    {
+        "index": 92,
+        "title": "DoNotUseThreads",
+        "description_only": "The J2EE specification explicitly forbids the use of threads. Threads are resources, that should be managed and monitored by the J2EE server.\nIf the application creates threads on its own or uses own custom thread pools, then these threads are not managed, which could lead to resource exhaustion.\nAlso, EJBs might be moved between machines in a cluster and only managed resources can be moved along.",
+        "rule_type": "multithreading",
+        "example": "// This is not allowed\npublic class UsingThread extends Thread {\n\n}\n\n// Neither this,\npublic class UsingExecutorService {\n\n    public void methodX() {\n        ExecutorService executorService = Executors.newFixedThreadPool(5);\n    }\n}\n\n// Nor this,\npublic class Example implements ExecutorService {\n\n}\n\n// Nor this,\npublic class Example extends AbstractExecutorService {\n\n}\n\n// Nor this\npublic class UsingExecutors {\n\n    public void methodX() {\n        Executors.newSingleThreadExecutor().submit(() -> System.out.println(\"Hello!\"));\n    }\n}",
+        "description": "The J2EE specification explicitly forbids the use of threads. Threads are resources, that should be managed and monitored by the J2EE server.\nIf the application creates threads on its own or uses own custom thread pools, then these threads are not managed, which could lead to resource exhaustion.\nAlso, EJBs might be moved between machines in a cluster and only managed resources can be moved along.\nExamples:\n// This is not allowed\npublic class UsingThread extends Thread {\n\n}\n\n// Neither this,\npublic class UsingExecutorService {\n\n    public void methodX() {\n        ExecutorService executorService = Executors.newFixedThreadPool(5);\n    }\n}\n\n// Nor this,\npublic class Example implements ExecutorService {\n\n}\n\n// Nor this,\npublic class Example extends AbstractExecutorService {\n\n}\n\n// Nor this\npublic class UsingExecutors {\n\n    public void methodX() {\n        Executors.newSingleThreadExecutor().submit(() -> System.out.println(\"Hello!\"));\n    }\n}",
+        "errorMessage": "To be compliant to J2EE, a webapp should not use any thread.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_multithreading.html#donotusethreads"
+    },
+    {
+        "index": 93,
+        "title": "DontCallThreadRun",
+        "description_only": "Explicitly calling Thread.run() method will execute in the caller's thread of control.  Instead, call Thread.start() for the intended behavior.",
+        "rule_type": "multithreading",
+        "example": "Thread t = new Thread();\nt.run();            // use t.start() instead\nnew Thread().run(); // same violation",
+        "description": "Explicitly calling Thread.run() method will execute in the caller's thread of control.  Instead, call Thread.start() for the intended behavior.\nExamples:\nThread t = new Thread();\nt.run();            // use t.start() instead\nnew Thread().run(); // same violation",
+        "errorMessage": "Don't call Thread.run() explicitly, use Thread.start()",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_multithreading.html#dontcallthreadrun"
+    },
+    {
+        "index": 94,
+        "title": "DoubleCheckedLocking",
+        "description_only": "Partially created objects can be returned by the Double Checked Locking pattern when used in Java.\nAn optimizing JRE may assign a reference to the baz variable before it calls the constructor of the object the\nreference points to.\n\nNote: With Java 5, you can make Double checked locking work, if you declare the variable to be `volatile`.\n\nFor more details refer to: <http://www.javaworld.com/javaworld/jw-02-2001/jw-0209-double.html>\nor <http://www.cs.umd.edu/~pugh/java/memoryModel/DoubleCheckedLocking.html>",
+        "rule_type": "multithreading",
+        "example": "public class Foo {\n    /*volatile */ Object baz = null; // fix for Java5 and later: volatile\n    Object bar() {\n        if (baz == null) { // baz may be non-null yet not fully created\n            synchronized(this) {\n                if (baz == null) {\n                    baz = new Object();\n                }\n              }\n        }\n        return baz;\n    }\n}",
+        "description": "Partially created objects can be returned by the Double Checked Locking pattern when used in Java.\nAn optimizing JRE may assign a reference to the baz variable before it calls the constructor of the object the\nreference points to.\n\nNote: With Java 5, you can make Double checked locking work, if you declare the variable to be `volatile`.\n\nFor more details refer to: <http://www.javaworld.com/javaworld/jw-02-2001/jw-0209-double.html>\nor <http://www.cs.umd.edu/~pugh/java/memoryModel/DoubleCheckedLocking.html>\nExamples:\npublic class Foo {\n    /*volatile */ Object baz = null; // fix for Java5 and later: volatile\n    Object bar() {\n        if (baz == null) { // baz may be non-null yet not fully created\n            synchronized(this) {\n                if (baz == null) {\n                    baz = new Object();\n                }\n              }\n        }\n        return baz;\n    }\n}",
+        "errorMessage": "Double checked locking is not thread safe in Java.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_multithreading.html#doublecheckedlocking"
+    },
+    {
+        "index": 95,
+        "title": "NonThreadSafeSingleton",
+        "description_only": "Non-thread safe singletons can result in bad state changes. Eliminate\nstatic singletons if possible by instantiating the object directly. Static\nsingletons are usually not needed as only a single instance exists anyway.\nOther possible fixes are to synchronize the entire method or to use an\n[initialize-on-demand holder class](https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom).\n\nRefrain from using the double-checked locking pattern. The Java Memory Model doesn't\nguarantee it to work unless the variable is declared as `volatile`, adding an uneeded\nperformance penalty. [Reference](http://www.cs.umd.edu/~pugh/java/memoryModel/DoubleCheckedLocking.html)\n\nSee Effective Java, item 48.",
+        "rule_type": "multithreading",
+        "example": "private static Foo foo = null;\n\n//multiple simultaneous callers may see partially initialized objects\npublic static Foo getFoo() {\n    if (foo==null) {\n        foo = new Foo();\n    }\n    return foo;\n}",
+        "description": "Non-thread safe singletons can result in bad state changes. Eliminate\nstatic singletons if possible by instantiating the object directly. Static\nsingletons are usually not needed as only a single instance exists anyway.\nOther possible fixes are to synchronize the entire method or to use an\n[initialize-on-demand holder class](https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom).\n\nRefrain from using the double-checked locking pattern. The Java Memory Model doesn't\nguarantee it to work unless the variable is declared as `volatile`, adding an uneeded\nperformance penalty. [Reference](http://www.cs.umd.edu/~pugh/java/memoryModel/DoubleCheckedLocking.html)\n\nSee Effective Java, item 48.\nExamples:\nprivate static Foo foo = null;\n\n//multiple simultaneous callers may see partially initialized objects\npublic static Foo getFoo() {\n    if (foo==null) {\n        foo = new Foo();\n    }\n    return foo;\n}",
+        "errorMessage": "Singleton is not thread safe",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_multithreading.html#nonthreadsafesingleton"
+    },
+    {
+        "index": 96,
+        "title": "UnsynchronizedStaticFormatter",
+        "description_only": "Instances of `java.text.Format` are generally not synchronized.\nSun recommends using separate format instances for each thread.\nIf multiple threads must access a static formatter, the formatter must be\nsynchronized on block level.",
+        "rule_type": "multithreading",
+        "example": "public class Foo {\n    private static final SimpleDateFormat sdf = new SimpleDateFormat();\n    void bar() {\n        sdf.format(); // poor, no thread-safety\n    }\n    void foo() {\n        synchronized (sdf) { // preferred\n            sdf.format();\n        }\n    }\n}",
+        "description": "Instances of `java.text.Format` are generally not synchronized.\nSun recommends using separate format instances for each thread.\nIf multiple threads must access a static formatter, the formatter must be\nsynchronized on block level.\nExamples:\npublic class Foo {\n    private static final SimpleDateFormat sdf = new SimpleDateFormat();\n    void bar() {\n        sdf.format(); // poor, no thread-safety\n    }\n    void foo() {\n        synchronized (sdf) { // preferred\n            sdf.format();\n        }\n    }\n}",
+        "errorMessage": "Static Formatter objects should be accessed in a synchronized manner",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_multithreading.html#unsynchronizedstaticformatter"
+    },
+    {
+        "index": 97,
+        "title": "UseConcurrentHashMap",
+        "description_only": "Since Java5 brought a new implementation of the Map designed for multi-threaded access, you can\nperform efficient map reads without blocking other threads.",
+        "rule_type": "multithreading",
+        "example": "public class ConcurrentApp {\n  public void getMyInstance() {\n    Map map1 = new HashMap();           // fine for single-threaded access\n    Map map2 = new ConcurrentHashMap(); // preferred for use with multiple threads\n\n    // the following case will be ignored by this rule\n    Map map3 = someModule.methodThatReturnMap(); // might be OK, if the returned map is already thread-safe\n  }\n}",
+        "description": "Since Java5 brought a new implementation of the Map designed for multi-threaded access, you can\nperform efficient map reads without blocking other threads.\nExamples:\npublic class ConcurrentApp {\n  public void getMyInstance() {\n    Map map1 = new HashMap();           // fine for single-threaded access\n    Map map2 = new ConcurrentHashMap(); // preferred for use with multiple threads\n\n    // the following case will be ignored by this rule\n    Map map3 = someModule.methodThatReturnMap(); // might be OK, if the returned map is already thread-safe\n  }\n}",
+        "errorMessage": "If you run in Java5 or newer and have concurrent access, you should use the ConcurrentHashMap implementation",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_multithreading.html#useconcurrenthashmap"
+    },
+    {
+        "index": 98,
+        "title": "UseNotifyAllInsteadOfNotify",
+        "description_only": "Thread.notify() awakens a thread monitoring the object. If more than one thread is monitoring, then only\none is chosen.  The thread chosen is arbitrary; thus it's usually safer to call notifyAll() instead.",
+        "rule_type": "multithreading",
+        "example": "void bar() {\n    x.notify();\n    // If many threads are monitoring x, only one (and you won't know which) will be notified.\n    // use instead:\n    x.notifyAll();\n  }",
+        "description": "Thread.notify() awakens a thread monitoring the object. If more than one thread is monitoring, then only\none is chosen.  The thread chosen is arbitrary; thus it's usually safer to call notifyAll() instead.\nExamples:\nvoid bar() {\n    x.notify();\n    // If many threads are monitoring x, only one (and you won't know which) will be notified.\n    // use instead:\n    x.notifyAll();\n  }",
+        "errorMessage": "Call Thread.notifyAll() rather than Thread.notify()",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_multithreading.html#usenotifyallinsteadofnotify"
+    },
+    {
+        "index": 99,
+        "title": "AddEmptyString",
+        "description_only": "The conversion of literals to strings by concatenating them with empty strings is inefficient.\nIt is much better to use one of the type-specific `toString()` methods instead or `String.valueOf()`.",
+        "rule_type": "performance",
+        "example": "String s = \"\" + 123;                // inefficient\nString t = Integer.toString(456);   // preferred approach",
+        "description": "The conversion of literals to strings by concatenating them with empty strings is inefficient.\nIt is much better to use one of the type-specific `toString()` methods instead or `String.valueOf()`.\nExamples:\nString s = \"\" + 123;                // inefficient\nString t = Integer.toString(456);   // preferred approach",
+        "errorMessage": "Do not add empty strings",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_performance.html#addemptystring"
+    },
+    {
+        "index": 100,
+        "title": "AppendCharacterWithChar",
+        "description_only": "Avoid concatenating characters as strings in StringBuffer/StringBuilder.append methods.",
+        "rule_type": "performance",
+        "example": "StringBuffer sb = new StringBuffer();\nsb.append(\"a\");     // avoid this\n\nStringBuffer sb = new StringBuffer();\nsb.append('a');     // use this instead",
+        "description": "Avoid concatenating characters as strings in StringBuffer/StringBuilder.append methods.\nExamples:\nStringBuffer sb = new StringBuffer();\nsb.append(\"a\");     // avoid this\n\nStringBuffer sb = new StringBuffer();\nsb.append('a');     // use this instead",
+        "errorMessage": "Avoid appending characters as strings in StringBuffer.append.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_performance.html#appendcharacterwithchar"
+    },
+    {
+        "index": 101,
+        "title": "AvoidArrayLoops",
+        "description_only": "Instead of manually copying data between two arrays, use the more efficient `Arrays.copyOf`\nor `System.arraycopy` method instead.\n\nTo copy only part of the array, use `Arrays.copyOfRange` or `System.arraycopy`.\n\nIf you want to copy/move elements inside the _same_ array (e.g. shift the elements), use `System.arraycopy`.",
+        "rule_type": "performance",
+        "example": "class Scratch {\n    void copy_a_to_b() {\n        int[] a = new int[10];\n        int[] b = new int[10];\n        for (int i = 0; i < a.length; i++) {\n            b[i] = a[i];\n        }\n        // equivalent\n        b = Arrays.copyOf(a, a.length);\n        // equivalent\n        System.arraycopy(a, 0, b, 0, a.length);\n\n        int[] c = new int[10];\n        // this will not trigger the rule\n        for (int i = 0; i < c.length; i++) {\n            b[i] = a[c[i]];\n        }\n    }\n}\n---\nclass Scratch {\n    void shift_left(int[] a) {\n        for (int i = 0; i < a.length - 1; i++) {\n            a[i] = a[i + 1];\n        }\n        // equivalent\n        System.arraycopy(a, 1, a, 0, a.length - 1);\n    }\n    void shift_right(int[] a) {\n        for (int i = a.length - 1; i > 0; i--) {\n            a[i] = a[i - 1];\n        }\n        // equivalent\n        System.arraycopy(a, 0, a, 1, a.length - 1);\n    }\n}",
+        "description": "Instead of manually copying data between two arrays, use the more efficient `Arrays.copyOf`\nor `System.arraycopy` method instead.\n\nTo copy only part of the array, use `Arrays.copyOfRange` or `System.arraycopy`.\n\nIf you want to copy/move elements inside the _same_ array (e.g. shift the elements), use `System.arraycopy`.\nExamples:\nclass Scratch {\n    void copy_a_to_b() {\n        int[] a = new int[10];\n        int[] b = new int[10];\n        for (int i = 0; i < a.length; i++) {\n            b[i] = a[i];\n        }\n        // equivalent\n        b = Arrays.copyOf(a, a.length);\n        // equivalent\n        System.arraycopy(a, 0, b, 0, a.length);\n\n        int[] c = new int[10];\n        // this will not trigger the rule\n        for (int i = 0; i < c.length; i++) {\n            b[i] = a[c[i]];\n        }\n    }\n}\n---\nclass Scratch {\n    void shift_left(int[] a) {\n        for (int i = 0; i < a.length - 1; i++) {\n            a[i] = a[i + 1];\n        }\n        // equivalent\n        System.arraycopy(a, 1, a, 0, a.length - 1);\n    }\n    void shift_right(int[] a) {\n        for (int i = a.length - 1; i > 0; i--) {\n            a[i] = a[i - 1];\n        }\n        // equivalent\n        System.arraycopy(a, 0, a, 1, a.length - 1);\n    }\n}",
+        "errorMessage": "Arrays.copyOf or System.arraycopy are more efficient",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_performance.html#avoidarrayloops"
+    },
+    {
+        "index": 102,
+        "title": "AvoidCalendarDateCreation",
+        "description_only": "Problem: `java.util.Calendar` is a heavyweight object and expensive to create. It should only be used, if\ncalendar calculations are needed.\n\nSolution: Use `new Date()`, Java 8+ `java.time.LocalDateTime.now()` or `ZonedDateTime.now()`.",
+        "rule_type": "performance",
+        "example": "import java.time.LocalDateTime;\nimport java.util.Calendar;\nimport java.util.Date;\n\npublic class DateStuff {\n    private Date bad1() {\n        return Calendar.getInstance().getTime(); // now\n    }\n    private Date good1a() {\n        return new Date(); // now\n    }\n    private LocalDateTime good1b() {\n        return LocalDateTime.now();\n    }\n    private long bad2() {\n        return Calendar.getInstance().getTimeInMillis();\n    }\n    private long good2() {\n        return System.currentTimeMillis();\n    }\n}",
+        "description": "Problem: `java.util.Calendar` is a heavyweight object and expensive to create. It should only be used, if\ncalendar calculations are needed.\n\nSolution: Use `new Date()`, Java 8+ `java.time.LocalDateTime.now()` or `ZonedDateTime.now()`.\nExamples:\nimport java.time.LocalDateTime;\nimport java.util.Calendar;\nimport java.util.Date;\n\npublic class DateStuff {\n    private Date bad1() {\n        return Calendar.getInstance().getTime(); // now\n    }\n    private Date good1a() {\n        return new Date(); // now\n    }\n    private LocalDateTime good1b() {\n        return LocalDateTime.now();\n    }\n    private long bad2() {\n        return Calendar.getInstance().getTimeInMillis();\n    }\n    private long good2() {\n        return System.currentTimeMillis();\n    }\n}",
+        "errorMessage": "A Calendar is used to get the current time, this is expensive.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_performance.html#avoidcalendardatecreation"
+    },
+    {
+        "index": 103,
+        "title": "AvoidFileStream",
+        "description_only": "The FileInputStream and FileOutputStream classes contains a finalizer method which will cause garbage\ncollection pauses.\nSee [JDK-8080225](https://bugs.openjdk.org/browse/JDK-8080225) for details.\n\nThe FileReader and FileWriter constructors instantiate FileInputStream and FileOutputStream,\nagain causing garbage collection issues while finalizer methods are called.\n\n* Use `Files.newInputStream(Paths.get(fileName))` instead of `new FileInputStream(fileName)`.\n* Use `Files.newOutputStream(Paths.get(fileName))` instead of `new FileOutputStream(fileName)`.\n* Use `Files.newBufferedReader(Paths.get(fileName))` instead of `new FileReader(fileName)`.\n* Use `Files.newBufferedWriter(Paths.get(fileName))` instead of `new FileWriter(fileName)`.\n\nPlease note, that the `java.nio` API does not throw a `FileNotFoundException` anymore, instead\nit throws a `NoSuchFileException`. If your code dealt explicitly with a `FileNotFoundException`,\nthen this needs to be adjusted. Both exceptions are subclasses of `IOException`, so catching\nthat one covers both.",
+        "rule_type": "performance",
+        "example": "// these instantiations cause garbage collection pauses, even if properly closed\n\n    FileInputStream fis = new FileInputStream(fileName);\n    FileOutputStream fos = new FileOutputStream(fileName);\n    FileReader fr = new FileReader(fileName);\n    FileWriter fw = new FileWriter(fileName);\n\n    // the following instantiations help prevent Garbage Collection pauses, no finalization\n\n    try(InputStream is = Files.newInputStream(Paths.get(fileName))) {\n    }\n    try(OutputStream os = Files.newOutputStream(Paths.get(fileName))) {\n    }\n    try(BufferedReader br = Files.newBufferedReader(Paths.get(fileName), StandardCharsets.UTF_8)) {\n    }\n    try(BufferedWriter wr = Files.newBufferedWriter(Paths.get(fileName), StandardCharsets.UTF_8)) {\n    }",
+        "description": "The FileInputStream and FileOutputStream classes contains a finalizer method which will cause garbage\ncollection pauses.\nSee [JDK-8080225](https://bugs.openjdk.org/browse/JDK-8080225) for details.\n\nThe FileReader and FileWriter constructors instantiate FileInputStream and FileOutputStream,\nagain causing garbage collection issues while finalizer methods are called.\n\n* Use `Files.newInputStream(Paths.get(fileName))` instead of `new FileInputStream(fileName)`.\n* Use `Files.newOutputStream(Paths.get(fileName))` instead of `new FileOutputStream(fileName)`.\n* Use `Files.newBufferedReader(Paths.get(fileName))` instead of `new FileReader(fileName)`.\n* Use `Files.newBufferedWriter(Paths.get(fileName))` instead of `new FileWriter(fileName)`.\n\nPlease note, that the `java.nio` API does not throw a `FileNotFoundException` anymore, instead\nit throws a `NoSuchFileException`. If your code dealt explicitly with a `FileNotFoundException`,\nthen this needs to be adjusted. Both exceptions are subclasses of `IOException`, so catching\nthat one covers both.\nExamples:\n// these instantiations cause garbage collection pauses, even if properly closed\n\n    FileInputStream fis = new FileInputStream(fileName);\n    FileOutputStream fos = new FileOutputStream(fileName);\n    FileReader fr = new FileReader(fileName);\n    FileWriter fw = new FileWriter(fileName);\n\n    // the following instantiations help prevent Garbage Collection pauses, no finalization\n\n    try(InputStream is = Files.newInputStream(Paths.get(fileName))) {\n    }\n    try(OutputStream os = Files.newOutputStream(Paths.get(fileName))) {\n    }\n    try(BufferedReader br = Files.newBufferedReader(Paths.get(fileName), StandardCharsets.UTF_8)) {\n    }\n    try(BufferedWriter wr = Files.newBufferedWriter(Paths.get(fileName), StandardCharsets.UTF_8)) {\n    }",
+        "errorMessage": "Avoid instantiating FileInputStream, FileOutputStream, FileReader, or FileWriter",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_performance.html#avoidfilestream"
+    },
+    {
+        "index": 104,
+        "title": "AvoidInstantiatingObjectsInLoops",
+        "description_only": "New objects created within loops should be checked to see if they can created outside them and reused.",
+        "rule_type": "performance",
+        "example": "public class Something {\n    public static void main( String as[] ) {\n        for (int i = 0; i < 10; i++) {\n            Foo f = new Foo(); // Avoid this whenever you can it's really expensive\n        }\n    }\n}",
+        "description": "New objects created within loops should be checked to see if they can created outside them and reused.\nExamples:\npublic class Something {\n    public static void main( String as[] ) {\n        for (int i = 0; i < 10; i++) {\n            Foo f = new Foo(); // Avoid this whenever you can it's really expensive\n        }\n    }\n}",
+        "errorMessage": "Avoid instantiating new objects inside loops",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_performance.html#avoidinstantiatingobjectsinloops"
+    },
+    {
+        "index": 105,
+        "title": "BigIntegerInstantiation",
+        "description_only": "Don't create instances of already existing BigInteger (`BigInteger.ZERO`, `BigInteger.ONE`),\nfor Java 1.5 onwards, BigInteger.TEN and BigDecimal (`BigDecimal.ZERO`, `BigDecimal.ONE`, `BigDecimal.TEN`) and\nfor Java 9 onwards `BigInteger.TWO`.",
+        "rule_type": "performance",
+        "example": "BigInteger bi1 = new BigInteger(\"1\");    // reference BigInteger.ONE instead\nBigInteger bi2 = new BigInteger(\"0\");    // reference BigInteger.ZERO instead\nBigInteger bi3;\nbi3 = new BigInteger(\"0\");               // reference BigInteger.ZERO instead\n\nBigDecimal bd1 = new BigDecimal(0);      // reference BigDecimal.ZERO instead\nBigDecimal bd2 = new BigDecimal(\"0.\") ;  // reference BigDecimal.ZERO instead\nBigDecimal bd3 = new BigDecimal(10);     // reference BigDecimal.TEN instead",
+        "description": "Don't create instances of already existing BigInteger (`BigInteger.ZERO`, `BigInteger.ONE`),\nfor Java 1.5 onwards, BigInteger.TEN and BigDecimal (`BigDecimal.ZERO`, `BigDecimal.ONE`, `BigDecimal.TEN`) and\nfor Java 9 onwards `BigInteger.TWO`.\nExamples:\nBigInteger bi1 = new BigInteger(\"1\");    // reference BigInteger.ONE instead\nBigInteger bi2 = new BigInteger(\"0\");    // reference BigInteger.ZERO instead\nBigInteger bi3;\nbi3 = new BigInteger(\"0\");               // reference BigInteger.ZERO instead\n\nBigDecimal bd1 = new BigDecimal(0);      // reference BigDecimal.ZERO instead\nBigDecimal bd2 = new BigDecimal(\"0.\") ;  // reference BigDecimal.ZERO instead\nBigDecimal bd3 = new BigDecimal(10);     // reference BigDecimal.TEN instead",
+        "errorMessage": "Don''t create instances of already existing BigInteger and BigDecimal (ZERO, ONE, TEN)",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_performance.html#bigintegerinstantiation"
+    },
+    {
+        "index": 106,
+        "title": "ConsecutiveAppendsShouldReuse",
+        "description_only": "Consecutive calls to StringBuffer/StringBuilder .append should be chained, reusing the target object. This can improve the performance\nby producing a smaller bytecode, reducing overhead and improving inlining. A complete analysis can be found [here](https://github.com/pmd/pmd/issues/202#issuecomment-274349067)",
+        "rule_type": "performance",
+        "example": "String foo = \" \";\n\nStringBuffer buf = new StringBuffer();\nbuf.append(\"Hello\"); // poor\nbuf.append(foo);\nbuf.append(\"World\");\n\nStringBuffer buf = new StringBuffer();\nbuf.append(\"Hello\").append(foo).append(\"World\"); // good",
+        "description": "Consecutive calls to StringBuffer/StringBuilder .append should be chained, reusing the target object. This can improve the performance\nby producing a smaller bytecode, reducing overhead and improving inlining. A complete analysis can be found [here](https://github.com/pmd/pmd/issues/202#issuecomment-274349067)\nExamples:\nString foo = \" \";\n\nStringBuffer buf = new StringBuffer();\nbuf.append(\"Hello\"); // poor\nbuf.append(foo);\nbuf.append(\"World\");\n\nStringBuffer buf = new StringBuffer();\nbuf.append(\"Hello\").append(foo).append(\"World\"); // good",
+        "errorMessage": "StringBuffer (or StringBuilder).append is called consecutively without reusing the target variable.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_performance.html#consecutiveappendsshouldreuse"
+    },
+    {
+        "index": 107,
+        "title": "ConsecutiveLiteralAppends",
+        "description_only": "Consecutively calling StringBuffer/StringBuilder.append(...) with literals should be avoided.\nSince the literals are constants, they can already be combined into a single String literal and this String\ncan be appended in a single method call.",
+        "rule_type": "performance",
+        "example": "StringBuilder buf = new StringBuilder();\nbuf.append(\"Hello\").append(\" \").append(\"World\");    // poor\nbuf.append(\"Hello World\");                          // good\n\nbuf.append('h').append('e').append('l').append('l').append('o'); // poor\nbuf.append(\"hello\");                                             // good\n\nbuf.append(1).append('m');  // poor\nbuf.append(\"1m\");           // good",
+        "description": "Consecutively calling StringBuffer/StringBuilder.append(...) with literals should be avoided.\nSince the literals are constants, they can already be combined into a single String literal and this String\ncan be appended in a single method call.\nExamples:\nStringBuilder buf = new StringBuilder();\nbuf.append(\"Hello\").append(\" \").append(\"World\");    // poor\nbuf.append(\"Hello World\");                          // good\n\nbuf.append('h').append('e').append('l').append('l').append('o'); // poor\nbuf.append(\"hello\");                                             // good\n\nbuf.append(1).append('m');  // poor\nbuf.append(\"1m\");           // good",
+        "errorMessage": "StringBuffer (or StringBuilder).append is called {0} consecutive times with literals. Use a single append with a single combined String.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_performance.html#consecutiveliteralappends"
+    },
+    {
+        "index": 108,
+        "title": "InefficientEmptyStringCheck",
+        "description_only": "String.trim().length() == 0 (or String.trim().isEmpty() for the same reason) is an inefficient\nway to check if a String is really blank, as it creates a new String object just to check its size.\nConsider creating a static function that loops through a string, checking Character.isWhitespace()\non each character and returning false if a non-whitespace character is found. A Smarter code to\ncheck for an empty string would be:\n\n```java\nprivate boolean checkTrimEmpty(String str) {\n    for(int i = 0; i < str.length(); i++) {\n        if(!Character.isWhitespace(str.charAt(i))) {\n            return false;\n        }\n    }\n    return true;\n}\n```\n\nYou can refer to Apache's StringUtils#isBlank (in commons-lang),\nSpring's StringUtils#hasText (in the Spring framework) or Google's\nCharMatcher#whitespace (in Guava) for existing implementations (some might\ninclude the check for != null).",
+        "rule_type": "performance",
+        "example": "public void bar(String string) {\n    if (string != null && string.trim().length() > 0) {\n        doSomething();\n    }\n}",
+        "description": "String.trim().length() == 0 (or String.trim().isEmpty() for the same reason) is an inefficient\nway to check if a String is really blank, as it creates a new String object just to check its size.\nConsider creating a static function that loops through a string, checking Character.isWhitespace()\non each character and returning false if a non-whitespace character is found. A Smarter code to\ncheck for an empty string would be:\n\n```java\nprivate boolean checkTrimEmpty(String str) {\n    for(int i = 0; i < str.length(); i++) {\n        if(!Character.isWhitespace(str.charAt(i))) {\n            return false;\n        }\n    }\n    return true;\n}\n```\n\nYou can refer to Apache's StringUtils#isBlank (in commons-lang),\nSpring's StringUtils#hasText (in the Spring framework) or Google's\nCharMatcher#whitespace (in Guava) for existing implementations (some might\ninclude the check for != null).\nExamples:\npublic void bar(String string) {\n    if (string != null && string.trim().length() > 0) {\n        doSomething();\n    }\n}",
+        "errorMessage": "String.trim().length() == 0 / String.trim().isEmpty() is an inefficient way to validate a blank String.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_performance.html#inefficientemptystringcheck"
+    },
+    {
+        "index": 109,
+        "title": "InefficientStringBuffering",
+        "description_only": "Avoid concatenating non-literals in a StringBuffer constructor or append() since intermediate buffers will\nneed to be be created and destroyed by the JVM.",
+        "rule_type": "performance",
+        "example": "// Avoid this, two buffers are actually being created here\nStringBuffer sb = new StringBuffer(\"tmp = \"+System.getProperty(\"java.io.tmpdir\"));\n\n// do this instead\nStringBuffer sb = new StringBuffer(\"tmp = \");\nsb.append(System.getProperty(\"java.io.tmpdir\"));",
+        "description": "Avoid concatenating non-literals in a StringBuffer constructor or append() since intermediate buffers will\nneed to be be created and destroyed by the JVM.\nExamples:\n// Avoid this, two buffers are actually being created here\nStringBuffer sb = new StringBuffer(\"tmp = \"+System.getProperty(\"java.io.tmpdir\"));\n\n// do this instead\nStringBuffer sb = new StringBuffer(\"tmp = \");\nsb.append(System.getProperty(\"java.io.tmpdir\"));",
+        "errorMessage": "Avoid concatenating nonliterals in a StringBuffer/StringBuilder constructor or append().",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_performance.html#inefficientstringbuffering"
+    },
+    {
+        "index": 110,
+        "title": "InsufficientStringBufferDeclaration",
+        "description_only": "Failing to pre-size a StringBuffer or StringBuilder properly could cause it to re-size many times\nduring runtime. This rule attempts to determine the total number the characters that are actually\npassed into StringBuffer.append(), but represents a best guess \"worst case\" scenario. An empty\nStringBuffer/StringBuilder constructor initializes the object to 16 characters. This default\nis assumed if the length of the constructor can not be determined.",
+        "rule_type": "performance",
+        "example": "StringBuilder bad = new StringBuilder();\nbad.append(\"This is a long string that will exceed the default 16 characters\");\n\nStringBuilder good = new StringBuilder(41);\ngood.append(\"This is a long string, which is pre-sized\");",
+        "description": "Failing to pre-size a StringBuffer or StringBuilder properly could cause it to re-size many times\nduring runtime. This rule attempts to determine the total number the characters that are actually\npassed into StringBuffer.append(), but represents a best guess \"worst case\" scenario. An empty\nStringBuffer/StringBuilder constructor initializes the object to 16 characters. This default\nis assumed if the length of the constructor can not be determined.\nExamples:\nStringBuilder bad = new StringBuilder();\nbad.append(\"This is a long string that will exceed the default 16 characters\");\n\nStringBuilder good = new StringBuilder(41);\ngood.append(\"This is a long string, which is pre-sized\");",
+        "errorMessage": "{0} has been initialized with size {1}, but has at least {2} characters appended.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_performance.html#insufficientstringbufferdeclaration"
+    },
+    {
+        "index": 111,
+        "title": "OptimizableToArrayCall",
+        "description_only": "Calls to a collection's `toArray(E[])` method should specify a target array of zero size. This allows the JVM\nto optimize the memory allocation and copying as much as possible.\n\nPrevious versions of this rule (pre PMD 6.0.0) suggested the opposite, but current JVM implementations\nperform always better, when they have full control over the target array. And allocation an array via\nreflection is nowadays as fast as the direct allocation.\n\nSee also [Arrays of Wisdom of the Ancients](https://shipilev.net/blog/2016/arrays-wisdom-ancients/)\n\nNote: If you don't need an array of the correct type, then the simple `toArray()` method without an array\nis faster, but returns only an array of type `Object[]`.",
+        "rule_type": "performance",
+        "example": "List<Foo> foos = getFoos();\n\n// much better; this one allows the jvm to allocate an array of the correct size and effectively skip\n// the zeroing, since each array element will be overridden anyways\nFoo[] fooArray = foos.toArray(new Foo[0]);\n\n// inefficient, the array needs to be zeroed out by the jvm before it is handed over to the toArray method\nFoo[] fooArray = foos.toArray(new Foo[foos.size()]);",
+        "description": "Calls to a collection's `toArray(E[])` method should specify a target array of zero size. This allows the JVM\nto optimize the memory allocation and copying as much as possible.\n\nPrevious versions of this rule (pre PMD 6.0.0) suggested the opposite, but current JVM implementations\nperform always better, when they have full control over the target array. And allocation an array via\nreflection is nowadays as fast as the direct allocation.\n\nSee also [Arrays of Wisdom of the Ancients](https://shipilev.net/blog/2016/arrays-wisdom-ancients/)\n\nNote: If you don't need an array of the correct type, then the simple `toArray()` method without an array\nis faster, but returns only an array of type `Object[]`.\nExamples:\nList<Foo> foos = getFoos();\n\n// much better; this one allows the jvm to allocate an array of the correct size and effectively skip\n// the zeroing, since each array element will be overridden anyways\nFoo[] fooArray = foos.toArray(new Foo[0]);\n\n// inefficient, the array needs to be zeroed out by the jvm before it is handed over to the toArray method\nFoo[] fooArray = foos.toArray(new Foo[foos.size()]);",
+        "errorMessage": "This call to Collection.toArray() may be optimizable",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_performance.html#optimizabletoarraycall"
+    },
+    {
+        "index": 112,
+        "title": "RedundantFieldInitializer",
+        "description_only": "Java will initialize fields with known default values so any explicit initialization of those same defaults\nis redundant and results in a larger class file (approximately three additional bytecode instructions per field).",
+        "rule_type": "performance",
+        "example": "public class C {\n    boolean b   = false;    // examples of redundant initializers\n    byte by     = 0;\n    short s     = 0;\n    char c      = 0;\n    int i       = 0;\n    long l      = 0;\n\n    float f     = .0f;    // all possible float literals\n    double d    = 0d;     // all possible double literals\n    Object o    = null;\n\n    MyClass mca[] = null;\n    int i1 = 0, ia1[] = null;\n\n    class Nested {\n        boolean b = false;\n    }\n}",
+        "description": "Java will initialize fields with known default values so any explicit initialization of those same defaults\nis redundant and results in a larger class file (approximately three additional bytecode instructions per field).\nExamples:\npublic class C {\n    boolean b   = false;    // examples of redundant initializers\n    byte by     = 0;\n    short s     = 0;\n    char c      = 0;\n    int i       = 0;\n    long l      = 0;\n\n    float f     = .0f;    // all possible float literals\n    double d    = 0d;     // all possible double literals\n    Object o    = null;\n\n    MyClass mca[] = null;\n    int i1 = 0, ia1[] = null;\n\n    class Nested {\n        boolean b = false;\n    }\n}",
+        "errorMessage": "Avoid using redundant field initializer for ''${variableName}''",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_performance.html#redundantfieldinitializer"
+    },
+    {
+        "index": 113,
+        "title": "StringInstantiation",
+        "description_only": "Avoid instantiating String objects; this is usually unnecessary since they are immutable and can be safely shared.",
+        "rule_type": "performance",
+        "example": "private String bar = new String(\"bar\"); // just do a String bar = \"bar\";",
+        "description": "Avoid instantiating String objects; this is usually unnecessary since they are immutable and can be safely shared.\nExamples:\nprivate String bar = new String(\"bar\"); // just do a String bar = \"bar\";",
+        "errorMessage": "Avoid instantiating String objects; this is usually unnecessary.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_performance.html#stringinstantiation"
+    },
+    {
+        "index": 114,
+        "title": "StringToString",
+        "description_only": "Avoid calling toString() on objects already known to be string instances; this is unnecessary.",
+        "rule_type": "performance",
+        "example": "private String baz() {\n    String bar = \"howdy\";\n    return bar.toString();\n}",
+        "description": "Avoid calling toString() on objects already known to be string instances; this is unnecessary.\nExamples:\nprivate String baz() {\n    String bar = \"howdy\";\n    return bar.toString();\n}",
+        "errorMessage": "Avoid calling toString() on String objects; this is unnecessary.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_performance.html#stringtostring"
+    },
+    {
+        "index": 115,
+        "title": "TooFewBranchesForASwitchStatement",
+        "description_only": "",
+        "rule_type": "performance",
+        "example": "",
+        "description": "",
+        "errorMessage": "",
+        "url": ""
+    },
+    {
+        "index": 116,
+        "title": "TooFewBranchesForSwitch",
+        "description_only": "Switch statements are intended to be used to support complex branching behaviour. Using a switch for only a few\ncases is ill-advised, since switches are not as easy to understand as if-else statements. In these cases use the\nif-else statement to increase code readability.\n\nNote: This rule was named TooFewBranchesForASwitchStatement before PMD 7.7.0.",
+        "rule_type": "performance",
+        "example": "// With a minimumNumberCaseForASwitch of 3\npublic class Foo {\n    public void bar(int condition) {\n        switch (condition) {\n            case 1:\n                instruction;\n                break;\n            default:\n                break; // not enough for a 'switch' stmt, a simple 'if' stmt would have been more appropriate\n        }\n    }\n}",
+        "description": "Switch statements are intended to be used to support complex branching behaviour. Using a switch for only a few\ncases is ill-advised, since switches are not as easy to understand as if-else statements. In these cases use the\nif-else statement to increase code readability.\n\nNote: This rule was named TooFewBranchesForASwitchStatement before PMD 7.7.0.\nExamples:\n// With a minimumNumberCaseForASwitch of 3\npublic class Foo {\n    public void bar(int condition) {\n        switch (condition) {\n            case 1:\n                instruction;\n                break;\n            default:\n                break; // not enough for a 'switch' stmt, a simple 'if' stmt would have been more appropriate\n        }\n    }\n}",
+        "errorMessage": "A switch with less than three branches is inefficient, use a 'if statement' instead.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_performance.html#toofewbranchesforswitch"
+    },
+    {
+        "index": 117,
+        "title": "UseArrayListInsteadOfVector",
+        "description_only": "ArrayList is a much better Collection implementation than Vector if thread-safe operation is not required.",
+        "rule_type": "performance",
+        "example": "import java.util.*;\npublic class SimpleTest extends TestCase {\n    public void testX() {\n    Collection c1 = new Vector();\n    Collection c2 = new ArrayList();    // achieves the same with much better performance\n    }\n}",
+        "description": "ArrayList is a much better Collection implementation than Vector if thread-safe operation is not required.\nExamples:\nimport java.util.*;\npublic class SimpleTest extends TestCase {\n    public void testX() {\n    Collection c1 = new Vector();\n    Collection c2 = new ArrayList();    // achieves the same with much better performance\n    }\n}",
+        "errorMessage": "Use ArrayList instead of Vector",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_performance.html#usearraylistinsteadofvector"
+    },
+    {
+        "index": 118,
+        "title": "UseArraysAsList",
+        "description_only": "The `java.util.Arrays` class has a `asList()` method that should be used when you want to create a new List from\nan array of objects. It is faster than executing a loop to copy all the elements of the array one by one.\n\nNote that the result of `Arrays.asList()` is backed by the specified array,\nchanges in the returned list will result in the array to be modified.\nFor that reason, it is not possible to add new elements to the returned list of `Arrays.asList()`\n(UnsupportedOperationException).\nYou must use `new ArrayList<>(Arrays.asList(...))` if that is inconvenient for you (e.g. because of concurrent access).",
+        "rule_type": "performance",
+        "example": "public class Test {\n    public void foo(Integer[] ints) {\n        // could just use Arrays.asList(ints)\n        List<Integer> l = new ArrayList<>(100);\n        for (int i = 0; i < ints.length; i++) {\n            l.add(ints[i]);\n        }\n\n        List<Integer> anotherList = new ArrayList<>();\n        for (int i = 0; i < ints.length; i++) {\n            anotherList.add(ints[i].toString()); // won't trigger the rule\n        }\n    }\n}",
+        "description": "The `java.util.Arrays` class has a `asList()` method that should be used when you want to create a new List from\nan array of objects. It is faster than executing a loop to copy all the elements of the array one by one.\n\nNote that the result of `Arrays.asList()` is backed by the specified array,\nchanges in the returned list will result in the array to be modified.\nFor that reason, it is not possible to add new elements to the returned list of `Arrays.asList()`\n(UnsupportedOperationException).\nYou must use `new ArrayList<>(Arrays.asList(...))` if that is inconvenient for you (e.g. because of concurrent access).\nExamples:\npublic class Test {\n    public void foo(Integer[] ints) {\n        // could just use Arrays.asList(ints)\n        List<Integer> l = new ArrayList<>(100);\n        for (int i = 0; i < ints.length; i++) {\n            l.add(ints[i]);\n        }\n\n        List<Integer> anotherList = new ArrayList<>();\n        for (int i = 0; i < ints.length; i++) {\n            anotherList.add(ints[i].toString()); // won't trigger the rule\n        }\n    }\n}",
+        "errorMessage": "Use asList instead of tight loops",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_performance.html#usearraysaslist"
+    },
+    {
+        "index": 119,
+        "title": "UseIndexOfChar",
+        "description_only": "Use String.indexOf(char) when checking for the index of a single character; it executes faster.",
+        "rule_type": "performance",
+        "example": "String s = \"hello world\";\n// avoid this\nif (s.indexOf(\"d\") {}\n// instead do this\nif (s.indexOf('d') {}",
+        "description": "Use String.indexOf(char) when checking for the index of a single character; it executes faster.\nExamples:\nString s = \"hello world\";\n// avoid this\nif (s.indexOf(\"d\") {}\n// instead do this\nif (s.indexOf('d') {}",
+        "errorMessage": "String.indexOf(char) is faster than String.indexOf(String).",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_performance.html#useindexofchar"
+    },
+    {
+        "index": 120,
+        "title": "UseIOStreamsWithApacheCommonsFileItem",
+        "description_only": "Problem: Use of [FileItem.get()](https://javadoc.io/static/commons-fileupload/commons-fileupload/1.5/org/apache/commons/fileupload/FileItem.html#get--)\nand [FileItem.getString()](https://javadoc.io/static/commons-fileupload/commons-fileupload/1.5/org/apache/commons/fileupload/FileItem.html#getString--)\ncould exhaust memory since they load the entire file into memory.\n\nSolution: Use [FileItem.getInputStream()](https://javadoc.io/static/commons-fileupload/commons-fileupload/1.5/org/apache/commons/fileupload/FileItem.html#getInputStream--)\nand buffering.",
+        "rule_type": "performance",
+        "example": "import org.apache.commons.fileupload.FileItem;\n\npublic class FileStuff {\n   private String bad(FileItem fileItem) {\n        return fileItem.getString();\n   }\n\n   private InputStream good(FileItem fileItem) {\n        return fileItem.getInputStream();\n   }\n}",
+        "description": "Problem: Use of [FileItem.get()](https://javadoc.io/static/commons-fileupload/commons-fileupload/1.5/org/apache/commons/fileupload/FileItem.html#get--)\nand [FileItem.getString()](https://javadoc.io/static/commons-fileupload/commons-fileupload/1.5/org/apache/commons/fileupload/FileItem.html#getString--)\ncould exhaust memory since they load the entire file into memory.\n\nSolution: Use [FileItem.getInputStream()](https://javadoc.io/static/commons-fileupload/commons-fileupload/1.5/org/apache/commons/fileupload/FileItem.html#getInputStream--)\nand buffering.\nExamples:\nimport org.apache.commons.fileupload.FileItem;\n\npublic class FileStuff {\n   private String bad(FileItem fileItem) {\n        return fileItem.getString();\n   }\n\n   private InputStream good(FileItem fileItem) {\n        return fileItem.getInputStream();\n   }\n}",
+        "errorMessage": "Avoid memory intensive FileItem.get() or FileItem.getString()",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_performance.html#useiostreamswithapachecommonsfileitem"
+    },
+    {
+        "index": 121,
+        "title": "UselessStringValueOf",
+        "description_only": "No need to call String.valueOf to append to a string; just use the valueOf() argument directly.",
+        "rule_type": "performance",
+        "example": "public String convert(int i) {\n    String s;\n    s = \"a\" + String.valueOf(i);    // not required\n    s = \"a\" + i;                    // preferred approach\n    return s;\n}",
+        "description": "No need to call String.valueOf to append to a string; just use the valueOf() argument directly.\nExamples:\npublic String convert(int i) {\n    String s;\n    s = \"a\" + String.valueOf(i);    // not required\n    s = \"a\" + i;                    // preferred approach\n    return s;\n}",
+        "errorMessage": "No need to call String.valueOf to append to a string.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_performance.html#uselessstringvalueof"
+    },
+    {
+        "index": 122,
+        "title": "UseStringBufferForStringAppends",
+        "description_only": "The use of the '+=' operator for appending strings causes the JVM to create and use an internal StringBuffer.\nIf a non-trivial number of these concatenations are being used then the explicit use of a StringBuilder or\nthreadsafe StringBuffer is recommended to avoid this.",
+        "rule_type": "performance",
+        "example": "public class Foo {\n    String inefficientConcatenation() {\n        String result = \"\";\n        for (int i = 0; i < 10; i++) {\n            // warning: this concatenation will create one new StringBuilder per iteration\n            result += getStringFromSomeWhere(i);\n        }\n        return result;\n    }\n\n    String efficientConcatenation() {\n        // better would be to use one StringBuilder for the entire loop\n        StringBuilder result = new StringBuilder();\n        for (int i = 0; i < 10; i++) {\n            result.append(getStringFromSomeWhere(i));\n        }\n        return result.toString();\n    }\n}",
+        "description": "The use of the '+=' operator for appending strings causes the JVM to create and use an internal StringBuffer.\nIf a non-trivial number of these concatenations are being used then the explicit use of a StringBuilder or\nthreadsafe StringBuffer is recommended to avoid this.\nExamples:\npublic class Foo {\n    String inefficientConcatenation() {\n        String result = \"\";\n        for (int i = 0; i < 10; i++) {\n            // warning: this concatenation will create one new StringBuilder per iteration\n            result += getStringFromSomeWhere(i);\n        }\n        return result;\n    }\n\n    String efficientConcatenation() {\n        // better would be to use one StringBuilder for the entire loop\n        StringBuilder result = new StringBuilder();\n        for (int i = 0; i < 10; i++) {\n            result.append(getStringFromSomeWhere(i));\n        }\n        return result.toString();\n    }\n}",
+        "errorMessage": "Prefer StringBuilder (non-synchronized) or StringBuffer (synchronized) over += for concatenating strings",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_performance.html#usestringbufferforstringappends"
+    },
+    {
+        "index": 123,
+        "title": "UseStringBufferLength",
+        "description_only": "Use StringBuffer.length() to determine StringBuffer length rather than using StringBuffer.toString().equals(\"\")\nor StringBuffer.toString().length() == ...",
+        "rule_type": "performance",
+        "example": "StringBuffer sb = new StringBuffer();\n\nif (sb.toString().equals(\"\")) {}        // inefficient\n\nif (sb.length() == 0) {}                // preferred",
+        "description": "Use StringBuffer.length() to determine StringBuffer length rather than using StringBuffer.toString().equals(\"\")\nor StringBuffer.toString().length() == ...\nExamples:\nStringBuffer sb = new StringBuffer();\n\nif (sb.toString().equals(\"\")) {}        // inefficient\n\nif (sb.length() == 0) {}                // preferred",
+        "errorMessage": "This is an inefficient use of CharSequence.toString; call CharSequence.length instead.",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_performance.html#usestringbufferlength"
+    },
+    {
+        "index": 124,
+        "title": "HardCodedCryptoKey",
+        "description_only": "Do not use hard coded values for cryptographic operations. Please store keys outside of source code.",
+        "rule_type": "security",
+        "example": "public class Foo {\n    void good() {\n        SecretKeySpec secretKeySpec = new SecretKeySpec(Properties.getKey(), \"AES\");\n    }\n\n    void bad() {\n        SecretKeySpec secretKeySpec = new SecretKeySpec(\"my secret here\".getBytes(), \"AES\");\n    }\n}",
+        "description": "Do not use hard coded values for cryptographic operations. Please store keys outside of source code.\nExamples:\npublic class Foo {\n    void good() {\n        SecretKeySpec secretKeySpec = new SecretKeySpec(Properties.getKey(), \"AES\");\n    }\n\n    void bad() {\n        SecretKeySpec secretKeySpec = new SecretKeySpec(\"my secret here\".getBytes(), \"AES\");\n    }\n}",
+        "errorMessage": "Do not use hard coded encryption keys",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_security.html#hardcodedcryptokey"
+    },
+    {
+        "index": 125,
+        "title": "InsecureCryptoIv",
+        "description_only": "Do not use hard coded initialization vector in cryptographic operations. Please use a randomly generated IV.",
+        "rule_type": "security",
+        "example": "public class Foo {\n    void good() {\n        SecureRandom random = new SecureRandom();\n        byte iv[] = new byte[16];\n        random.nextBytes(bytes);\n    }\n\n    void bad() {\n        byte[] iv = new byte[] { 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, };\n    }\n\n    void alsoBad() {\n        byte[] iv = \"secret iv in here\".getBytes();\n    }\n}",
+        "description": "Do not use hard coded initialization vector in cryptographic operations. Please use a randomly generated IV.\nExamples:\npublic class Foo {\n    void good() {\n        SecureRandom random = new SecureRandom();\n        byte iv[] = new byte[16];\n        random.nextBytes(bytes);\n    }\n\n    void bad() {\n        byte[] iv = new byte[] { 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, };\n    }\n\n    void alsoBad() {\n        byte[] iv = \"secret iv in here\".getBytes();\n    }\n}",
+        "errorMessage": "Do not use hard coded initialization vector in crypto operations",
+        "url": "https://docs.pmd-code.org/pmd-doc-7.14.0/pmd_rules_java_security.html#insecurecryptoiv"
+    }
+]

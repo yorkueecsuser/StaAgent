@@ -1,0 +1,154 @@
+[
+  {
+    "title": "ARBITRARY_CODE_EXECUTION_UNDER_LOCK",
+    "description": "Reported as \"Arbitrary Code Execution Under lock\" by starvation.\n\nA call that may execute arbitrary code (such as registered, or chained, callbacks) is made while holding a lock.\nThis code may deadlock whenever the callbacks obtain locks themselves, so it is an unsafe pattern.\n\nExample:\n\nSettableFuture future = null;  public void callFutureSet() {    future.set(null);  }  // synchronized means it's taking a lock implicitly  public synchronized void example_of_bad_pattern() {    callFutureSet(); // <- issue reported here  }  // If the call is made while holding multiple locks, the warning  // will be issued only at the innermost lock acquisition. Here we  // report in example_of_bad_pattern but we won't report below.  public void nested_bad_pattern_no_report(Object o) {    synchronized (o) {      example_of_bad_pattern(); // <- no issue reported    }  }\n\n",
+    "supported_language": "Java",
+    "flag": "--starvation"
+  },
+  {
+    "title": "CHECKERS_ALLOCATES_MEMORY",
+    "description": "Category: Perf regression. Reported as \"Allocates Memory\" by annotation-reachability.\n\nA method annotated with @NoAllocation transitively calls new.\n\nExample:\n\nclass C implements I {  @NoAllocation  void directlyAllocatingMethod() {    new Object();  }}\n\n",
+    "supported_language": "Java",
+    "flag": "--annotation-reachability"
+  },
+  {
+    "title": "CHECKERS_ANNOTATION_REACHABILITY_ERROR",
+    "description": "Category: Perf regression. Reported as \"Annotation Reachability Error\" by annotation-reachability.\n\nA method annotated with an annotation @A transitively calls a method annotated @B where the combination of annotations is forbidden (for example, @UiThread calling @WorkerThread).\n\n",
+    "supported_language": "Java",
+    "flag": "--annotation-reachability"
+  },
+  {
+    "title": "CHECKERS_CALLS_EXPENSIVE_METHOD",
+    "description": "Reported as \"Expensive Method Called\" by annotation-reachability.\n\nA method annotated with @PerformanceCritical transitively calls a method annotated @Expensive.\n\nExample:\n\nclass C {  @PerformanceCritical  void perfCritical() {    expensive();  }  @Expensive  void expensive() {}}\n\n",
+    "supported_language": "Java",
+    "flag": "--annotation-reachability"
+  },
+  {
+    "title": "CHECKERS_EXPENSIVE_OVERRIDES_UNANNOTATED",
+    "description": "Reported as \"Expensive Overrides Unannotated\" by annotation-reachability.\n\nA method annotated with @Expensive overrides an un-annotated method.\n\nExample:\n\ninterface I {  void foo();}class A implements I {  @Expensive  public void foo() {}}\n\n",
+    "supported_language": "Java",
+    "flag": "--annotation-reachability"
+  },
+  {
+    "title": "CHECKERS_PRINTF_ARGS",
+    "description": "Reported as \"Printf Args\" by printf-args.\n\nThis error is reported when the argument types to a printf method do not match the format string.\n\nvoid stringInsteadOfInteger(PrintStream out) {    out.printf(\"Hello %d\", \"world\");  }\n\nAction: fix the mismatch between format string and argument types.\n\n",
+    "supported_language": "Java",
+    "flag": "--printf-args"
+  },
+  {
+    "title": "DEADLOCK",
+    "description": "Category: Concurrency. Reported as \"Deadlock\" by starvation.\n\nThis error is currently reported in Java. A deadlock occurs when two distinct\nthreads try to acquire two locks in reverse orders. The following code\nillustrates a textbook example. Of course, in real deadlocks, the lock\nacquisitions may be separated by deeply nested call chains.\n\npublic void lockAThenB() {    synchronized(lockA) {      synchronized(lockB) {       // do something with both resources      }    }  }  public void lockBThenA() {    synchronized(lockB) {      synchronized(lockA) {       // do something with both resources      }    }  }\n\nThe standard solution to a deadlock is to fix an order of lock acquisition and\nadhere to that order in all cases. Another solution may be to shrink the\ncritical sections (i.e., the code executing under lock) to the minimum required.\n\nOld-style containers such as Vector are synchronized on the object monitor,\nwhich means that deadlocks can occur even without explicit synchronisation on\nboth threads. For instance:\n\npublic void lockAThenAddToVector() {    synchronized(lockA) {      vector.add(object);    }  }  public void lockVectorThenA() {    synchronized(vector) {      synchronized(lockA) {       // do something with both resources      }    }  }\n\nInfer has support for detecting these deadlocks too.\n\nTo suppress reports of deadlocks in a method m() use the\n@SuppressLint(\"DEADLOCK\") annotation, as follows:\n\nimport android.annotation.SuppressLint;  @SuppressLint(\"DEADLOCK\")  public void m() {  ...  }\n\n",
+    "supported_language": "Java",
+    "flag": "--starvation"
+  },
+  {
+    "title": "GUARDEDBY_VIOLATION",
+    "description": "Category: Concurrency. Reported as \"GuardedBy Violation\" by racerd.\n\nA field annotated with @GuardedBy is being accessed by a call-chain that starts at a non-private method without synchronization.\n\nExample:\n\nclass C {  @GuardedBy(\"this\")  String f;  void foo(String s) {    f = s; // unprotected access here  }}\n\nAction: Protect the offending access by acquiring the lock indicated by the @GuardedBy(...).\n\n",
+    "supported_language": "Java",
+    "flag": "--racerd-guardedby"
+  },
+  {
+    "title": "INEFFICIENT_KEYSET_ITERATOR",
+    "description": "Category: Perf regression. Reported as \"Inefficient Keyset Iterator\" by inefficient-keyset-iterator.\n\nThis issue is raised when\n\niterating over a HashMap with keySet() iterator\nlooking up the key each time\n\nExample:\n\nvoid inefficient_loop_bad(HashMap<String, Integer> testMap) { for (String key : testMap.keySet()) {   Integer value = testMap.get(key); // extra look-up cost   foo(key, value); }}\n\nAction:\n\nInstead, it is more efficient to iterate over the loop with entrySet which returns key-vaue pairs and gets rid of the hashMap lookup.\n\nvoid efficient_loop_ok(HashMap<String, Integer> testMap) {  for (Map.Entry<String, Integer> entry : testMap.entrySet()) {    String key = entry.getKey();    Integer value = entry.getValue();    foo(key, value);  }}\n\n",
+    "supported_language": "Java",
+    "flag": "--inefficient-keyset-iterator"
+  },
+  {
+    "title": "INTERFACE_NOT_THREAD_SAFE",
+    "description": "This error indicates that you have invoked an interface method not annotated with @ThreadSafe from a thread-safe context (e.g., code that uses locks or is marked @ThreadSafe). The fix is to add the @ThreadSafe annotation to the interface or to the interface method.\n\nIn the following code, RacerD will report an Interface not thread-safe warning on the call to i.bar():\n\ninterface I {\n  void bar();\n}\n\n@ThreadSafe\nclass C {\n  void foo(I i) {\n    i.bar(); // RacerD warns here\n  }\n}\n\nThe way to fix this warning is to add a @ThreadSafe annotation to the interface I, which will enforce the thread-safety of each of the implementations of I.\n\nYou might wonder why it's necessary to annotate I -- can't RacerD just look at all the implementations of i at the call site for bar? Although this is a fine idea in principle, it's a bad idea in practice due to (a) separate compilation and (b) our diff-based deployment model. In the example above, the compiler doesn't have to know about all implementations (or indeed, any implementations) of I at the time it compiles this code, so there's no guarantee that RacerD will know about or be able to check all implementations of I. That's (a). For (b), say that we check that all implementations of I are thread-safe at the time this code is written, but we don't add the annotation. If someone else comes along and adds a new implementation of I that is not thread-safe, RacerD will have no way of knowing that this will cause a potential bug in foo. But if I is annotated, RacerD will enforce that all new implementations of I are thread-safe, and foo will remain bug-free.\n\n",
+    "supported_language": "Java",
+    "flag": "--racerd-always-report-java"
+  },
+  {
+    "title": "LOCKLESS_VIOLATION",
+    "description": "Reported as \"Lockless Violation\" by starvation.\n\nA method implements an interface signature annotated with @Lockless but which transitively acquires a lock.\n\nExample:\n\nInterface I {    @Lockless    public void no_lock();}class C implements I {  private synchronized do_lock() {}  public void no_lock() { // this method should not acquire any locks    do_lock();  }}\n\n",
+    "supported_language": "Java",
+    "flag": "--starvation"
+  },
+  {
+    "title": "NULLPTR_DEREFERENCE",
+    "description": "Null dereference in Java\nMany of Infer's reports of potential Null Pointer Exceptions (NPE) come from code of the form:\n\n  p = foo(); // foo() might return null\n  stuff();\n  p.goo();   // dereferencing p, potential NPE\n\nIf you are unsure whether or not foo() will return null, you should ideally either:\n- Change the code to ensure that foo() cannot return null, or\n- Add a check that p is not null before dereferencing p.\n\nOne possibility is to throw an exception early using `checkNotNull`:\n\n```java\nimport static com.google.common.base.Preconditions.checkNotNull;\n\np = checkNotNull(foo());\nstuff();\np.goo();\n```\n\nThe call to `checkNotNull(foo())` will throw a NullPointerException immediately if `foo()` returns null.\n\nFacebook NOTE: If you are absolutely sure that `foo()` will not return null, once your diff lands to trunk this case will stop being reported.\n\nExample:\n\n```java\nimport com.facebook.infer.annotation.ThreadSafe;\nimport javax.annotation.Nullable;\n\n@ThreadSafe\nclass NullPointerExample {\n\n    public static class Helper {\n        public void doSomething() {\n            System.out.println(\"Doing something...\");\n        }\n    }\n\n    @Nullable\n    public Helper getHelper(boolean returnNull) {\n        if (returnNull) {\n            return null;\n        }\n        return new Helper();\n    }\n\n    public void showBug() {\n        new NullPointerExample().getHelper(true).doSomething();\n    }\n}\n",    "supported_language": "Java",
+    "flag": "--pulse"
+  },
+  {
+    "title": "RESOURCE_LEAK​",
+    "description":  "Resource leak in Java\nFor the remaining of this section, we will consider examples of resource leaks in Java code.\n\nTIP: A common source of bugs is exceptions skipping past close() statements. That is the first thing to look for if INFER reports a potential resource leak.\n\nBasics and Standard Idiom\nSome objects in Java, the resources, are supposed to be closed when you stop using them, and failure to close is a resource leak. Resources include input streams, output streams, readers, writers, sockets, http connections, cursors, and json parsers.\n\nThe standard idiom is\n\n  // Standard idiom\n  Allocate resource\n  try {\n    do some stuff\n  } finally {\n    close resource\n  }\n\nor more for example,\n\n  // Standard Idiom\n  public static void foo () throws IOException {\n    FileOutputStream fos = new FileOutputStream(new File(\"whatever.txt\"));\n    try {\n      fos.write(7);\n    } finally {\n      fos.close();\n    }\n  }\n\nand you should use the standard idiom for the most part, when you don't want to return the resource to the surrounding context.\n\nSometimes people just leave out close(), and that is a bug, but more typically exceptional paths are the root of the problem, as in\n\n  // leak because of exception\n  public static void foo () throws IOException {\n    FileOutputStream fos = new FileOutputStream(new File(\"whatever.txt\"));\n    fos.write(7);   // DOH! What if exception?\n    fos.close();\n  }\n\nwhere an exception in fos.write will cause execution to skip past the close() statement.\n\nMultiple Resources Bugs\nWe can deal with multiple resources correctly and simply just by nesting the standard idiom.\n\n  // Two Resources nested\n  public static void foo() throws IOException {\n    FileInputStream fis = new FileInputStream(new File(\"whatever.txt\"));\n    try {\n      FileOutputStream fos = new FileOutputStream(new File(\"everwhat.txt\"));\n      try {\n        fos.write(fis.read());\n      } finally {\n        fos.close();\n      }\n    } finally {\n      fis.close();\n    }\n  }\n\nBugs often occur when using multiple resources in other ways because of exceptions in close() methods. For example,\n\n  // Classic Two Resources Bug\n  public static void foo() throws IOException {\n    FileInputStream fis = null;\n    FileOutputStream fos = null;\n    try {\n      fis = new FileInputStream(new File(\"whatever.txt\"));\n      fos = new FileOutputStream(new File(\"everwhat.txt\"));\n      fos.write(fis.read());\n    } finally {\n      if (fis != null) fis.close();\n      if (fos != null) fos.close();\n    }\n  }\n\nHere, if there is an exception in the call to fis.close() execution will skip past fos.close(); a leak.\n\nAnother way, besides the standard idiom, to deal with this problem is to swallow exceptions.\n\n  // Two Resources Fix 1\n  public static void foo() throws IOException {\n    FileInputStream fis = null;\n    FileOutputStream fos = null;\n    try {\n      fis = new FileInputStream(new File(\"whatever.txt\"));\n      fos = new FileOutputStream(new File(\"everwhat.txt\"));\n      fos.write(fis.read());\n    } finally {\n      try {\n        if (fis != null) fis.close();\n      } catch (Exception e) {}  // Exception swallowing\n      if (fos != null) fos.close();\n    }\n  }\n\nYou can also swallow the exception on the output stream. Some people prefer not to swallow output stream exceptions, and also flush before closing. http://code.google.com/p/guava-libraries/issues/detail?id=1118\n\nNotice that the nested standard idiom does not need the checks for null, which are in there in this case to protect against the case when one of the allocations throws an exception, in which case one would get a NullPointerException.\n\n",    "supported_language": "Java",
+    "flag": "--pulse"
+  },
+  {
+    "title": "STARVATION",
+    "description": "Reported as \"UI Thread Starvation\" by starvation.\n\nThis error is reported in Java, specifically on Android. These reports are triggered when a method that runs on the UI thread may block, potentially leading to an Application Not Responding (ANR) error.\n\nInfer considers a method as running on the UI thread when:\n- The method, one of its overrides, its class, or an ancestral class is annotated with @UiThread.\n- The method or one of its overrides is annotated with @OnEvent, @OnClick, etc.\n- The method or its callees invoke Litho.ThreadUtils methods such as assertMainThread.\n\nThe issue is reported when a UI-thread method:\n- Makes a call that may block.\n- Takes a lock which another thread also takes, and that thread may block before releasing it.\n\nCalls considered potentially blocking include:\n- Certain I/O calls.\n- Two-way Binder.transact calls.\n- Certain OS-level calls.\n- Future or AsyncTask calls to get() without timeouts or with excessive timeouts.\n\nSuppression:\nTo suppress starvation warnings in a method, use the @SuppressLint annotation:\n\n  import android.annotation.SuppressLint;\n\n  @SuppressLint(\"STARVATION\")\n  public void m() {\n    ...\n  }\n\nTo explicitly mark a method as non-blocking, use the @NonBlocking annotation:\n\n  import com.facebook.infer.annotation.NonBlocking;\n\n  @NonBlocking\n  public void m() {\n    ...\n  }\n\nThis tells Infer to treat m() as safe from blocking behavior (transitively), preventing false-positive starvation reports. Ensure the infer/annotations JARs are on your classpath for this annotation to work.\n\nNote: The @UiThread annotation and corresponding import `import androidx.annotation.UiThread;` can be included where necessary to explicitly indicate that a method runs on the UI thread.\n\n",    "supported_language": "Java",
+    "flag": "--starvation"
+  },
+  {
+    "title": "THREAD_SAFETY_VIOLATION",
+    "description": "This warning indicates a potential data race in Java. The analyser is called RacerD and this section gives brief but a mostly complete description of its features. See the RacerD page for more in-depth information and examples.\n\nThread-safety: What is a data race\nHere a data race is a pair of accesses to the same member field such that:\n- at least one is a write, and,\n- at least one occurs without any lock synchronization, and,\n- the two accesses occur on threads (if known) which can run in parallel.\n\nThread-safety: Potential fixes\n- Synchronizing the accesses (using the synchronized keyword, thread-exclusion such as atomic objects, volatile etc).\n- Making an offending method private -- this will exclude it from being checked at the top level, though it will be checked if called by a public method which may itself, e.g., hold a lock when calling it.\n- Putting the two accesses on the same thread, e.g., by using @MainThread or @ThreadConfined.\n\nThread-safety: Conditions checked before reporting\n- The class and method are not marked @ThreadSafe(enableChecks = false), and,\n- The method is declared synchronized, or employs (non-transitively) locking, or,\n- The class is not marked @NotThreadSafe, and,\n- The class/method is marked @ThreadSafe, or one of the configured synonyms in .inferconfig, or,\n- A parent class, or an override method are marked with the above annotations.\nNB currently RacerD does not take into account @GuardedBy.\n\nThread-safety: Thread annotations recognized by RacerD\nThese class and method annotations imply the method is on the main thread:\n- @MainThread\n- @UiThread\n\nThese method annotations imply the method is on the main thread:\n- @OnBind\n- @OnEvent\n- @OnMount\n- @OnUnbind\n- @OnUnmount\n\nBoth classes of annotations work through the inheritance tree (i.e. if a parent class or method is marked with one of these annotations, so is the child class / method override).\n\nIn addition to these, RacerD recognizes many lifecycle methods as necessarily running on the main thread, e.g., Fragment.onCreate, etc.\n\nFinally, the thread status of being on the main thread propagates backwards through the call graph (i.e., if foo calls bar and bar is marked @UiThread, then foo is automatically considered on the main thread too). Calling assertMainThread, assertOnUiThread, checkOnMainThread has the same effect.\n\nNB RacerD currently does not recognize @WorkerThread, @BinderThread or @AnyThread.\n\nThread-safety: Other annotations and what they do\nThese annotations can be found at com.facebook.infer.annotation.*:\n\n- @Functional: This is a method annotation indicating the method always returns the same value. When a method foo is annotated @Functional, RacerD will ignore any writes of the return value of foo. For example, in this.x = foo(), the write to this.x is ignored. The reasoning is that if the method returns the same value whenever it's called, any data race on this.x is benign, if that is the only write.\n\n- @ThreadConfined: This is a class/method/field annotation which takes a single parameter which can be UI, ANY or a user chosen string. It indicates to RacerD a thread identifier for the class/method/field. Thus, @ThreadConfined(UI) is equivalent to @UiThread, and @ThreadConfined(ANY) is equivalent to not having the annotation at all, for classes and methods. When this annotation is applied to a field it instructs Infer to assume (without checking) that all accesses to that field are made on the same thread (and can, therefore, not race by definition). The intention is that RacerD uses that to detect exclusion between accesses occurring on the same thread. However, only the UI thread is supported at this time, and any user-provided value is considered equal to UI.\n\n- @VisibleForTesting: A method annotation making Infer consider the method as effectively private. This means it will not be checked for races against other non-private methods of the class, but only if called by one.\n\n- @ReturnsOwnership: A method annotation indicating that the method returns a freshly owned object. Accesses to the returned value will not be considered for data races, as the object is in-effect unique and not accessible yet from other threads. The main utility of this annotation is in interfaces, where Infer cannot look up the implementation and decide for itself.\n\n",
+    "supported_language": "Java",
+    "flag": "--racerd"
+  },
+  {
+    "title": "INTEGER_OVERFLOW_L1​",
+    "description": "Reported as \"Integer Overflow L1\" by bufferoverrun.\n\nThis is reported when integer overflow occurred by integer operations such as addition, subtraction,\nand multiplication. For example, int n = INT_MAX; int m = n + 3; generates a INTEGER_OVERFLOW_L1\non n + 3.\n\nInteger overflows reports fall into several \"buckets\" corresponding to the expected precision of the\nreport. The higher the number, the more likely it is to be a false positive.\n\nL1: The most faithful report, when it must be unsafe.  For example,\n[2147483647,2147483647] + [1,1] in 32-bit signed integer type.\n\n\nL2: Less faithful report than L1, when it may be unsafe.  For example,\n[2147483647,2147483647] + [0,1] in 32-bit signed integer type.  Note that the integer of RHS\ncan be 0, which is safe.\n\n\nL5: The reports that are not included in the above cases.\n\n\nU5: A binary integer operation is unsafe by unknown values, which are usually from unknown\nfunction calls.\n\nL1: The most faithful report, when it must be unsafe.  For example,\n[2147483647,2147483647] + [1,1] in 32-bit signed integer type.\n\nL2: Less faithful report than L1, when it may be unsafe.  For example,\n[2147483647,2147483647] + [0,1] in 32-bit signed integer type.  Note that the integer of RHS\ncan be 0, which is safe.\n\nL5: The reports that are not included in the above cases.\n\nU5: A binary integer operation is unsafe by unknown values, which are usually from unknown\nfunction calls.\n\n",
+    "supported_language": "Java",
+    "flag": "--bufferoverrun"
+  },
+  {
+    "title": "INTEGER_OVERFLOW_L2​",
+   "description": "Reported as \"Integer Overflow L2\" by bufferoverrun.\n\nSee INTEGER_OVERFLOW_L1\n\nExample:\n\nclass IntegerOverL2 {\n\n    public static int getUnknownValue() {\n        // Simulate unknown method\n        return (int)(System.currentTimeMillis() % Integer.MAX_VALUE);\n    }\n\n    public int showBug() {\n        int x = getUnknownValue();\n        int y = x + 2000000000; \n        int[] arr = new int[10];\n        return arr[Math.abs(y % 10)];\n    }\n\n    public static void main(String[] args) {\n        IntegerOverL2 obj = new IntegerOverL2();\n        obj.showBug();\n    }\n}",
+    "supported_language": "Java",
+    "flag": "--bufferoverrun"
+  },
+  {
+    "title": "INFERBO_ALLOC_MAY_BE_NEGATIVE​",
+    "description": "Reported as \"Alloc May Be Negative\" by bufferoverrun.\n\nmalloc may be called with a negative value. For example, int n = b ? 3 : -5; malloc(n); generates INFERBO_ALLOC_MAY_BE_NEGATIVE on malloc(n).\n\nAction: Fix the size argument or add a bound checking, e.g. if (n > 0) { malloc(n); }.\n\nJava Example:\n\nclass JavaAllocNegativeSizeExample {\n    public static void main(String[] args) {\n        IntegerOverflowU5Example example = new IntegerOverflowU5Example();\n        example.demonstrateU5Overflow();\n    }\n\n    public void demonstrateU5Overflow() {\n        int[] buffer = new int[50];\n\n        for (int outer = 0; outer < 3; outer++) {\n            int baseValue = Integer.MAX_VALUE - 1000;\n\n            for (int inner = 0; inner < 2; inner++) {\n                if (outer > 0) {\n                    int step1 = baseValue + 500;\n\n                    if (inner > 0) {\n                        int step2 = step1 + 600;\n\n                        int index = (step2 >>> 1) % buffer.length; \n                        buffer[index] = outer + inner;\n\n                        System.out.println(\"Step2 (overflowed): \" + step2);\n                        System.out.println(\"Index used: \" + index);\n                    }\n                }\n            }\n        }\n    }\n\n    public void complexUpperBoundCalculation() {\n        int limit = Integer.MAX_VALUE - 10;\n        int increment = 15;\n\n        for (int i = 0; i < 2; i++) {\n            for (int j = 0; j < 2; j++) {\n                if (i + j > 0) {\n                    int result = limit + increment;\n\n                    // Use in array allocation\n                    int size = Math.abs(result) % 50;\n                    int[] tempArray = new int[size]; //BUG: INFERBO_ALLOC_MAY_BE_NEGATIVE\n\n                    System.out.println(\"Result: \" + result + \", Array size: \" + size);\n                }\n            }\n        }\n    }\n}",    "supported_language": "Java",
+    "flag": "--bufferoverrun"
+  },
+  {
+    "title": "INTEGER_OVERFLOW_U5​",
+    "description": "Reported as \"Integer Overflow U5\" by bufferoverrun.\n\nSee INTEGER_OVERFLOW_L1\n\n",
+    "supported_language": "Java",
+    "flag": "--bufferoverrun"
+  },
+  {
+    "title": "EXPENSIVE_LOOP_INVARIANT_CALL​",
+    "description": "Reported as \"Expensive Loop Invariant Call\" by loop-hoisting.\n\nWe report this issue type when a function is loop-invariant and also expensive (i.e. at least has linear complexity as determined by the cost analysis).\n\nint incr(int x) {  return x + 1;}// incr will not be hoisted since it is cheap(constant time)void foo_linear(int size) {  int x = 10;  for (int i = 0; i < size; i++) {    incr(x); // constant call, don't hoist  }}// call to foo_linear will be hoisted since it is expensive(linear in size).void symbolic_expensive_hoist(int size) {  for (int i = 0; i < size; i++) {    foo_linear(size); // hoist  }}\n\n",
+    "supported_language": "Java",
+    "flag": "--loop-hoisting"
+  },
+  {
+    "title": "INFINITE_EXECUTION_TIME​",
+    "description": "Reported as \"Infinite Execution Time\" by cost.\n\nThis warning indicates that Infer was not able to determine a static\nupper bound on the execution cost of the procedure. By default, this\nissue type is disabled.\n\n\nExample 1: T due to expressivity​\nFor instance, Inferbo's interval analysis is limited to affine\nexpressions. Hence, we can't statically estimate an upper bound on the\nbelow example and obtain T(unknown) cost:\n\n// Expected: square root(x), got Tvoid square_root_FP(int x) { int i = 0; while (i * i < x) {   i++; }}\n\n\nExample 2: T due to unmodeled calls​\nAnother common case where we get T cost is when Infer cannot statically determine the range of values for loop bounds. For instance,\n\nvoid loop_over_charArray_FP(StringBuilder builder, String input) {  for (Character c : input.toCharArray()) {}}\n\nHere, Infer does not have any InferBo models for the range of values returned by String.toCharArray, hence it cannot determine that we will be iterating over a char array in the size of input string.\n\nTo teach InferBo about such library calls, they should be semantically modeled in InferBo.\n\n\nExample 3: T due to calling another T-costed function​\nSince the analysis is inter-procedural, another example we can have T cost is if at least one of the callees has T cost.\n\n// Expected: constant, got Tvoid call_top_cost_FP() { square_root_FP(1); // square_root_FP has Top cost}\n\n",
+    "supported_language": "Java",
+    "flag": "--cost"
+  },
+  {
+    "title": "MUTUAL_RECURSION_CYCLE​",
+    "description": "Category: Runtime exception. Reported as \"Mutual Recursion Cycle\" by pulse.\n\nA recursive call or mutually recursive call has been detected. This does not mean that the program won't terminate, just that the code is recursive. You should double-check if the recursion is intended and if it can lead to non-termination or a stack overflow.\n\nExample of recursive function:\n\nint factorial(int x) {  if (x > 0) {    return x * factorial(x-1);  } else {    return 1;  }}\n\n",
+    "supported_language": "Java",
+    "flag": "--pulse"
+  },
+  {
+    "title": "MODIFIES_IMMUTABLE​",
+    "description": "Reported as \"Modifies Immutable\" by impurity.\n\nThis issue type indicates modifications to fields marked as @Immutable. For instance, below function mutateArray would be marked as modifying immutable field testArray:\n\n@Immutable int[] testArray = new int[]{0, 1, 2, 4};    int[] getTestArray() {    return testArray;  }                            void mutateArray() {    int[] array = getTestArray();    array[2] = 7;  }\n\n",
+    "supported_language": "Java",
+    "flag": "--impurity"
+  },
+  {
+    "title": "INVARIANT_CALL​",
+    "description": "Reported as \"Invariant Call\" by loop-hoisting.\n\nWe report this issue type when a function call is loop-invariant and hoistable, i.e.\n\nthe function has no side side effects (pure)\nhas invariant arguments and result (i.e. have the same value in all loop iterations)\nit is guaranteed to execute, i.e. it dominates all loop sources\n\nint foo(int x, int y) { return x + y;}void invariant_hoist(int size) {    int x = 10;    int y = 5;    for (int i = 0; i < size; i++) {      foo(x, y); // hoistable    }  }\n\n",
+    "supported_language": "Java",
+    "flag": "--loop-hoisting"
+  },
+  {
+    "title": "IMPURE_FUNCTION​",
+    "description": "Reported as \"Impure Function\" by impurity.\n\nThis issue type indicates impure functions. For instance, below functions would be marked as impure:\n\nvoid makeAllZero_impure(ArrayList<Foo> list) {  Iterator<Foo> listIterator = list.iterator();  while (listIterator.hasNext()) {    Foo foo = listIterator.next();    foo.x = 0;  }}\n\n",
+    "supported_language": "Java",
+    "flag": "--impurity"
+  },
+  {
+    "title": "BUFFER_OVERRUN_L3​",
+    "description": "Reported as \"Buffer Overrun L3\" by bufferoverrun.\n\nSee BUFFER_OVERRUN_L1\n\nExample:\n\nimport java.util.Scanner;\n\nclass IntegerOverflowExample {\n\n    public int showBug(int a, int b) {\n        int c = a + b; \n        int[] arr = new int[10];\n        return arr[c % 10]; \n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int a = sc.nextInt();\n        int b = sc.nextInt();\n        IntegerOverflowExample ex = new IntegerOverflowExample();\n        ex.showBug(a, b);\n    }\n}",
+    "supported_language": "Java",
+    "flag": "--bufferoverrun"
+  }
+]

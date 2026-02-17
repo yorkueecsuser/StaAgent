@@ -1,0 +1,997 @@
+[
+  {
+    "title": "CN: Super method is annotated with @OverridingMethodsMustInvokeSuper, but the overriding method isn\u2019t calling the super method. (OVERRIDING_METHODS_MUST_INVOKE_SUPER)\uf0c1",
+    "description": "Super method is annotated with @OverridingMethodsMustInvokeSuper, but the overriding method isn't calling the super method.",
+    "code": "OVERRIDING_METHODS_MUST_INVOKE_SUPER"
+  },
+  {
+    "title": "NP: Method with Optional return type returns explicit null (NP_OPTIONAL_RETURN_NULL)\uf0c1",
+    "description": "\nThe usage of Optional return type (java.util.Optional or com.google.common.base.Optional)\nalways means that explicit null returns were not desired by design.\nReturning a null value in such case is a contract violation and will most likely break client code.\n   ",
+    "code": "NP_OPTIONAL_RETURN_NULL"
+  },
+  {
+    "title": "NP: Non-null field is not initialized (NP_NONNULL_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR)\uf0c1",
+    "description": " The field is marked as non-null, but isn't written to by the constructor.\nThe field might be initialized elsewhere during constructor, or might always\nbe initialized before use.\n   ",
+    "code": "NP_NONNULL_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR"
+  },
+  {
+    "title": "VR: Class makes reference to unresolvable class or method (VR_UNRESOLVABLE_REFERENCE)\uf0c1",
+    "description": "\n  This class makes a reference to a class or method that cannot be\nresolved using against the libraries it is being analyzed with.\n  ",
+    "code": "VR_UNRESOLVABLE_REFERENCE"
+  },
+  {
+    "title": "IL: An apparent infinite loop (IL_INFINITE_LOOP)\uf0c1",
+    "description": "This loop doesn't seem to have a way to terminate (other than by perhaps\nthrowing an exception).",
+    "code": "IL_INFINITE_LOOP"
+  },
+  {
+    "title": "IO: Doomed attempt to append to an object output stream (IO_APPENDING_TO_OBJECT_OUTPUT_STREAM)\uf0c1",
+    "description": "\nThis code opens a file in append mode and then wraps the result in an object output stream like as follows:\n  \nThis won't allow you to append to an existing object output stream stored in a file. If you want to be\nable to append to an object output stream, you need to keep the object output stream open.\n  The only situation in which opening a file in append mode and the writing an object output stream\n could work is if on reading the file you plan to open it in random access mode and seek to the byte offset\n where the append started.\n  OutputStream out = new FileOutputStream(anyFile, true);\nnew ObjectOutputStream(out);",
+    "code": "IO_APPENDING_TO_OBJECT_OUTPUT_STREAM"
+  },
+  {
+    "title": "IL: An apparent infinite recursive loop (IL_INFINITE_RECURSIVE_LOOP)\uf0c1",
+    "description": "This method unconditionally invokes itself. This would seem to indicate\nan infinite recursive loop that will result in a stack overflow.",
+    "code": "IL_INFINITE_RECURSIVE_LOOP"
+  },
+  {
+    "title": "IL: A collection is added to itself (IL_CONTAINER_ADDED_TO_ITSELF)\uf0c1",
+    "description": "A collection is added to itself. As a result, computing the hashCode of this\nset will throw a StackOverflowException.\n",
+    "code": "IL_CONTAINER_ADDED_TO_ITSELF"
+  },
+  {
+    "title": "RpC: Repeated conditional tests (RpC_REPEATED_CONDITIONAL_TEST)\uf0c1",
+    "description": "The code contains a conditional test is performed twice, one right after the other\n(e.g., x == 0 || x == 0). Perhaps the second occurrence is intended to be something else\n(e.g., x == 0 || y == 0).\n x == 0 || x == 0 x == 0 || y == 0",
+    "code": "RpC_REPEATED_CONDITIONAL_TEST"
+  },
+  {
+    "title": "FL: Method performs math using floating point precision (FL_MATH_USING_FLOAT_PRECISION)\uf0c1",
+    "description": "\n   The method performs math operations using floating point precision.\n   Floating point precision is very imprecise. For example,\n   16777216.0f + 1.0f = 16777216.0f. Consider using double math instead.",
+    "code": "FL_MATH_USING_FLOAT_PRECISION"
+  },
+  {
+    "title": "CAA: Possibly incompatible element is stored in covariant array (CAA_COVARIANT_ARRAY_ELEMENT_STORE)\uf0c1",
+    "description": "Value is stored into the array and the value type doesn't match the array type.\nIt's known from the analysis that actual array type is narrower than the declared type of its variable or field\nand this assignment doesn't satisfy the original array type. This assignment may cause ArrayStoreException\nat runtime.\n",
+    "code": "CAA_COVARIANT_ARRAY_ELEMENT_STORE"
+  },
+  {
+    "title": "Dm: Useless/vacuous call to EasyMock method (DMI_VACUOUS_CALL_TO_EASYMOCK_METHOD)\uf0c1",
+    "description": "This call doesn't pass any objects to the EasyMock method, so the call doesn't do anything.\n",
+    "code": "DMI_VACUOUS_CALL_TO_EASYMOCK_METHOD"
+  },
+  {
+    "title": "Dm: Futile attempt to change max pool size of ScheduledThreadPoolExecutor (DMI_FUTILE_ATTEMPT_TO_CHANGE_MAXPOOL_SIZE_OF_SCHEDULED_THREAD_POOL_EXECUTOR)\uf0c1",
+    "description": "(Javadoc)\nWhile ScheduledThreadPoolExecutor inherits from ThreadPoolExecutor, a few of the inherited tuning methods are not useful for it. In particular, because it acts as a fixed-sized pool using corePoolSize threads and an unbounded queue, adjustments to maximumPoolSize have no useful effect.\n    ",
+    "code": "DMI_FUTILE_ATTEMPT_TO_CHANGE_MAXPOOL_SIZE_OF_SCHEDULED_THREAD_POOL_EXECUTOR"
+  },
+  {
+    "title": "DMI: BigDecimal constructed from double that isn\u2019t represented precisely (DMI_BIGDECIMAL_CONSTRUCTED_FROM_DOUBLE)\uf0c1",
+    "description": "\nThis code creates a BigDecimal from a double value that doesn't translate well to a\ndecimal number.\nFor example, one might assume that writing new BigDecimal(0.1) in Java creates a BigDecimal which is exactly equal to 0.1 (an unscaled value of 1, with a scale of 1), but it is actually equal to 0.1000000000000000055511151231257827021181583404541015625.\nYou probably want to use the BigDecimal.valueOf(double d) method, which uses the String representation\nof the double to create the BigDecimal (e.g., BigDecimal.valueOf(0.1) gives 0.1).\n",
+    "code": "DMI_BIGDECIMAL_CONSTRUCTED_FROM_DOUBLE"
+  },
+  {
+    "title": "Dm: Creation of ScheduledThreadPoolExecutor with zero core threads (DMI_SCHEDULED_THREAD_POOL_EXECUTOR_WITH_ZERO_CORE_THREADS)\uf0c1",
+    "description": "(Javadoc)\nA ScheduledThreadPoolExecutor with zero core threads will never execute anything; changes to the max pool size are ignored.\n",
+    "code": "DMI_SCHEDULED_THREAD_POOL_EXECUTOR_WITH_ZERO_CORE_THREADS"
+  },
+  {
+    "title": "Dm: Cannot use reflection to check for presence of annotation without runtime retention (DMI_ANNOTATION_IS_NOT_VISIBLE_TO_REFLECTION)\uf0c1",
+    "description": " Unless an annotation has itself been annotated with  @Retention(RetentionPolicy.RUNTIME), the annotation cannot be observed using reflection\n(e.g., by using the isAnnotationPresent method).\n   .",
+    "code": "DMI_ANNOTATION_IS_NOT_VISIBLE_TO_REFLECTION"
+  },
+  {
+    "title": "NP: Method does not check for null argument (NP_ARGUMENT_MIGHT_BE_NULL)\uf0c1",
+    "description": "\nA parameter to this method has been identified as a value that should\nalways be checked to see whether or not it is null, but it is being dereferenced\nwithout a preceding null check.\n  ",
+    "code": "NP_ARGUMENT_MIGHT_BE_NULL"
+  },
+  {
+    "title": "RV: Bad attempt to compute absolute value of signed random integer (RV_ABSOLUTE_VALUE_OF_RANDOM_INT)\uf0c1",
+    "description": " This code generates a random signed integer and then computes\nthe absolute value of that random integer.  If the number returned by the random number\ngenerator is Integer.MIN_VALUE, then the result will be negative as well (since\nMath.abs(Integer.MIN_VALUE) == Integer.MIN_VALUE). (Same problem arises for long values as well).\n Integer.MIN_VALUE Math.abs(Integer.MIN_VALUE) == Integer.MIN_VALUE",
+    "code": "RV_ABSOLUTE_VALUE_OF_RANDOM_INT"
+  },
+  {
+    "title": "RV: Bad attempt to compute absolute value of signed 32-bit hashcode (RV_ABSOLUTE_VALUE_OF_HASHCODE)\uf0c1",
+    "description": " This code generates a hashcode and then computes\nthe absolute value of that hashcode.  If the hashcode\nis Integer.MIN_VALUE, then the result will be negative as well (since\nMath.abs(Integer.MIN_VALUE) == Integer.MIN_VALUE).\n One out of 2^32 strings have a hashCode of Integer.MIN_VALUE,\nincluding \"polygenelubricants\" \"GydZG_\" and \"\"DESIGNING WORKHOUSES\".\n Integer.MIN_VALUE Math.abs(Integer.MIN_VALUE) == Integer.MIN_VALUE",
+    "code": "RV_ABSOLUTE_VALUE_OF_HASHCODE"
+  },
+  {
+    "title": "RV: Random value from 0 to 1 is coerced to the integer 0 (RV_01_TO_INT)\uf0c1",
+    "description": "A random value from 0 to 1 is being coerced to the integer value 0. You probably\nwant to multiply the random value by something else before coercing it to an integer, or use the Random.nextInt(n) method.\n Random.nextInt(n)",
+    "code": "RV_01_TO_INT"
+  },
+  {
+    "title": "Dm: Incorrect combination of Math.max and Math.min (DM_INVALID_MIN_MAX)\uf0c1",
+    "description": "This code tries to limit the value bounds using the construct like Math.min(0, Math.max(100, value)). However the order of\nthe constants is incorrect: it should be Math.min(100, Math.max(0, value)). As the result this code always produces the same result\n(or NaN if the value is NaN).",
+    "code": "DM_INVALID_MIN_MAX"
+  },
+  {
+    "title": "Eq: equals method compares class names rather than class objects (EQ_COMPARING_CLASS_NAMES)\uf0c1",
+    "description": " This class defines an equals method that checks to see if two objects are the same class by checking to see if the names\nof their classes are equal. You can have different classes with the same name if they are loaded by\ndifferent class loaders. Just check to see if the class objects are the same.\n",
+    "code": "EQ_COMPARING_CLASS_NAMES"
+  },
+  {
+    "title": "Eq: equals method always returns true (EQ_ALWAYS_TRUE)\uf0c1",
+    "description": " This class defines an equals method that always returns true. This is imaginative, but not very smart.\nPlus, it means that the equals method is not symmetric.\n",
+    "code": "EQ_ALWAYS_TRUE"
+  },
+  {
+    "title": "Eq: equals method always returns false (EQ_ALWAYS_FALSE)\uf0c1",
+    "description": " This class defines an equals method that always returns false. This means that an object is not equal to itself, and it is impossible to create useful Maps or Sets of this class. More fundamentally, it means\nthat equals is not reflexive, one of the requirements of the equals method. The likely intended semantics are object identity: that an object is equal to itself. This is the behavior inherited from class Object. If you need to override an equals inherited from a different\nsuperclass, you can use: Object public boolean equals(Object o) {\n    return this == o;\n}\n",
+    "code": "EQ_ALWAYS_FALSE"
+  },
+  {
+    "title": "Eq: equals method overrides equals in superclass and may not be symmetric (EQ_OVERRIDING_EQUALS_NOT_SYMMETRIC)\uf0c1",
+    "description": " This class defines an equals method that overrides an equals method in a superclass. Both equals methods\nuse instanceof in the determination of whether two objects are equal. This is fraught with peril,\nsince it is important that the equals method is symmetrical (in other words, a.equals(b) == b.equals(a)).\nIf B is a subtype of A, and A's equals method checks that the argument is an instanceof A, and B's equals method\nchecks that the argument is an instanceof B, it is quite likely that the equivalence relation defined by these\nmethods is not symmetric.\n instanceof a.equals(b) == b.equals(a)",
+    "code": "EQ_OVERRIDING_EQUALS_NOT_SYMMETRIC"
+  },
+  {
+    "title": "Eq: Covariant equals() method defined for enum (EQ_DONT_DEFINE_EQUALS_FOR_ENUM)\uf0c1",
+    "description": " This class defines an enumeration, and equality on enumerations are defined\nusing object identity. Defining a covariant equals method for an enumeration\nvalue is exceptionally bad practice, since it would likely result\nin having two different enumeration values that compare as equals using\nthe covariant enum method, and as not equal when compared normally.\nDon't do it.\n",
+    "code": "EQ_DONT_DEFINE_EQUALS_FOR_ENUM"
+  },
+  {
+    "title": "Eq: Covariant equals() method defined, Object.equals(Object) inherited (EQ_SELF_USE_OBJECT)\uf0c1",
+    "description": " This class defines a covariant version of the equals()\nmethod, but inherits the normal equals(Object) method\ndefined in the base java.lang.Object class.\u00a0\nThe class should probably define a boolean equals(Object) method.\n equals() equals(Object) java.lang.Object boolean equals(Object)",
+    "code": "EQ_SELF_USE_OBJECT"
+  },
+  {
+    "title": "Eq: equals() method defined that doesn\u2019t override Object.equals(Object) (EQ_OTHER_USE_OBJECT)\uf0c1",
+    "description": " This class defines an equals()\nmethod, that doesn't override the normal equals(Object) method\ndefined in the base java.lang.Object class.\u00a0\nThe class should probably define a boolean equals(Object) method.\n equals() equals(Object) java.lang.Object boolean equals(Object)",
+    "code": "EQ_OTHER_USE_OBJECT"
+  },
+  {
+    "title": "Eq: equals() method defined that doesn\u2019t override equals(Object) (EQ_OTHER_NO_OBJECT)\uf0c1",
+    "description": " This class defines an equals()\nmethod, that doesn't override the normal equals(Object) method\ndefined in the base java.lang.Object class.\u00a0 Instead, it\ninherits an equals(Object) method from a superclass.\nThe class should probably define a boolean equals(Object) method.\n equals() equals(Object) java.lang.Object equals(Object) boolean equals(Object)",
+    "code": "EQ_OTHER_NO_OBJECT"
+  },
+  {
+    "title": "HE: Signature declares use of unhashable class in hashed construct (HE_SIGNATURE_DECLARES_HASHING_OF_UNHASHABLE_CLASS)\uf0c1",
+    "description": " A method, field or class declares a generic signature where a non-hashable class\nis used in context where a hashable class is required.\nA class that declares an equals method but inherits a hashCode() method\nfrom Object is unhashable, since it doesn't fulfill the requirement that\nequal objects have equal hashCodes.\n",
+    "code": "HE_SIGNATURE_DECLARES_HASHING_OF_UNHASHABLE_CLASS"
+  },
+  {
+    "title": "HE: Use of class without a hashCode() method in a hashed data structure (HE_USE_OF_UNHASHABLE_CLASS)\uf0c1",
+    "description": " A class defines an equals(Object)  method but not a hashCode() method,\nand thus doesn't fulfill the requirement that equal objects have equal hashCodes.\nAn instance of this class is used in a hash data structure, making the need to\nfix this problem of highest importance.",
+    "code": "HE_USE_OF_UNHASHABLE_CLASS"
+  },
+  {
+    "title": "UR: Uninitialized read of field in constructor (UR_UNINIT_READ)\uf0c1",
+    "description": " This constructor reads a field which has not yet been assigned a value.\u00a0\nThis is often caused when the programmer mistakenly uses the field instead\nof one of the constructor's parameters.",
+    "code": "UR_UNINIT_READ"
+  },
+  {
+    "title": "UR: Uninitialized read of field method called from constructor of superclass (UR_UNINIT_READ_CALLED_FROM_SUPER_CONSTRUCTOR)\uf0c1",
+    "description": " This method is invoked in the constructor of the superclass. At this point,\n    the fields of the class have not yet initialized. To make this more concrete, consider the following classes: When a B is constructed,\nthe constructor for the A class is invoked\nbefore the constructor for B sets value.\nThus, when the constructor for A invokes getValue,\nan uninitialized value is read for value.\n abstract class A {\n    int hashCode;\n    abstract Object getValue();\n\n    A() {\n        hashCode = getValue().hashCode();\n    }\n}\n\nclass B extends A {\n    Object value;\n\n    B(Object v) {\n        this.value = v;\n    }\n\n    Object getValue() {\n        return value;\n    }\n}\n B A B value A getValue value",
+    "code": "UR_UNINIT_READ_CALLED_FROM_SUPER_CONSTRUCTOR"
+  },
+  {
+    "title": "Nm: Very confusing method names (NM_VERY_CONFUSING)\uf0c1",
+    "description": " The referenced methods have names that differ only by capitalization.\nThis is very confusing because if the capitalization were\nidentical then one of the methods would override the other.\n",
+    "code": "NM_VERY_CONFUSING"
+  },
+  {
+    "title": "Nm: Method doesn\u2019t override method in superclass due to wrong package for parameter (NM_WRONG_PACKAGE)\uf0c1",
+    "description": " The method in the subclass doesn't override a similar method in a superclass because the type of a parameter doesn't exactly match\nthe type of the corresponding parameter in the superclass. For example, if you have: The f(Foo) method defined in class B doesn't\noverride the\nf(Foo) method defined in class A, because the argument\ntypes are Foo's from different packages.\n import alpha.Foo;\n\npublic class A {\n    public int f(Foo x) { return 17; }\n}\n----\nimport beta.Foo;\n\npublic class B extends A {\n    public int f(Foo x) { return 42; }\n}\n f(Foo) B f(Foo) A Foo",
+    "code": "NM_WRONG_PACKAGE"
+  },
+  {
+    "title": "Nm: Apparent method/constructor confusion (NM_METHOD_CONSTRUCTOR_CONFUSION)\uf0c1",
+    "description": " This regular method has the same name as the class it is defined in. It is likely that this was intended to be a constructor.\n      If it was intended to be a constructor, remove the declaration of a void return value.\n    If you had accidentally defined this method, realized the mistake, defined a proper constructor\n    but cannot get rid of this method due to backwards compatibility, deprecate the method.\n",
+    "code": "NM_METHOD_CONSTRUCTOR_CONFUSION"
+  },
+  {
+    "title": "Nm: Class defines hashcode(); should it be hashCode()? (NM_LCASE_HASHCODE)\uf0c1",
+    "description": " This class defines a method called hashcode().\u00a0 This method\ndoes not override the hashCode() method in java.lang.Object,\nwhich is probably what was intended. hashcode() hashCode() java.lang.Object",
+    "code": "NM_LCASE_HASHCODE"
+  },
+  {
+    "title": "Nm: Class defines tostring(); should it be toString()? (NM_LCASE_TOSTRING)\uf0c1",
+    "description": " This class defines a method called tostring().\u00a0 This method\ndoes not override the toString() method in java.lang.Object,\nwhich is probably what was intended. tostring() toString() java.lang.Object",
+    "code": "NM_LCASE_TOSTRING"
+  },
+  {
+    "title": "Nm: Class defines equal(Object); should it be equals(Object)? (NM_BAD_EQUAL)\uf0c1",
+    "description": " This class defines a method equal(Object).\u00a0 This method does\nnot override the equals(Object) method in java.lang.Object,\nwhich is probably what was intended. equal(Object) equals(Object) java.lang.Object",
+    "code": "NM_BAD_EQUAL"
+  },
+  {
+    "title": "Se: The readResolve method must not be declared as a static method. (SE_READ_RESOLVE_IS_STATIC)\uf0c1",
+    "description": " In order for the readResolve method to be recognized by the serialization\nmechanism, it must not be declared as a static method.\n",
+    "code": "SE_READ_RESOLVE_IS_STATIC"
+  },
+  {
+    "title": "Se: Method must be private in order for serialization to work (SE_METHOD_MUST_BE_PRIVATE)\uf0c1",
+    "description": " This class implements the Serializable interface, and defines a method\nfor custom serialization/deserialization. But since that method isn't declared private,\nit will be silently ignored by the serialization/deserialization API. Serializable",
+    "code": "SE_METHOD_MUST_BE_PRIVATE"
+  },
+  {
+    "title": "SF: Dead store due to switch statement fall through (SF_DEAD_STORE_DUE_TO_SWITCH_FALLTHROUGH)\uf0c1",
+    "description": " A value stored in the previous switch case is overwritten here due to a switch fall through. It is likely that\n    you forgot to put a break or return at the end of the previous case.\n",
+    "code": "SF_DEAD_STORE_DUE_TO_SWITCH_FALLTHROUGH"
+  },
+  {
+    "title": "SF: Dead store due to switch statement fall through to throw (SF_DEAD_STORE_DUE_TO_SWITCH_FALLTHROUGH_TO_THROW)\uf0c1",
+    "description": " A value stored in the previous switch case is ignored here due to a switch fall through to a place where\n    an exception is thrown. It is likely that\n    you forgot to put a break or return at the end of the previous case.\n",
+    "code": "SF_DEAD_STORE_DUE_TO_SWITCH_FALLTHROUGH_TO_THROW"
+  },
+  {
+    "title": "NP: Read of unwritten field (NP_UNWRITTEN_FIELD)\uf0c1",
+    "description": " The program is dereferencing a field that does not seem to ever have a non-null value written to it.\nUnless the field is initialized via some mechanism not seen by the analysis,\ndereferencing this value will generate a null pointer exception.\n",
+    "code": "NP_UNWRITTEN_FIELD"
+  },
+  {
+    "title": "UwF: Field only ever set to null (UWF_NULL_FIELD)\uf0c1",
+    "description": " All writes to this field are of the constant value null, and thus\nall reads of the field will return null.\nCheck for errors, or remove it if it is useless.",
+    "code": "UWF_NULL_FIELD"
+  },
+  {
+    "title": "UwF: Unwritten field (UWF_UNWRITTEN_FIELD)\uf0c1",
+    "description": " This field is never written.\u00a0 All reads of it will return the default\nvalue. Check for errors (should it have been initialized?), or remove it if it is useless.",
+    "code": "UWF_UNWRITTEN_FIELD"
+  },
+  {
+    "title": "SIC: Deadly embrace of non-static inner class and thread local (SIC_THREADLOCAL_DEADLY_EMBRACE)\uf0c1",
+    "description": " This class is an inner class, but should probably be a static inner class.\n  As it is, there is a serious danger of a deadly embrace between the inner class\n  and the thread local in the outer class. Because the inner class isn't static,\n  it retains a reference to the outer class.\n  If the thread local contains a reference to an instance of the inner\n  class, the inner and outer instance will both be reachable\n  and not eligible for garbage collection.\n",
+    "code": "SIC_THREADLOCAL_DEADLY_EMBRACE"
+  },
+  {
+    "title": "RANGE: Array index is out of bounds (RANGE_ARRAY_INDEX)\uf0c1",
+    "description": " Array operation is performed, but array index is out of bounds, which will result in ArrayIndexOutOfBoundsException at runtime.",
+    "code": "RANGE_ARRAY_INDEX"
+  },
+  {
+    "title": "RANGE: Array offset is out of bounds (RANGE_ARRAY_OFFSET)\uf0c1",
+    "description": " Method is called with array parameter and offset parameter, but the offset is out of bounds. This will result in IndexOutOfBoundsException at runtime. ",
+    "code": "RANGE_ARRAY_OFFSET"
+  },
+  {
+    "title": "RANGE: Array length is out of bounds (RANGE_ARRAY_LENGTH)\uf0c1",
+    "description": " Method is called with array parameter and length parameter, but the length is out of bounds. This will result in IndexOutOfBoundsException at runtime. ",
+    "code": "RANGE_ARRAY_LENGTH"
+  },
+  {
+    "title": "RANGE: String index is out of bounds (RANGE_STRING_INDEX)\uf0c1",
+    "description": " String method is called and specified string index is out of bounds. This will result in StringIndexOutOfBoundsException at runtime. ",
+    "code": "RANGE_STRING_INDEX"
+  },
+  {
+    "title": "RV: Method ignores return value (RV_RETURN_VALUE_IGNORED)\uf0c1",
+    "description": " The return value of this method should be checked. One common\ncause of this warning is to invoke a method on an immutable object,\nthinking that it updates the object. For example, in the following code\nfragment, the programmer seems to be thinking that the trim() method will update\nthe String referenced by dateString. But since Strings are immutable, the trim()\nfunction returns a new String value, which is being ignored here. The code\nshould be corrected to:  String dateString = getHeaderField(name);\ndateString.trim();\n String dateString = getHeaderField(name);\ndateString = dateString.trim();\n",
+    "code": "RV_RETURN_VALUE_IGNORED"
+  },
+  {
+    "title": "RV: Exception created and dropped rather than thrown (RV_EXCEPTION_NOT_THROWN)\uf0c1",
+    "description": " This code creates an exception (or error) object, but doesn't do anything with it. For example,\nsomething like  It was probably the intent of the programmer to throw the created exception: if (x < 0) {\n    new IllegalArgumentException(\"x must be nonnegative\");\n}\n if (x < 0) {\n    throw new IllegalArgumentException(\"x must be nonnegative\");\n}\n",
+    "code": "RV_EXCEPTION_NOT_THROWN"
+  },
+  {
+    "title": "RV: Code checks for specific values returned by compareTo (RV_CHECK_COMPARETO_FOR_SPECIFIC_RETURN_VALUE)\uf0c1",
+    "description": " This code invoked a compareTo or compare method, and checks to see if the return value is a specific value,\nsuch as 1 or -1. When invoking these methods, you should only check the sign of the result, not for any specific\nnon-zero value. While many or most compareTo and compare methods only return -1, 0 or 1, some of them\nwill return other values.",
+    "code": "RV_CHECK_COMPARETO_FOR_SPECIFIC_RETURN_VALUE"
+  },
+  {
+    "title": "NP: Null pointer dereference (NP_ALWAYS_NULL)\uf0c1",
+    "description": " A null pointer is dereferenced here.\u00a0 This will lead to a\nNullPointerException when the code is executed. NullPointerException",
+    "code": "NP_ALWAYS_NULL"
+  },
+  {
+    "title": "NP: close() invoked on a value that is always null (NP_CLOSING_NULL)\uf0c1",
+    "description": " close() is being invoked on a value that is always null. If this statement is executed,\na null pointer exception will occur. But the big risk here you never close\nsomething that should be closed.",
+    "code": "NP_CLOSING_NULL"
+  },
+  {
+    "title": "NP: Store of null value into field annotated @Nonnull (NP_STORE_INTO_NONNULL_FIELD)\uf0c1",
+    "description": " A value that could be null is stored into a field that has been annotated as @Nonnull. ",
+    "code": "NP_STORE_INTO_NONNULL_FIELD"
+  },
+  {
+    "title": "NP: Null pointer dereference in method on exception path (NP_ALWAYS_NULL_EXCEPTION)\uf0c1",
+    "description": " A pointer which is null on an exception path is dereferenced here.\u00a0\nThis will lead to a NullPointerException when the code is executed.\u00a0\nNote that because SpotBugs currently does not prune infeasible exception paths,\nthis may be a false warning.  Also note that SpotBugs considers the default case of a switch statement to\nbe an exception path, since the default case is often infeasible. NullPointerException",
+    "code": "NP_ALWAYS_NULL_EXCEPTION"
+  },
+  {
+    "title": "NP: Possible null pointer dereference (NP_NULL_ON_SOME_PATH)\uf0c1",
+    "description": " There is a branch of statement that, if executed,  guarantees that\na null value will be dereferenced, which\nwould generate a NullPointerException when the code is executed.\nOf course, the problem might be that the branch or statement is infeasible and that\nthe null pointer exception cannot ever be executed; deciding that is beyond the ability of SpotBugs.\n NullPointerException",
+    "code": "NP_NULL_ON_SOME_PATH"
+  },
+  {
+    "title": "NP: Possible null pointer dereference in method on exception path (NP_NULL_ON_SOME_PATH_EXCEPTION)\uf0c1",
+    "description": " A reference value which is null on some exception control path is\ndereferenced here.\u00a0 This may lead to a NullPointerException\nwhen the code is executed.\u00a0\nNote that because SpotBugs currently does not prune infeasible exception paths,\nthis may be a false warning.  Also note that SpotBugs considers the default case of a switch statement to\nbe an exception path, since the default case is often infeasible. NullPointerException",
+    "code": "NP_NULL_ON_SOME_PATH_EXCEPTION"
+  },
+  {
+    "title": "NP: Method call passes null for non-null parameter (NP_NULL_PARAM_DEREF)\uf0c1",
+    "description": "\n  This method call passes a null value for a non-null method parameter.\nEither the parameter is annotated as a parameter that should\nalways be non-null, or analysis has shown that it will always be\ndereferenced.\n  ",
+    "code": "NP_NULL_PARAM_DEREF"
+  },
+  {
+    "title": "NP: Non-virtual method call passes null for non-null parameter (NP_NULL_PARAM_DEREF_NONVIRTUAL)\uf0c1",
+    "description": "\n  A possibly-null value is passed to a non-null method parameter.\nEither the parameter is annotated as a parameter that should\nalways be non-null, or analysis has shown that it will always be\ndereferenced.\n  ",
+    "code": "NP_NULL_PARAM_DEREF_NONVIRTUAL"
+  },
+  {
+    "title": "NP: Method call passes null for non-null parameter (NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS)\uf0c1",
+    "description": "\n  A possibly-null value is passed at a call site where all known\n  target methods require the parameter to be non-null.\nEither the parameter is annotated as a parameter that should\nalways be non-null, or analysis has shown that it will always be\ndereferenced.\n  ",
+    "code": "NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS"
+  },
+  {
+    "title": "NP: Method call passes null to a non-null parameter (NP_NONNULL_PARAM_VIOLATION)\uf0c1",
+    "description": "\n  This method passes a null value as the parameter of a method which\nmust be non-null. Either this parameter has been explicitly marked\nas @Nonnull, or analysis has determined that this parameter is\nalways dereferenced.\n  ",
+    "code": "NP_NONNULL_PARAM_VIOLATION"
+  },
+  {
+    "title": "NP: Method may return null, but is declared @Nonnull (NP_NONNULL_RETURN_VIOLATION)\uf0c1",
+    "description": "\nThis method may return a null value, but the method (or a superclass method\nwhich it overrides) is declared to return @Nonnull.\n",
+    "code": "NP_NONNULL_RETURN_VIOLATION"
+  },
+  {
+    "title": "NP: Null value is guaranteed to be dereferenced (NP_GUARANTEED_DEREF)\uf0c1",
+    "description": "\n      There is a statement or branch that if executed guarantees that\n      a value is null at this point, and that\n      value that is guaranteed to be dereferenced\n      (except on forward paths involving runtime exceptions).\n       Note that a check such as\n    if (x == null) throw new NullPointerException();\n    is treated as a dereference of x. if (x == null) throw new NullPointerException(); x",
+    "code": "NP_GUARANTEED_DEREF"
+  },
+  {
+    "title": "NP: Value is null and guaranteed to be dereferenced on exception path (NP_GUARANTEED_DEREF_ON_EXCEPTION_PATH)\uf0c1",
+    "description": "\nThere is a statement or branch on an exception path\n  that if executed guarantees that\na value is null at this point, and that\nvalue that is guaranteed to be dereferenced\n(except on forward paths involving runtime exceptions).\n",
+    "code": "NP_GUARANTEED_DEREF_ON_EXCEPTION_PATH"
+  },
+  {
+    "title": "DMI: Reversed method arguments (DMI_ARGUMENTS_WRONG_ORDER)\uf0c1",
+    "description": " The arguments to this method call seem to be in the wrong order.\nFor example, a call Preconditions.checkNotNull(\"message\", message)\nhas reserved arguments: the value to be checked is the first argument.\n Preconditions.checkNotNull(\"message\", message)",
+    "code": "DMI_ARGUMENTS_WRONG_ORDER"
+  },
+  {
+    "title": "RCN: Nullcheck of value previously dereferenced (RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE)\uf0c1",
+    "description": " A value is checked here to see whether it is null, but this value cannot\nbe null because it was previously dereferenced and if it were null a null pointer\nexception would have occurred at the earlier dereference.\nEssentially, this code and the previous dereference\ndisagree as to whether this value is allowed to be null. Either the check is redundant\nor the previous dereference is erroneous.",
+    "code": "RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE"
+  },
+  {
+    "title": "RC: Suspicious reference comparison (RC_REF_COMPARISON)\uf0c1",
+    "description": " This method compares two reference values using the == or != operator,\nwhere the correct way to compare instances of this type is generally\nwith the equals() method.\nIt is possible to create distinct instances that are equal but do not compare as == since\nthey are different objects.\nExamples of classes which should generally\nnot be compared by reference are java.lang.Integer, java.lang.Float, etc. RC_REF_COMPARISON covers\nonly wrapper types for primitives. Suspicious types list can be extended by adding frc.suspicious\nsystem property with comma-separated classes: <systemPropertyVariables>\n              <frc.suspicious>java.time.LocalDate,java.util.List</frc.suspicious>\n           </systemPropertyVariables>\n",
+    "code": "RC_REF_COMPARISON"
+  },
+  {
+    "title": "VA: Primitive array passed to function expecting a variable number of object arguments (VA_PRIMITIVE_ARRAY_PASSED_TO_OBJECT_VARARG)\uf0c1",
+    "description": "\nThis code passes a primitive array to a function that takes a variable number of object arguments.\nThis creates an array of length one to hold the primitive array and passes it to the function.\n",
+    "code": "VA_PRIMITIVE_ARRAY_PASSED_TO_OBJECT_VARARG"
+  },
+  {
+    "title": "EC: Using pointer equality to compare different types (EC_UNRELATED_TYPES_USING_POINTER_EQUALITY)\uf0c1",
+    "description": " This method uses pointer equality to compare two references that seem to be of\ndifferent types. The result of this comparison will always be false at runtime.\n",
+    "code": "EC_UNRELATED_TYPES_USING_POINTER_EQUALITY"
+  },
+  {
+    "title": "EC: Call to equals() comparing different types (EC_UNRELATED_TYPES)\uf0c1",
+    "description": " This method calls equals(Object) on two references of different\nclass types and analysis suggests they will be to objects of different classes\nat runtime. Further, examination of the equals methods that would be invoked suggest that either\nthis call will always return false, or else the equals method is not symmetric (which is\na property required by the contract\nfor equals in class Object).\n",
+    "code": "EC_UNRELATED_TYPES"
+  },
+  {
+    "title": "EC: equals() used to compare array and nonarray (EC_ARRAY_AND_NONARRAY)\uf0c1",
+    "description": "\nThis method invokes the .equals(Object o) to compare an array and a reference that doesn't seem\nto be an array. If things being compared are of different types, they are guaranteed to be unequal\nand the comparison is almost certainly an error. Even if they are both arrays, the equals() method\non arrays only determines if the two arrays are the same object.\nTo compare the contents of the arrays, use java.util.Arrays.equals(Object[], Object[]).\n equals() java.util.Arrays.equals(Object[], Object[])",
+    "code": "EC_ARRAY_AND_NONARRAY"
+  },
+  {
+    "title": "EC: Call to equals(null) (EC_NULL_ARG)\uf0c1",
+    "description": " This method calls equals(Object), passing a null value as\nthe argument. According to the contract of the equals() method,\nthis call should always return false. false",
+    "code": "EC_NULL_ARG"
+  },
+  {
+    "title": "EC: Call to equals() comparing different interface types (EC_UNRELATED_INTERFACES)\uf0c1",
+    "description": " This method calls equals(Object) on two references of unrelated\ninterface types, where neither is a subtype of the other,\nand there are no known non-abstract classes which implement both interfaces.\nTherefore, the objects being compared\nare unlikely to be members of the same class at runtime\n(unless some application classes were not analyzed, or dynamic class\nloading can occur at runtime).\nAccording to the contract of equals(),\nobjects of different\nclasses should always compare as unequal; therefore, according to the\ncontract defined by java.lang.Object.equals(Object),\nthe result of this comparison will always be false at runtime.\n",
+    "code": "EC_UNRELATED_INTERFACES"
+  },
+  {
+    "title": "EC: Call to equals() comparing unrelated class and interface (EC_UNRELATED_CLASS_AND_INTERFACE)\uf0c1",
+    "description": "\nThis method calls equals(Object) on two references,  one of which is a class\nand the other an interface, where neither the class nor any of its\nnon-abstract subclasses implement the interface.\nTherefore, the objects being compared\nare unlikely to be members of the same class at runtime\n(unless some application classes were not analyzed, or dynamic class\nloading can occur at runtime).\nAccording to the contract of equals(),\nobjects of different\nclasses should always compare as unequal; therefore, according to the\ncontract defined by java.lang.Object.equals(Object),\nthe result of this comparison will always be false at runtime.\n",
+    "code": "EC_UNRELATED_CLASS_AND_INTERFACE"
+  },
+  {
+    "title": "SA: Self assignment of local rather than assignment to field (SA_LOCAL_SELF_ASSIGNMENT_INSTEAD_OF_FIELD)\uf0c1",
+    "description": " This method contains a self assignment of a local variable, and there\nis a field with an identical name, e.g.: The assignment is useless. Did you mean to assign to the field instead?     int foo;\n    public void setFoo(int foo) {\n        foo = foo;\n    }\n",
+    "code": "SA_LOCAL_SELF_ASSIGNMENT_INSTEAD_OF_FIELD"
+  },
+  {
+    "title": "INT: Bad comparison of int value with long constant (INT_BAD_COMPARISON_WITH_INT_VALUE)\uf0c1",
+    "description": " This code compares an int value with a long constant that is outside\nthe range of values that can be represented as an int value.\nThis comparison is vacuous and possibly incorrect.\n",
+    "code": "INT_BAD_COMPARISON_WITH_INT_VALUE"
+  },
+  {
+    "title": "INT: Bad comparison of signed byte (INT_BAD_COMPARISON_WITH_SIGNED_BYTE)\uf0c1",
+    "description": " Signed bytes can only have a value in the range -128 to 127. Comparing\na signed byte with a value outside that range is vacuous and likely to be incorrect.\nTo convert a signed byte b to an unsigned value in the range 0..255,\nuse 0xff & b.\n b 0xff & b",
+    "code": "INT_BAD_COMPARISON_WITH_SIGNED_BYTE"
+  },
+  {
+    "title": "INT: Bad comparison of nonnegative value with negative constant or zero (INT_BAD_COMPARISON_WITH_NONNEGATIVE_VALUE)\uf0c1",
+    "description": " This code compares a value that is guaranteed to be non-negative with a negative constant or zero.\n",
+    "code": "INT_BAD_COMPARISON_WITH_NONNEGATIVE_VALUE"
+  },
+  {
+    "title": "BIT: Bitwise add of signed byte value (BIT_ADD_OF_SIGNED_BYTE)\uf0c1",
+    "description": " Adds a byte value and a value which is known to have the 8 lower bits clear.\nValues loaded from a byte array are sign extended to 32 bits\nbefore any bitwise operations are performed on the value.\nThus, if b[0] contains the value 0xff, and\nx is initially 0, then the code\n((x << 8) + b[0])  will sign extend 0xff\nto get 0xffffffff, and thus give the value\n0xffffffff as the result.\n In particular, the following code for packing a byte array into an int is badly wrong:  The following idiom will work instead:  b[0] 0xff x ((x << 8) + b[0]) 0xff 0xffffffff 0xffffffff int result = 0;\nfor (int i = 0; i < 4; i++)\n    result = ((result << 8) + b[i]);\n int result = 0;\nfor (int i = 0; i < 4; i++)\n    result = ((result << 8) + (b[i] & 0xff));\n",
+    "code": "BIT_ADD_OF_SIGNED_BYTE"
+  },
+  {
+    "title": "BIT: Bitwise OR of signed byte value (BIT_IOR_OF_SIGNED_BYTE)\uf0c1",
+    "description": " Loads a byte value (e.g., a value loaded from a byte array or returned by a method\nwith return type byte)  and performs a bitwise OR with\nthat value. Byte values are sign extended to 32 bits\nbefore any bitwise operations are performed on the value.\nThus, if b[0] contains the value 0xff, and\nx is initially 0, then the code\n((x << 8) | b[0])  will sign extend 0xff\nto get 0xffffffff, and thus give the value\n0xffffffff as the result.\n In particular, the following code for packing a byte array into an int is badly wrong:  The following idiom will work instead:  b[0] 0xff x ((x << 8) | b[0]) 0xff 0xffffffff 0xffffffff int result = 0;\nfor (int i = 0; i < 4; i++) {\n    result = ((result << 8) | b[i]);\n}\n int result = 0;\nfor (int i = 0; i < 4; i++) {\n    result = ((result << 8) | (b[i] & 0xff));\n}\n",
+    "code": "BIT_IOR_OF_SIGNED_BYTE"
+  },
+  {
+    "title": "BIT: Check for sign of bitwise operation involving negative number (BIT_SIGNED_CHECK_HIGH_BIT)\uf0c1",
+    "description": " This method compares a bitwise expression such as\n((val & CONSTANT) > 0) where CONSTANT is the negative number.\nUsing bit arithmetic and then comparing with the greater than operator can\nlead to unexpected results. This comparison is unlikely to work as expected. The good practice is\nto use '!= 0' instead of '> 0'.\n ((val & CONSTANT) > 0)",
+    "code": "BIT_SIGNED_CHECK_HIGH_BIT"
+  },
+  {
+    "title": "BIT: Incompatible bit masks (BIT_AND)\uf0c1",
+    "description": " This method compares an expression of the form (e & C) to D,\nwhich will always compare unequal\ndue to the specific values of constants C and D.\nThis may indicate a logic error or typo.",
+    "code": "BIT_AND"
+  },
+  {
+    "title": "BIT: Check to see if ((\u2026) & 0) == 0 (BIT_AND_ZZ)\uf0c1",
+    "description": " This method compares an expression of the form (e & 0) to 0,\nwhich will always compare equal.\nThis may indicate a logic error or typo. (e & 0)",
+    "code": "BIT_AND_ZZ"
+  },
+  {
+    "title": "BIT: Incompatible bit masks (BIT_IOR)\uf0c1",
+    "description": " This method compares an expression of the form (e | C) to D.\nwhich will always compare unequal\ndue to the specific values of constants C and D.\nThis may indicate a logic error or typo.  Typically, this bug occurs because the code wants to perform\na membership test in a bit set, but uses the bitwise OR\noperator (\"|\") instead of bitwise AND (\"&\"). Also such bug may appear in expressions like (e & A | B) == C\nwhich is parsed like ((e & A) | B) == C while (e & (A | B)) == C was intended. (e | C) (e & A | B) == C ((e & A) | B) == C (e & (A | B)) == C",
+    "code": "BIT_IOR"
+  },
+  {
+    "title": "SA: Self assignment of field (SA_FIELD_SELF_ASSIGNMENT)\uf0c1",
+    "description": " This method contains a self assignment of a field; e.g.\n Such assignments are useless, and may indicate a logic error or typo. int x;\npublic void foo() {\n    x = x;\n}\n",
+    "code": "SA_FIELD_SELF_ASSIGNMENT"
+  },
+  {
+    "title": "SA: Nonsensical self computation involving a field (e.g., x & x) (SA_FIELD_SELF_COMPUTATION)\uf0c1",
+    "description": " This method performs a nonsensical computation of a field with another\nreference to the same field (e.g., x&x or x-x). Because of the nature\nof the computation, this operation doesn't seem to make sense,\nand may indicate a typo or a logic error. Double-check the computation.\n",
+    "code": "SA_FIELD_SELF_COMPUTATION"
+  },
+  {
+    "title": "SA: Nonsensical self computation involving a variable (e.g., x & x) (SA_LOCAL_SELF_COMPUTATION)\uf0c1",
+    "description": " This method performs a nonsensical computation of a local variable with another\nreference to the same variable (e.g., x&x or x-x). Because of the nature\nof the computation, this operation doesn't seem to make sense,\nand may indicate a typo or a logic error. Double-check the computation.\n",
+    "code": "SA_LOCAL_SELF_COMPUTATION"
+  },
+  {
+    "title": "SA: Self comparison of field with itself (SA_FIELD_SELF_COMPARISON)\uf0c1",
+    "description": " This method compares a field with itself, and may indicate a typo or\na logic error.  Make sure that you are comparing the right things.\n",
+    "code": "SA_FIELD_SELF_COMPARISON"
+  },
+  {
+    "title": "SA: Self comparison of value with itself (SA_LOCAL_SELF_COMPARISON)\uf0c1",
+    "description": " This method compares a local variable with itself, and may indicate a typo or\na logic error.  Make sure that you are comparing the right things.\n",
+    "code": "SA_LOCAL_SELF_COMPARISON"
+  },
+  {
+    "title": "UMAC: Uncallable method defined in anonymous class (UMAC_UNCALLABLE_METHOD_OF_ANONYMOUS_CLASS)\uf0c1",
+    "description": " This anonymous class defines a method that is not directly invoked and does not override\na method in a superclass. Since methods in other classes cannot directly invoke methods\ndeclared in an anonymous class, it seems that this method is uncallable. The method\nmight simply be dead code, but it is also possible that the method is intended to\noverride a method declared in a superclass, and due to a typo or other error the method does not,\nin fact, override the method it is intended to.\n",
+    "code": "UMAC_UNCALLABLE_METHOD_OF_ANONYMOUS_CLASS"
+  },
+  {
+    "title": "IJU: JUnit assertion in run method will not be noticed by JUnit (IJU_ASSERT_METHOD_INVOKED_FROM_RUN_METHOD)\uf0c1",
+    "description": " A JUnit assertion is performed in a run method. Failed JUnit assertions\njust result in exceptions being thrown.\nThus, if this exception occurs in a thread other than the thread that invokes\nthe test method, the exception will terminate the thread but not result\nin the test failing.\n",
+    "code": "IJU_ASSERT_METHOD_INVOKED_FROM_RUN_METHOD"
+  },
+  {
+    "title": "IJU: TestCase declares a bad suite method (IJU_BAD_SUITE_METHOD)\uf0c1",
+    "description": " Class is a JUnit TestCase and defines a suite() method.\nHowever, the suite method needs to be declared as either \nor\n public static junit.framework.Test suite()\n public static junit.framework.TestSuite suite()\n",
+    "code": "IJU_BAD_SUITE_METHOD"
+  },
+  {
+    "title": "IJU: TestCase defines setUp that doesn\u2019t call super.setUp() (IJU_SETUP_NO_SUPER)\uf0c1",
+    "description": " Class is a JUnit TestCase and implements the setUp method. The setUp method should call\nsuper.setUp(), but doesn't.",
+    "code": "IJU_SETUP_NO_SUPER"
+  },
+  {
+    "title": "IJU: TestCase defines tearDown that doesn\u2019t call super.tearDown() (IJU_TEARDOWN_NO_SUPER)\uf0c1",
+    "description": " Class is a JUnit TestCase and implements the tearDown method. The tearDown method should call\nsuper.tearDown(), but doesn't.",
+    "code": "IJU_TEARDOWN_NO_SUPER"
+  },
+  {
+    "title": "IJU: TestCase implements a non-static suite method (IJU_SUITE_NOT_STATIC)\uf0c1",
+    "description": " Class is a JUnit TestCase and implements the suite() method.\n The suite method should be declared as being static, but isn't.",
+    "code": "IJU_SUITE_NOT_STATIC"
+  },
+  {
+    "title": "IJU: TestCase has no tests (IJU_NO_TESTS)\uf0c1",
+    "description": " Class is a JUnit TestCase but has not implemented any test methods.",
+    "code": "IJU_NO_TESTS"
+  },
+  {
+    "title": "BOA: Class overrides a method implemented in super class Adapter wrongly (BOA_BADLY_OVERRIDDEN_ADAPTER)\uf0c1",
+    "description": " This method overrides a method found in a parent class, where that class is an Adapter that implements\na listener defined in the java.awt.event or javax.swing.event package. As a result, this method will not\nget called when the event occurs.",
+    "code": "BOA_BADLY_OVERRIDDEN_ADAPTER"
+  },
+  {
+    "title": "SQL: Method attempts to access a result set field with index 0 (SQL_BAD_RESULTSET_ACCESS)\uf0c1",
+    "description": " A call to getXXX or updateXXX methods of a result set was made where the\nfield index is 0. As ResultSet fields start at index 1, this is always a mistake.",
+    "code": "SQL_BAD_RESULTSET_ACCESS"
+  },
+  {
+    "title": "SQL: Method attempts to access a prepared statement parameter with index 0 (SQL_BAD_PREPARED_STATEMENT_ACCESS)\uf0c1",
+    "description": " A call to a setXXX method of a prepared statement was made where the\nparameter index is 0. As parameter indexes start at index 1, this is always a mistake.",
+    "code": "SQL_BAD_PREPARED_STATEMENT_ACCESS"
+  },
+  {
+    "title": "SIO: Unnecessary type check done using instanceof operator (SIO_SUPERFLUOUS_INSTANCEOF)\uf0c1",
+    "description": " Type check performed using the instanceof operator where it can be statically determined whether the object\nis of the type requested. ",
+    "code": "SIO_SUPERFLUOUS_INSTANCEOF"
+  },
+  {
+    "title": "BAC: Bad Applet Constructor relies on uninitialized AppletStub (BAC_BAD_APPLET_CONSTRUCTOR)\uf0c1",
+    "description": "\nThis constructor calls methods in the parent Applet that rely on the AppletStub. Since the AppletStub\nisn't initialized until the init() method of this applet is called, these methods will not perform\ncorrectly.\n",
+    "code": "BAC_BAD_APPLET_CONSTRUCTOR"
+  },
+  {
+    "title": "EC: equals(\u2026) used to compare incompatible arrays (EC_INCOMPATIBLE_ARRAY_COMPARE)\uf0c1",
+    "description": "\nThis method invokes the .equals(Object o) to compare two arrays, but the arrays\nof incompatible types (e.g., String[] and StringBuffer[], or String[] and int[]).\nThey will never be equal. In addition, when equals(...) is used to compare arrays it\nonly checks to see if they are the same array, and ignores the contents of the arrays.\n",
+    "code": "EC_INCOMPATIBLE_ARRAY_COMPARE"
+  },
+  {
+    "title": "EC: Invocation of equals() on an array, which is equivalent to == (EC_BAD_ARRAY_COMPARE)\uf0c1",
+    "description": "\nThis method invokes the .equals(Object o) method on an array. Since arrays do not override the equals\nmethod of Object, calling equals on an array is the same as comparing their addresses. To compare the\ncontents of the arrays, use java.util.Arrays.equals(Object[], Object[]).\nTo compare the addresses of the arrays, it would be\nless confusing to explicitly check pointer equality using ==.\n java.util.Arrays.equals(Object[], Object[]) ==",
+    "code": "EC_BAD_ARRAY_COMPARE"
+  },
+  {
+    "title": "STI: Unneeded use of currentThread() call, to call interrupted() (STI_INTERRUPTED_ON_CURRENTTHREAD)\uf0c1",
+    "description": "\nThis method invokes the Thread.currentThread() call, just to call the\ninterrupted() method. As interrupted() is a static method, it is more\nsimple and clear to use Thread.interrupted().\n Thread.currentThread() interrupted() interrupted() Thread.interrupted()",
+    "code": "STI_INTERRUPTED_ON_CURRENTTHREAD"
+  },
+  {
+    "title": "STI: Static Thread.interrupted() method invoked on thread instance (STI_INTERRUPTED_ON_UNKNOWNTHREAD)\uf0c1",
+    "description": "\nThis method invokes the Thread.interrupted() method on a Thread object that appears to be a Thread object that is\nnot the current thread. As the interrupted() method is static, the interrupted method will be called on a different\nobject than the one the author intended.\n",
+    "code": "STI_INTERRUPTED_ON_UNKNOWNTHREAD"
+  },
+  {
+    "title": "DLS: Useless increment in return statement (DLS_DEAD_LOCAL_INCREMENT_IN_RETURN)\uf0c1",
+    "description": "This statement has a return such as return x++; / return x--;.\nA postfix increment/decrement does not impact the value of the expression,\nso this increment/decrement has no effect.\nPlease verify that this statement does the right thing.\n return x++; return x--;",
+    "code": "DLS_DEAD_LOCAL_INCREMENT_IN_RETURN"
+  },
+  {
+    "title": "DLS: Dead store of class literal (DLS_DEAD_STORE_OF_CLASS_LITERAL)\uf0c1",
+    "description": "\nThis instruction assigns a class literal to a variable and then never uses it.\nThe behavior of this differs in Java 1.4 and in Java 5.\nIn Java 1.4 and earlier, a reference to Foo.class would force the static initializer\nfor Foo to be executed, if it has not been executed already.\nIn Java 5 and later, it does not.\n See Oracle's article on Java SE compatibility\nfor more details and examples, and suggestions on how to force class initialization in Java 5+.\n Foo.class Foo",
+    "code": "DLS_DEAD_STORE_OF_CLASS_LITERAL"
+  },
+  {
+    "title": "IP: A parameter is dead upon entry to a method but overwritten (IP_PARAMETER_IS_DEAD_BUT_OVERWRITTEN)\uf0c1",
+    "description": "\nThe initial value of this parameter is ignored, and the parameter\nis overwritten here. This often indicates a mistaken belief that\nthe write to the parameter will be conveyed back to\nthe caller.\n",
+    "code": "IP_PARAMETER_IS_DEAD_BUT_OVERWRITTEN"
+  },
+  {
+    "title": "MF: Method defines a variable that obscures a field (MF_METHOD_MASKS_FIELD)\uf0c1",
+    "description": " This method defines a local variable with the same name as a field\nin this class or a superclass.  This may cause the method to\nread an uninitialized value from the field, leave the field uninitialized,\nor both.",
+    "code": "MF_METHOD_MASKS_FIELD"
+  },
+  {
+    "title": "MF: Class defines field that masks a superclass field (MF_CLASS_MASKS_FIELD)\uf0c1",
+    "description": " This class defines a field with the same name as a visible\ninstance field in a superclass.  This is confusing, and\nmay indicate an error if methods update or access one of\nthe fields when they wanted the other.",
+    "code": "MF_CLASS_MASKS_FIELD"
+  },
+  {
+    "title": "FE: Doomed test for equality to NaN (FE_TEST_IF_EQUAL_TO_NOT_A_NUMBER)\uf0c1",
+    "description": "\nThis code checks to see if a floating point value is equal to the special\nNot A Number value (e.g., if (x == Double.NaN)). However,\nbecause of the special semantics of NaN, no value\nis equal to Nan, including NaN. Thus,\nx == Double.NaN always evaluates to false.\n\nTo check to see if a value contained in x\nis the special Not A Number value, use\nDouble.isNaN(x) (or Float.isNaN(x) if\nx is floating point precision).\n if (x == Double.NaN) NaN Nan NaN x == Double.NaN x Double.isNaN(x) Float.isNaN(x) x",
+    "code": "FE_TEST_IF_EQUAL_TO_NOT_A_NUMBER"
+  },
+  {
+    "title": "ICAST: int value converted to long and used as absolute time (ICAST_INT_2_LONG_AS_INSTANT)\uf0c1",
+    "description": "\nThis code converts a 32-bit int value to a 64-bit long value, and then\npasses that value for a method parameter that requires an absolute time value.\nAn absolute time value is the number\nof milliseconds since the standard base time known as \"the epoch\", namely January 1, 1970, 00:00:00 GMT.\nFor example, the following method, intended to convert seconds since the epoch into a Date, is badly\nbroken: The multiplication is done using 32-bit arithmetic, and then converted to a 64-bit value.\nWhen a 32-bit value is converted to 64-bits and used to express an absolute time\nvalue, only dates in December 1969 and January 1970 can be represented. Correct implementations for the above method are: Date getDate(int seconds) { return new Date(seconds * 1000); }\n // Fails for dates after 2037\nDate getDate(int seconds) { return new Date(seconds * 1000L); }\n\n// better, works for all dates\nDate getDate(long seconds) { return new Date(seconds * 1000); }\n",
+    "code": "ICAST_INT_2_LONG_AS_INSTANT"
+  },
+  {
+    "title": "ICAST: Integral value cast to double and then passed to Math.ceil (ICAST_INT_CAST_TO_DOUBLE_PASSED_TO_CEIL)\uf0c1",
+    "description": "\nThis code converts an integral value (e.g., int or long)\nto a double precision\nfloating point number and then\npassing the result to the Math.ceil() function, which rounds a double to\nthe next higher integer value. This operation should always be a no-op,\nsince converting an integer to a double should give a number with no fractional part.\nIt is likely that the operation that generated the value to be passed\nto Math.ceil was intended to be performed using double precision\nfloating point arithmetic.\n",
+    "code": "ICAST_INT_CAST_TO_DOUBLE_PASSED_TO_CEIL"
+  },
+  {
+    "title": "ICAST: int value cast to float and then passed to Math.round (ICAST_INT_CAST_TO_FLOAT_PASSED_TO_ROUND)\uf0c1",
+    "description": "\nThis code converts an int value to a float precision\nfloating point number and then\npassing the result to the Math.round() function, which returns the int/long closest\nto the argument. This operation should always be a no-op,\nsince converting an integer to a float should give a number with no fractional part.\nIt is likely that the operation that generated the value to be passed\nto Math.round was intended to be performed using\nfloating point arithmetic.\n",
+    "code": "ICAST_INT_CAST_TO_FLOAT_PASSED_TO_ROUND"
+  },
+  {
+    "title": "NP: A known null value is checked to see if it is an instance of a type (NP_NULL_INSTANCEOF)\uf0c1",
+    "description": "\nThis instanceof test will always return false, since the value being checked is guaranteed to be null.\nAlthough this is safe, make sure it isn't\nan indication of some misunderstanding or some other logic error.\n",
+    "code": "NP_NULL_INSTANCEOF"
+  },
+  {
+    "title": "DMI: Double.longBitsToDouble invoked on an int (DMI_LONG_BITS_TO_DOUBLE_INVOKED_ON_INT)\uf0c1",
+    "description": " The Double.longBitsToDouble method is invoked, but a 32 bit int value is passed\n    as an argument. This almost certainly is not intended and is unlikely\n    to give the intended result.\n",
+    "code": "DMI_LONG_BITS_TO_DOUBLE_INVOKED_ON_INT"
+  },
+  {
+    "title": "BC: Impossible cast (BC_IMPOSSIBLE_CAST)\uf0c1",
+    "description": "\nThis cast will always throw a ClassCastException.\nSpotBugs tracks type information from instanceof checks,\nand also uses more precise information about the types\nof values returned from methods and loaded from fields.\nThus, it may have more precise information than just\nthe declared type of a variable, and can use this to determine\nthat a cast will always throw an exception at runtime.\n",
+    "code": "BC_IMPOSSIBLE_CAST"
+  },
+  {
+    "title": "BC: Impossible downcast (BC_IMPOSSIBLE_DOWNCAST)\uf0c1",
+    "description": "\nThis cast will always throw a ClassCastException.\nThe analysis believes it knows\nthe precise type of the value being cast, and the attempt to\ndowncast it to a subtype will always fail by throwing a ClassCastException.\n",
+    "code": "BC_IMPOSSIBLE_DOWNCAST"
+  },
+  {
+    "title": "BC: Impossible downcast of toArray() result (BC_IMPOSSIBLE_DOWNCAST_OF_TOARRAY)\uf0c1",
+    "description": "\nThis code is casting the result of calling toArray() on a collection\nto a type more specific than Object[], as in: This will usually fail by throwing a ClassCastException. The toArray()\nof almost all collections return an Object[]. They cannot really do anything else,\nsince the Collection object has no reference to the declared generic type of the collection.\nThe correct way to do get an array of a specific type from a collection is to use\n  c.toArray(new String[0]);\n  or c.toArray(new String[c.size()]); (the former is\n  slightly more efficient\n  since late Java 6 updates).\nThere is one common/known exception to this. The toArray()\nmethod of lists returned by Arrays.asList(...) will return a covariantly\ntyped array. For example, Arrays.asArray(new String[] { \"a\" }).toArray()\nwill return a String []. SpotBugs attempts to detect and suppress\nsuch cases, but may miss some.\n The correct way to do get an array of a specific type from a collection is to use\n  c.toArray(new String[0]);\n  or c.toArray(new String[c.size()]); (the former is\n  slightly more efficient\n  since late Java 6 updates).\nThere is one common/known exception to this. The toArray()\nmethod of lists returned by Arrays.asList(...) will return a covariantly\ntyped array. For example, Arrays.asArray(new String[] { \"a\" }).toArray()\nwill return a String []. SpotBugs attempts to detect and suppress\nsuch cases, but may miss some.\n There is one common/known exception to this. The toArray()\nmethod of lists returned by Arrays.asList(...) will return a covariantly\ntyped array. For example, Arrays.asArray(new String[] { \"a\" }).toArray()\nwill return a String []. SpotBugs attempts to detect and suppress\nsuch cases, but may miss some.\n toArray() Object[] String[] getAsArray(Collection<String> c) {\n    return (String[]) c.toArray();\n}\n toArray() Object[] c.toArray(new String[0]); c.toArray(new String[c.size()]); toArray() Arrays.asList(...) Arrays.asArray(new String[] { \"a\" }).toArray() String []",
+    "code": "BC_IMPOSSIBLE_DOWNCAST_OF_TOARRAY"
+  },
+  {
+    "title": "BC: instanceof will always return false (BC_IMPOSSIBLE_INSTANCEOF)\uf0c1",
+    "description": "\nThis instanceof test will always return false. Although this is safe, make sure it isn't\nan indication of some misunderstanding or some other logic error.\n",
+    "code": "BC_IMPOSSIBLE_INSTANCEOF"
+  },
+  {
+    "title": "RE: \u201c.\u201d or \u201c|\u201d used for regular expression (RE_POSSIBLE_UNINTENDED_PATTERN)\uf0c1",
+    "description": "\nA String function is being invoked and \".\" or \"|\" is being passed\nto a parameter that takes a regular expression as an argument. Is this what you intended?\nFor example\n \nConsider using s.replace(\".\", \"/\") or s.split(\"\\\\.\") instead.\n s.replace(\".\", \"/\") s.split(\"\\\\.\")",
+    "code": "RE_POSSIBLE_UNINTENDED_PATTERN"
+  },
+  {
+    "title": "RE: Invalid syntax for regular expression (RE_BAD_SYNTAX_FOR_REGULAR_EXPRESSION)\uf0c1",
+    "description": "\nThe code here uses a regular expression that is invalid according to the syntax\nfor regular expressions. This statement will throw a PatternSyntaxException when\nexecuted.\n",
+    "code": "RE_BAD_SYNTAX_FOR_REGULAR_EXPRESSION"
+  },
+  {
+    "title": "RE: File.separator used for regular expression (RE_CANT_USE_FILE_SEPARATOR_AS_REGULAR_EXPRESSION)\uf0c1",
+    "description": "\nThe code here uses File.separator\nwhere a regular expression is required. This will fail on Windows\nplatforms, where the File.separator is a backslash, which is interpreted in a\nregular expression as an escape character. Among other options, you can just use\nFile.separatorChar=='\\\\' ? \"\\\\\\\\\" : File.separator instead of\nFile.separator\n File.separator File.separator File.separatorChar=='\\\\' ? \"\\\\\\\\\" : File.separator File.separator",
+    "code": "RE_CANT_USE_FILE_SEPARATOR_AS_REGULAR_EXPRESSION"
+  },
+  {
+    "title": "DLS: Overwritten increment (DLS_OVERWRITTEN_INCREMENT)\uf0c1",
+    "description": "\nThe code performs an increment/decrement operation (e.g., i++ / i--) and then\nimmediately overwrites it. For example, i = i++ / i = i-- immediately\noverwrites the incremented/decremented value with the original value.\n i++ i-- i = i++ i = i--",
+    "code": "DLS_OVERWRITTEN_INCREMENT"
+  },
+  {
+    "title": "BSHIFT: 32 bit int shifted by an amount not in the range -31..31 (ICAST_BAD_SHIFT_AMOUNT)\uf0c1",
+    "description": "\nThe code performs shift of a 32 bit int by a constant amount outside\nthe range -31..31.\nThe effect of this is to use the lower 5 bits of the integer\nvalue to decide how much to shift by (e.g., shifting by 40 bits is the same as shifting by 8 bits,\nand shifting by 32 bits is the same as shifting by zero bits). This probably isn't what was expected,\nand it is at least confusing.\n",
+    "code": "ICAST_BAD_SHIFT_AMOUNT"
+  },
+  {
+    "title": "BSHIFT: Possible bad parsing of shift operation (BSHIFT_WRONG_ADD_PRIORITY)\uf0c1",
+    "description": "\nThe code performs an operation like (x << 8 + y). Although this might be correct, probably it was meant\nto perform (x << 8) + y, but shift operation has\na lower precedence, so it's actually parsed as x << (8 + y).\n",
+    "code": "BSHIFT_WRONG_ADD_PRIORITY"
+  },
+  {
+    "title": "IM: Integer multiply of result of integer remainder (IM_MULTIPLYING_RESULT_OF_IREM)\uf0c1",
+    "description": "\nThe code multiplies the result of an integer remaining by an integer constant.\nBe sure you don't have your operator precedence confused. For example\ni % 60 * 1000 is (i % 60) * 1000, not i % (60 * 1000).\n",
+    "code": "IM_MULTIPLYING_RESULT_OF_IREM"
+  },
+  {
+    "title": "DMI: Invocation of hashCode on an array (DMI_INVOKING_HASHCODE_ON_ARRAY)\uf0c1",
+    "description": "\nThe code invokes hashCode on an array. Calling hashCode on\nan array returns the same value as System.identityHashCode, and ignores\nthe contents and length of the array. If you need a hashCode that\ndepends on the contents of an array a,\nuse java.util.Arrays.hashCode(a).\n\n a java.util.Arrays.hashCode(a)",
+    "code": "DMI_INVOKING_HASHCODE_ON_ARRAY"
+  },
+  {
+    "title": "USELESS_STRING: Invocation of toString on an array (DMI_INVOKING_TOSTRING_ON_ARRAY)\uf0c1",
+    "description": "\nThe code invokes toString on an array, which will generate a fairly useless result\nsuch as [C@16f0472. Consider using Arrays.toString to convert the array into a readable\nString that gives the contents of the array. See Programming Puzzlers, chapter 3, puzzle 12.\n",
+    "code": "DMI_INVOKING_TOSTRING_ON_ARRAY"
+  },
+  {
+    "title": "USELESS_STRING: Invocation of toString on an unnamed array (DMI_INVOKING_TOSTRING_ON_ANONYMOUS_ARRAY)\uf0c1",
+    "description": "\nThe code invokes toString on an (anonymous) array.  Calling toString on an array generates a fairly useless result\nsuch as [C@16f0472. Consider using Arrays.toString to convert the array into a readable\nString that gives the contents of the array. See Programming Puzzlers, chapter 3, puzzle 12.\n",
+    "code": "DMI_INVOKING_TOSTRING_ON_ANONYMOUS_ARRAY"
+  },
+  {
+    "title": "DMI: Bad constant value for month (DMI_BAD_MONTH)\uf0c1",
+    "description": "\nThis code passes a constant month\nvalue outside the expected range of 0..11 to a method.\n",
+    "code": "DMI_BAD_MONTH"
+  },
+  {
+    "title": "DMI: hasNext method invokes next (DMI_CALLING_NEXT_FROM_HASNEXT)\uf0c1",
+    "description": "\nThe hasNext() method invokes the next() method. This is almost certainly wrong,\nsince the hasNext() method is not supposed to change the state of the iterator,\nand the next method is supposed to change the state of the iterator.\n",
+    "code": "DMI_CALLING_NEXT_FROM_HASNEXT"
+  },
+  {
+    "title": "QBA: Method assigns boolean literal in boolean expression (QBA_QUESTIONABLE_BOOLEAN_ASSIGNMENT)\uf0c1",
+    "description": "\nThis method assigns a literal boolean value (true or false) to a boolean variable inside\nan if or while expression. Most probably this was supposed to be a boolean comparison using\n==, not an assignment using =.\n",
+    "code": "QBA_QUESTIONABLE_BOOLEAN_ASSIGNMENT"
+  },
+  {
+    "title": "GC: No relationship between generic parameter and method argument (GC_UNRELATED_TYPES)\uf0c1",
+    "description": " This call to a generic collection method contains an argument\n with an incompatible class from that of the collection's parameter\n(i.e., the type of the argument is neither a supertype nor a subtype\n    of the corresponding generic type argument).\n Therefore, it is unlikely that the collection contains any objects\nthat are equal to the method argument used here.\nMost likely, the wrong value is being passed to the method. In general, instances of two unrelated classes are not equal.\nFor example, if the Foo and Bar classes\nare not related by subtyping, then an instance of Foo\n    should not be equal to an instance of Bar.\nAmong other issues, doing so will likely result in an equals method\nthat is not symmetrical. For example, if you define the Foo class\nso that a Foo can be equal to a String,\nyour equals method isn't symmetrical since a String can only be equal\nto a String.\n In rare cases, people do define nonsymmetrical equals methods and still manage to make\ntheir code work. Although none of the APIs document or guarantee it, it is typically\nthe case that if you check if a Collection<String> contains\na Foo, the equals method of argument (e.g., the equals method of the\nFoo class) used to perform the equality checks.\n Foo Bar Foo Bar Foo Foo String String String Collection<String> Foo Foo",
+    "code": "GC_UNRELATED_TYPES"
+  },
+  {
+    "title": "DMI: Vacuous call to collections (DMI_VACUOUS_SELF_COLLECTION_CALL)\uf0c1",
+    "description": " This call doesn't make sense. For any collection c, calling c.containsAll(c) should\nalways be true, and c.retainAll(c) should have no effect.\n     c c.containsAll(c) c.retainAll(c)",
+    "code": "DMI_VACUOUS_SELF_COLLECTION_CALL"
+  },
+  {
+    "title": "DMI: D\u2019oh! A nonsensical method invocation (DMI_DOH)\uf0c1",
+    "description": "\nThis particular method invocation doesn't make sense, for reasons that should be apparent from inspection.\n",
+    "code": "DMI_DOH"
+  },
+  {
+    "title": "DMI: Collections should not contain themselves (DMI_COLLECTIONS_SHOULD_NOT_CONTAIN_THEMSELVES)\uf0c1",
+    "description": " This call to a generic collection's method would only make sense if a collection contained\nitself (e.g., if s.contains(s) were true). This is unlikely to be true and would cause\nproblems if it were true (such as the computation of the hash code resulting in infinite recursion).\nIt is likely that the wrong value is being passed as a parameter.\n     s.contains(s)",
+    "code": "DMI_COLLECTIONS_SHOULD_NOT_CONTAIN_THEMSELVES"
+  },
+  {
+    "title": "TQ: Value without a type qualifier used where a value is required to have that qualifier (TQ_UNKNOWN_VALUE_USED_WHERE_ALWAYS_STRICTLY_REQUIRED)\uf0c1",
+    "description": "\n    A value is being used in a way that requires the value to be annotated with a type qualifier.\nThe type qualifier is strict, so the tool rejects any values that do not have\nthe appropriate annotation.\n     \n    To coerce a value to have a strict annotation, define an identity function where the return value is annotated\nwith the strict annotation.\nThis is the only way to turn a non-annotated value into a value with a strict type qualifier annotation.\n    ",
+    "code": "TQ_UNKNOWN_VALUE_USED_WHERE_ALWAYS_STRICTLY_REQUIRED"
+  },
+  {
+    "title": "TQ: Comparing values with incompatible type qualifiers (TQ_COMPARING_VALUES_WITH_INCOMPATIBLE_TYPE_QUALIFIERS)\uf0c1",
+    "description": "\n        A value specified as carrying a type qualifier annotation is\n        compared with a value that doesn't ever carry that qualifier.\n         \n        More precisely, a value annotated with a type qualifier specifying when=ALWAYS\n        is compared with a value that where the same type qualifier specifies when=NEVER.\n         \n        For example, say that @NonNegative is a nickname for\n        the type qualifier annotation @Negative(when=When.NEVER).\n        The following code will generate this warning because\n        the return statement requires a @NonNegative value,\n        but receives one that is marked as @Negative.\n         public boolean example(@Negative Integer value1, @NonNegative Integer value2) {\n    return value1.equals(value2);\n}\n",
+    "code": "TQ_COMPARING_VALUES_WITH_INCOMPATIBLE_TYPE_QUALIFIERS"
+  },
+  {
+    "title": "TQ: Value annotated as carrying a type qualifier used where a value that must not carry that qualifier is required (TQ_ALWAYS_VALUE_USED_WHERE_NEVER_REQUIRED)\uf0c1",
+    "description": "\n        A value specified as carrying a type qualifier annotation is\n        consumed in a location or locations requiring that the value not\n        carry that annotation.\n         \n        More precisely, a value annotated with a type qualifier specifying when=ALWAYS\n        is guaranteed to reach a use or uses where the same type qualifier specifies when=NEVER.\n         \n        For example, say that @NonNegative is a nickname for\n        the type qualifier annotation @Negative(when=When.NEVER).\n        The following code will generate this warning because\n        the return statement requires a @NonNegative value,\n        but receives one that is marked as @Negative.\n         public @NonNegative Integer example(@Negative Integer value) {\n    return value;\n}\n",
+    "code": "TQ_ALWAYS_VALUE_USED_WHERE_NEVER_REQUIRED"
+  },
+  {
+    "title": "TQ: Value annotated as never carrying a type qualifier used where value carrying that qualifier is required (TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED)\uf0c1",
+    "description": "\nA value specified as not carrying a type qualifier annotation is guaranteed\nto be consumed in a location or locations requiring that the value does\ncarry that annotation.\n \nMore precisely, a value annotated with a type qualifier specifying when=NEVER\nis guaranteed to reach a use or uses where the same type qualifier specifies when=ALWAYS.\n \nTODO: example\n",
+    "code": "TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED"
+  },
+  {
+    "title": "TQ: Value that might not carry a type qualifier is always used in a way requires that type qualifier (TQ_MAYBE_SOURCE_VALUE_REACHES_ALWAYS_SINK)\uf0c1",
+    "description": "\n  A value that is annotated as possibly not being an instance of\nthe values denoted by the type qualifier, and the value is guaranteed to be used\nin a way that requires values denoted by that type qualifier.\n  ",
+    "code": "TQ_MAYBE_SOURCE_VALUE_REACHES_ALWAYS_SINK"
+  },
+  {
+    "title": "TQ: Value that might carry a type qualifier is always used in a way prohibits it from having that type qualifier (TQ_MAYBE_SOURCE_VALUE_REACHES_NEVER_SINK)\uf0c1",
+    "description": "\n  A value that is annotated as possibly being an instance of\nthe values denoted by the type qualifier, and the value is guaranteed to be used\nin a way that prohibits values denoted by that type qualifier.\n  ",
+    "code": "TQ_MAYBE_SOURCE_VALUE_REACHES_NEVER_SINK"
+  },
+  {
+    "title": "FB: Unexpected/undesired warning from SpotBugs (FB_UNEXPECTED_WARNING)\uf0c1",
+    "description": "SpotBugs generated a warning that, according to a @NoWarning annotation,\n  is unexpected or undesired. @NoWarning",
+    "code": "FB_UNEXPECTED_WARNING"
+  },
+  {
+    "title": "FB: Missing expected or desired warning from SpotBugs (FB_MISSING_EXPECTED_WARNING)\uf0c1",
+    "description": "SpotBugs didn't generate a warning that, according to an @ExpectedWarning annotation,\n  is expected or desired. @ExpectedWarning",
+    "code": "FB_MISSING_EXPECTED_WARNING"
+  },
+  {
+    "title": "EOS: Data read is converted before comparison to -1 (EOS_BAD_END_OF_STREAM_CHECK)\uf0c1",
+    "description": "\nThe method java.io.FileInputStream.read() returns an int. If this int is converted to a byte then -1 (which\nindicates an EOF) and the byte 0xFF become indistinguishable, this comparing the (converted) result to -1\ncauses the read (probably in a loop) to end prematurely if the character 0xFF is met. Similarly, the method\njava.io.FileReader.read() also returns an int. If it is converted to a char then -1 becomes 0xFFFF which is\nCharacter.MAX_VALUE. Comparing the result to -1 is pointless, since characters are unsigned in Java. If the\nchecking for EOF is the condition of a loop then this loop is infinite. \nSee SEI CERT rule FIO08-J. Distinguish between characters or bytes read from a stream and -1.\n",
+    "code": "EOS_BAD_END_OF_STREAM_CHECK"
+  },
+  {
+    "title": "FL: Do not use floating-point variables as loop counters (FL_FLOATS_AS_LOOP_COUNTERS)\uf0c1",
+    "description": "\nUsing floating-point variables should not be used as loop counters, as they are not precise, which may result in incorrect loops. A loop counter is a variable that is changed with each iteration and controls when the loop should terminate. It is decreased or increased by a fixed amount each iteration. See rule NUM09-J.",
+    "code": "FL_FLOATS_AS_LOOP_COUNTERS"
+  },
+  {
+    "title": "SING: Class using singleton design pattern directly implements Cloneable interface. (SING_SINGLETON_IMPLEMENTS_CLONEABLE)\uf0c1",
+    "description": "\nIf a class using singleton design pattern directly implements the Cloneable interface, it is possible to create a copy of the object, thus violating the singleton pattern.\nTherefore, implementing the Cloneable interface should be avoided.\n\nFor more information, see: SEI CERT MSC07-J.\n",
+    "code": "SING_SINGLETON_IMPLEMENTS_CLONEABLE"
+  },
+  {
+    "title": "SING: Class using singleton design pattern indirectly implements Cloneable interface. (SING_SINGLETON_INDIRECTLY_IMPLEMENTS_CLONEABLE)\uf0c1",
+    "description": "\nIf a class using singleton design pattern indirectly implements the Cloneable interface, it is possible to create a copy of the object, thus violating the singleton pattern.\nTherefore, implementing the Cloneable interface should be avoided. If that's not possible because of an extended super-class, the solution would be overriding the clone method to unconditionally throw CloneNotSupportedException.\n\nFor more information, see: SEI CERT MSC07-J.\n",
+    "code": "SING_SINGLETON_INDIRECTLY_IMPLEMENTS_CLONEABLE"
+  },
+  {
+    "title": "SING: Class using singleton design pattern implements clone() method without being an unconditional CloneNotSupportedException-thrower. (SING_SINGLETON_IMPLEMENTS_CLONE_METHOD)\uf0c1",
+    "description": "\nThis class is using singleton design pattern and does not implement the Cloneable interface, but implements the clone() method without being an unconditional CloneNotSupportedException-thrower.\nWith that, it is possible to create a copy of the object, thus violating the singleton pattern.\nTherefore, implementing the clone method should be avoided, otherwise the solution would be overriding the clone method to unconditionally throw CloneNotSupportedException.\n\nFor more information, see: SEI CERT MSC07-J.\n",
+    "code": "SING_SINGLETON_IMPLEMENTS_CLONE_METHOD"
+  },
+  {
+    "title": "SING: Class using singleton design pattern has non-private constructor. (SING_SINGLETON_HAS_NONPRIVATE_CONSTRUCTOR)\uf0c1",
+    "description": "\nThis class is using singleton design pattern and has non-private constructor (please note that a default constructor might exist which is not private). Given that, it is possible to create a copy of the object, thus violating the singleton pattern.\nThe easier solution would be making the constructor private.\nSEI CERT MSC07-J rule\n",
+    "code": "SING_SINGLETON_HAS_NONPRIVATE_CONSTRUCTOR"
+  },
+  {
+    "title": "SING: Class using singleton design pattern directly or indirectly implements Serializable interface. (SING_SINGLETON_IMPLEMENTS_SERIALIZABLE)\uf0c1",
+    "description": "\nThis class (using singleton design pattern) directly or indirectly implements the Serializable interface, which allows the class to be serialized.\nDeserialization makes multiple instantiation of a singleton class possible, and therefore should be avoided.\nSEI CERT MSC07-J rule\n",
+    "code": "SING_SINGLETON_IMPLEMENTS_SERIALIZABLE"
+  },
+  {
+    "title": "SING: Instance-getter method of class using singleton design pattern is not synchronized. (SING_SINGLETON_GETTER_NOT_SYNCHRONIZED)\uf0c1",
+    "description": "\nInstance-getter method of class using singleton design pattern is not synchronized. When this method is invoked by two or more threads simultaneously,\nmultiple instantiation of a singleton class becomes possible.\nSEI CERT MSC07-J rule\n",
+    "code": "SING_SINGLETON_GETTER_NOT_SYNCHRONIZED"
+  },
+  {
+    "title": "HSM: Method hiding should be avoided. (HSM_HIDING_METHOD)\uf0c1",
+    "description": "\nSee SEI CERT rule MET07-J. Never declare a class method that hides a method declared in a superclass or superinterface.\n",
+    "code": "HSM_HIDING_METHOD"
+  },
+  {
+    "title": "XSS: Servlet reflected cross site scripting vulnerability in error page (XSS_REQUEST_PARAMETER_TO_SEND_ERROR)\uf0c1",
+    "description": "This code directly writes an HTTP parameter to a Server error page (using HttpServletResponse.sendError). Echoing this untrusted input allows\nfor a reflected cross site scripting\nvulnerability. See http://en.wikipedia.org/wiki/Cross-site_scripting\nfor more information. SpotBugs looks only for the most blatant, obvious cases of cross site scripting.\nIf SpotBugs found any, you almost certainly have more cross site scripting\nvulnerabilities that SpotBugs doesn't report. If you are concerned about cross site scripting, you should seriously\nconsider using a commercial static analysis or pen-testing tool.\n",
+    "code": "XSS_REQUEST_PARAMETER_TO_SEND_ERROR"
+  },
+  {
+    "title": "XSS: Servlet reflected cross site scripting vulnerability (XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER)\uf0c1",
+    "description": "This code directly writes an HTTP parameter to Servlet output, which allows for a reflected cross site scripting\nvulnerability. See http://en.wikipedia.org/wiki/Cross-site_scripting\nfor more information. SpotBugs looks only for the most blatant, obvious cases of cross site scripting.\nIf SpotBugs found any, you almost certainly have more cross site scripting\nvulnerabilities that SpotBugs doesn't report. If you are concerned about cross site scripting, you should seriously\nconsider using a commercial static analysis or pen-testing tool.\n",
+    "code": "XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER"
+  },
+  {
+    "title": "XSS: JSP reflected cross site scripting vulnerability (XSS_REQUEST_PARAMETER_TO_JSP_WRITER)\uf0c1",
+    "description": "This code directly writes an HTTP parameter to JSP output, which allows for a cross site scripting\nvulnerability. See http://en.wikipedia.org/wiki/Cross-site_scripting\nfor more information. SpotBugs looks only for the most blatant, obvious cases of cross site scripting.\nIf SpotBugs found any, you almost certainly have more cross site scripting\nvulnerabilities that SpotBugs doesn't report. If you are concerned about cross site scripting, you should seriously\nconsider using a commercial static analysis or pen-testing tool.\n",
+    "code": "XSS_REQUEST_PARAMETER_TO_JSP_WRITER"
+  },
+  {
+    "title": "HRS: HTTP Response splitting vulnerability (HRS_REQUEST_PARAMETER_TO_HTTP_HEADER)\uf0c1",
+    "description": "This code directly writes an HTTP parameter to an HTTP header, which allows for an HTTP response splitting\nvulnerability. See http://en.wikipedia.org/wiki/HTTP_response_splitting\nfor more information. SpotBugs looks only for the most blatant, obvious cases of HTTP response splitting.\nIf SpotBugs found any, you almost certainly have more\nvulnerabilities that SpotBugs doesn't report. If you are concerned about HTTP response splitting, you should seriously\nconsider using a commercial static analysis or pen-testing tool.\n",
+    "code": "HRS_REQUEST_PARAMETER_TO_HTTP_HEADER"
+  },
+  {
+    "title": "HRS: HTTP cookie formed from untrusted input (HRS_REQUEST_PARAMETER_TO_COOKIE)\uf0c1",
+    "description": "This code constructs an HTTP Cookie using an untrusted HTTP parameter. If this cookie is added to an HTTP response, it will allow an HTTP response splitting\nvulnerability. See http://en.wikipedia.org/wiki/HTTP_response_splitting\nfor more information. SpotBugs looks only for the most blatant, obvious cases of HTTP response splitting.\nIf SpotBugs found any, you almost certainly have more\nvulnerabilities that SpotBugs doesn't report. If you are concerned about HTTP response splitting, you should seriously\nconsider using a commercial static analysis or pen-testing tool.\n",
+    "code": "HRS_REQUEST_PARAMETER_TO_COOKIE"
+  },
+  {
+    "title": "PT: Absolute path traversal in servlet (PT_ABSOLUTE_PATH_TRAVERSAL)\uf0c1",
+    "description": "The software uses an HTTP request parameter to construct a pathname that should be within a restricted directory,\nbut it does not properly neutralize absolute path sequences such as \"/abs/path\" that can resolve to a location that is outside of that directory.\n\nSee http://cwe.mitre.org/data/definitions/36.html\nfor more information. SpotBugs looks only for the most blatant, obvious cases of absolute path traversal.\nIf SpotBugs found any, you almost certainly have more\nvulnerabilities that SpotBugs doesn't report. If you are concerned about absolute path traversal, you should seriously\nconsider using a commercial static analysis or pen-testing tool.\n",
+    "code": "PT_ABSOLUTE_PATH_TRAVERSAL"
+  },
+  {
+    "title": "PT: Relative path traversal in servlet (PT_RELATIVE_PATH_TRAVERSAL)\uf0c1",
+    "description": "The software uses an HTTP request parameter to construct a pathname that should be within a restricted directory, but it does not properly neutralize sequences such as \"..\" that can resolve to a location that is outside of that directory.\n\nSee http://cwe.mitre.org/data/definitions/23.html\nfor more information. SpotBugs looks only for the most blatant, obvious cases of relative path traversal.\nIf SpotBugs found any, you almost certainly have more\nvulnerabilities that SpotBugs doesn't report. If you are concerned about relative path traversal, you should seriously\nconsider using a commercial static analysis or pen-testing tool.\n",
+    "code": "PT_RELATIVE_PATH_TRAVERSAL"
+  },
+  {
+    "title": "Dm: Hardcoded constant database password (DMI_CONSTANT_DB_PASSWORD)\uf0c1",
+    "description": "This code creates a database connect using a hardcoded, constant password. Anyone with access to either the source code or the compiled code can\n    easily learn the password.\n",
+    "code": "DMI_CONSTANT_DB_PASSWORD"
+  },
+  {
+    "title": "Dm: Empty database password (DMI_EMPTY_DB_PASSWORD)\uf0c1",
+    "description": "This code creates a database connect using a blank or empty password. This indicates that the database is not protected by a password.\n",
+    "code": "DMI_EMPTY_DB_PASSWORD"
+  },
+  {
+    "title": "SQL: Nonconstant string passed to execute or addBatch method on an SQL statement (SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE)\uf0c1",
+    "description": "The method invokes the execute or addBatch method on an SQL statement with a String that seems\nto be dynamically generated. Consider using\na prepared statement instead. It is more efficient and less vulnerable to\nSQL injection attacks.\n",
+    "code": "SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"
+  },
+  {
+    "title": "SQL: A prepared statement is generated from a nonconstant String (SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING)\uf0c1",
+    "description": "The code creates an SQL prepared statement from a nonconstant String.\nIf unchecked, tainted data from a user is used in building this String, SQL injection could\nbe used to make the prepared statement do something unexpected and undesirable.\n",
+    "code": "SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING"
+  },
+  {
+    "title": "ASE: Expression in assertion may produce a side effect (ASE_ASSERTION_WITH_SIDE_EFFECT)\uf0c1",
+    "description": "Expressions used in assertions must not produce side effects. See SEI CERT Rule EXP06\nfor more information.\n SEI CERT Rule EXP06",
+    "code": "ASE_ASSERTION_WITH_SIDE_EFFECT"
+  },
+  {
+    "title": "ASE: Method invoked in assertion may produce a side effect (ASE_ASSERTION_WITH_SIDE_EFFECT_METHOD)\uf0c1",
+    "description": "Expressions used in assertions must not produce side effects. See SEI CERT Rule EXP06\nfor more information.\n SEI CERT Rule EXP06",
+    "code": "ASE_ASSERTION_WITH_SIDE_EFFECT_METHOD"
+  },
+  {
+    "title": "DP: Method invoked that should be only be invoked inside a doPrivileged block (DP_DO_INSIDE_DO_PRIVILEGED)\uf0c1",
+    "description": " This code invokes a method that requires a security permission check.\nIf this code will be granted security permissions, but might be invoked by code that does not\nhave security permissions, then the invocation needs to occur inside a doPrivileged block. java.security.AccessController doPrivileged",
+    "code": "DP_DO_INSIDE_DO_PRIVILEGED"
+  },
+  {
+    "title": "DP: Classloaders should only be created inside doPrivileged block (DP_CREATE_CLASSLOADER_INSIDE_DO_PRIVILEGED)\uf0c1",
+    "description": " This code creates a classloader,  which needs permission if a security manage is installed.\nIf this code might be invoked by code that does not\nhave security permissions, then the classloader creation needs to occur inside a doPrivileged block. java.security.AccessController doPrivileged",
+    "code": "DP_CREATE_CLASSLOADER_INSIDE_DO_PRIVILEGED"
+  },
+  {
+    "title": "FI: Finalizer should be protected, not public (FI_PUBLIC_SHOULD_BE_PROTECTED)\uf0c1",
+    "description": " A class's finalize() method should have protected access,\n not public. finalize()",
+    "code": "FI_PUBLIC_SHOULD_BE_PROTECTED"
+  },
+  {
+    "title": "MS: Public static method may expose internal representation by returning a mutable object or array (MS_EXPOSE_REP)\uf0c1",
+    "description": " A public static method returns a reference to a mutable object or\n an array that is part of the static state of the class.\n Any code that calls this method can freely modify\n the underlying array.\n One fix is to return a copy of the array.",
+    "code": "MS_EXPOSE_REP"
+  },
+  {
+    "title": "MS: May expose internal representation by returning a buffer sharing non-public data (MS_EXPOSE_BUF)\uf0c1",
+    "description": " A public static method either returns a buffer (java.nio.*Buffer) which wraps an array that is part of the\nstatic state of the class by holding a reference only to this same array or it returns a shallow-copy of a buffer\nthat is part of the static stat of the class which shares its reference with the original buffer.\n Any code that calls this method can freely modify the underlying array.\n One fix is to return a read-only buffer or a new buffer with a copy of the array.",
+    "code": "MS_EXPOSE_BUF"
+  },
+  {
+    "title": "EI: May expose internal representation by returning reference to mutable object (EI_EXPOSE_REP)\uf0c1",
+    "description": " Returning a reference to a mutable object value stored in one of the object's fields\nexposes the internal representation of the object.\u00a0\n If instances\n are accessed by untrusted code, and unchecked changes to\n the mutable object would compromise security or other\n important properties, you will need to do something different.\nReturning a new copy of the object is better approach in many situations.",
+    "code": "EI_EXPOSE_REP"
+  },
+  {
+    "title": "EI: May expose internal representation by returning a buffer sharing non-public data (EI_EXPOSE_BUF)\uf0c1",
+    "description": " Returning a reference to a buffer (java.nio.*Buffer) which wraps an array stored in one of the object's fields\nexposes the internal representation of the array elements because the buffer only stores a reference to the array\ninstead of copying its content. Similarly, returning a shallow-copy of such a buffer (using its duplicate() method)\nstored in one of the object's fields also exposes the internal representation of the buffer.\u00a0\n If instances are accessed by untrusted code, and unchecked changes to\n the array would compromise security or other\n important properties, you will need to do something different.\nReturning a read-only buffer (using its asReadOnly() method) or copying the array to a new buffer (using its put()\nmethod) is a better approach in many situations.",
+    "code": "EI_EXPOSE_BUF"
+  },
+  {
+    "title": "EI2: May expose internal representation by incorporating reference to mutable object (EI_EXPOSE_REP2)\uf0c1",
+    "description": " This code stores a reference to an externally mutable object into the\ninternal representation of the object.\u00a0\n If instances\n are accessed by untrusted code, and unchecked changes to\n the mutable object would compromise security or other\n important properties, you will need to do something different.\nStoring a copy of the object is better approach in many situations.",
+    "code": "EI_EXPOSE_REP2"
+  },
+  {
+    "title": "MS: May expose internal static state by storing a mutable object into a static field (EI_EXPOSE_STATIC_REP2)\uf0c1",
+    "description": " This code stores a reference to an externally mutable object into a static\n field.\n If unchecked changes to\n the mutable object would compromise security or other\n important properties, you will need to do something different.\nStoring a copy of the object is better approach in many situations.",
+    "code": "EI_EXPOSE_STATIC_REP2"
+  },
+  {
+    "title": "EI2: May expose internal representation by creating a buffer which incorporates reference to array (EI_EXPOSE_BUF2)\uf0c1",
+    "description": " This code creates a buffer which stores a reference to an external array or the array of an external buffer into\nthe internal representation of the object.\u00a0\n If instances\n are accessed by untrusted code, and unchecked changes to\n the array would compromise security or other\n important properties, you will need to do something different.\nStoring a copy of the array is a better approach in many situations.",
+    "code": "EI_EXPOSE_BUF2"
+  },
+  {
+    "title": "MS: May expose internal static state by creating a buffer which stores an external array into a static field (EI_EXPOSE_STATIC_BUF2)\uf0c1",
+    "description": " This code creates a buffer which stores a reference to an external array or the array of an external buffer into\na static field.\n If unchecked changes to\n the array would compromise security or other\n important properties, you will need to do something different.\nStoring a copy of the array is a better approach in many situations.",
+    "code": "EI_EXPOSE_STATIC_BUF2"
+  },
+  {
+    "title": "MS: Field should be moved out of an interface and made package protected (MS_OOI_PKGPROTECT)\uf0c1",
+    "description": "\n A final static field that is\ndefined in an interface references a mutable\n   object such as an array or hashtable.\n   This mutable object could\n   be changed by malicious code or\n        by accident from another package.\n   To solve this, the field needs to be moved to a class\n   and made package protected\n   to avoid\n        this vulnerability.",
+    "code": "MS_OOI_PKGPROTECT"
+  },
+  {
+    "title": "MS: Field should be both final and package protected (MS_FINAL_PKGPROTECT)\uf0c1",
+    "description": "\n  A mutable static field could be changed by malicious code or\n       by accident from another package.\n       The field could be made package protected and/or made final\n  to avoid\n       this vulnerability.",
+    "code": "MS_FINAL_PKGPROTECT"
+  },
+  {
+    "title": "MS: Field isn\u2019t final but should be (MS_SHOULD_BE_FINAL)\uf0c1",
+    "description": "\nThis public static or protected static field is not final, and\ncould be changed by malicious code or\n        by accident from another package.\n        The field could be made final to avoid\n        this vulnerability. public static protected static",
+    "code": "MS_SHOULD_BE_FINAL"
+  },
+  {
+    "title": "MS: Field isn\u2019t final but should be refactored to be so (MS_SHOULD_BE_REFACTORED_TO_BE_FINAL)\uf0c1",
+    "description": "\nThis public static or protected static field is not final, and\ncould be changed by malicious code or\nby accident from another package.\nThe field could be made final to avoid\nthis vulnerability. However, the static initializer contains more than one write\nto the field, so doing so will require some refactoring.\n public static protected static",
+    "code": "MS_SHOULD_BE_REFACTORED_TO_BE_FINAL"
+  },
+  {
+    "title": "MS: Field should be package protected (MS_PKGPROTECT)\uf0c1",
+    "description": " A mutable static field could be changed by malicious code or\n by accident.\n The field could be made package protected to avoid\n this vulnerability.",
+    "code": "MS_PKGPROTECT"
+  },
+  {
+    "title": "MS: Field is a mutable Hashtable (MS_MUTABLE_HASHTABLE)\uf0c1",
+    "description": "A final static field references a Hashtable\n  and can be accessed by malicious code or\n       by accident from another package.\n  This code can freely modify the contents of the Hashtable.",
+    "code": "MS_MUTABLE_HASHTABLE"
+  },
+  {
+    "title": "MS: Field is a mutable array (MS_MUTABLE_ARRAY)\uf0c1",
+    "description": " A final static field references an array\n   and can be accessed by malicious code or\n        by accident from another package.\n   This code can freely modify the contents of the array.",
+    "code": "MS_MUTABLE_ARRAY"
+  },
+  {
+    "title": "MS: Field is a mutable collection (MS_MUTABLE_COLLECTION)\uf0c1",
+    "description": "A mutable collection instance is assigned to a final static field,\n  thus can be changed by malicious code or by accident from another package.\n  Consider wrapping this field into Collections.unmodifiableSet/List/Map/etc.\n  to avoid this vulnerability.",
+    "code": "MS_MUTABLE_COLLECTION"
+  },
+  {
+    "title": "MS: Field is a mutable collection which should be package protected (MS_MUTABLE_COLLECTION_PKGPROTECT)\uf0c1",
+    "description": "A mutable collection instance is assigned to a final static field,\n  thus can be changed by malicious code or by accident from another package.\n  The field could be made package protected to avoid this vulnerability.\n  Alternatively you may wrap this field into Collections.unmodifiableSet/List/Map/etc.\n  to avoid this vulnerability.",
+    "code": "MS_MUTABLE_COLLECTION_PKGPROTECT"
+  },
+  {
+    "title": "MS: Field isn\u2019t final and cannot be protected from malicious code (MS_CANNOT_BE_FINAL)\uf0c1",
+    "description": "\nA mutable static field could be changed by malicious code or\n       by accident from another package.\n  Unfortunately, the way the field is used doesn't allow\n  any easy fix to this problem.",
+    "code": "MS_CANNOT_BE_FINAL"
+  },
+  {
+    "title": "REFLC: Public method uses reflection to create a class it gets in its parameter which could increase the accessibility of any class (REFLC_REFLECTION_MAY_INCREASE_ACCESSIBILITY_OF_CLASS)\uf0c1",
+    "description": "\nSEI CERT SEC05-J rule forbids the use of reflection to increase accessibility of classes, methods or fields. If\na class in a package provides a public method which takes an instance of java.lang.Class as its parameter and\ncalls its newInstance() method then it increases accessibility of classes in the same package without public\nconstructors. An attacker code may call this method and pass such class to create an instance of it. This should\nbe avoided by either making the method non-public or by checking for package access permission on the package.\nA third possibility is to use the java.beans.Beans.instantiate() method instead of java.lang.Class.newInstance()\nwhich checks whether the Class object being received has any public constructors.\n",
+    "code": "REFLC_REFLECTION_MAY_INCREASE_ACCESSIBILITY_OF_CLASS"
+  },
+  {
+    "title": "REFLF: Public method uses reflection to modify a field it gets in its parameter which could increase the accessibility of any class (REFLF_REFLECTION_MAY_INCREASE_ACCESSIBILITY_OF_FIELD)\uf0c1",
+    "description": "\nSEI CERT SEC05-J rule forbids the use of reflection to increase accessibility of classes, methods or fields. If\na class in a package provides a public method which takes an instance of java.lang.reflect.Field as its\nparameter and calls a setter (or setAccessible()) method then it increases accessibility of fields in the same\npackage which are private, protected or package private. An attacker code may call this method and pass such\nfield to change it. This should be avoided by either making the method non-public or by checking for package\naccess permission on the package.\n",
+    "code": "REFLF_REFLECTION_MAY_INCREASE_ACCESSIBILITY_OF_FIELD"
+  },
+  {
+    "title": "MC: An overridable method is called from a constructor (MC_OVERRIDABLE_METHOD_CALL_IN_CONSTRUCTOR)\uf0c1",
+    "description": "\nCalling an overridable method during in a constructor may result in the use of uninitialized data. It may also\nleak the this reference of the partially constructed object. Only static, final or private methods should be\ninvoked from a constructor. \nSee SEI CERT rule MET05-J. Ensure that constructors do not call overridable methods.\n",
+    "code": "MC_OVERRIDABLE_METHOD_CALL_IN_CONSTRUCTOR"
+  },
+  {
+    "title": "MC: An overridable method is called from the clone() method. (MC_OVERRIDABLE_METHOD_CALL_IN_CLONE)\uf0c1",
+    "description": "\nCalling overridable methods from the clone() method is insecure because a subclass could override the method,\naffecting the behavior of clone(). It can also observe or modify the clone object in a partially initialized\nstate. Only static, final or private methods should be invoked from the clone() method. \nSee SEI CERT rule\nMET06-J. Do not invoke overridable methods in clone().\n",
+    "code": "MC_OVERRIDABLE_METHOD_CALL_IN_CLONE"
+  },
+  {
+    "title": "MC: An overridable method is called from the readObject method. (MC_OVERRIDABLE_METHOD_CALL_IN_READ_OBJECT)\uf0c1",
+    "description": "\nThe readObject() method must not call any overridable methods. Invoking overridable methods from the readObject()\nmethod can provide the overriding method with access to the object's state before it is fully initialized. This\npremature access is possible because, in deserialization, readObject plays the role of object constructor and\ntherefore object initialization is not complete until readObject exits. \n\nSee SEI CERT rule \nSER09-J. Do not invoke overridable methods from the readObject() method.\n",
+    "code": "MC_OVERRIDABLE_METHOD_CALL_IN_READ_OBJECT"
+  },
+  {
+    "title": "PERM: Custom class loader does not call its superclass\u2019s getPermissions() (PERM_SUPER_NOT_CALLED_IN_GETPERMISSIONS)\uf0c1",
+    "description": "\nSEI CERT rule SEC07-J requires that custom class loaders must always call their superclass's getPermissions()\nmethod in their own getPermissions() method to initialize the object they return at the end. Omitting it means\nthat a class defined using this custom class loader has permissions that are completely independent of those\nspecified in the systemwide policy file. In effect, the class's permissions override them.\n",
+    "code": "PERM_SUPER_NOT_CALLED_IN_GETPERMISSIONS"
+  },
+  {
+    "title": "USC: Potential security check based on untrusted source. (USC_POTENTIAL_SECURITY_CHECK_BASED_ON_UNTRUSTED_SOURCE)\uf0c1",
+    "description": "\nA public method of a public class may be called from outside the package which means that untrusted\ndata may be passed to it. Calling a method before the doPrivileged to check its return value and then\ncalling the same method inside the class is dangerous if the method or its enclosing class is not\nfinal. An attacker may pass an instance of a malicious descendant of the class instead of an instance\nof the expected one where this method is overridden in a way that it returns different values upon\ndifferent invocations. For example, a method returning a file path may return a harmless path to check\nbefore entering the doPrivileged block and then a sensitive file upon the call inside the doPrivileged\nblock. To avoid such scenario defensively copy the object received in the parameter, e.g. by using\nthe copy constructor of the class used as the type of the formal parameter. This ensures that the\nmethod behaves exactly as expected.\n\nSee SEI CERT rule SEC02-J. Do not base security checks on untrusted sources.\n\nThe java.security.AccessController class, which contains the doPrivileged methods,\ngot deprecated in Java 17 (see JEP 411), and removed in Java 24 (see JEP 486).\nFor this reason, this bug isn't reported in classes targeted Java 17 and above. \nSee SEI CERT rule SEC02-J. Do not base security checks on untrusted sources.\n java.security.AccessController doPrivileged",
+    "code": "USC_POTENTIAL_SECURITY_CHECK_BASED_ON_UNTRUSTED_SOURCE"
+  },
+  {
+    "title": "VSC: Non-Private and non-final security check methods are vulnerable (VSC_VULNERABLE_SECURITY_CHECK_METHODS)\uf0c1",
+    "description": "\n  Methods that perform security checks should be prevented from being overridden, so they must be declared as\n  private or final. Otherwise, these methods can be compromised when a malicious subclass overrides them\n  and omits the checks.\n  \n  See SEI CERT rule MET03-J. Methods that perform a security check must be declared private or final.\n   \n  See SEI CERT rule MET03-J. Methods that perform a security check must be declared private or final.\n  ",
+    "code": "VSC_VULNERABLE_SECURITY_CHECK_METHODS"
+  }
+]
