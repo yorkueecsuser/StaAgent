@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "Classes that don't define \"hashCode()\" should not be used in hashes",
+  "Bug_Details": "Because Object implements hashCode , any Java class can be put into a hash structure. However, classes that define equals(Object) but not hashCode() aren\u2019t truly hash-able because instances that are equivalent according to the equals method can return different hashes.\nNoncompliant code example\npublic class Student {  // no hashCode() method; not hash-able\n  // ...\n\n  public boolean equals(Object o) {\n    // ...\n  }\n}\n\npublic class School {\n  private Map<Student, Integer> studentBody = // okay so far\n          new HashTable<Student, Integer>(); // Noncompliant\n\n  // ...\nCompliant solution\npublic class Student {  // has hashCode() method; hash-able\n  // ...\n\n  public boolean equals(Object o) {\n    // ...\n  }\n  public int hashCode() {\n    // ...\n  }\n}\n\npublic class School {\n  private Map<Student, Integer> studentBody = new HashTable<Student, Integer>();\n\n  // ...",
+  "Bug_Explanation": "The bug is embedded in the Student class, which defines an equals method but does not define a hashCode method. This causes issues when instances of Student are used as keys in a Hashtable, as equal instances can have different hash codes leading to unexpected behavior.",
+  "Buggy_Line": [
+    22
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by adding two equal Student objects with different hash codes to a Hashtable. The second put operation overrides the first one, causing the test to fail when asserting the grade of the first student.",
+  "Trigger_Line": [
+    16
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

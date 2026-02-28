@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Overrides should match their parent class methods in synchronization",
+  "Bug_Details": "When @Overrides of synchronized methods are not themselves synchronized , the result can be improper\nsynchronization as callers rely on the thread-safety promised by the parent class.\nNoncompliant code example\npublic class Parent {\n\n  synchronized void foo() {\n    //...\n  }\n}\n\npublic class Child extends Parent {\n\n @Override\n  public void foo () {  // Noncompliant\n    // ...\n    super.foo();\n  }\n}\nCompliant solution\npublic class Parent {\n\n  synchronized void foo() {\n    //...\n  }\n}\n\npublic class Child extends Parent {\n\n  @Override\n  synchronized void foo () {\n    // ...\n    super.foo();\n  }\n}",
+  "Bug_Explanation": "The bug is embedded in the 'Child' class where the overridden method 'foo' is not synchronized, even though the parent class 'Parent' method 'foo' is synchronized. This can lead to improper synchronization as callers rely on the thread-safety promised by the parent class.",
+  "Buggy_Line": [
+    16
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the'showBug' method of the 'SynchronizationBugExample' class, which creates two threads that run the 'foo' method of the 'Child' class concurrently. Since the 'foo' method in 'Child' is not synchronized, it fails to maintain the synchronization contract of the 'foo' method in 'Parent', leading to potential race conditions and incorrect behavior.",
+  "Trigger_Line": [
+    12
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.312\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that the test passed without any failures or exceptions, indicating that the presence of the bug was not confirmed through the test execution."
+}

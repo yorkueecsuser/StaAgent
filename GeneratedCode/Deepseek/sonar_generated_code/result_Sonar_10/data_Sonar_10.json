@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "SpEL expression should have a valid syntax",
+  "Bug_Details": "SpEL is used in Spring annotations and is parsed by the Spring framework, not by the Java compiler. This means that invalid SpEL expressions are\nnot detected during Java compile time. They will cause exceptions during runtime instead, or even fail silently with the expression string interpreted\nas a simple string literal by Spring.\nExceptions\nThis rule does report syntactical errors in SpEL expressions but does not consider semantic errors, such as unknown identifiers or incompatible\noperand data types.",
+  "Bug_Explanation": "The SpEL expression is invalid. It uses a method that the Java compiler does not know about.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case invokes the `showBug()` method which contains an invalid SpEL expression which triggers the bug when evaluated.",
+  "Trigger_Line": [
+    12
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results demonstrate that the bug was not triggered. The test case failed due to an incorrect assertion that the invalid SpEL expression did not return the string 'calc'. The actual result of the SpEL expression is 'calc'.",
+  "Model_Confirmed_Buggy": "No",
+  "Model_Explanation": "The provided Java code does not contain a bug as described. The SpEL expression used in the code is syntactically correct and does not contain any syntax errors. The expression is used to execute a command in the system's runtime, which is a valid operation. The bug rule and description are related to the detection of invalid SpEL expressions during compile time, not the provided code."
+}

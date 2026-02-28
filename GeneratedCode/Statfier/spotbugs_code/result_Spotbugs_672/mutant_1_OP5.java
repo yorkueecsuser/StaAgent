@@ -1,0 +1,74 @@
+import edu.umd.cs.findbugs.annotations.ExpectWarning;
+import edu.umd.cs.findbugs.annotations.NoWarning;
+import javax.annotation.meta.When;
+
+class TestFooUnknownSource {
+
+  int f(@NeverFoo String c) {
+    return c.hashCode();
+  }
+
+  int g(@Foo String c) {
+    return c.hashCode();
+  }
+
+  @NoWarning("TQ")
+  int unannotatedSourceToNeverSinkFalsePositive(String c) {
+    return f(c); // should not generate a warning here
+
+    // Inserting unreachable switch statement
+    boolean condition = getCondition();
+    switch (condition? 0 : 1) {
+      case 0:
+        // This case is unreachable because condition is always false
+        System.out.println("This is an unreachable case");
+        break;
+    }
+  }
+
+  @NoWarning("TQ")
+  int unannotatedSourceToAlwaysSinkFalsePositive(String c) {
+    return g(c); // should not generate a warning here
+
+    // Inserting unreachable switch statement
+    boolean condition = getCondition();
+    switch (condition? 0 : 1) {
+      case 0:
+        // This case is unreachable because condition is always false
+        System.out.println("This is an unreachable case");
+        break;
+    }
+  }
+
+  @ExpectWarning("TQ")
+  int unknownSourceToNeverSinkFalsePositive(@Foo(when = When.UNKNOWN) String c) {
+    return f(c); // should generate a warning here
+
+    // Inserting unreachable switch statement
+    boolean condition = getCondition();
+    switch (condition? 0 : 1) {
+      case 0:
+        // This case is unreachable because condition is always false
+        System.out.println("This is an unreachable case");
+        break;
+    }
+  }
+
+  @ExpectWarning("TQ")
+  int unknownSourceToNeverSourceFalsePositive(@Foo(when = When.UNKNOWN) String c) {
+    return g(c); // should generate a warning here
+
+    // Inserting unreachable switch statement
+    boolean condition = getCondition();
+    switch (condition? 0 : 1) {
+      case 0:
+        // This case is unreachable because condition is always false
+        System.out.println("This is an unreachable case");
+        break;
+    }
+  }
+
+  private boolean getCondition() {
+    return false;
+  }
+}

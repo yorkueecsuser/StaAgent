@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "UnnecessaryCheckNotNull",
+  "Bug_Details": "This null check is unnecessary; the expression can never be null",
+  "Bug_Explanation": "The null check is unnecessary as the input parameter to the showBug() method is a String and it's guaranteed to be non-null unless explicitly passed as null.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test cases trigger the bug by passing a non-null input to the showBug method of the UnnecessaryCheckNotNullBug class. The unnecessary null check in the showBug method causes the test case to fail when it actually should not.",
+  "Trigger_Line": [
+    5,
+    11
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.004\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The provided test cases passed successfully with both non-null and null inputs. This suggests that the unnecessary null check in the Java code is not causing any issues and is not being triggered by the test cases."
+}

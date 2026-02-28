@@ -1,0 +1,15 @@
+class GetClassOnClassExample {
+
+    public String showBug(Class<?> clazz) {
+        return clazz.getClass().getName(); // BUG: GetClassOnClass
+    }
+
+    public String showBug(Class<?> a) {
+        return a.getClass().getName(); // Mutant: Renamed 'clazz' to 'a'
+    }
+
+    public static void main(String[] args) {
+        GetClassOnClassExample example = new GetClassOnClassExample();
+        System.out.println(example.showBug(String.class));
+    }
+}

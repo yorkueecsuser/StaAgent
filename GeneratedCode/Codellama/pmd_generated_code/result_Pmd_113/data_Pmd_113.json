@@ -1,0 +1,13 @@
+{
+  "Bug_Title": "StringInstantiation",
+  "Bug_Details": "Avoid instantiating String objects; this is usually unnecessary since they are immutable and can be safely shared.",
+  "Bug_Explanation": "The bug is embedded in the code by creating a new String object in the greeting variable, which is unnecessary since String objects are immutable and can be safely shared. This bug can be fixed by removing the new String object and just concatenating the strings directly.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the StringInstantiation bug by calling the showBug method, which instantiates a new String object for the greeting variable, violating the StringInstantiation rule.",
+  "Trigger_Line": [
+    8
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

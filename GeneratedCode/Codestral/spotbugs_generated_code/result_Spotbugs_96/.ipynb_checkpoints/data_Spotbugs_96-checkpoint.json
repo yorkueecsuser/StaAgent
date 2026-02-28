@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "IJU: TestCase defines setUp that doesn\u2019t call super.setUp() (IJU_SETUP_NO_SUPER)\uf0c1",
+  "Bug_Details": " Class is a JUnit TestCase and implements the setUp method. The setUp method should call\nsuper.setUp(), but doesn't.",
+  "Bug_Explanation": "The setUp() method in the BuggyJUnitTest class does not call super.setUp(), which is required for proper initialization of the TestCase. This can lead to unexpected behavior in the test case, as demonstrated by the testBuggyMethod() test method.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method triggers the bug by calling the showBug method of the BuggyJUnitTest class. Since the setUp method in BuggyJUnitTest does not call super.setUp(), the testString is initialized to 'Buggy string' instead of 'Correct string', causing the assertion to fail.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.009\n\nOK (1 test)\n\n"
+}

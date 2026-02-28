@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "MF: Class defines field that masks a superclass field (MF_CLASS_MASKS_FIELD)\uf0c1",
+  "Bug_Details": " This class defines a field with the same name as a visible\ninstance field in a superclass.  This is confusing, and\nmay indicate an error if methods update or access one of\nthe fields when they wanted the other.",
+  "Bug_Explanation": "The bug occurs because the subclass 'FieldMaskingExample' defines a field 'value' that has the same name as a field defined in the superclass 'SuperClass'. This causes the subclass's field to mask the superclass's field, which can lead to confusion or errors when trying to access or modify the field.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case 'testShowBug' triggers the bug because it invokes the 'showBug' method which returns the 'value' field defined in the FieldMaskingExample class, masking the 'value' field of the superclass. The assertion expects the superclass value but receives the subclass value, causing the test to fail.",
+  "Trigger_Line": [
+    28
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

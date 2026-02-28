@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "\"Serializable\" inner classes of non-serializable outer classes should be \"static\"",
+  "Bug_Details": "Non-static inner classes contain a reference to an instance of the outer class. Hence, serializing a non-static inner class will result in an\nattempt at serializing the outer class as well. If the outer class is not serializable, serialization will fail, resulting in a runtime error.\nMaking the inner class static (i.e., \"nested\") avoids this problem, as no reference to an instance of the outer class is required.\nSerializing the inner class can be done independently of the outer class. Hence, inner classes implementing Serializable should be static if the outer class does not implement Serializable .\nBe aware of the semantic differences between an inner class and a nested one:\nan inner class can only be instantiated within the context of an instance of the outer class. a nested ( static ) class can be instantiated independently of the outer class.\nan inner class can only be instantiated within the context of an instance of the outer class.\na nested ( static ) class can be instantiated independently of the outer class.",
+  "Bug_Explanation": "The InnerClass is a non-static inner class that implements Serializable. Since the OuterClass is not serializable, attempting to serialize an instance of InnerClass will fail because it contains an implicit reference to an instance of OuterClass, which cannot be serialized.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug method of the OuterClass. Inside the showBug method, an instance of the non-static InnerClass is serialized. Since the OuterClass is not serializable, this results in a NotSerializableException being thrown.",
+  "Trigger_Line": [
+    11
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.033\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that the test passed without any errors, indicating that the 'NotSerializableException' was not thrown as expected when attempting to serialize the non-static inner class of a non-serializable outer class."
+}

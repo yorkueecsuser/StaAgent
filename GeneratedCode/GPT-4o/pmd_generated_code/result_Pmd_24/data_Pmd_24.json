@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "CloneMethodMustBePublic",
+  "Bug_Details": "The java manual says \"By convention, classes that implement this interface should override\nObject.clone (which is protected) with a public method.\"\nExamples:\npublic class Foo implements Cloneable {\n    @Override\n    protected Object clone() throws CloneNotSupportedException { // Violation, must be public\n    }\n}\n\npublic class Foo implements Cloneable {\n    @Override\n    protected Foo clone() { // Violation, must be public\n    }\n}\n\npublic class Foo implements Cloneable {\n    @Override\n    public Object clone() // Ok\n}",
+  "Bug_Explanation": "The method 'clone' is overridden with a protected access modifier instead of public. According to the Java convention for classes implementing Cloneable, the 'clone' method should be public.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the `showBug` method, which internally calls the protected `clone` method. Since `clone` is protected and should be public as per Java conventions, this results in a CloneNotSupportedException being thrown, causing the test to fail as it expects a null return on failure.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.005\nThere was 1 failure:\n1) testShowBug(FooTest)\njava.lang.AssertionError: expected null, but was:<Foo@6fdb1f78>\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat org.junit.Assert.failNotNull(Assert.java:756)\n\tat org.junit.Assert.assertNull(Assert.java:738)\n\tat org.junit.Assert.assertNull(Assert.java:748)\n\tat FooTest.testShowBug(FooTest.java:10)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the method returned an instance of Foo instead of null, indicating that the protected clone method was successfully called and did not throw a CloneNotSupportedException. The failure was due to the assertion expecting null, not due to the bug CloneMethodMustBePublic being triggered."
+}

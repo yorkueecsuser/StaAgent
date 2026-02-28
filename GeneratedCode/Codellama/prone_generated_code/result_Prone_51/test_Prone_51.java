@@ -1,0 +1,1 @@
+logger.info("x = %d, y = %d", String.format("%d, %d", x, y));

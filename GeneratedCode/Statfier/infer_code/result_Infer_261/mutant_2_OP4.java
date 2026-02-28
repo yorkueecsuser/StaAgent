@@ -1,0 +1,57 @@
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Retention(RetentionPolicy.CLASS)
+@Target({ElementType.PARAMETER})
+/**
+ * Annotation specifying method's contract. If a method's param is annotated
+ * with @PropagaresNullable, it declares that the method will return {@code null} if and only if
+ * this param is {@code null}.
+ *
+ * <p>Calls to @PropagatesNullable-annotated methods are treated by Nullsafe typechecker
+ * accordingly. If param is non-nullable in the callsite, Nullsafe will assume the method result is
+ * not null either, and hence no assertion or check will be needed.
+ *
+ * <p>In the following example, annotating the param with @PropagatesNullable allows to simplify
+ * usage of the method.
+ *
+ * <pre>
+ * public static String capitalize(@PropagatesNullable String input) {
+ *   if (input == null) {
+ *     return null;
+ *   }
+ *   return input.toUpperCase();
+ * }
+ *
+ * void exampleOfUsage(@Nullable String nullable, String nonnull) {
+ *   capitalize(nullable).contains("A"); // <-- BAD: need a check
+ *   // if capitalize() was not annotated as @PropagatesNullable,
+ *   // assertNotNull(capitalize(nonnull)) would be required.
+ *   capitalize(nonnull).contains("A");  // <-- OK: safe to dereference
+ * }
+ * </pre>
+ *
+ * <p>If several params are annotated as {@code @PropagatesNullable}, the method should return
+ * {@code null} if and only if any of those params is {@code null}.
+ *
+ * <p>See also {@code @TrueOnNull} and {@code @FalseOnNull} annotations.
+ */
+public @interface PropagatesNullable {
+
+    // Mutant code being added
+    default boolean getCondition() {
+        return false;
+    }
+
+    // Example of inserting an unreachable if-else statement
+    default void unreachableBlock() {
+        boolean shouldRun = getCondition();
+        if (shouldRun) {
+            System.out.println("This will never run");
+        } else {
+            System.out.println("This will also never run");
+        }
+    }
+}

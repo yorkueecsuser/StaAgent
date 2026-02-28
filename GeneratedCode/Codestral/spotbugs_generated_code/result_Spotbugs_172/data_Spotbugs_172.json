@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "DP: Classloaders should only be created inside doPrivileged block (DP_CREATE_CLASSLOADER_INSIDE_DO_PRIVILEGED)\uf0c1",
+  "Bug_Details": " This code creates a classloader,  which needs permission if a security manage is installed.\nIf this code might be invoked by code that does not\nhave security permissions, then the classloader creation needs to occur inside a doPrivileged block. java.security.AccessController doPrivileged",
+  "Bug_Explanation": "A classloader is being created in the showBug method outside of a doPrivileged block, which can cause a security exception if the code is invoked by unprivileged code.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case 'testShowBug' creates a URLClassLoader in a doPrivileged block, which is necessary to avoid a SecurityException if the code is run with a SecurityManager. However, the BadClassLoader class creates a URLClassLoader outside of a doPrivileged block in its showBug method. When this method is called within the doPrivileged block, it triggers a SecurityException, causing the test to fail.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.01\nThere was 1 failure:\n1) testShowBug(BadClassLoaderTest)\njava.lang.AssertionError: Expected SecurityException was not thrown\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat BadClassLoaderTest.testShowBug(BadClassLoaderTest.java:19)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that a SecurityException was not thrown when a classloader was created inside a doPrivileged block. This suggests that the bug, which requires a SecurityException to be thrown when a classloader is created outside a doPrivileged block, is not present in the Java code."
+}

@@ -1,0 +1,9 @@
+{
+  "Buggy_Line": [
+    7
+  ],
+  "Trigger_Explanation": "The JUnit test case triggered the bug by calling the method'showBug' which prints out the value of the String 'value' which is obtained from the method 'getList' which is annotated with the type qualifier '@TQ_MAYBE_SOURCE_VALUE_REACHES_ALWAYS_SINK'. The value of 'value' is used in a way that requires the type qualifier, but it might not carry that type qualifier.",
+  "Trigger_Line": [
+    7
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Classes extending java.lang.Thread should provide a specific \"run\" behavior",
+  "Bug_Details": "The default implementation of java.lang.Thread 's run will only perform a task passed as a Runnable . If no Runnable has been provided at construction time, then the thread will not perform any action.\nWhen extending java.lang.Thread , you should override the run method or pass a Runnable target to the\nconstructor of java.lang.Thread .\nNoncompliant code example\npublic class MyThread extends Thread { // Noncompliant\n  public void doSomething() {\n    System.out.println(\"Hello, World!\");\n  }\n}",
+  "Bug_Explanation": "The bug is embedded in the MyThread class, which extends java.lang.Thread but does not override the run method. As a result, when an instance of MyThread is started, it does not perform any action because the default run method does nothing.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by creating an instance of MyThreadExample and calling its showBug method. Since MyThread does not override the run method, starting the thread results in no action being performed, which is verified by checking the returned message.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.01\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully (JUnit version 4.13.2\n.\nTime: 0.01\n\nOK (1 test)). This means that the test did not detect any issue with the 'MyThread' class not overriding the 'run' method, as the expected output string was returned without any assertion failure."
+}

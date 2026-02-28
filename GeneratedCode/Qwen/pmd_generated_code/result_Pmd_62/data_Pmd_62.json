@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "NonStaticInitializer",
+  "Bug_Details": "A non-static initializer block will be called any time a constructor is invoked (just prior to\ninvoking the constructor).  While this is a valid language construct, it is rarely used and is\nconfusing.\nExamples:\npublic class MyClass {\n  // this block gets run before any call to a constructor\n  {\n    System.out.println(\"I am about to construct myself\");\n  }\n}",
+  "Bug_Explanation": "The non-static initializer block increments the instanceCounter and prints a message each time a constructor is called, demonstrating the NonStaticInitializer bug.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by creating instances of NonStaticInitializerExample using both the default and parameterized constructors. The non-static initializer increments the instanceCounter before the constructors are executed, causing the actual value of instanceCounter to differ from the expected values in the assertions.",
+  "Trigger_Line": [
+    11,
+    16
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.I am about to construct myself\nConstructor called\n.I am about to construct myself\nParameterized constructor called\n\nTime: 0.004\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not confirm the bug was triggered because both tests passed without any assertion failures. The output indicates that the non-static initializer block is executed, but the final values of 'instanceCounter' do not match the expected values in the assertions, suggesting the bug might be present, but the test results themselves do not show a failure."
+}

@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "Non-primitive fields should not be \"volatile\"",
+  "Bug_Details": "Marking an array volatile means that the array itself will always be read fresh and never thread cached, but the items in the\narray will not be. Similarly, marking a mutable object field volatile means the object reference is volatile but\nthe object itself is not, and other threads may not see updates to the object state.\nThis can be salvaged with arrays by using the relevant AtomicArray class, such as AtomicIntegerArray , instead. For mutable objects,\nthe volatile should be removed, and some other method should be used to ensure thread-safety, such as synchronization, or ThreadLocal\nstorage.\nNoncompliant code example\nprivate volatile int [] vInts;  // Noncompliant\nprivate volatile MyObj myObj;  // Noncompliant\nCompliant solution\nprivate AtomicIntegerArray vInts;\nprivate MyObj myObj;",
+  "Bug_Explanation": "The code demonstrates the bug by declaring an int array and a custom object as volatile. This makes the references volatile but not the contents or state of the objects themselves. This can result in visibility issues in a multi-threaded context.",
+  "Buggy_Line": [
+    3,
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test cases 'testShowBug' and 'testShowBug2' trigger the bug by attempting to read values from a volatile array and a volatile object reference, which are both non-primitive fields. This can cause inconsistencies in a multi-threaded environment because the volatile keyword does not guarantee visibility of changes to the contents of the array or the state of the object.",
+  "Trigger_Line": [
+    9,
+    19
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n...\nTime: 0.005\n\nOK (3 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that all tests passed successfully. Since no tests failed, it confirms that the bug described in the input was not triggered during the test execution."
+}

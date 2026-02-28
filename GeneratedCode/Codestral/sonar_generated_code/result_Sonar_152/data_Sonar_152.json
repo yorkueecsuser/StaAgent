@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "\"Serializable\" inner classes of non-serializable outer classes should be \"static\"",
+  "Bug_Details": "Non-static inner classes contain a reference to an instance of the outer class. Hence, serializing a non-static inner class will result in an\nattempt at serializing the outer class as well. If the outer class is not serializable, serialization will fail, resulting in a runtime error.\nMaking the inner class static (i.e., \"nested\") avoids this problem, as no reference to an instance of the outer class is required.\nSerializing the inner class can be done independently of the outer class. Hence, inner classes implementing Serializable should be static if the outer class does not implement Serializable .\nBe aware of the semantic differences between an inner class and a nested one:\nan inner class can only be instantiated within the context of an instance of the outer class. a nested ( static ) class can be instantiated independently of the outer class.\nan inner class can only be instantiated within the context of an instance of the outer class.\na nested ( static ) class can be instantiated independently of the outer class.",
+  "Bug_Explanation": "The NonStaticInnerClass is a non-static inner class of the NonSerializableOuterClass that implements Serializable. When trying to serialize an instance of NonStaticInnerClass, it will also attempt to serialize the outer class, which is not serializable, resulting in a runtime error.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case'showBugTest' calls the'showBug' method of the NonSerializableOuterClass. This method attempts to serialize an instance of NonStaticInnerClass, which is a non-static inner class of the non-serializable outer class. Since the inner class is non-static, it contains a reference to an instance of the outer class. When trying to serialize the inner class, it also attempts to serialize the outer class, which is not serializable, resulting in a runtime error. This triggers the bug.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.025\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test ran successfully without any errors, which indicates that the bug was not triggered during the test run. Even though the inner class is Serializable and the outer class is not, the test passed without throwing any exceptions that would indicate a serialization failure."
+}

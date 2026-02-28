@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "A \"for\" loop update clause should move the counter in the right direction",
+  "Bug_Details": "A for loop with a counter moving away from the end of the specified range is likely a programming mistake.\nIf the intention is to iterate over the specified range, this differs from what the loop does because the counter moves in the wrong direction.\nIf the intention is to have an infinite loop or a loop terminated only by a break statement, there are two problems:\nThe loop condition is not infinite because the counter variable will eventually overflow and fulfill the condition. This can take a long time,\n  depending on the data type of the counter.\nAn infinite loop terminated by a break statement should be implemented using a while or do while loop to make the developer\u2019s intention clear to the reader.",
+  "Bug_Explanation": "The for loop update clause 'i--' moves the counter in the wrong direction, resulting in an infinite loop.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggered the bug by executing the for loop with a negative increment value, which resulted in an infinite loop.",
+  "Trigger_Line": [
+    3,
+    4,
+    5
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.003\nThere was 1 failure:\n1) initializationError(ForLoopBugTest)\norg.junit.runners.model.InvalidTestClassError: Invalid test class 'ForLoopBugTest':\n  1. The class ForLoopBugTest is not public.\n  2. Test class should have exactly one public constructor\n\tat org.junit.runners.ParentRunner.validate(ParentRunner.java:525)\n\tat org.junit.runners.ParentRunner.<init>(ParentRunner.java:102)\n\tat org.junit.runners.BlockJUnit4ClassRunner.<init>(BlockJUnit4ClassRunner.java:84)\n\tat org.junit.runners.JUnit4.<init>(JUnit4.java:23)\n\tat org.junit.internal.builders.JUnit4Builder.runnerForClass(JUnit4Builder.java:10)\n\tat org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:70)\n\tat org.junit.internal.builders.AllDefaultPossibilitiesBuilder.runnerForClass(AllDefaultPossibilitiesBuilder.java:37)\n\tat org.junit.runner.Computer.getRunner(Computer.java:50)\n\tat org.junit.runner.Computer$1.runnerForClass(Computer.java:31)\n\tat org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:70)\n\tat org.junit.runners.model.RunnerBuilder.runners(RunnerBuilder.java:125)\n\tat org.junit.runners.model.RunnerBuilder.runners(RunnerBuilder.java:111)\n\tat org.junit.runners.Suite.<init>(Suite.java:81)\n\tat org.junit.runner.Computer$2.<init>(Computer.java:33)\n\tat org.junit.runner.Computer.getSuite(Computer.java:28)\n\tat org.junit.runner.Request.classes(Request.java:77)\n\tat org.junit.runner.JUnitCommandLineParseResult.createRequest(JUnitCommandLineParseResult.java:116)\n\tat org.junit.runner.JUnitCore.runMain(JUnitCore.java:77)\n\tat org.junit.runner.JUnitCore.main(JUnitCore.java:36)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test class is not public, and it has more than one public constructor, which violates the rules of JUnit. Therefore, the test did not run successfully, and the bug was not triggered."
+}

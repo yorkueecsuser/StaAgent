@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "NCopiesOfChar",
+  "Bug_Details": "The first argument to nCopies is the number of copies, and the second is the item to copy Calling nCopies('a', 10) returns a list with 97 copies of 10, not a list with\n10 copies of \u2018a\u2019.",
+  "Bug_Explanation": "The bug occurs in the `nCopies` method where the `IntStream` is created with the range of `0` to `n`. The `mapToObj` method is then used to map each integer to the character `c`. However, the `mapToObj` method requires a function that takes an integer as input and returns a character. To fix the bug, we can change the `mapToObj` method to use a lambda expression that takes an integer `i` and returns the character `c` repeated `i` times.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the nCopies method with the characters 'a' and 10 as arguments, which should return a list with 10 copies of the character 'a', but instead returns a list with 97 copies of the character 'a'.",
+  "Trigger_Line": [
+    7,
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Nm: Class defines tostring(); should it be toString()? (NM_LCASE_TOSTRING)\uf0c1",
+  "Bug_Details": " This class defines a method called tostring().\u00a0 This method\ndoes not override the toString() method in java.lang.Object,\nwhich is probably what was intended. tostring() toString() java.lang.Object",
+  "Bug_Explanation": "The bug is embedded in the generated code by defining a method named 'tostring()' instead of 'toString()'. This method does not override the 'toString()' method in java.lang.Object, which is likely the intended behavior.",
+  "Buggy_Line": [
+    16
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug() method, which internally calls the tostring() method. Since tostring() does not override the intended toString() method from java.lang.Object, the test case fails when asserting the expected string representation.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.012\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed successfully, confirming that the'showBug' method returns the expected string representation using the incorrectly named 'tostring()' method. However, this does not confirm the presence of the bug itself, which is about the incorrect naming of the method. The test does not fail because the bug is not causing any functional issue in the context of the test; it simply highlights that the method 'tostring()' is being used instead of the correct 'toString()'."
+}

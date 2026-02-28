@@ -1,0 +1,20 @@
+class EqualsNullExample {
+
+    public boolean showBug(String input) {
+        // Buggy code where equals() method is used to compare with null
+        if (input.equals(null)) { // BUG: EqualsNull
+            return true;
+        }
+        return false;
+    }
+    
+    public static void main(String[] args) {
+        EqualsNullExample example = new EqualsNullExample();
+        boolean result = example.showBug(null);
+        System.out.println("Result: " + result);
+
+        // Duplicated assignment statement as per the Mutation Operator "Duplication"
+        boolean resultDup = example.showBug(null);
+        System.out.println("Duplicated Result: " + resultDup);
+    }
+}

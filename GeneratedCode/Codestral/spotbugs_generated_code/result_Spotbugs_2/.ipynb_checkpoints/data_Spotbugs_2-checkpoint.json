@@ -1,0 +1,9 @@
+{
+  "Bug_Title": "NP: Method with Optional return type returns explicit null (NP_OPTIONAL_RETURN_NULL)\uf0c1",
+  "Bug_Details": "\nThe usage of Optional return type (java.util.Optional or com.google.common.base.Optional)\nalways means that explicit null returns were not desired by design.\nReturning a null value in such case is a contract violation and will most likely break client code.\n   ",
+  "Bug_Explanation": "The method getOptionalString returns explicit null when returnNull parameter is true. However, the method is declared to return an Optional<String>, which means that it should never return null. Instead, it should return an empty Optional.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful"
+}

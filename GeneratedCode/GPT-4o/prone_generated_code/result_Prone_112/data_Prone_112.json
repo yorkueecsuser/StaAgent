@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "MockitoUsage",
+  "Bug_Details": "Missing method call for verify(mock) here Calls to Mockito.when should always be accompanied by a call to a method like\nthenReturn. when(mock.get()).thenReturn(answer); // correct\nwhen(mock.get())                     // oops! when(mock.get()).thenReturn(answer); // correct\nwhen(mock.get())                     // oops! Similarly, calls to Mockito.verify should call the verified method outside\nthe call to verify. verify(mock).execute(); // correct\nverify(mock.execute()); // oops! verify(mock).execute(); // correct\nverify(mock.execute()); // oops! For more information, see the Mockito documentation.",
+  "Bug_Explanation": "The code demonstrates improper usage of Mockito by calling mockMethod() directly instead of using Mockito's thenReturn() after when() and using mockMethod() inside verify(). However, Mockito is not imported or used, so these calls are simulated manually.",
+  "Buggy_Line": [
+    19,
+    14
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method, which simulates improper Mockito usage by calling mockMethod() directly without thenReturn() after when() and by verifying mockMethod() inside verify(). This triggers the assertion error due to the incorrect mock behavior simulation.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test completed successfully without any errors, as shown by 'OK (1 test)'. This suggests that the bug was not triggered during the test execution."
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "AvoidBranchingStatementAsLastInLoop",
+  "Bug_Details": "Using a branching statement as the last part of a loop may be a bug, and/or is confusing.\nEnsure that the usage is not a bug, or consider using another approach.",
+  "Bug_Explanation": "The bug is embedded in the for loop where the branching statement is used as the last part of the loop. This is confusing and can lead to incorrect results.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggered the bug by attempting to add an odd number to the sum variable, which should only contain even numbers.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.003\nThere was 1 failure:\n1) initializationError(AvoidBranchingStatementAsLastInLoopTest)\norg.junit.runners.model.InvalidTestClassError: Invalid test class 'AvoidBranchingStatementAsLastInLoopTest':\n  1. The class AvoidBranchingStatementAsLastInLoopTest is not public.\n  2. Test class should have exactly one public constructor\n\tat org.junit.runners.ParentRunner.validate(ParentRunner.java:525)\n\tat org.junit.runners.ParentRunner.<init>(ParentRunner.java:102)\n\tat org.junit.runners.BlockJUnit4ClassRunner.<init>(BlockJUnit4ClassRunner.java:84)\n\tat org.junit.runners.JUnit4.<init>(JUnit4.java:23)\n\tat org.junit.internal.builders.JUnit4Builder.runnerForClass(JUnit4Builder.java:10)\n\tat org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:70)\n\tat org.junit.internal.builders.AllDefaultPossibilitiesBuilder.runnerForClass(AllDefaultPossibilitiesBuilder.java:37)\n\tat org.junit.runner.Computer.getRunner(Computer.java:50)\n\tat org.junit.runner.Computer$1.runnerForClass(Computer.java:31)\n\tat org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:70)\n\tat org.junit.runners.model.RunnerBuilder.runners(RunnerBuilder.java:125)\n\tat org.junit.runners.model.RunnerBuilder.runners(RunnerBuilder.java:111)\n\tat org.junit.runners.Suite.<init>(Suite.java:81)\n\tat org.junit.runner.Computer$2.<init>(Computer.java:33)\n\tat org.junit.runner.Computer.getSuite(Computer.java:28)\n\tat org.junit.runner.Request.classes(Request.java:77)\n\tat org.junit.runner.JUnitCommandLineParseResult.createRequest(JUnitCommandLineParseResult.java:116)\n\tat org.junit.runner.JUnitCore.runMain(JUnitCore.java:77)\n\tat org.junit.runner.JUnitCore.main(JUnitCore.java:36)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the bug was not triggered. The test failed due to a different issue, specifically the test class not being public and having more than one public constructor. This suggests that the test was not properly set up to test for the bug in question."
+}

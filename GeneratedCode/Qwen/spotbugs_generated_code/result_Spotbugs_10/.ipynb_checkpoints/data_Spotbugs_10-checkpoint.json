@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "FL: Method performs math using floating point precision (FL_MATH_USING_FLOAT_PRECISION)\uf0c1",
+  "Bug_Details": "\n   The method performs math operations using floating point precision.\n   Floating point precision is very imprecise. For example,\n   16777216.0f + 1.0f = 16777216.0f. Consider using double math instead.",
+  "Bug_Explanation": "The bug was embedded in the generated code by performing a mathematical addition operation using float precision in the showBug method. This results in imprecise calculations, as demonstrated by adding 16777216.0f and 1.0f, which incorrectly returns 16777216.0f.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test calls the showBug method with the arguments 16777216.0f and 1.0f, which triggers the bug due to the use of float precision in the addition operation. The expected result is 16777217.0f, but the actual result will be 16777216.0f, causing the test to fail.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.006\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed successfully without any assertion failures. The expected behavior according to the bug description is that the addition of 16777216.0f and 1.0f using float precision would result in 16777216.0f, but the test assertion checks for equality with 16777217.0f, which should have failed if the bug were triggered. Since the test passed, it does not confirm the presence of the described bug."
+}

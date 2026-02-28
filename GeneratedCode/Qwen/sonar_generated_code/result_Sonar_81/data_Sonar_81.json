@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "\"getClass\" should not be used for synchronization",
+  "Bug_Details": "getClass should not be used for synchronization in non- final classes because child classes will synchronize on a\ndifferent object than the parent or each other, allowing multiple threads into the code block at once, despite the synchronized keyword.\nInstead, hard code the name of the class on which to synchronize or make the class final .\nNoncompliant code example\npublic class MyClass {\n  public void doSomethingSynchronized(){\n    synchronized (this.getClass()) {  // Noncompliant\n      // ...\n    }\n  }\nCompliant solution\npublic class MyClass {\n  public void doSomethingSynchronized(){\n    synchronized (MyClass.class) {\n      // ...\n    }\n  }",
+  "Bug_Explanation": "The bug was embedded in the generated code by using this.getClass() for synchronization in the doSomethingSynchronized method of the MyClass class. This allows multiple threads to enter the synchronized block simultaneously when the class is not final, leading to incorrect results.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method of MyClass, which uses this.getClass() for synchronization in the doSomethingSynchronized method. Since MyClass is not final, different instances of subclasses (if any) would synchronize on different objects, leading to race conditions and incorrect results. In this test, multiple threads increment the counter concurrently, causing the final count to be less than the expected 10000.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.011\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that the test passed without any assertion errors, indicating that the counter value was 10000 as expected. This does not confirm that the bug was triggered, as the test did not reveal any issues with the synchronization mechanism."
+}

@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "USC: Potential security check based on untrusted source. (USC_POTENTIAL_SECURITY_CHECK_BASED_ON_UNTRUSTED_SOURCE)\uf0c1",
+  "Bug_Details": "\nA public method of a public class may be called from outside the package which means that untrusted\ndata may be passed to it. Calling a method before the doPrivileged to check its return value and then\ncalling the same method inside the class is dangerous if the method or its enclosing class is not\nfinal. An attacker may pass an instance of a malicious descendant of the class instead of an instance\nof the expected one where this method is overridden in a way that it returns different values upon\ndifferent invocations. For example, a method returning a file path may return a harmless path to check\nbefore entering the doPrivileged block and then a sensitive file upon the call inside the doPrivileged\nblock. To avoid such scenario defensively copy the object received in the parameter, e.g. by using\nthe copy constructor of the class used as the type of the formal parameter. This ensures that the\nmethod behaves exactly as expected.\n\nSee SEI CERT rule SEC02-J. Do not base security checks on untrusted sources.\n\nThe java.security.AccessController class, which contains the doPrivileged methods,\ngot deprecated in Java 17 (see JEP 411), and removed in Java 24 (see JEP 486).\nFor this reason, this bug isn't reported in classes targeted Java 17 and above. \nSee SEI CERT rule SEC02-J. Do not base security checks on untrusted sources.\n java.security.AccessController doPrivileged",
+  "Bug_Explanation": "The bug is embedded in the showBug method where the getFilePath method is called twice. The first call is used to perform a security check, while the second call is made inside the doPrivileged block. An attacker could potentially override the getFilePath method in a subclass to return a different value during each invocation, leading to a security vulnerability.",
+  "Buggy_Line": [
+    16
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by calling the showBug method with both a malicious and a safe path. The bug lies in the showBug method where getFilePath is called twice - once for a security check and once inside the doPrivileged block. An attacker can override getFilePath to return different values, leading to a security vulnerability.",
+  "Trigger_Line": [
+    11,
+    15
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..Accessing file: /safe/path\n\nTime: 0.008\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that when'showBug' is called with '/malicious/path', no file access occurs, and when called with '/safe/path', the file access prints '/safe/path'. This indicates that the security check within'showBug' prevents the doPrivileged block from being executed with an untrusted file path. Therefore, the test results do not confirm that the bug is triggered."
+}

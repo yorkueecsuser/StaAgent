@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "UnnecessaryTypeArgument",
+  "Bug_Details": "Non-generic methods should not be invoked with type arguments JLS \u00a715.12.2.1 allows non-generic methods to be invoked with type arguments: a non-generic method may be potentially applicable to an invocation that\nsupplies explicit type arguments. Indeed, it may turn out to be applicable. In\nsuch a case, the type arguments will simply be ignored. This rule stems from issues of compatibility and principles of\nsubstitutability. Since interfaces or superclasses may be generified\nindependently of their subtypes, we may override a generic method with a\nnon-generic one. However, the overriding (non-generic) method must be\napplicable to calls to the generic method, including calls that explicitly\npass type arguments. Otherwise the subtype would not be substitutable for its\ngenerified supertype. There is no reason to do this in cases where the method being called is not an\noverride of a generic method.",
+  "Bug_Explanation": "The bug is embedded in the line where the non-generic method printMessage is called with a type argument <String>. This is unnecessary as printMessage does not require any type arguments.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_170/seed_Prone_170.java:10: error: not a statement\n        printMessage<String>(message); // BUG: UnnecessaryTypeArgument\n                    ^\n../prone_clean_java_code/result_Prone_170/seed_Prone_170.java:10: error: ';' expected\n        printMessage<String>(message); // BUG: UnnecessaryTypeArgument\n                            ^\n../prone_clean_java_code/result_Prone_170/seed_Prone_170.java:10: error: not a statement\n        printMessage<String>(message); // BUG: UnnecessaryTypeArgument\n                             ^\n../prone_clean_java_code/result_Prone_170/seed_Prone_170.java:10: error: ';' expected\n        printMessage<String>(message); // BUG: UnnecessaryTypeArgument\n                                    ^\n4 errors\n",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method of UnnecessaryTypeArgumentExample, which internally calls printMessage with an unnecessary type argument.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

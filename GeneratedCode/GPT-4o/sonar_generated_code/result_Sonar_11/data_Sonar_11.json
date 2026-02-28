@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "\"@PathVariable\" annotation should be present if a path variable is used",
+  "Bug_Details": "The @PathVariable annotation in Spring extracts values from the URI path and binds them to method parameters in a Spring MVC\ncontroller. It is commonly used with @GetMapping , @PostMapping , @PutMapping , and @DeleteMapping to\ncapture path variables from the URI. These annotations map HTTP requests to specific handler methods in a controller. They are part of the Spring Web\nmodule and are commonly used to define the routes for different HTTP operations in a RESTful API.\nIf a method has a path template containing a placeholder, like \"/api/resource/{id}\", and there\u2019s no @PathVariable annotation on a\nmethod parameter to capture the id path variable, Spring will disregard the id variable.",
+  "Bug_Explanation": "The method getResource is supposed to handle a path variable from a URI path, but it lacks the @PathVariable annotation, which is needed to properly bind the URI path variable to the method parameter.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case 'testShowBugWithoutPathVariableAnnotation' calls the method 'showBug', which internally calls 'getResource' without the @PathVariable annotation. This results in the path variable not being captured correctly, causing the test to fail.",
+  "Trigger_Line": [
+    13
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show 'OK (1 test)', indicating that the test passed without any failures, which means the bug was not actually triggered during the test execution."
+}

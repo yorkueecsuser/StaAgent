@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "ASE: Expression in assertion may produce a side effect (ASE_ASSERTION_WITH_SIDE_EFFECT)\uf0c1",
+  "Bug_Details": "Expressions used in assertions must not produce side effects. See SEI CERT Rule EXP06\nfor more information.\n SEI CERT Rule EXP06",
+  "Bug_Explanation": "The assertion in the code calls a method `isCounterEven()` which indirectly depends on `incrementCounter()` method that increments the counter. This can produce a side effect by modifying the state of the object during assertion evaluation, which violates the rule.",
+  "Buggy_Line": [
+    16
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method with an odd number of increments (5), which leads to the assertion in showBug being false. The assertion in showBug indirectly calls incrementCounter via isCounterEven, which modifies the state of the object, thus triggering the side-effect bug.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any assertion errors, which suggests that the bug was not triggered during the test execution."
+}

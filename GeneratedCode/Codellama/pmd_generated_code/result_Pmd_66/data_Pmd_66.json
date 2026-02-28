@@ -1,0 +1,13 @@
+{
+  "Bug_Title": "ProperLogger",
+  "Bug_Details": "A logger should normally be defined private static final and be associated with the correct class.\n`private final Log log;` is also allowed for rare cases where loggers need to be passed around,\nwith the restriction that the logger needs to be passed into the constructor.",
+  "Bug_Explanation": "The bug is embedded in the code by defining the logger as a public static field, which can be accessed and modified by other parts of the code. This can lead to unexpected behavior and errors.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug method, which calls the log.info method with the string 'Hello, World!'",
+  "Trigger_Line": [
+    22
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

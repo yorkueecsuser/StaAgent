@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Variables should not be self-assigned",
+  "Bug_Details": "There is no reason to re-assign a variable to itself. Either this statement is redundant and should be removed, or the re-assignment is a mistake\nand some other value or variable was intended for the assignment instead.\nNoncompliant code example\npublic void setName(String name) {\n  name = name;\n}\nCompliant solution\npublic void setName(String name) {\n  this.name = name;\n}",
+  "Bug_Explanation": "The bug is embedded in the self assignment of the variable 'name'. The variable 'name' is assigned to itself, which is unnecessary and leads to it not being assigned the value passed into the method.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "Variables should not be self-assigned",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The bug is present in the provided Java code. The method'setName' is re-assigning the parameter 'name' to itself, which is unnecessary and can lead to confusion. The correct implementation should be 'this.name = name;' to assign the instance variable 'name' to the parameter 'name'. The output will be null because the instance variable 'name' is not being updated in the'setName' method."
+}

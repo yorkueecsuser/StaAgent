@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "IJU: TestCase has no tests (IJU_NO_TESTS)\uf0c1",
+  "Bug_Details": " Class is a JUnit TestCase but has not implemented any test methods.",
+  "Bug_Explanation": "The bug is embedded in the generated code by creating a class that extends TestCase from the JUnit framework without implementing any test methods. This violates the rule IJU_NO_TESTS.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by calling the showBug method on an instance of ExampleBug. Since ExampleBug does not contain any test methods, the presence of this test case highlights the absence of test methods in the original class, thus triggering the bug.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.008\nThere was 1 failure:\n1) testShowBug(ExampleBugTest)\njava.lang.AssertionError: This test is expected to fail because the ExampleBug class has no test methods.\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat ExampleBugTest.testShowBug(ExampleBugTest.java:10)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test 'testShowBug' failed as expected due to an assertion error, which was deliberately set up to fail with the message 'This test is expected to fail because the ExampleBug class has no test methods.' However, this failure does not confirm the presence of the bug itself. The bug rule specifies that the class 'ExampleBug' should have no test methods, which is true as per the provided Java code. The test failure is a result of the test setup rather than the bug being triggered by the absence of test methods in 'ExampleBug'."
+}

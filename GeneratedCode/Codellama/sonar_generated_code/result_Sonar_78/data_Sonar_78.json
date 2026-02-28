@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "Constructor injection should be used instead of field injection",
+  "Bug_Details": "Field injection seems like a tidy way to get your classes what they need to do their jobs, but it\u2019s really a NullPointerException waiting to happen unless all your class constructors are private . That\u2019s because any class instances that are constructed by callers,\nrather than instantiated by a Dependency Injection framework compliant with the JSR-330 (Spring, Guice, \u2026\u200b), won\u2019t have the ability to perform the\nfield injection.\nInstead @Inject should be moved to the constructor and the fields required as constructor parameters.\nThis rule raises an issue when classes with non- private constructors (including the default constructor) use field injection.\nNoncompliant code example\nclass MyComponent {  // Anyone can call the default constructor\n\n  @Inject MyCollaborator collaborator;  // Noncompliant\n\n  public void myBusinessMethod() {\n    collaborator.doSomething();  // this will fail in classes new-ed by a caller\n  }\n}\nCompliant solution\nclass MyComponent {\n\n  private final MyCollaborator collaborator;\n\n  @Inject\n  public MyComponent(MyCollaborator collaborator) {\n    Assert.notNull(collaborator, \"MyCollaborator must not be null!\");\n    this.collaborator = collaborator;\n  }\n\n  public void myBusinessMethod() {\n    collaborator.doSomething();\n  }\n}",
+  "Bug_Explanation": "The bug was embedded by using field injection instead of constructor injection. The 'MyCollaborator' object was not initialized by the dependency injection framework, leading to a NullPointerException.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_78/seed_Sonar_78.java:1: error: package javax.inject does not exist\nimport javax.inject.Inject;\n                   ^\n../sonar_clean_java_code/result_Sonar_78/seed_Sonar_78.java:5: error: cannot find symbol\n    private MyCollaborator collaborator;\n            ^\n  symbol:   class MyCollaborator\n  location: class MyComponent\n../sonar_clean_java_code/result_Sonar_78/seed_Sonar_78.java:4: error: cannot find symbol\n    @Inject\n     ^\n  symbol:   class Inject\n  location: class MyComponent\n3 errors\n",
+  "Trigger_Explanation": "The test case creates an instance of MyComponent and calls the myBusinessMethod() method, which triggers the bug.",
+  "Trigger_Line": [
+    3,
+    5
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

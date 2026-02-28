@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Week Year (\"YYYY\") should not be used for date formatting",
+  "Bug_Details": "Few developers are aware of the difference between Y for \"Week year\" and y for Year when formatting and parsing a date\nwith SimpleDateFormat or DateTimeFormatter . That\u2019s likely because for most dates, Week year and Year are the same, so\ntesting at any time other than the first or last week of the year will yield the same value for both y and Y . But in the\nlast week of December and the first week of January, you may get unexpected results.\nAccording to the Javadoc :\nA week year is in sync with a WEEK_OF_YEAR cycle. All weeks between the first and last weeks (inclusive) have the same week year value.\n  Therefore, the first and last days of a week year may have different calendar year values.\nFor example, January 1, 1998 is a Thursday. If getFirstDayOfWeek() is MONDAY and getMinimalDaysInFirstWeek() is 4 (ISO 8601 standard compatible\n  setting), then week 1 of 1998 starts on December 29, 1997, and ends on January 4, 1998. The week year is 1998 for the last three days of calendar\n  year 1997. If, however, getFirstDayOfWeek() is SUNDAY, then week 1 of 1998 starts on January 4, 1998, and ends on January 10, 1998; the first three\n  days of 1998 then are part of week 53 of 1997 and their week year is 1997.\nNoncompliant code example\nDate date = new SimpleDateFormat(\"yyyy/MM/dd\").parse(\"2015/12/31\");\nString result = new SimpleDateFormat(\"YYYY/MM/dd\").format(date);   //Noncompliant; yields '2016/12/31'\nresult = DateTimeFormatter.ofPattern(\"YYYY/MM/dd\").format(date); //Noncompliant; yields '2016/12/31'\nCompliant solution\nDate date = new SimpleDateFormat(\"yyyy/MM/dd\").parse(\"2015/12/31\");\nString result = new SimpleDateFormat(\"yyyy/MM/dd\").format(date);   //Yields '2015/12/31' as expected\nresult = DateTimeFormatter.ofPattern(\"yyyy/MM/dd\").format(date); //Yields '2015/12/31' as expected\nExceptions\nDate date = new SimpleDateFormat(\"yyyy/MM/dd\").parse(\"2015/12/31\");\nString result = new SimpleDateFormat(\"YYYY-ww\").format(date);  //compliant, 'Week year' is used along with 'Week of year'. result = '2016-01'\nDateTimeFormatter.ofPattern(\"YYYY-ww\").format(date); //compliant; yields '2016-01' as expected",
+  "Bug_Explanation": "The intentional bug is preserved by not changing the formatting pattern in the code. The pattern 'YYYY/MM/dd' is used in the buggy line, which uses the week year instead of the calendar year.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_63/seed_Sonar_63.java:7: error: unreported exception ParseException; must be caught or declared to be thrown\n        Date date = new SimpleDateFormat(\"yyyy/MM/dd\").parse(\"2015/12/31\");\n                                                            ^\n1 error\n",
+  "Trigger_Explanation": "The test case triggers the bug by using the SimpleDateFormat class to parse a date string and format it using the 'YYYY' pattern, which should be avoided for date formatting.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

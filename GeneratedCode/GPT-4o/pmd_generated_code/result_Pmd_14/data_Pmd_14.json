@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "AvoidInstanceofChecksInCatchClause",
+  "Bug_Details": "Each caught exception type should be handled in its own catch clause.\nExamples:\ntry { // Avoid this\n    // do something\n} catch (Exception ee) {\n    if (ee instanceof IOException) {\n        cleanup();\n    }\n}\n\ntry {  // Prefer this:\n    // do something\n} catch (IOException ee) {\n    cleanup();\n}",
+  "Bug_Explanation": "The code uses 'instanceof' checks within a catch block to distinguish between different types of exceptions, which violates the rule of avoiding instanceof checks in catch clauses. Each exception type should ideally be handled in its own catch clause.",
+  "Buggy_Line": [
+    11,
+    13
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test cases 'testShowBugIOException' and 'testShowBugSQLException' trigger the bug by calling 'showBug' with inputs that lead to exceptions being thrown. The method uses 'instanceof' checks within the catch block instead of separate catch clauses for different exception types, which violates the rule and is caught during testing.",
+  "Trigger_Line": [
+    10,
+    16
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n...\nTime: 0.009\n\nOK (3 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that all tests passed successfully, which means the bug was not triggered. The presence of instanceof checks in the catch clause did not cause any test failures."
+}

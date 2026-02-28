@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "PERM: Custom class loader does not call its superclass\u2019s getPermissions() (PERM_SUPER_NOT_CALLED_IN_GETPERMISSIONS)\uf0c1",
+  "Bug_Details": "\nSEI CERT rule SEC07-J requires that custom class loaders must always call their superclass's getPermissions()\nmethod in their own getPermissions() method to initialize the object they return at the end. Omitting it means\nthat a class defined using this custom class loader has permissions that are completely independent of those\nspecified in the systemwide policy file. In effect, the class's permissions override them.\n",
+  "Bug_Explanation": "The bug is due to not calling the superclass's getPermissions method in the CustomClassLoader's getPermissions method. This results in permissions that do not incorporate those specified by the superclass.",
+  "Buggy_Line": [
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by calling the showBug method, which uses the custom getPermissions method without calling the superclass's getPermissions method. This omission results in a permissions collection that does not include the expected permissions from the superclass, leading to failing assertions that expect certain permissions.",
+  "Trigger_Line": [
+    11,
+    19
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.004\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that both tests passed successfully without any exceptions or failures, which suggests that the bug was not triggered during the test execution."
+}

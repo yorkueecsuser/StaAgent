@@ -1,0 +1,7 @@
+{
+  "Bug_Title": "MS: Field is a mutable Hashtable (MS_MUTABLE_HASHTABLE)\uf0c1",
+  "Bug_Details": "A final static field references a Hashtable\n  and can be accessed by malicious code or\n       by accident from another package.\n  This code can freely modify the contents of the Hashtable.",
+  "Bug_Explanation": "The'map' field is a mutable Hashtable, which can be modified by any code that has access to it. In this example, the'main' method adds three key-value pairs to the'map' using the 'put' method.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful"
+}

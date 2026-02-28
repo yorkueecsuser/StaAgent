@@ -1,0 +1,30 @@
+class Bug1925175 {
+  public static final class Foo {
+    private String m_str;
+
+    public void setString(String s) {
+      m_str = s;
+      // Dead Store Mutation
+      String yjfnrhty = "unusedVariable";
+    }
+
+    public String getPrefix() {
+      return m_str.substring(0, 1);
+    }
+  }
+
+  public static final class Bar {
+    private String m_str;
+
+    public void setString(String s) {
+      m_str = s;
+      // Dead Store Mutation
+      int qzjxwvbn = 42;
+    }
+
+    public String getPrefix() {
+      assert null!= m_str;
+      return m_str.substring(0, 1);
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "Buggy_Line": [
+    2
+  ],
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug method with the class name 'com.example.ExampleClass'",
+  "Trigger_Line": [
+    6
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

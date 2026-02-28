@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "\"InterruptedException\" and \"ThreadDeath\" should not be ignored",
+  "Bug_Details": "If an InterruptedException or a ThreadDeath error is not handled properly, the information that the thread was\ninterrupted will be lost. Handling this exception means either to re-throw it or manually re-interrupt the current thread by calling Thread.interrupt() . Simply logging the exception is not sufficient and counts as ignoring it. Between the moment the exception is caught\nand handled, is the right time to perform cleanup operations on the method\u2019s state, if needed.\nWhat is the potential impact?\nFailing to interrupt the thread (or to re-throw) risks delaying the thread shutdown and losing the information that the thread was interrupted -\nprobably without finishing its task.\nNoncompliant code example\npublic void run () {\n  try {\n    /*...*/\n  } catch (InterruptedException e) { // Noncompliant; logging is not enough\n    LOGGER.log(Level.WARN, \"Interrupted!\", e);\n  }\n}\nCompliant solution\npublic void run () {\n  try {\n    /* ... */\n  } catch (InterruptedException e) { // Compliant; the interrupted state is restored\n    LOGGER.log(Level.WARN, \"Interrupted!\", e);\n    /* Clean up whatever needs to be handled before interrupting  */\n    Thread.currentThread().interrupt();\n  }\n}\n\npublic void run () {\n  try {\n    /* ... */\n  } catch (ThreadDeath e) { // Compliant; the error is being re-thrown\n    LOGGER.log(Level.WARN, \"Interrupted!\", e);\n    /* Clean up whatever needs to be handled before re-throwing  */\n    throw e;\n  }\n}",
+  "Bug_Explanation": "The bug is embedded in the generated code by catching InterruptedException and ThreadDeath without handling them properly. Specifically, the InterruptedException is logged but not rethrown or re-interrupted, and the ThreadDeath is logged but not rethrown.",
+  "Buggy_Line": [
+    12,
+    21
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by interrupting the thread and simulating ThreadDeath. In the first test case, the thread is interrupted, and the bug is triggered because the InterruptedException is logged but not rethrown or re-interrupted. In the second test case, ThreadDeath is simulated by stopping the thread abruptly, and the bug is triggered because ThreadDeath is logged but not rethrown.",
+  "Trigger_Line": [
+    35,
+    49
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

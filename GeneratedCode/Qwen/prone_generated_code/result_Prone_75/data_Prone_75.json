@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "InexactVarargsConditional",
+  "Bug_Details": "Conditional expression in varargs call contains array and non-array arguments When calling a varargs method, you can either pass an explicit array of\narguments, or individual arguments: void f(Object... xs) {\n  System.err.println(Arrays.deepToString(xs));\n} void f(Object... xs) {\n  System.err.println(Arrays.deepToString(xs));\n} Both of the following print [1, 2]: f(new Object[] {1, 2}) // prints \"[1, 2]\"\nf(1, 2) // prints \"[1, 2]\" f(new Object[] {1, 2}) // prints \"[1, 2]\"\nf(1, 2) // prints \"[1, 2]\" If the argument to the varargs method is a conditional expression, and either\nbranch is not an array, the result of the expression will be implicitly wrapped\nin an array. f(flag ? 1 : 2) // prints [1] or [2] f(flag ? 1 : 2) // prints [1] or [2] This means that if one branch is an array and the other branch is not, the array\nbranch will become a multi-dimensional array: f(flag ? new Object[] {1, 2} : 3); // prints [[1, 2]] or [3] f(flag ? new Object[] {1, 2} : 3); // prints [[1, 2]] or [3] To avoid the implicit array creation, the other argument can be explicitly\nwrapped in an array: f(flag ? new Object[] {1, 2} : new Object[] {3}); // prints [1, 2] or [3] f(flag ? new Object[] {1, 2} : new Object[] {3}); // prints [1, 2] or [3] Or, if the multi-dimensional array was intentional, it can be written explicitly\nas: f(flag ? new Object[][] 1 : new Object[] {3}); // prints [[1, 2]] or [3] f(flag ? new Object[][] 1 : new Object[] {3}); // prints [[1, 2]] or [3]",
+  "Bug_Explanation": "The bug was embedded in the generated code by using a conditional expression in the varargs method call where one branch returns an array and the other returns a non-array value. This causes the array branch to be wrapped in an additional array, leading to inconsistent behavior.",
+  "Buggy_Line": [
+    11
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by calling the showBug method with boolean arguments true and false, which results in the inexact varargs conditional expression in the printVarargs method.",
+  "Trigger_Line": [
+    "10",
+    "17"
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.008\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not confirm the bug was triggered. The expected output for both test cases does not match the behavior described in the bug rule. The test cases expect '[3]' and '[[1, 2]]' which indicates they are checking for the incorrect wrapping of non-array arguments into arrays. However, based on the provided Java code, the correct output should be '[1, 2]' when true and '[3]' when false, which is not what the test cases are asserting."
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Custom resources should be closed",
+  "Bug_Details": "Leaking resources in an application is never a good idea, as it can lead to memory issues, and even the crash of the application. This rule\ntemplate allows you to specify which constructions open a resource and how it is closed in order to raise issue within a method scope when custom\nresources are leaked.",
+  "Bug_Explanation": "The bug was embedded in the generated code by not closing the custom resource, resulting in a leak",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggered the bug by creating an InputStream resource that was not closed in the showBug method.",
+  "Trigger_Line": [
+    3,
+    6
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

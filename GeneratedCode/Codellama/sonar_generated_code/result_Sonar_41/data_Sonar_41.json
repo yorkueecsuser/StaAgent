@@ -1,0 +1,11 @@
+{
+  "Buggy_Line": [
+    6
+  ],
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug() method which compiles a pattern with the CASE_INSENSITIVE flag but without the UNICODE_CASE flag.",
+  "Trigger_Line": [
+    9
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

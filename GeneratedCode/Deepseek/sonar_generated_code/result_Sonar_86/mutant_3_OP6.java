@@ -1,0 +1,20 @@
+import java.lang.System;
+
+class ByteBug {
+    public static void main(String[] args) {
+        showBug();
+    }
+
+    public static void showBug() {
+        byte b = (byte) 0b1000_0000; // -128
+        int i = 1;
+        System.out.println(b);
+        System.out.println(b << i); // BUG: Raw byte values should not be used in bitwise operations in combination with shifts
+
+        // Unreachable for loop mutant
+        boolean condition = true;
+        for (int j = 0; condition && j < 0; j++) {
+            // Do nothing
+        }
+    }
+}

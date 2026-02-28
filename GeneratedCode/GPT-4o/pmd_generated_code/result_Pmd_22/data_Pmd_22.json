@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "CheckSkipResult",
+  "Bug_Details": "The skip() method may skip a smaller number of bytes than requested. Check the returned value to find out if it was the case or not.\nExamples:\npublic class Foo {\n\n   private FileInputStream _s = new FileInputStream(\"file\");\n\n   public void skip(int n) throws IOException {\n      _s.skip(n); // You are not sure that exactly n bytes are skipped\n   }\n\n   public void skipExactly(int n) throws IOException {\n      while (n != 0) {\n         long skipped = _s.skip(n);\n         if (skipped == 0)\n            throw new EOFException();\n         n -= skipped;\n      }\n   }",
+  "Bug_Explanation": "The code uses the skip() method on a FileInputStream object without checking if the exact number of bytes requested were actually skipped. This may result in fewer bytes being skipped than intended, especially if the end of the stream is reached.",
+  "Buggy_Line": [
+    14
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug method with a specific number of bytes to skip. It uses the skip() method internally without checking if the exact number of bytes were skipped, potentially leading to a mismatch between requested and actual skipped bytes.",
+  "Trigger_Line": [
+    12
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.006\nThere was 1 failure:\n1) testShowBugSkipBytes(SkipDemoTest)\njava.io.FileNotFoundException: example.txt (No such file or directory)\n\tat java.base/java.io.FileInputStream.open0(Native Method)\n\tat java.base/java.io.FileInputStream.open(FileInputStream.java:213)\n\tat java.base/java.io.FileInputStream.<init>(FileInputStream.java:152)\n\tat java.base/java.io.FileInputStream.<init>(FileInputStream.java:106)\n\tat SkipDemo.<init>(SkipDemo.java:9)\n\tat SkipDemoTest.testShowBugSkipBytes(SkipDemoTest.java:11)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not confirm the bug triggering because the test failed due to a FileNotFoundException, indicating that the file 'example.txt' was not found, rather than confirming the CheckSkipResult bug."
+}

@@ -1,0 +1,27 @@
+import java.util.ArrayList;
+
+class Count {
+  public static void main(String[] args) {
+    final int START = 2000000000;
+    int count = 0;
+    for (float f = START; f < START + 50; f++)
+      count++;
+    // BUG: DontUseFloatTypeForLoopIndices
+    System.out.println(count);
+  }
+
+  public ArrayList<Integer> showBug() {
+    final int START = 2000000000;
+    int count = 0;
+    for (float f = START; f < START + 50; f++)
+      count++;
+    ArrayList<Integer> result = new ArrayList<>();
+    result.add(count);
+    doSomething(); // added a method invocation
+    return result;
+  }
+
+  private void doSomething() {
+    System.out.println("I am doing something.");
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "Buggy_Line": [
+    17
+  ],
+  "Trigger_Explanation": "The JUnit test case triggered the bug by calling the `method` method from class `A` with a `Foo` object as an argument, which does not match the parameter type of the method in the superclass.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,34 @@
+import android.content.ClipboardManager;
+
+class ClassLoading {
+  ClipboardManager clipboard;
+
+  public String getUserControlledString() {
+    return this.clipboard.getText().toString();
+  }
+
+  public void clipboardToClassForNameBad() {
+    try {
+      Class cls = Class.forName(this.getUserControlledString());
+      // Dead Store Mutation
+      String vqjxhtfp = "unusedVariable";
+    } catch (Exception e) {
+      System.out.println("Exception: " + e);
+    }
+  }
+
+  /*
+    We don't want to report it as we consider that string concatenation
+    sanitizes the user-controlled string for class loading.
+  */
+  public void clipboardToClassForNameWithConcatenationGood() {
+    String javaFileName = "blabla." + this.getUserControlledString();
+    try {
+      Class cls = Class.forName(javaFileName);
+      // Dead Store Mutation
+      int rbnvldzt = 42;
+    } catch (Exception e) {
+      System.out.println("Exception: " + e);
+    }
+  }
+}

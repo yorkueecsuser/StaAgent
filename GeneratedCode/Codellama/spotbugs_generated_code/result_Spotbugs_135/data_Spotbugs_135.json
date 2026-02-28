@@ -1,0 +1,13 @@
+{
+  "Bug_Title": "DMI: hasNext method invokes next (DMI_CALLING_NEXT_FROM_HASNEXT)\uf0c1",
+  "Bug_Details": "\nThe hasNext() method invokes the next() method. This is almost certainly wrong,\nsince the hasNext() method is not supposed to change the state of the iterator,\nand the next method is supposed to change the state of the iterator.\n",
+  "Bug_Explanation": "The bug is embedded in the while loop where the hasNext() method is called and then the next() method is called inside the loop. This violates the basic contract of the Iterator interface that hasNext() should not change the state of the iterator, and next() should change the state of the iterator.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../spotbugs_clean_java_code/result_Spotbugs_135/seed_Spotbugs_135.java:5: error: cannot find symbol\n        Iterator<String> iterator = Arrays.asList(\"a\", \"b\", \"c\").iterator();\n                                    ^\n  symbol:   variable Arrays\n  location: class DMI_Bug\n1 error\n",
+  "Trigger_Explanation": "The JUnit test case triggers the bug by calling the hasNext() method on the iterator, which invokes the next() method and changes the state of the iterator. This violates the basic contract of the Iterator interface that hasNext() should not change the state of the iterator, and next() should change the state of the iterator.",
+  "Trigger_Line": [
+    2,
+    5
+  ]
+}

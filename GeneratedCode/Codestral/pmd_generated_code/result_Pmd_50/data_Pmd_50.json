@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "InvalidLogMessageFormat",
+  "Bug_Details": "Check for messages in slf4j and log4j2 (since 6.19.0) loggers with non matching number of arguments and placeholders.\n\nSince 6.32.0 in addition to parameterized message placeholders (`{}`) also format specifiers of string formatted\nmessages are supported (`%s`).\n\nThis rule has been renamed from \"InvalidSlf4jMessageFormat\" in PMD 6.19.0.\nExamples:\nLOGGER.error(\"forget the arg {}\");\nLOGGER.error(\"forget the arg %s\");\nLOGGER.error(\"too many args {}\", \"arg1\", \"arg2\");\nLOGGER.error(\"param {}\", \"arg1\", new IllegalStateException(\"arg\")); //The exception is shown separately, so is correct.",
+  "Bug_Explanation": "The bug 'InvalidLogMessageFormat' is intended in the code. It occurs when there are missing or extra arguments in the logger messages. Here, in the messages 'forget the arg {}' and 'forget the arg %s', no arguments are provided although placeholders {} and %s are present. In the message 'too many args {}', only one placeholder {} is present but two arguments 'arg1' and 'arg2' are provided.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../pmd_clean_java_code/result_Pmd_50/seed_Pmd_50.java:10: error: no suitable method found for severe(String,String,String)\n        LOGGER.severe(\"too many args {}\", \"arg1\", \"arg2\");\n              ^\n    method Logger.severe(String) is not applicable\n      (actual and formal argument lists differ in length)\n    method Logger.severe(Supplier<String>) is not applicable\n      (actual and formal argument lists differ in length)\n1 error\n",
+  "Trigger_Explanation": "The bug is triggered by logging messages with placeholders but no arguments, which violates the rule 'InvalidLogMessageFormat'.",
+  "Trigger_Line": [
+    12
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

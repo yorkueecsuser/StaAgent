@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "DiscardedPostfixExpression",
+  "Bug_Details": "The result of this unary operation on a lambda parameter is discarded",
+  "Bug_Explanation": "The result of the unary operation on a lambda parameter is discarded",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test method `testShowBug` triggers the bug by calling the `showBug` method. The `showBug` method contains the lambda expression that discards the result of the unary operation on a lambda parameter.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.008\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results did not indicate that the bug was triggered. The test ran without any errors or exceptions. Therefore, the bug is not triggered.",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The code contains a bug. The result of the unary operation on a lambda parameter is discarded. In the provided code, the lambda expression `(s) -> s.toString().substring(0, 1)` is assigning the result of the substring operation to the lambda parameter `s`, but this result is not being used or stored anywhere. This is a bug because the result of the operation is discarded, which means it is not having any effect on the program. This could lead to potential issues in the future if the programmer intended for the operation to have an effect."
+}

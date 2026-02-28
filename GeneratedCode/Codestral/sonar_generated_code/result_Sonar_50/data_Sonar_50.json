@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "AssertJ configuration should be applied",
+  "Bug_Details": "A org.assertj.core.configuration.Configuration will be effective only once you call Configuration.apply() or Configuration.applyAndDisplay() .\nThis rule raises an issue when configurations are set without the appropriate call to apply them.\nNoncompliant code example\nConfiguration configuration = new Configuration(); // Noncompliant, this configuration will not be applied.\nconfiguration.setComparingPrivateFields(true);\nCompliant solution\nConfiguration configuration = new Configuration();\nconfiguration.setComparingPrivateFields(true);\nconfiguration.applyAndDisplay();\n// Alternatively: configuration.apply();",
+  "Bug_Explanation": "The AssertJ configuration is not applied using the apply() or applyAndDisplay() method. As a result, the configuration set using setComparingPrivateFields(true) will not have any effect.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered because the configuration is not applied in the showBug method.",
+  "Trigger_Line": [
+    14
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

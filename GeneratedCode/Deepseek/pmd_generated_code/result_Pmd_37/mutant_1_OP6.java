@@ -1,0 +1,19 @@
+import java.io.IOException;
+
+class DoNotThrowExceptionInFinally {
+    public void showBug() throws IOException {
+        try {
+            // Here do some stuff
+        } catch( Exception e) {
+            // Handling the issue
+        } finally {
+            // BUG: DoNotThrowExceptionInFinally
+            throw new IOException();
+        }
+
+        // Unreachable for loop mutation
+        for(int i = 0; false; i++) {
+            // Unreachable code
+        }
+    }
+}

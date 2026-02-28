@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "TQ: Comparing values with incompatible type qualifiers (TQ_COMPARING_VALUES_WITH_INCOMPATIBLE_TYPE_QUALIFIERS)\uf0c1",
+  "Bug_Details": "\n        A value specified as carrying a type qualifier annotation is\n        compared with a value that doesn't ever carry that qualifier.\n         \n        More precisely, a value annotated with a type qualifier specifying when=ALWAYS\n        is compared with a value that where the same type qualifier specifies when=NEVER.\n         \n        For example, say that @NonNegative is a nickname for\n        the type qualifier annotation @Negative(when=When.NEVER).\n        The following code will generate this warning because\n        the return statement requires a @NonNegative value,\n        but receives one that is marked as @Negative.\n         public boolean example(@Negative Integer value1, @NonNegative Integer value2) {\n    return value1.equals(value2);\n}\n",
+  "Bug_Explanation": "The bug was embedded in the 'example' method by using the @Negative and @NonNegative annotations on the 'value1' and 'value2' parameters, respectively. The method then compares these values, which triggers the type qualifier check and results in the bug being reported.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../spotbugs_clean_java_code/result_Spotbugs_142/seed_Spotbugs_142.java:1: error: package javax.annotation does not exist\nimport javax.annotation.Negative;\n                       ^\n../spotbugs_clean_java_code/result_Spotbugs_142/seed_Spotbugs_142.java:2: error: package javax.annotation does not exist\nimport javax.annotation.NonNegative;\n                       ^\n../spotbugs_clean_java_code/result_Spotbugs_142/seed_Spotbugs_142.java:5: error: cannot find symbol\n    public boolean example(@Negative Integer value1, @NonNegative Integer value2) {\n                            ^\n  symbol:   class Negative\n  location: class IncompatibleTypeQualifiers\n../spotbugs_clean_java_code/result_Spotbugs_142/seed_Spotbugs_142.java:5: error: cannot find symbol\n    public boolean example(@Negative Integer value1, @NonNegative Integer value2) {\n                                                      ^\n  symbol:   class NonNegative\n  location: class IncompatibleTypeQualifiers\n4 errors\n",
+  "Trigger_Explanation": "The JUnit test case triggered the bug by calling the 'example' method with incompatible type qualifiers for the 'value1' and 'value2' parameters. The test case passed when it should have failed, indicating that the type qualifier check was not performed correctly.",
+  "Trigger_Line": [
+    7
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "IJU: TestCase defines setUp that doesn\u2019t call super.setUp() (IJU_SETUP_NO_SUPER)\uf0c1",
+  "Bug_Details": " Class is a JUnit TestCase and implements the setUp method. The setUp method should call\nsuper.setUp(), but doesn't.",
+  "Bug_Explanation": "The bug is embedded in the generated code by implementing the setUp method in the SampleClass without calling super.setUp(). This violates the rule that requires calling super.setUp() in a JUnit TestCase's setUp method.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the setUp method of SampleClass, which does not call super.setUp(). This causes an issue because the setUp method in the superclass TestCase is not executed, potentially leading to an incomplete setup state for the test.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.008\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed successfully without any errors. Since the bug rule specifies that the setUp method in a JUnit TestCase should call super.setUp(), and the provided Java code does not do this, the absence of an error in the test results does not confirm that the bug has triggered any issues during the test execution. Therefore, based solely on the test results, we cannot confirm that the bug has been triggered."
+}

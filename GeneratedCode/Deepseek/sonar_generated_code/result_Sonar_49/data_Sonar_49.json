@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "AssertJ methods setting the assertion context should come before an assertion",
+  "Bug_Details": "Describing, setting error message or adding a comparator in AssertJ must be done before calling the\nassertion, otherwise, settings will not be taken into account.\nThis rule raises an issue when one of the method (with all similar methods):\nas describedAs withFailMessage overridingErrorMessage usingComparator usingElementComparator extracting filteredOn\nas\ndescribedAs\nwithFailMessage\noverridingErrorMessage\nusingComparator\nusingElementComparator\nextracting\nfilteredOn\nis called without calling an AssertJ assertion afterward.\nNoncompliant code example\nassertThat(actual).isEqualTo(expected).as(\"Description\"); // Noncompliant\nassertThat(actual).isEqualTo(expected).withFailMessage(\"Fail message\"); // Noncompliant\nassertThat(actual).isEqualTo(expected).usingComparator(new CustomComparator()); // Noncompliant\nCompliant solution\nassertThat(actual).as(\"Description\").isEqualTo(expected);\nassertThat(actual).withFailMessage(\"Fail message\").isEqualTo(expected);\nassertThat(actual).usingComparator(new CustomComparator()).isEqualTo(expected);",
+  "Bug_Explanation": "AssertJ methods setting the assertion context should come before an assertion",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_49/seed_Sonar_49.java:1: error: package org.assertj.core.api does not exist\nimport org.assertj.core.api.Assertions;\n                           ^\n../sonar_clean_java_code/result_Sonar_49/seed_Sonar_49.java:7: error: cannot find symbol\n        Assertions.assertThat(actual).as(\"Description\").isEqualTo(expected); // BUG: AssertJ methods setting the assertion context should come before an assertion\n        ^\n  symbol:   variable Assertions\n  location: class Main\n2 errors\n",
+  "Trigger_Explanation": "The 'as', 'withFailMessage' and 'usingComparator' methods were called after the assertion 'isEqualTo' without any assertion being made in between. This causes the AssertJ to lose the context settings.",
+  "Trigger_Line": [
+    7
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "No",
+  "Model_Explanation": "The provided Java code does not contain the described bug. The AssertJ methods setting the assertion context are correctly used before the assertion. The AssertJ methods are used in the correct order, starting with the assertion context methods (as, withFailMessage, usingComparator, usingElementComparator, extracting, filteredOn) and then the assertion method (isEqualTo, isNotEqualTo, isNull, isNotNull, etc.)."
+}

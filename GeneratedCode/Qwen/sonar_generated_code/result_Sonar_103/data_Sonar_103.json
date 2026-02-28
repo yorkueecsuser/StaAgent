@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Blocks should be synchronized on \"private final\" fields",
+  "Bug_Details": "Synchronizing on a class field synchronizes not on the field itself, but on the object assigned to it. So synchronizing on a non- final field makes it possible for the field\u2019s value to change while a thread is in a block synchronized on the old value. That would allow a second thread,\nsynchronized on the new value, to enter the block at the same time.\nThe story is very similar for synchronizing on parameters; two different threads running the method in parallel could pass two different object\ninstances in to the method as parameters, completely undermining the synchronization.\nNoncompliant code example\nprivate String color = \"red\";\n\nprivate void doSomething(){\n  synchronized(color) {  // Noncompliant; lock is actually on object instance \"red\" referred to by the color variable\n    //...\n    color = \"green\"; // other threads now allowed into this block\n    // ...\n  }\n  synchronized(new Object()) { // Noncompliant this is a no-op.\n     // ...\n  }\n}\nCompliant solution\nprivate String color = \"red\";\nprivate final Object lockObj = new Object();\n\nprivate void doSomething(){\n  synchronized(lockObj) {\n    //...\n    color = \"green\";\n    // ...\n  }\n}",
+  "Bug_Explanation": "The bug is embedded in the generated code by synchronizing on a non-final field 'color' and on a new Object instance. This allows multiple threads to enter the synchronized blocks simultaneously, leading to potential race conditions.",
+  "Buggy_Line": [
+    6,
+    15
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method, which starts two threads that execute the doSomething method concurrently. Due to the synchronization on a non-final field and a new Object instance, both threads can enter the synchronized blocks simultaneously, leading to a race condition where the final value of 'color' may not be as expected.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.208\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test result shows that the test passed without any assertion failures, indicating that the final color was 'green'. This does not confirm the presence of the synchronization bug, as the test did not encounter a race condition leading to an unexpected result."
+}

@@ -1,0 +1,32 @@
+class DivideByZero {
+
+  public int divByZeroLocal(String s) {
+    int denominator = 0;
+    int denominator2 = 0; // Duplicated assignment
+    int nominator = 10;
+    int result = nominator / denominator;
+    return result;
+  }
+
+  public int divideByZeroInterProc(int denominator) {
+    return 10 / denominator;
+  }
+
+  // DO NOT MOVE, test relies on line number
+  public int callDivideByZeroInterProc() {
+    return divideByZeroInterProc(0);
+  }
+
+  // divide by zero with static fields
+  private static int x;
+
+  public void setXToZero() {
+    x = 0;
+    x = 0; // Duplicated assignment
+  }
+
+  public int divideByZeroWithStaticField() {
+    setXToZero();
+    return divideByZeroInterProc(x);
+  }
+}

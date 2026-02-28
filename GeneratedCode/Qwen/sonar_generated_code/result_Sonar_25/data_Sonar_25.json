@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Reflection should not be used to increase accessibility of records' fields",
+  "Bug_Details": "In general, altering or bypassing the accessibility of classes, methods, or fields violates the encapsulation principle and could lead to runtime\nerrors. For records the case is even trickier: you cannot change the visibility of records\u2019s fields and trying to update the existing value will lead\nto IllegalAccessException at runtime.\nThis rule raises an issue when reflection is used to change the visibility of a record\u2019s field, and when it is used to directly update a record\u2019s\nfield value.\nNoncompliant code example\nrecord Person(String name, int age) {}\n\nPerson person = new Person(\"A\", 26);\nField field = Person.class.getDeclaredField(\"name\");\nfield.setAccessible(true); // secondary\nfield.set(person, \"B\"); // Noncompliant",
+  "Bug_Explanation": "The bug was embedded in the generated code by using reflection to change the accessibility of a record's field and then attempting to modify its value. Specifically, the code uses reflection to make the 'name' field of the 'Person' record accessible and then tries to set a new value for it, which will result in an IllegalAccessException at runtime.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method, which uses reflection to set the name field of a Person record, leading to an IllegalAccessException.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.01\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed without throwing an IllegalAccessException, which contradicts the expectation set in the test that the bug would trigger this exception."
+}

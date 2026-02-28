@@ -1,0 +1,12 @@
+{
+  "Bug_Title": "ICAST: Integral value cast to double and then passed to Math.ceil (ICAST_INT_CAST_TO_DOUBLE_PASSED_TO_CEIL)\uf0c1",
+  "Bug_Details": "\nThis code converts an integral value (e.g., int or long)\nto a double precision\nfloating point number and then\npassing the result to the Math.ceil() function, which rounds a double to\nthe next higher integer value. This operation should always be a no-op,\nsince converting an integer to a double should give a number with no fractional part.\nIt is likely that the operation that generated the value to be passed\nto Math.ceil was intended to be performed using double precision\nfloating point arithmetic.\n",
+  "Bug_Explanation": "The variable 'y' is casted to a double value and then passed to the Math.ceil() function, which rounds a double to the next higher integer value. However, since the value of 'y' is already an integer, passing it to Math.ceil() will always result in no operation being performed.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Test_Run_Result": "JUnit version 4.13.2\n.10.0\n\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the Math.ceil() function is returning the correct result for the given input. Since the bug description mentions that the operation that generated the value to be passed to Math.ceil was intended to be performed using double precision floating point arithmetic, it is possible that the bug is not triggered in the test code. However, further investigation is needed to confirm this."
+}

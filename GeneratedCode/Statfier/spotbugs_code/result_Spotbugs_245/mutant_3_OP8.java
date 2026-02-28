@@ -1,0 +1,14 @@
+class DynAnyCollectionImpl extends DynAnyConstructedImpl {
+  public DynAnyCollectionImpl() {
+    this(null, null, false);
+  }
+
+  protected DynAnyCollectionImpl(String orb, String any, boolean copyValue) {
+    super(orb, any, copyValue);
+  }
+
+  // Mutated code
+  protected DynAnyCollectionImpl(String a, String b, boolean c) {
+    super(a, b, c);
+  }
+}

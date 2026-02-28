@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Custom resources should be closed",
+  "Bug_Details": "Leaking resources in an application is never a good idea, as it can lead to memory issues, and even the crash of the application. This rule\ntemplate allows you to specify which constructions open a resource and how it is closed in order to raise issue within a method scope when custom\nresources are leaked.",
+  "Bug_Explanation": "The CustomResource instance is opened and processed but never closed, leading to a resource leak.",
+  "Buggy_Line": [
+    32
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case invokes the showBug method of ResourceLeakExample, which processes the CustomResource without closing it, causing a resource leak. This bug is triggered during the test, as the resource is not properly closed after being opened and processed.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Resource opened.\nProcessing resource...\n\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test ran successfully without any failures or exceptions. The message 'OK (1 test)' shows that the assertion did not fail, which implies the bug related to the resource not being closed was not triggered according to the test outcome."
+}

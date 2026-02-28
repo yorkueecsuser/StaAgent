@@ -1,0 +1,38 @@
+import edu.umd.cs.findbugs.annotations.DesireWarning;
+import edu.umd.cs.findbugs.annotations.ExpectWarning;
+import edu.umd.cs.findbugs.annotations.NoWarning;
+import java.io.Serializable;
+
+class BadSerial {
+  static class NotFinal implements Serializable {
+    @ExpectWarning("Se")
+    static long serialVersionUID = 1;
+    
+    // Mutant: Renaming variable'serialVersionUID' to 'a'
+    static long a = 1;
+  }
+
+  static class NotStatic implements Serializable {
+    @ExpectWarning("SS")
+    final long serialVersionUID = 2;
+    
+    // Mutant: Renaming variable'serialVersionUID' to 'b'
+    final long b = 2;
+  }
+
+  static class NotLong implements Serializable {
+    @DesireWarning("Se")
+    static final int serialVersionUID = 3;
+    
+    // Mutant: Renaming variable'serialVersionUID' to 'c'
+    static final int c = 3;
+  }
+
+  static class Good implements Serializable {
+    @NoWarning("Se")
+    static final long serialVersionUID = 4;
+    
+    // Mutant: Renaming variable'serialVersionUID' to 'd'
+    static final long d = 4;
+  }
+}

@@ -1,0 +1,28 @@
+class NullStoreExample {
+
+    private String nonNullField;
+
+    public void showBug() {
+        nonNullField = null; // BUG: NP: Store of null value into field annotated @Nonnull (NP_STORE_INTO_NONNULL_FIELD)
+
+        // Inserting unreachable if branch
+        boolean condition = getCondition();
+        if (condition) {
+            nonNullField = "This is unreachable";
+        }
+    }
+
+    public String getNonNullField() {
+        return nonNullField;
+    }
+
+    public static void main(String[] args) {
+        NullStoreExample example = new NullStoreExample();
+        example.showBug();
+        System.out.println("Value of nonNullField: " + example.getNonNullField());
+    }
+
+    private boolean getCondition() {
+        return false; // This method ensures the condition is always false, making the if block unreachable
+    }
+}

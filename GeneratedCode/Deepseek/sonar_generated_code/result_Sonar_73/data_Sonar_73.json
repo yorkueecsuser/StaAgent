@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "Overrides should match their parent class methods in synchronization",
+  "Bug_Details": "When @Overrides of synchronized methods are not themselves synchronized , the result can be improper\nsynchronization as callers rely on the thread-safety promised by the parent class.\nNoncompliant code example\npublic class Parent {\n\n  synchronized void foo() {\n    //...\n  }\n}\n\npublic class Child extends Parent {\n\n @Override\n  public void foo () {  // Noncompliant\n    // ...\n    super.foo();\n  }\n}\nCompliant solution\npublic class Parent {\n\n  synchronized void foo() {\n    //...\n  }\n}\n\npublic class Child extends Parent {\n\n  @Override\n  synchronized void foo () {\n    // ...\n    super.foo();\n  }\n}",
+  "Bug_Explanation": "The `foo()` method in the `Child` class overrides the `foo()` method in the `Parent` class, but it is not itself synchronized. This can lead to improper synchronization as callers rely on the thread-safety promised by the parent class.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "This test case triggers the bug as it creates two threads that call the same synchronized method on the same object. The bug is that the `foo()` method in the `Child` class overrides the `foo()` method in the `Parent` class, but it is not itself synchronized. This can lead to improper synchronization as callers rely on the thread-safety promised by the parent class.",
+  "Trigger_Line": [
+    24
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.006\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The provided test results do not demonstrate the bug being triggered. The assertion `assertTrue(thread1.isAlive() || thread2.isAlive())` does not fail. This indicates that the bug is not being triggered as the test is passing even when the bug is present.",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The described bug is present in the provided Java code. The method 'foo' in the 'Child' class is overriding the method 'foo' in the 'Parent' class, but it is not itself synchronized. This means that the synchronization mechanism provided by the'synchronized' keyword in the 'foo' method of the 'Parent' class is not enforced in the 'Child' class. This can lead to improper synchronization as callers rely on the thread-safety promised by the parent class. The bug can be fixed by adding the'synchronized' keyword to the 'foo' method in the 'Child' class, as shown in the compliant solution."
+}

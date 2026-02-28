@@ -1,0 +1,12 @@
+{
+  "Buggy_Line": [
+    9,
+    15
+  ],
+  "Trigger_Explanation": "The test case triggers the EqualsReference bug by calling the equals method on the MyObject instance with itself as the argument.",
+  "Trigger_Line": [
+    8
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

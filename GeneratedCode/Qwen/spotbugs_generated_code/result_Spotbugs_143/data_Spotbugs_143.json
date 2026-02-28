@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "TQ: Value annotated as carrying a type qualifier used where a value that must not carry that qualifier is required (TQ_ALWAYS_VALUE_USED_WHERE_NEVER_REQUIRED)\uf0c1",
+  "Bug_Details": "\n        A value specified as carrying a type qualifier annotation is\n        consumed in a location or locations requiring that the value not\n        carry that annotation.\n         \n        More precisely, a value annotated with a type qualifier specifying when=ALWAYS\n        is guaranteed to reach a use or uses where the same type qualifier specifies when=NEVER.\n         \n        For example, say that @NonNegative is a nickname for\n        the type qualifier annotation @Negative(when=When.NEVER).\n        The following code will generate this warning because\n        the return statement requires a @NonNegative value,\n        but receives one that is marked as @Negative.\n         public @NonNegative Integer example(@Negative Integer value) {\n    return value;\n}\n",
+  "Bug_Explanation": "The bug is embedded in the 'example' method where a value annotated with @Negative is returned as a @NonNegative value. The'showBug' method demonstrates this by passing a @Negative integer to the 'example' method.",
+  "Buggy_Line": [
+    25
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test calls the'showBug' method with a negative integer (-1). The'showBug' method internally calls the 'example' method, which returns a value annotated as @Negative as a @NonNegative value, triggering the bug.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed without any errors or exceptions. The test case 'testShowBug' calls the method'showBug' which internally calls 'example'. According to the bug description, the method 'example' returns a value annotated as @Negative where a @NonNegative value is expected, which should trigger the bug. However, since the test passes and there are no runtime errors or exceptions, it suggests that the bug did not cause any issues during the execution of the test. Therefore, based solely on the provided test results, the bug does not appear to have been triggered."
+}

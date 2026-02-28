@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "Spring \"@Controller\" classes should not use \"@Scope\"",
+  "Bug_Details": "Spring @Controller s, @Service s, and @Repository s have singleton scope by default, meaning only\none instance of the class is ever instantiated in the application. Defining any other scope for one of these class types will result in needless churn\nas new instances are created and destroyed. In a busy web application, this could cause a significant amount of needless additional load on the\nserver.\nThis rule raises an issue when the @Scope annotation is applied to a @Controller , @Service , or @Repository with any value but \"singleton\". @Scope(\"singleton\") is redundant, but ignored.\nNoncompliant code example\n@Scope(\"prototype\")  // Noncompliant\n@Controller\npublic class HelloWorld {\nCompliant solution\n@Controller\npublic class HelloWorld {",
+  "Bug_Explanation": "The Spring @Controller 'HelloWorldController' has a non-singleton scope defined using '@Scope(\"prototype\")', which is not recommended as it could cause unnecessary churn and additional load on the server.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case 'testNonSingletonScope' creates an instance of the 'HelloWorldController' and calls the'showBug' method. This triggers the bug as the 'HelloWorldController' has a non-singleton scope defined using '@Scope(\"prototype\")' which is not recommended.",
+  "Trigger_Line": [
+    8
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

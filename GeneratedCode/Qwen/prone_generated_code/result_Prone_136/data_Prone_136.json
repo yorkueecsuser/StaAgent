@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "PrivateSecurityContractProtoAccess",
+  "Bug_Details": "Access to a private protocol buffer field is forbidden. This protocol buffer carries a security contract, and can only be created using an approved library. Direct access to the fields is forbidden.",
+  "Bug_Explanation": "The bug is embedded in the generated code by directly accessing the private field'sensitiveData' of the 'SecurityContractProto' class within the'showBug' method. This violates the rule of not accessing private protocol buffer fields directly.",
+  "Buggy_Line": [
+    20
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the'showBug' method of 'ProtocolBufferExample', which accesses the private field'sensitiveData' of the nested static class 'SecurityContractProto'.",
+  "Trigger_Line": [
+    9
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

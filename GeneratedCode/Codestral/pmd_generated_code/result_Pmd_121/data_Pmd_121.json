@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "UselessStringValueOf",
+  "Bug_Details": "No need to call String.valueOf to append to a string; just use the valueOf() argument directly.\nExamples:\npublic String convert(int i) {\n    String s;\n    s = \"a\" + String.valueOf(i);    // not required\n    s = \"a\" + i;                    // preferred approach\n    return s;\n}",
+  "Bug_Explanation": "The bug 'UselessStringValueOf' is demonstrated in the convert method where String.valueOf is used unnecessarily to append an integer to a string. This can be easily done by directly using the integer value in the concatenation.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug 'UselessStringValueOf' by calling the showBug method with an integer argument. The bug causes the string to be 'a1.0' instead of 'a1', which makes the test case fail.",
+  "Trigger_Line": [
+    5
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed successfully, which means that the bug was not triggered. The expected output 'a1' matches the actual output, indicating that the String.valueOf(i) call in the Java code is not causing any issues."
+}

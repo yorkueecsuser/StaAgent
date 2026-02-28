@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "Math should not be performed on floats",
+  "Bug_Details": "For small numbers, float math has enough precision to yield the expected value, but for larger numbers, it does not. BigDecimal is the best alternative, but if a primitive is required, use a double .\nNoncompliant code example\nfloat a = 16777216.0f;\nfloat b = 1.0f;\nfloat c = a + b; // Noncompliant; yields 1.6777216E7 not 1.6777217E7\n\ndouble d = a + b; // Noncompliant; addition is still between 2 floats\nCompliant solution\nfloat a = 16777216.0f;\nfloat b = 1.0f;\nBigDecimal c = BigDecimal.valueOf(a).add(BigDecimal.valueOf(b));\n\ndouble d = (double)a + (double)b;\nExceptions\nThis rule doesn\u2019t raise an issue when the mathematical expression is only used to build a string.\nSystem.out.println(\"[\"+getName()+\"] \" +\n           \"\\n\\tMax time to retrieve connection:\"+(max/1000f/1000f)+\" ms.\");",
+  "Bug_Explanation": "This Java program demonstrates a bug where floating point math is inaccurate due to the limited precision of floats. The noncompliant code example adds a large float and a float with a small difference. The result is off significantly due to the imprecision of floats. The solution includes using BigDecimal to handle addition of large numbers and casts to double for accurate addition.",
+  "Buggy_Line": [
+    3,
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered by the inappropriate use of float arithmetic. The float type is only suitable for small numbers with precision up to 6-7 decimal places. When performing addition or multiplication with float numbers, the precision can drop, resulting in an error when doing it with large numbers. That's why it's recommended to use double or BigDecimal for large numbers.",
+  "Trigger_Line": [
+    7
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The described bug is present in the provided Java code. The float data type in Java is not suitable for precise calculations involving large numbers. The addition of 16777216.0f and 1.0f results in a value that is off by 1 due to the precision limitations of the float data type. The BigDecimal class is a suitable alternative for precise calculations involving large numbers. The double data type is also suitable for precise calculations involving large numbers, but it is necessary to cast the float operands to double before performing the addition to avoid the precision issues."
+}

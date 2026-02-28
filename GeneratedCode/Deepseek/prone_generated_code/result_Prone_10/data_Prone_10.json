@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "AutoValueConstructorOrderChecker",
+  "Bug_Details": "Arguments to AutoValue constructor are in the wrong order AutoValue constructors are synthesized with their parameters in the same order\nas the abstract accessor methods. Calls to the constructor need to match this\nordering.",
+  "Bug_Explanation": "The AutoValueConstructorOrderChecker rule is violated by initializing 'age' before 'name' in the Person constructor. AutoValue constructors are synthesized with their parameters in the same order as the abstract accessor methods. Calls to the constructor need to match this ordering.",
+  "Buggy_Line": [
+    20
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_10/seed_Prone_10.java:10: error: interface AutoValue is public, should be declared in a file named AutoValue.java\npublic @interface AutoValue {\n        ^\n1 error\n",
+  "Trigger_Explanation": "The bug rule is about AutoValueConstructorOrderChecker where the arguments to AutoValue constructor are in the wrong order. The arguments are passed in the wrong order in the test case which triggers the bug.",
+  "Trigger_Line": [
+    5
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "No",
+  "Model_Explanation": "The bug described in the task is not present in the provided Java code. The AutoValue annotation is used to generate a class with a constructor that takes the same parameters as the abstract accessor methods. The order of the parameters in the constructor matches the order of the abstract accessor methods. The bug described is about the order of the parameters in the constructor, but the provided code does not have any such bug."
+}

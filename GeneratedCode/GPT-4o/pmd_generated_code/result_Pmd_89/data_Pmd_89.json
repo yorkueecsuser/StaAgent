@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "AvoidSynchronizedStatement",
+  "Bug_Details": "Synchronization will pin virtual threads and can cause performance problems.\nExamples:\npublic class Foo {\n    // Try to avoid this:\n    void foo() {\n        // code that doesn't need mutual exclusion\n        synchronized(this) {\n            // code that requires mutual exclusion\n        }\n        // more code that doesn't need mutual exclusion\n    }\n    // Prefer this:\n    Lock instanceLock = new ReentrantLock();\n\n    void foo() {\n        // code that doesn't need mutual exclusion\n        try {\n            instanceLock.lock();  // or instanceLock.tryLock(long time, TimeUnit unit)\n            // code that requires mutual exclusion\n        } finally {\n            instanceLock.unlock();\n        }\n        // more code that doesn't need mutual exclusion\n    }\n}",
+  "Bug_Explanation": "The code uses a synchronized block within the showBug method to ensure mutual exclusion, which can pin virtual threads and cause performance issues. This is demonstrated by locking on the 'this' object.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case 'testShowBug' calls the 'showBug' method of 'SynchronizationExample' class. This method contains a synchronized block which is identified with the comment // BUG: AvoidSynchronizedStatement. The use of synchronized block on 'this' can lead to pinning of virtual threads, causing potential performance issues. The test is designed to fail because the method contains this bug, thus highlighting the presence of the issue.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Performing synchronized operation.\n\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the method executed without any errors or performance issues being reported. The output 'Performing synchronized operation.' indicates that the synchronized block was executed, but there is no evidence from the test results that the synchronization caused any performance problems or pinned virtual threads, which is the concern described in the bug information."
+}

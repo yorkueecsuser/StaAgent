@@ -1,0 +1,23 @@
+// Generated mutated Java code
+import java.util.Objects;
+
+class EqBug {
+    public static void main(String[] args) {
+        // BUG: Eq: equals method compares class names rather than class objects (EQ_COMPARING_CLASS_NAMES)
+        Object obj1 = new Object();
+        Object obj2 = new Object();
+        System.out.println(obj1.equals(obj2)); // Output: true
+
+        // Unreachable if-else statement mutation
+        boolean condition = getCondition();
+        if (condition) {
+            // Do nothing
+        } else {
+            System.out.println("This branch is unreachable");
+        }
+    }
+
+    private static boolean getCondition() {
+        return false;
+    }
+}

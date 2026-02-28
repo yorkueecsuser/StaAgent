@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "BigIntegerInstantiation",
+  "Bug_Details": "Don't create instances of already existing BigInteger (`BigInteger.ZERO`, `BigInteger.ONE`),\nfor Java 1.5 onwards, BigInteger.TEN and BigDecimal (`BigDecimal.ZERO`, `BigDecimal.ONE`, `BigDecimal.TEN`) and\nfor Java 9 onwards `BigInteger.TWO`.",
+  "Bug_Explanation": "The code creates a new instance of `BigInteger` with the value `1234567890`, which can be obtained by calling `BigInteger.valueOf(1234567890)` instead.",
+  "Buggy_Line": [
+    2
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../pmd_clean_java_code/result_Pmd_105/seed_Pmd_105.java:8: error: cannot find symbol\n    public static BigInteger showBug() {\n                  ^\n  symbol:   class BigInteger\n  location: class BigIntegerBug\n../pmd_clean_java_code/result_Pmd_105/seed_Pmd_105.java:4: error: cannot find symbol\n        BigInteger bigInt = new BigInteger(\"1234567890\");\n        ^\n  symbol:   class BigInteger\n  location: class BigIntegerBug\n../pmd_clean_java_code/result_Pmd_105/seed_Pmd_105.java:4: error: cannot find symbol\n        BigInteger bigInt = new BigInteger(\"1234567890\");\n                                ^\n  symbol:   class BigInteger\n  location: class BigIntegerBug\n../pmd_clean_java_code/result_Pmd_105/seed_Pmd_105.java:9: error: cannot find symbol\n        BigInteger bigInt = new BigInteger(\"1234567890\");\n        ^\n  symbol:   class BigInteger\n  location: class BigIntegerBug\n../pmd_clean_java_code/result_Pmd_105/seed_Pmd_105.java:9: error: cannot find symbol\n        BigInteger bigInt = new BigInteger(\"1234567890\");\n                                ^\n  symbol:   class BigInteger\n  location: class BigIntegerBug\n5 errors\n",
+  "Trigger_Explanation": "The test code calls the `showBug()` method in the `BigIntegerBug` class, which triggers the bug.",
+  "Trigger_Line": [
+    16,
+    23
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,13 @@
+{
+  "Bug_Title": "Overrides should match their parent class methods in synchronization",
+  "Bug_Details": "When @Overrides of synchronized methods are not themselves synchronized , the result can be improper\nsynchronization as callers rely on the thread-safety promised by the parent class.\nNoncompliant code example\npublic class Parent {\n\n  synchronized void foo() {\n    //...\n  }\n}\n\npublic class Child extends Parent {\n\n @Override\n  public void foo () {  // Noncompliant\n    // ...\n    super.foo();\n  }\n}\nCompliant solution\npublic class Parent {\n\n  synchronized void foo() {\n    //...\n  }\n}\n\npublic class Child extends Parent {\n\n  @Override\n  synchronized void foo () {\n    // ...\n    super.foo();\n  }\n}",
+  "Bug_Explanation": "The overridden method in the Child class is not synchronized, which can lead to improper synchronization as callers rely on the thread-safety promised by the Parent class.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when the test calls the'showBug' method in the Child class. This method invokes the 'foo' method, which is not synchronized in the Child class, while it is in the Parent class. This can lead to improper synchronization.",
+  "Trigger_Line": [
+    6
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

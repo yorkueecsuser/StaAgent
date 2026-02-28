@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "AvoidInstantiatingObjectsInLoops",
+  "Bug_Details": "New objects created within loops should be checked to see if they can created outside them and reused.\nExamples:\npublic class Something {\n    public static void main( String as[] ) {\n        for (int i = 0; i < 10; i++) {\n            Foo f = new Foo(); // Avoid this whenever you can it's really expensive\n        }\n    }\n}",
+  "Bug_Explanation": "The bug occurs because a new instance of the 'Foo' class is created inside the loop on every iteration. This could be optimized by creating a single instance outside the loop and reusing it, which would be more efficient.",
+  "Buggy_Line": [
+    23
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method in the test class triggers the bug by calling the showBug method from the LoopObjectInstantiationExample class, which unnecessarily instantiates Foo objects inside a loop. The bug is related to inefficient object creation, which means the test will not fail based on incorrect output but is designed to highlight the performance issue.",
+  "Trigger_Line": [
+    11
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.006\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any assertion failures, suggesting that the bug related to object instantiation in loops was not triggered or detected by the test."
+}

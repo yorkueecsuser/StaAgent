@@ -1,0 +1,10 @@
+{
+  "Buggy_Line": [],
+  "Trigger_Explanation": "The test cases trigger the bug by calling the getValue() method on an instance of GuiceAssistedInjectScoping, which is annotated with @MyAnnotation(\"SomeValue\"). This causes a Guice error at runtime, as scope annotations are not allowed on implementation classes of AssistedInject factories.",
+  "Trigger_Line": [
+    9,
+    15
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

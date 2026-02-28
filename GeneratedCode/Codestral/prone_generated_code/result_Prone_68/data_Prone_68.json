@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "IdentityHashMapBoxing",
+  "Bug_Details": "Using IdentityHashMap with a boxed type as the key is risky since boxing may produce distinct instances Usage of java.util.IdentityHashMap with a boxed primitive type as a key is\nrisky and can yield unexpected results because java.util.IdentityHashMap uses\nreference-equality when comparing keys and reference equality for primitive\nwrappers is particularly bug-prone: Primitive wrapper classes cache instances\nfor some (but usually not all) values, so == may be equivalent to equals() for\nsome values but not others. Additionally, not all versions of the runtime and\nother libraries use the cache in the same cases, so upgrades may change\nbehavior. Thus: Map<Integer, Foo> map = new IdentityHashMap<>();\n  int n = randomInt();\n  map.put(n, x);\n  map.get(n);  // This could be null since boxing happens twice and could produce distinct values. Map<Integer, Foo> map = new IdentityHashMap<>();\n  int n = randomInt();\n  map.put(n, x);\n  map.get(n);  // This could be null since boxing happens twice and could produce distinct values. But: Map<Integer, Foo> map = new IdentityHashMap<>();\n  Integer n = randomInt();\n  map.put(n, x);\n  map.get(n);  // This cannot be null because it's the same instance. Map<Integer, Foo> map = new IdentityHashMap<>();\n  Integer n = randomInt();\n  map.put(n, x);\n  map.get(n);  // This cannot be null because it's the same instance.",
+  "Bug_Explanation": "The bug is embedded in the showBug method where an IdentityHashMap is used with a boxed Integer as the key. This is risky because boxing may produce distinct instances, leading to the map.get(n) returning null even though a value was previously put in the map.",
+  "Buggy_Line": [
+    15
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered in the testShowBug method when assertNotNull is used to check the result of IdentityHashMapBoxingBug.showBug(). This is because the showBug method uses an IdentityHashMap with a boxed Integer as the key, which is risky and can yield unexpected results due to boxing producing distinct instances.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test ran successfully without any assertion errors, which means the'showBug()' method did not return null. This indicates that the same instance of Integer was used for both putting and getting from the IdentityHashMap, which is the expected behavior and not a sign of the 'IdentityHashMapBoxing' bug."
+}

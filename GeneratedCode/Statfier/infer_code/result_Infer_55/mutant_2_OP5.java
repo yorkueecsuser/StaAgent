@@ -1,0 +1,34 @@
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Retention(RetentionPolicy.CLASS)
+@Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.TYPE})
+
+// Signal to the starvation checker that the method (or all the methods of the class,
+// if at class level) does not perform any potentially blocking operations.  Can be used to
+// effectively filter out all method calls which Infer may consider blocking.  This means that
+// not only Infer will not warn on any starvation issues in the method, but will also not warn on
+// any of the callers of this method.
+public @interface NonBlocking {
+
+    // Mutant code added to introduce an unreachable switch statement
+    public default void mutantCode() {
+        boolean condition = getCondition();
+        switch (condition) {
+            case true:
+                // Unreachable code
+                System.out.println("This is unreachable code.");
+                break;
+            default:
+                // Default case
+                break;
+        }
+    }
+
+    // Helper method to provide a dynamic condition
+    private default boolean getCondition() {
+        return false; // This method ensures the condition is not a compile-time constant
+    }
+}

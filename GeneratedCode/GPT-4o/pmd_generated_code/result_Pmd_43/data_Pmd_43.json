@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "FinalizeDoesNotCallSuperFinalize",
+  "Bug_Details": "If the finalize() is implemented, its last action should be to call super.finalize. Note that Oracle has declared Object.finalize() as deprecated since JDK 9.\nExamples:\nprotected void finalize() {\n    something();\n    // neglected to call super.finalize()\n}",
+  "Bug_Explanation": "The finalize() method in this code correctly performs cleanup of the 'resource', but it neglects to call super.finalize() as its last action, which is required to ensure that superclass resources are also properly cleaned up.",
+  "Buggy_Line": [
+    16
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case testShowBug() runs the showBug() method, which makes the object eligible for garbage collection. The finalize() method is called but fails to invoke super.finalize() as its last action, leading to resource cleanup issues. The assertion checks for result equality, expecting specific console output, indirectly highlighting the finalize bug.",
+  "Trigger_Line": [
+    12
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Cleaning up resource: Demo Resource\n\nTime: 0.013\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the finalize method executed and printed 'Cleaning up resource: Demo Resource', but there is no indication that the absence of super.finalize() caused any issue. The test passed successfully, indicating that the bug was not triggered during this test run."
+}

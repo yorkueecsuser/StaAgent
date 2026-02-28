@@ -1,0 +1,9 @@
+{
+  "Buggy_Line": [
+    10
+  ],
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by recursively calling the `infiniteRecursion()` method, which causes a stack overflow and results in an infinite loop.",
+  "Trigger_Line": [
+    10
+  ]
+}

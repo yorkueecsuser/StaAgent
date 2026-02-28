@@ -1,0 +1,9 @@
+{
+  "Buggy_Line": [],
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug() method with an argument of 5, which is greater than 0. The method will print \"x is greater than 0\" to the console.",
+  "Trigger_Line": [
+    23
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

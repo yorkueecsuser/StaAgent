@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "StreamToString",
+  "Bug_Details": "Calling toString on a Stream does not provide useful information The toString method on a Stream will print its identity, such as\njava.util.stream.ReferencePipeline$Head@6d06d69c. This is rarely what was\nintended.",
+  "Bug_Explanation": "Calling toString on a Stream does not provide useful information. The toString method on a Stream will print its identity, such as java.util.stream.ReferencePipeline$Head@6d06d69c, which is not helpful.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the StreamToString bug by asserting that the returned string is not equal to the default toString representation of a Stream. This causes the test to fail and reveal the bug.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not demonstrate the bug was triggered because the test passed successfully without any assertion errors. Moreover, the test checks that the returned string does not start with 'java.util.stream.ReferencePipeline$Head@', which would be the case if the bug was present."
+}

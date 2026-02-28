@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "FloggerFormatString",
+  "Bug_Details": "Invalid printf-style format string",
+  "Bug_Explanation": "The bug is embedded in the `formatter.format(message, name)` line. The `%s` in the message string should be replaced with the name variable, but it is not properly formatted. This will cause the formatting to fail and the bug will be printed in the output.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggered the bug by creating a Formatter object with a invalid printf-style format string, and then using that formatter to format a string with a variable.",
+  "Trigger_Line": [
+    8
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

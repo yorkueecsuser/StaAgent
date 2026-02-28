@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Classes that don't define \"hashCode()\" should not be used in hashes",
+  "Bug_Details": "Because Object implements hashCode , any Java class can be put into a hash structure. However, classes that define equals(Object) but not hashCode() aren\u2019t truly hash-able because instances that are equivalent according to the equals method can return different hashes.\nNoncompliant code example\npublic class Student {  // no hashCode() method; not hash-able\n  // ...\n\n  public boolean equals(Object o) {\n    // ...\n  }\n}\n\npublic class School {\n  private Map<Student, Integer> studentBody = // okay so far\n          new HashTable<Student, Integer>(); // Noncompliant\n\n  // ...\nCompliant solution\npublic class Student {  // has hashCode() method; hash-able\n  // ...\n\n  public boolean equals(Object o) {\n    // ...\n  }\n  public int hashCode() {\n    // ...\n  }\n}\n\npublic class School {\n  private Map<Student, Integer> studentBody = new HashTable<Student, Integer>();\n\n  // ...",
+  "Bug_Explanation": "Classes that don't define \"hashCode()\" should not be used in hashes. The bug is embedded in the code by not defining the hashCode() method in the Student class, which is used as a key in the HashMap.",
+  "Buggy_Line": [
+    19,
+    3
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_137/seed_Sonar_137.java:9: error: missing return statement\n    }\n    ^\n1 error\n",
+  "Trigger_Explanation": "The test case triggers the bug by using the `showBug()` method in the `School` class, which adds a `Student` instance to the `studentBody` map with a value of 10, but then tries to retrieve the same `Student` instance from the map using a different instance, which should return the same value of 10, but instead returns null, indicating that the class is not truly hash-able because instances that are equivalent according to the `equals(Object)` method can return different hashes.",
+  "Trigger_Line": [
+    11
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

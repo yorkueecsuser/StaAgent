@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "AvoidBranchingStatementAsLastInLoop",
+  "Bug_Details": "Using a branching statement as the last part of a loop may be a bug, and/or is confusing.\nEnsure that the usage is not a bug, or consider using another approach.\nExamples:\n// unusual use of branching statement in a loop\nfor (int i = 0; i < 10; i++) {\n    if (i*i <= 25) {\n        continue;\n    }\n    break;\n}\n\n// this makes more sense...\nfor (int i = 0; i < 10; i++) {\n    if (i*i > 25) {\n        break;\n    }\n}",
+  "Bug_Explanation": "The bug is embedded in the showBug method where a 'break' statement is used as the last part of the loop after a 'continue' statement. This can be confusing and may indicate a logical error.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method, which contains a 'break' statement as the last part of the loop after a 'continue' statement. This triggers the bug because the logic is confusing and may indicate a logical error.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.005\nThere was 1 failure:\n1) testShowBugTriggersBug(BranchingBugExampleTest)\njava.lang.AssertionError: expected:<5> but was:<6>\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat org.junit.Assert.failNotEquals(Assert.java:835)\n\tat org.junit.Assert.assertEquals(Assert.java:647)\n\tat org.junit.Assert.assertEquals(Assert.java:633)\n\tat BranchingBugExampleTest.testShowBugTriggersBug(BranchingBugExampleTest.java:9)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test failed because the actual result was 6 instead of the expected 5, indicating an issue with the logic in the code rather than confirming the presence of the described bug pattern (AvoidBranchingStatementAsLastInLoop)."
+}

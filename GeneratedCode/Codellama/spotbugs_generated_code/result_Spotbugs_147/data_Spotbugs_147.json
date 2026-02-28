@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "FB: Unexpected/undesired warning from SpotBugs (FB_UNEXPECTED_WARNING)\uf0c1",
+  "Bug_Details": "SpotBugs generated a warning that, according to a @NoWarning annotation,\n  is unexpected or undesired. @NoWarning",
+  "Bug_Explanation": "The bug was embedded in the code by intentionally avoiding the usage of the java.util.List and java.util.ArrayList packages, which are used in the original code. The showBug method was added to demonstrate the bug and it returns the size of the numbers list.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../spotbugs_clean_java_code/result_Spotbugs_147/seed_Spotbugs_147.java:3: error: cannot find symbol\n        List<Integer> numbers = new ArrayList<>();\n        ^\n  symbol:   class List\n  location: class FB_UNEXPECTED_WARNING\n../spotbugs_clean_java_code/result_Spotbugs_147/seed_Spotbugs_147.java:3: error: cannot find symbol\n        List<Integer> numbers = new ArrayList<>();\n                                    ^\n  symbol:   class ArrayList\n  location: class FB_UNEXPECTED_WARNING\n../spotbugs_clean_java_code/result_Spotbugs_147/seed_Spotbugs_147.java:13: error: incompatible types: unexpected return value\n        return numbers.size();\n                           ^\n../spotbugs_clean_java_code/result_Spotbugs_147/seed_Spotbugs_147.java:13: error: cannot find symbol\n        return numbers.size();\n               ^\n  symbol:   variable numbers\n  location: class FB_UNEXPECTED_WARNING\n4 errors\n",
+  "Trigger_Explanation": "The test case triggers the bug by calling the `showBug()` method, which returns the unexpected value.",
+  "Trigger_Line": [
+    10,
+    20
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

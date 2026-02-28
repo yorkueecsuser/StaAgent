@@ -1,0 +1,43 @@
+import java.util.Optional;
+
+class OptionalBugExample {
+
+    // Method with Optional return type that incorrectly returns explicit null
+    public Optional<String> getOptionalValue(boolean returnNull) {
+        if (returnNull) {
+            return null; // BUG: NP: Method with Optional return type returns explicit null (NP_OPTIONAL_RETURN_NULL) 
+        }
+        return Optional.of("Valid Value");
+    }
+
+    // Public method to demonstrate the bug
+    public String showBug(boolean returnNull) {
+        Optional<String> result = getOptionalValue(returnNull);
+        if (result!= null) {
+            return result.orElse("Default Value");
+        } else {
+            return "Null Returned";
+        }
+
+        // Mutated code: Inserting unreachable if-else branch
+        boolean shouldRun = getCondition();
+        if (shouldRun) {
+            // This block is intended to be unreachable
+            return "Unreachable Code";
+        } else {
+            // This block is also intended to be unreachable
+            return "More Unreachable Code";
+        }
+    }
+
+    // Helper method to provide a dynamic condition for the mutant
+    private boolean getCondition() {
+        return false; // This method always returns false, making the if-else block unreachable
+    }
+
+    public static void main(String[] args) {
+        OptionalBugExample example = new OptionalBugExample();
+        System.out.println(example.showBug(true));  // This will demonstrate the bug
+        System.out.println(example.showBug(false)); // This will not demonstrate the bug
+    }
+}

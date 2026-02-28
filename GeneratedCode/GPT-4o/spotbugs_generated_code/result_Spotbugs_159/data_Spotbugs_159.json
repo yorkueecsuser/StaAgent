@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "XSS: Servlet reflected cross site scripting vulnerability (XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER)\uf0c1",
+  "Bug_Details": "This code directly writes an HTTP parameter to Servlet output, which allows for a reflected cross site scripting\nvulnerability. See http://en.wikipedia.org/wiki/Cross-site_scripting\nfor more information. SpotBugs looks only for the most blatant, obvious cases of cross site scripting.\nIf SpotBugs found any, you almost certainly have more cross site scripting\nvulnerabilities that SpotBugs doesn't report. If you are concerned about cross site scripting, you should seriously\nconsider using a commercial static analysis or pen-testing tool.\n",
+  "Bug_Explanation": "This code directly writes an HTTP parameter to Servlet output, which allows for a reflected cross site scripting vulnerability by not sanitizing the user input before writing it to the response.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by providing a malicious input that includes a script tag. The showBug method directly writes this input to the response writer without sanitization, which causes a reflected XSS vulnerability.",
+  "Trigger_Line": [
+    23
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

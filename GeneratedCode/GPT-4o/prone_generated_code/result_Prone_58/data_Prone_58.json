@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "FuturesGetCheckedIllegalExceptionType",
+  "Bug_Details": "Futures.getChecked requires a checked exception type with a standard constructor. The passed exception type must not be a RuntimeException, and it must expose a\npublic constructor whose only parameters are of type String or Throwable.\ngetChecked will reject any other type with an IllegalArgumentException.",
+  "Bug_Explanation": "The code demonstrates the Futures.getChecked requiring a checked exception type with a standard constructor. The InvalidExceptionType is used, which does not have the required constructor with String or Throwable, and thus causes an IllegalArgumentException when used with getChecked.",
+  "Buggy_Line": [
+    24
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method, which attempts to invoke getChecked with an InvalidExceptionType. This type does not have the required constructor (String or Throwable), leading to an IllegalArgumentException being thrown, thus triggering the bug.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 1.008\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed successfully with 'OK (1 test)'. There is no evidence of an IllegalArgumentException or any other exception being thrown, which would indicate the bug was triggered."
+}

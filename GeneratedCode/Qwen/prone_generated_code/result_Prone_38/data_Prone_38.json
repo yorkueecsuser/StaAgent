@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "DuplicateBranches",
+  "Bug_Details": "Both branches contain identical code Branching constructs (if statements, conditional expressions) should contain\ndifference code in the two branches. Repeating identical code in both branches\nis usually a bug. For example: condition ? same : same condition ? same : same if (condition) {\n  same();\n} else {\n  same();\n} if (condition) {\n  same();\n} else {\n  same();\n} this usually indicates a typo where one of the branches was supposed to contain\ndifferent logic: condition ? something : somethingElse condition ? something : somethingElse if (condition) {\n  doSomething();\n} else {\n  doSomethingElse();\n} if (condition) {\n  doSomething();\n} else {\n  doSomethingElse();\n}",
+  "Bug_Explanation": "The bug is embedded in the showBug method where both branches of the if-else statement call the same method computeValue(). This indicates a potential typo or logical error where different actions were intended for each branch.",
+  "Buggy_Line": [
+    5,
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test cases call the showBug method with both true and false conditions. Since both branches of the if-else statement in the showBug method call the same method computeValue(), the test cases will pass but they highlight the bug by showing that the behavior is identical regardless of the condition.",
+  "Trigger_Line": [
+    10,
+    14
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.008\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that both tests passed, indicating that the method'showBug' returned the expected value of 42 for both true and false conditions. However, these results alone do not confirm the presence of the bug because they only show that the identical code in both branches produces the expected output. The bug rule specifies that duplicate branches containing identical code is usually a bug, but the test results do not provide evidence that the bug caused an incorrect behavior."
+}

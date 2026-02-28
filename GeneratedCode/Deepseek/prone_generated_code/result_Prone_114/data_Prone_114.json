@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "MoreThanOneInjectableConstructor",
+  "Bug_Details": "This class has more than one @Inject-annotated constructor. Please remove the @Inject annotation from all but one of them. Injection frameworks may use @Inject to determine how to construct an object\nin the absence of other instructions. Annotating @Inject on a constructor\ntells the injection framework to use that constructor. However, if multiple\n@Inject constructors exist, injection frameworks can\u2019t reliably choose between\nthem.",
+  "Bug_Explanation": "The class 'MoreThanOneInjectableConstructor' has two injectable constructors, which can lead to ambiguity when the injection framework tries to decide which constructor to use. Only one constructor should be annotated with '@Inject' to solve this bug.",
+  "Buggy_Line": [
+    20
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_114/seed_Prone_114.java:1: error: package javax.inject does not exist\nimport javax.inject.Inject;\n                   ^\n../prone_clean_java_code/result_Prone_114/seed_Prone_114.java:6: error: cannot find symbol\n    @Inject\n     ^\n  symbol:   class Inject\n  location: class MoreThanOneInjectableConstructor\n../prone_clean_java_code/result_Prone_114/seed_Prone_114.java:11: error: cannot find symbol\n    @Inject\n     ^\n  symbol:   class Inject\n  location: class MoreThanOneInjectableConstructor\n3 errors\n",
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The provided Java code contains a bug as per the provided bug description. The class 'MoreThanOneInjectableConstructor' has more than one @Inject-annotated constructor. This can cause issues with injection frameworks as they cannot reliably choose between them. The bug can be fixed by removing the @Inject annotation from all but one of the constructors."
+}

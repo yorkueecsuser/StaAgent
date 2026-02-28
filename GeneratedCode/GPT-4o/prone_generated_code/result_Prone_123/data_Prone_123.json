@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "NullableOnContainingClass",
+  "Bug_Details": "Type-use nullability annotations should annotate the inner class, not the outer class (e.g., write `A.@Nullable B` instead of `@Nullable A.B`). The correct syntax to apply a TYPE_USE annotation to an inner class is\nA.@Nullable B. For a TYPE_USE @Nullable annotation, @Nullable A.B is legal Java if B is\na non-static inner class: class A {\n  @Target(TYPE_USE)\n  @interface Nullable {}\n\n  class B {}\n  static class C {}\n\n  void test(A.@Nullable B x) {} // B is annotated ('A' is the enclosing instance type)\n  void test(A.@Nullable C x) {} // C is annotated ('A' is a 'scoping construct' here)\n} class A {\n  @Target(TYPE_USE)\n  @interface Nullable {}\n\n  class B {}\n  static class C {}\n\n  void test(A.@Nullable B x) {} // B is annotated ('A' is the enclosing instance type)\n  void test(A.@Nullable C x) {} // C is annotated ('A' is a 'scoping construct' here)\n} void test(@Nullable A.B x) {} // compiles, but likely incorrect: annotates the enclosing instance type 'A', which can never be null\n  void test(@Nullable A.C x) {} // compile error: 'A' cannot be annotated void test(@Nullable A.B x) {} // compiles, but likely incorrect: annotates the enclosing instance type 'A', which can never be null\n  void test(@Nullable A.C x) {} // compile error: 'A' cannot be annotated However, for @Nullable (and @NonNull, and friends), annotating the outer\nclass is meaningless. The reference to the outer class (A.this) can never be\nnull, so any nullability annotations are redundant.",
+  "Bug_Explanation": "The bug involves incorrect use of the @Nullable annotation. It should annotate the inner class, not the outer class. This is done using the syntax A.@Nullable B.",
+  "Buggy_Line": [
+    38,
+    47
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test cases use showBug and showBugStatic methods with null objects of InnerClass and StaticInnerClass respectively, triggering the incorrect use of the @Nullable annotation on OuterClass in the method signatures.",
+  "Trigger_Line": [
+    12,
+    22
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.StaticInnerClass instance method.\n.StaticInnerClass object is null.\n.InnerClass object is null.\n.InnerClass instance method.\n\nTime: 0.005\n\nOK (4 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that all tests passed successfully without any compilation errors or unexpected behavior. The tests involving null and non-null objects for both inner class and static inner class handled the null checks correctly and returned the expected output, indicating that the bug related to nullability annotations did not manifest during execution."
+}

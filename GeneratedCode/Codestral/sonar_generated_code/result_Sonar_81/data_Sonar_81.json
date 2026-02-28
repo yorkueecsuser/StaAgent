@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "\"getClass\" should not be used for synchronization",
+  "Bug_Details": "getClass should not be used for synchronization in non- final classes because child classes will synchronize on a\ndifferent object than the parent or each other, allowing multiple threads into the code block at once, despite the synchronized keyword.\nInstead, hard code the name of the class on which to synchronize or make the class final .\nNoncompliant code example\npublic class MyClass {\n  public void doSomethingSynchronized(){\n    synchronized (this.getClass()) {  // Noncompliant\n      // ...\n    }\n  }\nCompliant solution\npublic class MyClass {\n  public void doSomethingSynchronized(){\n    synchronized (MyClass.class) {\n      // ...\n    }\n  }",
+  "Bug_Explanation": "The 'getClass' method is used for synchronization, which can lead to multiple threads entering the code block simultaneously because child classes will synchronize on a different object than the parent or each other.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when both threads enter the synchronized block at the same time. This happens because the ChildClass synchronizes on a different object than the ParentClass or each other, despite the use of the synchronized keyword.",
+  "Trigger_Line": [
+    17
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.006\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run passed without any assertion errors, which means that both threads did not enter the synchronized block at the same time. This indicates that the synchronization mechanism using 'getClass' is working as intended, even with a child class extending MyClass. Therefore, the bug was not triggered in this test run."
+}

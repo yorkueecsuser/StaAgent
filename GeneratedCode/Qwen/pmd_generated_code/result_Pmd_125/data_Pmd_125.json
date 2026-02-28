@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "InsecureCryptoIv",
+  "Bug_Details": "Do not use hard coded initialization vector in cryptographic operations. Please use a randomly generated IV.\nExamples:\npublic class Foo {\n    void good() {\n        SecureRandom random = new SecureRandom();\n        byte iv[] = new byte[16];\n        random.nextBytes(bytes);\n    }\n\n    void bad() {\n        byte[] iv = new byte[] { 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, };\n    }\n\n    void alsoBad() {\n        byte[] iv = \"secret iv in here\".getBytes();\n    }\n}",
+  "Bug_Explanation": "The bug was embedded in the generated code by using a hardcoded initialization vector (IV) in the showBug method. This makes the encryption insecure as the same IV is used for every encryption operation.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug method of the InsecureCryptoExample class, which uses a hardcoded initialization vector (IV).",
+  "Trigger_Line": [
+    13
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.04\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that the test passed without any exceptions, indicating that the method'showBug' executed successfully with the hardcoded IV. However, the absence of an exception does not confirm the presence or absence of the bug itself, as the bug rule pertains to security practices rather than runtime errors. Therefore, based solely on the test results, we cannot confirm that the bug was triggered."
+}

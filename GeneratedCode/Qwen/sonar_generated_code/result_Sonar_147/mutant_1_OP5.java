@@ -1,0 +1,32 @@
+import java.math.BigDecimal;
+
+class BigDecimalBugDemo {
+
+    public BigDecimal showBug() {
+        BigDecimal bd = new BigDecimal(0.1); // BUG: "BigDecimal(double)" should not be used
+
+        // Introduced unreachable switch statement
+        boolean condition = getCondition();
+        switch (condition? 0 : 1) {
+            case 0:
+                // This case is unreachable because condition is always false
+                bd = new BigDecimal("0.2");
+                break;
+            case 1:
+                // This is the reachable case
+                break;
+        }
+
+        return bd;
+    }
+
+    private boolean getCondition() {
+        // This method returns false, making the switch statement's first case unreachable
+        return false;
+    }
+
+    public static void main(String[] args) {
+        BigDecimalBugDemo demo = new BigDecimalBugDemo();
+        System.out.println("BigDecimal value: " + demo.showBug());
+    }
+}

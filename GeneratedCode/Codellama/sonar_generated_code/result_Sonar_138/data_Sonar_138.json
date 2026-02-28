@@ -1,0 +1,11 @@
+{
+  "Bug_Title": "Classes extending java.lang.Thread should provide a specific \"run\" behavior",
+  "Bug_Details": "The default implementation of java.lang.Thread 's run will only perform a task passed as a Runnable . If no Runnable has been provided at construction time, then the thread will not perform any action.\nWhen extending java.lang.Thread , you should override the run method or pass a Runnable target to the\nconstructor of java.lang.Thread .\nNoncompliant code example\npublic class MyThread extends Thread { // Noncompliant\n  public void doSomething() {\n    System.out.println(\"Hello, World!\");\n  }\n}",
+  "Bug_Explanation": "The default implementation of java.lang.Thread's run method only performs a task passed as a Runnable. If no Runnable has been provided at construction time, then the thread will not perform any action. Therefore, this code does not provide a specific 'run' behavior and is not compliant.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case testBugTriggered triggers the bug by starting the MyThread instance without providing a specific run behavior. This causes the thread to not perform any action, and the assertion in the test case fails.",
+  "Trigger_Line": [
+    23
+  ]
+}

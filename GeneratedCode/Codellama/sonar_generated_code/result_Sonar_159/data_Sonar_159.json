@@ -1,0 +1,10 @@
+{
+  "Buggy_Line": [],
+  "Trigger_Explanation": "Calling Iterator.hasNext() is not supposed to have any side effects and hence should not change the iterator's state. Iterator.next() advances the iterator by one item. So calling it inside Iterator.hasNext() breaks the hasNext() contract and will lead to unexpected behavior in production.",
+  "Trigger_Line": [
+    22
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.001\nThere was 1 failure:\n1) initializationError(org.junit.runner.JUnitCommandLineParseResult)\njava.lang.IllegalArgumentException: Could not find class [IteratorBugTest]\n\tat org.junit.runner.JUnitCommandLineParseResult.parseParameters(JUnitCommandLineParseResult.java:100)\n\tat org.junit.runner.JUnitCommandLineParseResult.parseArgs(JUnitCommandLineParseResult.java:50)\n\tat org.junit.runner.JUnitCommandLineParseResult.parse(JUnitCommandLineParseResult.java:44)\n\tat org.junit.runner.JUnitCore.runMain(JUnitCore.java:72)\n\tat org.junit.runner.JUnitCore.main(JUnitCore.java:36)\nCaused by: java.lang.ClassNotFoundException: IteratorBugTest\n\tat java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)\n\tat java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)\n\tat java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)\n\tat java.base/java.lang.Class.forName0(Native Method)\n\tat java.base/java.lang.Class.forName(Class.java:534)\n\tat java.base/java.lang.Class.forName(Class.java:513)\n\tat org.junit.internal.Classes.getClass(Classes.java:42)\n\tat org.junit.internal.Classes.getClass(Classes.java:27)\n\tat org.junit.runner.JUnitCommandLineParseResult.parseParameters(JUnitCommandLineParseResult.java:98)\n\t... 4 more\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not demonstrate the bug was triggered. The failure is caused by a Java ClassNotFoundException, which means the test class 'IteratorBugTest' could not be found."
+}

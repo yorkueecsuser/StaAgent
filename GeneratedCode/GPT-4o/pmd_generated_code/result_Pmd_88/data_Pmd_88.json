@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "AvoidSynchronizedAtMethodLevel",
+  "Bug_Details": "Method-level synchronization will pin virtual threads and can cause performance problems. Additionally, it can cause\nproblems when new code is added to the method.  Block-level ReentrantLock helps to ensure that only the code that\nneeds mutual exclusion will be locked.\nExamples:\npublic class Foo {\n    // Try to avoid this:\n    synchronized void foo() {\n        // code, that doesn't need synchronization\n        // ...\n        // code, that requires synchronization\n        if (!sharedData.has(\"bar\")) {\n            sharedData.add(\"bar\");\n        }\n        // more code, that doesn't need synchronization\n        // ...\n    }\n    // Prefer this:\n    Lock instanceLock = new ReentrantLock();\n\n    void bar() {\n        // code, that doesn't need synchronization\n        // ...\n        try {\n            instanceLock.lock();  // or instanceLock.tryLock(long time, TimeUnit unit)\n            if (!sharedData.has(\"bar\")) {\n                sharedData.add(\"bar\");\n            }\n        } finally {\n            instanceLock.unlock();\n        }\n        // more code, that doesn't need synchronization\n        // ...\n    }\n\n    // Try to avoid this for static methods:\n    static synchronized void fooStatic() {\n    }\n\n    // Prefer this:\n    private static Lock CLASS_LOCK = new ReentrantLock();\n\n    static void barStatic() {\n        // code, that doesn't need synchronization\n        // ...\n        try {\n            CLASS_LOCK.lock();\n            // code, that requires synchronization\n        } finally {\n            CLASS_LOCK.unlock();\n        }\n        // more code, that doesn't need synchronization\n        // ...\n    }\n}",
+  "Bug_Explanation": "The method addDataIfAbsent uses method-level synchronization which can cause performance problems by pinning virtual threads and can lead to issues when additional code is added. This is because the entire method is locked rather than just the critical section.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug method with input that causes addDataIfAbsent method to exhibit poor performance due to method-level synchronization. The assertEquals check fails because the synchronization locks the entire method, leading to incorrect processing and unexpected results.",
+  "Trigger_Line": [
+    11
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Checking if data is absent...\nData processed: foo\nChecking if data is absent...\nData processed: bar\nChecking if data is absent...\nData processed: foo\n\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully with 'OK (1 test)', which means the expected failure due to the synchronization issue did not occur. Therefore, the test results do not confirm the bug was triggered."
+}

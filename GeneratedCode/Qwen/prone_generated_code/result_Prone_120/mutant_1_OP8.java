@@ -1,0 +1,43 @@
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.reflect.Method;
+
+@Retention(RetentionPolicy.SOURCE) // This annotation is not retained at runtime
+@interface NonRuntime {
+    String value();
+}
+
+class AnnotationBugDemo {
+
+    @NonRuntime("This is a non-runtime annotation")
+    public void someMethod() {
+        // Method implementation
+    }
+
+    public String showBug() {
+        try {
+            Method method = this.getClass().getMethod("someMethod");
+            NonRuntime annotation = method.getAnnotation(NonRuntime.class); // BUG: NonRuntimeAnnotation
+            return annotation!= null? annotation.value() : "Annotation not found";
+        } catch (NoSuchMethodException e) {
+            return "Method not found";
+        }
+    }
+
+    // Mutant code with renaming of variable 'annotation' to 'a'
+    public String showBugMutant() {
+        try {
+            Method m = this.getClass().getMethod("someMethod");
+            NonRuntime a = m.getAnnotation(NonRuntime.class); // Mutant: Renamed 'annotation' to 'a'
+            return a!= null? a.value() : "Annotation not found";
+        } catch (NoSuchMethodException e) {
+            return "Method not found";
+        }
+    }
+
+    public static void main(String[] args) {
+        AnnotationBugDemo demo = new AnnotationBugDemo();
+        System.out.println(demo.showBug());
+        System.out.println(demo.showBugMutant()); // Added call to mutant method
+    }
+}

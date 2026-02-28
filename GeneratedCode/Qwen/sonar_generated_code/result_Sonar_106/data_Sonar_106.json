@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "\"wait(...)\" should be used instead of \"Thread.sleep(...)\" when a lock is held",
+  "Bug_Details": "In a multithreaded environment, a thread may need to wait for a particular condition to become true. One way of pausing execution in Java is Thread.sleep(\u2026\u200b) .\nIf a thread that holds a lock calls Thread.sleep(\u2026\u200b) , no other thread can acquire said lock. This can lead to performance and\nscalability issues, in the worst case leading to deadlocks.",
+  "Bug_Explanation": "The bug is embedded in the generated code by using Thread.sleep(...) while holding a lock. This prevents other threads from acquiring the lock, which can lead to performance issues and potential deadlocks.",
+  "Buggy_Line": [
+    14
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by calling the showBug method on an instance of LockAndSleepExample. The method uses Thread.sleep while holding a lock, which causes the test to fail due to the condition not being met in a timely manner, demonstrating the performance issue caused by not using wait().",
+  "Trigger_Line": [
+    11,
+    18
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

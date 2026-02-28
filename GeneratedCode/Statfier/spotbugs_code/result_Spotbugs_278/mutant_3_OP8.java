@@ -1,0 +1,34 @@
+import edu.umd.cs.findbugs.annotations.ExpectWarning;
+import edu.umd.cs.findbugs.annotations.NoWarning;
+import java.io.InputStream;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
+class Bug3408935<M extends Map<?,?> & Serializable> implements Serializable {
+  /** for serialization */
+  private static final long serialVersionUID = -8603570283435014163L;
+
+  /** Ambiguous case; no warning */
+  public Map<?,?> obj1;
+  public Map<?,?> x; // Renamed obj1 to x
+
+  @ExpectWarning("SE_BAD_FIELD")
+  InputStream is;
+  InputStream y; // Renamed is to y
+
+  /** correctly doesn't trigger the warning */
+  @NoWarning("SE_BAD_FIELD")
+  public Serializable obj2;
+  public Serializable z; // Renamed obj2 to z
+
+  /** correctly doesn't trigger the warning */
+  @NoWarning("SE_BAD_FIELD")
+  public HashMap<?,?> obj3;
+  public HashMap<?,?> w; // Renamed obj3 to w
+
+  /** incorrectly triggers the warning: this type (M) is serializable */
+  @NoWarning("SE_BAD_FIELD")
+  public M obj4;
+  public M v; // Renamed obj4 to v
+}

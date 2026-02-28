@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "AvoidCatchingNPE",
+  "Bug_Details": "Code should never throw NullPointerExceptions under normal circumstances.  A catch block may hide the\noriginal error, causing other, more subtle problems later on.\nExamples:\npublic class Foo {\n    void bar() {\n        try {\n            // do something\n        } catch (NullPointerException npe) {\n        }\n    }\n}",
+  "Bug_Explanation": "The code does not check if the input string is null before calling toLowerCase(), which may throw a NullPointerException. The catch block is hiding the original error, which could lead to other, more subtle problems later on.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case 'testShowBugWithNullInput' calls the'showBug' method with a null input, which triggers a NullPointerException on line 4 of the 'Foo' class.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed without any exceptions, which means that the NullPointerException was caught and handled in the code. This indicates that the bug was not triggered in this test case."
+}

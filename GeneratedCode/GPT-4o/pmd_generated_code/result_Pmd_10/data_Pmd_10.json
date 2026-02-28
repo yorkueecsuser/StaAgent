@@ -1,0 +1,19 @@
+{
+  "Bug_Title": "AvoidDuplicateLiterals",
+  "Bug_Details": "Code containing duplicate String literals can usually be improved by declaring the String as a constant field.\nExamples:\nprivate void bar() {\n     buz(\"Howdy\");\n     buz(\"Howdy\");\n     buz(\"Howdy\");\n     buz(\"Howdy\");\n}\nprivate void buz(String x) {}",
+  "Bug_Explanation": "The code contains duplicate string literals 'Hello, World!' that are used multiple times in the 'buz' method calls. This can lead to maintenance issues and increased memory usage, as each occurrence of the literal creates a new instance in the string pool.",
+  "Buggy_Line": [
+    10,
+    11,
+    12,
+    13
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the method `showBug` from the `DuplicateStringLiteralsExample` class, which contains multiple duplicate string literals 'Hello, World!' that are not declared as constants. This violates the AvoidDuplicateLiterals rule, triggering the bug.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Hello, World!\nHello, World!\nHello, World!\nHello, World!\n\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the program executed without errors and printed 'Hello, World!' four times, which matches the expected behavior of the code. There is no indication from the test results that the presence of duplicate string literals caused any issues during execution."
+}

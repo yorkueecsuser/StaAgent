@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "The signature of \"finalize()\" should match that of \"Object.finalize()\"",
+  "Bug_Details": "Object.finalize() is called by the Garbage Collector at some point after the object becomes unreferenced.\nIn general, overloading Object.finalize() is a bad idea because:\nThe overload may not be called by the Garbage Collector. Users are not expected to call Object.finalize() and will get confused.\nThe overload may not be called by the Garbage Collector.\nUsers are not expected to call Object.finalize() and will get confused.\nBut beyond that it\u2019s a terrible idea to name a method \"finalize\" if it doesn\u2019t actually override Object.finalize() .\nNoncompliant code example\npublic int finalize(int someParameter) {        // Noncompliant\n  /* ... */\n}\nCompliant solution\npublic int someBetterName(int someParameter) {  // Compliant\n  /* ... */\n}",
+  "Bug_Explanation": "The 'finalize' method in BuggyClass is overloaded, not overridden from Object.finalize(). This is a bad practice as it may confuse users and the Garbage Collector may not call this method as expected.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when the `showBug()` method of the `FinalizeBug` class is called. This method contains a line that invokes the `finalize()` method of `BuggyClass` with an argument. However, the `finalize()` method in `BuggyClass` does not match the signature of `Object.finalize()`, which is a void method without any parameters. This mismatch in the method signature is a bad practice that may confuse users and the Garbage Collector.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.10\nE\nTime: 0.005\nThere was 1 failure:\n1) testShowBug(FinalizeBugTest)\njava.lang.AssertionError\n\tat org.junit.Assert.fail(Assert.java:87)\n\tat org.junit.Assert.assertTrue(Assert.java:42)\n\tat org.junit.Assert.assertTrue(Assert.java:53)\n\tat FinalizeBugTest.testShowBug(FinalizeBugTest.java:9)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test failed due to an AssertionError on line 9, not because of the bug in the Java code. The bug in the Java code was not triggered as it did not affect the execution of the test case."
+}

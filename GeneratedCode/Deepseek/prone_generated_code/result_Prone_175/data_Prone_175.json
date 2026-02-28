@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "WrongOneof",
+  "Bug_Details": "This field is guaranteed not to be set given it's within a switch over a one_of. When switching over a proto one_of, getters that don\u2019t match the current case\nare guaranteed to be return a default instance: switch (foo.getBlahCase()) {\n  case FOO:\n    return foo.getFoo();\n  case BAR:\n    return foo.getFoo(); // should be foo.getBar()\n} switch (foo.getBlahCase()) {\n  case FOO:\n    return foo.getFoo();\n  case BAR:\n    return foo.getFoo(); // should be foo.getBar()\n}",
+  "Bug_Explanation": "The bug is caused by the developer trying to access the wrong field using the getter method for the oneof field. It is guaranteed to return a default instance if the getter doesn't match the current case. For instance, in the case of BAR, the developer is trying to access foo using the getFoo() method instead of getBar().",
+  "Buggy_Line": [
+    36,
+    38
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The bug is present in the code. The method'showBug' is supposed to return the value of either 'foo' or 'bar' based on the value of 'blah'. However, in the switch statement, it always returns the value of 'foo' regardless of the value of 'blah'. This is because the getter for 'bar' is not being called when 'blah' is BAR. The correct code should be'return foo.getBar();' instead of'return foo.getFoo();'."
+}

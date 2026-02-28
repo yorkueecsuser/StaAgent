@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "Classes that don't define \"hashCode()\" should not be used in hashes",
+  "Bug_Details": "Because Object implements hashCode , any Java class can be put into a hash structure. However, classes that define equals(Object) but not hashCode() aren\u2019t truly hash-able because instances that are equivalent according to the equals method can return different hashes.\nNoncompliant code example\npublic class Student {  // no hashCode() method; not hash-able\n  // ...\n\n  public boolean equals(Object o) {\n    // ...\n  }\n}\n\npublic class School {\n  private Map<Student, Integer> studentBody = // okay so far\n          new HashTable<Student, Integer>(); // Noncompliant\n\n  // ...\nCompliant solution\npublic class Student {  // has hashCode() method; hash-able\n  // ...\n\n  public boolean equals(Object o) {\n    // ...\n  }\n  public int hashCode() {\n    // ...\n  }\n}\n\npublic class School {\n  private Map<Student, Integer> studentBody = new HashTable<Student, Integer>();\n\n  // ...",
+  "Bug_Explanation": "The Student class does not define a hashCode() method, which means that it cannot be correctly used in a HashMap or HashSet. This can lead to unexpected behavior, such as when trying to retrieve a value from the map using an object that is equal to an existing key but has a different hash code.",
+  "Buggy_Line": [
+    21
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when trying to retrieve the student id for 'johnClone'. This is because the 'Student' class does not define a 'hashCode()' method, which is required for correct hash operation. Since 'john' and 'johnClone' are considered equal but have different hash values due to using 'Object's default 'hashCode()' implementation, the 'getStudentId' method will fail to find 'johnClone' in the hashmap.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

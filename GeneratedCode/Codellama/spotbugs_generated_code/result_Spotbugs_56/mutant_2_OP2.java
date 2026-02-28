@@ -1,0 +1,40 @@
+import java.io.Closeable;
+
+class NullPointerBug {
+    public static void main(String[] args) {
+        Closeable resource = null;
+        try {
+            // BUG: NP: close() invoked on a value that is always null (NP_CLOSING_NULL)
+            resource.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+// Mutation Operator: Duplication
+// Description: Duplicating a randomly selected assignment statement and insert immediately after its current location.
+// Core Requirements:
+// 1. Generated mutated Java code MUST maintain the original code (the original code must be left in place, do not remove from it only add code to it).
+// 2. Generated mutated Java code MUST compile successfully.
+// 3. Mutant code being added MUST be unique not generic.
+// 4. Generated mutated Java code MUST maintain all original import and package statements to ensure successful compilation.
+// 5. Generated mutated Java code MUST avoid unreachable statement error.
+
+// Mutated Java Code:
+import java.io.Closeable;
+
+class NullPointerBug {
+    public static void main(String[] args) {
+        Closeable resource = null;
+        try {
+            // BUG: NP: close() invoked on a value that is always null (NP_CLOSING_NULL)
+            resource.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Duplicated assignment statement
+        resource = null;
+    }
+}

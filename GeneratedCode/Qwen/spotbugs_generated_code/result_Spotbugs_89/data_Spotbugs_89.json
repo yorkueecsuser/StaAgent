@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "SA: Nonsensical self computation involving a field (e.g., x & x) (SA_FIELD_SELF_COMPUTATION)\uf0c1",
+  "Bug_Details": " This method performs a nonsensical computation of a field with another\nreference to the same field (e.g., x&x or x-x). Because of the nature\nof the computation, this operation doesn't seem to make sense,\nand may indicate a typo or a logic error. Double-check the computation.\n",
+  "Bug_Explanation": "The bug was embedded in the generated code by performing a nonsensical self-computation involving a field. Specifically, the line 'int result = value & value;' computes the bitwise AND of the field 'value' with itself, which is logically redundant and likely indicates a typo or logic error.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by calling the `showBug` method of the `FieldSelfComputationBug` class. The method performs a nonsensical self-computation (`value & value`), which is logically redundant and likely indicates a typo or logic error. The test case asserts that the result should be 5, but if the intended logic was different, this assertion will fail, thereby demonstrating the presence of the bug.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed successfully without any failures. The assertion in the test code checks if the result of the nonsensical computation is equal to 5, and it passes, suggesting that the computation indeed returns the original value (5 & 5 equals 5). While the computation is nonsensical as per the bug rule, the test does not fail, indicating that the bug does not cause an unexpected behavior in this context."
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "BOA: Class overrides a method implemented in super class Adapter wrongly (BOA_BADLY_OVERRIDDEN_ADAPTER)\uf0c1",
+  "Bug_Details": " This method overrides a method found in a parent class, where that class is an Adapter that implements\na listener defined in the java.awt.event or javax.swing.event package. As a result, this method will not\nget called when the event occurs.",
+  "Bug_Explanation": "The ButtonListener class overrides the actionPerformed method from ActionListener. However, this method will not get called when the button is clicked because the BuggyFrame class adds an instance of ButtonListener to the button's action listeners, not the ButtonListener class itself. The actionPerformed method should be overridden in the BuggyFrame class instead.",
+  "Buggy_Line": [
+    21
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test simulates a button click event using the `simulateButtonClick()` method. This triggers the bug because the `ButtonListener` class in the `BuggyFrame` class overrides the `actionPerformed()` method from `ActionListener`, but this method is not actually called when the button is clicked.",
+  "Trigger_Line": [
+    15,
+    22
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

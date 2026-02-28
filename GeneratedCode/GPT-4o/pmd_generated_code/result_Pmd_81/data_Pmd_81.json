@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "UnnecessaryConversionTemporary",
+  "Bug_Details": "Avoid the use temporary objects when converting primitives to Strings. Use the static conversion methods\non the wrapper classes instead.\nExamples:\npublic String convert(int x) {\n    String foo = new Integer(x).toString(); // this wastes an object\n\n    return Integer.toString(x);             // preferred approach\n}",
+  "Bug_Explanation": "The code converts an integer to a string using a temporary Integer object, which is unnecessary and inefficient. The line 'String result = new Integer(number).toString();' creates an unnecessary temporary Integer object to convert the int value to a String.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBugFails method is designed to fail by expecting a different result from the showBug method. This failure illustrates the inefficiency of the showBug method, highlighting the unnecessary creation of a temporary Integer object.",
+  "Trigger_Line": [
+    12,
+    19
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E.\nTime: 0.005\nThere was 1 failure:\n1) testShowBugFails(PrimitiveConversionExampleTest)\norg.junit.ComparisonFailure: expected:<[456]> but was:<[123]>\n\tat org.junit.Assert.assertEquals(Assert.java:117)\n\tat org.junit.Assert.assertEquals(Assert.java:146)\n\tat PrimitiveConversionExampleTest.testShowBugFails(PrimitiveConversionExampleTest.java:19)\n\nFAILURES!!!\nTests run: 2,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not confirm the bug triggering. The failure in testShowBugFails is due to a mismatch in expected and actual values, not due to the creation of a temporary object."
+}

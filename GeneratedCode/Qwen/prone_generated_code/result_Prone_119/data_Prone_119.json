@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "NonFinalCompileTimeConstant",
+  "Bug_Details": "@CompileTimeConstant parameters should be final or effectively final If a method\u2019s formal parameter is annotated with @CompileTimeConstant, the\nmethod will always be invoked with an argument that is a static constant. If the\nparameter itself is non-final, then it is a mutable reference to immutable data.\nThis is rarely useful, and can be confusing when trying to use the parameter in\na context that requires an compile-time constant. For example: void f(@CompileTimeConstant y) {}\nvoid g(@CompileTimeConstant x) {\n  x = f(x); // x is not a constant\n} void f(@CompileTimeConstant y) {}\nvoid g(@CompileTimeConstant x) {\n  x = f(x); // x is not a constant\n}",
+  "Bug_Explanation": "The bug is embedded in the generated code by having a method parameter annotated with @CompileTimeConstant that is reassigned within the method. This violates the intended use of @CompileTimeConstant, which should be treated as a final or effectively final variable.",
+  "Buggy_Line": [
+    15
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_119/seed_Prone_119.java:15: error: incompatible types: void cannot be converted to String\n        x = f(x); // BUG: NonFinalCompileTimeConstant\n             ^\n1 error\n",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method of NonFinalCompileTimeConstantExample, which internally calls g with a non-final variable, triggering the NonFinalCompileTimeConstant bug.",
+  "Trigger_Line": [
+    28
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

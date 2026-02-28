@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "\"Iterator.hasNext()\" should not call \"Iterator.next()\"",
+  "Bug_Details": "Calling Iterator.hasNext() is not supposed to have any side effects and hence should not change the iterator\u2019s state. Iterator.next() advances the iterator by one item. So calling it inside Iterator.hasNext() breaks the hasNext() contract and will lead to unexpected behavior in production.",
+  "Bug_Explanation": "The bug is present in the while loop where 'iterator.hasNext()' is being misused to call 'iterator.next()' inside it. This causes the iterator to advance unexpectedly, leading to unpredictable behavior.",
+  "Buggy_Line": [
+    21
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by expecting a specific output that matches the incorrect behavior caused by calling 'iterator.next()' inside 'iterator.hasNext()', which leads to unexpected results by advancing the iterator improperly.",
+  "Trigger_Line": [
+    15
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.007\nThere was 1 failure:\n1) testShowBug(IteratorExampleTest)\njava.lang.NullPointerException\n\tat java.base/java.util.Objects.requireNonNull(Objects.java:233)\n\tat java.base/java.util.ImmutableCollections.listFromTrustedArray(ImmutableCollections.java:215)\n\tat java.base/java.util.List.of(List.java:1130)\n\tat IteratorExampleTest.testShowBug(IteratorExampleTest.java:18)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate a NullPointerException due to an issue with the List.of() method in the test setup, not due to the bug described in the code implementation."
+}

@@ -1,0 +1,15 @@
+class RegexGraphemeClusterDemo {
+
+    public String showBug(String input) {
+        // Dead Store: Inserting an unused variable declaration
+        int abcdefgh = 42; // Dead store variable
+        // BUG: Unicode Grapheme Clusters should be avoided inside regex character classes
+        return input.replaceAll("[c̈d̈]", "X"); // BUG: Unicode Grapheme Clusters should be avoided inside regex character classes
+    }
+
+    public static void main(String[] args) {
+        RegexGraphemeClusterDemo demo = new RegexGraphemeClusterDemo();
+        String result = demo.showBug("cc̈d̈d");
+        System.out.println("Result with bug: " + result); // Expected "cXXd", but will print "XXXXXX"
+    }
+}

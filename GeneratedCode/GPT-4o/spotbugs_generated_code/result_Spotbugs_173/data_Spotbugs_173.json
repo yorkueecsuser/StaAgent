@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "FI: Finalizer should be protected, not public (FI_PUBLIC_SHOULD_BE_PROTECTED)\uf0c1",
+  "Bug_Details": " A class's finalize() method should have protected access,\n not public. finalize()",
+  "Bug_Explanation": "The finalize method is declared as public, which violates the rule that it should be protected to prevent inappropriate access and misuse from outside the class.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls showBug, which sets up a scenario where the finalize method is incorrectly accessed due to its public access level. This triggers the bug by allowing inappropriate access to the finalize method.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Finalize method called\nE\nTime: 0.014\nThere was 1 failure:\n1) testShowBug(FinalizerAccessExampleTest)\njava.lang.AssertionError: Expected null due to incorrect finalize method access expected null, but was:<Finalize method might be called if the object is garbage collected.>\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat org.junit.Assert.failNotNull(Assert.java:756)\n\tat org.junit.Assert.assertNull(Assert.java:738)\n\tat FinalizerAccessExampleTest.testShowBug(FinalizerAccessExampleTest.java:10)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show a failure due to an assertion error expecting null, but the actual result was a non-null string. This indicates that the finalize method being public did not cause the expected behavior of returning null, thus not confirming the bug was triggered."
+}

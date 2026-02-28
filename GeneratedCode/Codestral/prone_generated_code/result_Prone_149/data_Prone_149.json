@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "SelfAssignment",
+  "Bug_Details": "Variable assigned to itself The left-hand side and right-hand side of this assignment are the same. It has\nno effect. This also handles assignments in which the right-hand side is a call to\nPreconditions.checkNotNull(), which returns the variable that was checked for\nnon-nullity. If you just intended to check that the variable is non-null, please\ndon\u2019t assign the result to the checked variable; just call\nPreconditions.checkNotNull() as a bare statement.",
+  "Bug_Explanation": "The variable 'x' is assigned to itself, which has no effect.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testSelfAssignmentBug method calls the showBug method, which contains the buggy line 'x = x;'. This line has no effect, but the test case expects the output to be 'Value of x after self assignment: 10'. Since the bug causes the output to remain unchanged, the assertion in the test case fails, triggering the bug.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.009\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test execution results show that all tests passed (OK (1 test)). This means that the expected output 'Value of x after self assignment: 10' matches the actual output, indicating that the bug was not triggered."
+}

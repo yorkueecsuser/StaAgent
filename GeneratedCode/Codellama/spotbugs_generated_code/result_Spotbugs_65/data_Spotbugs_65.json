@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "NP: Method may return null, but is declared @Nonnull (NP_NONNULL_RETURN_VIOLATION)\uf0c1",
+  "Bug_Details": "\nThis method may return a null value, but the method (or a superclass method\nwhich it overrides) is declared to return @Nonnull.\n",
+  "Bug_Explanation": "The bug was embedded in the `getNonNullString()` method by declaring it as `@Nonnull`, while the method's return statement returns a null value.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../spotbugs_clean_java_code/result_Spotbugs_65/seed_Spotbugs_65.java:1: error: cannot find symbol\nimport java.lang.annotation.Nonnull;\n                           ^\n  symbol:   class Nonnull\n  location: package java.lang.annotation\n../spotbugs_clean_java_code/result_Spotbugs_65/seed_Spotbugs_65.java:5: error: cannot find symbol\n    @Nonnull\n     ^\n  symbol:   class Nonnull\n  location: class BuggyCode\n2 errors\n",
+  "Trigger_Explanation": "The test case triggers the bug by calling the `getNonNullString()` method, which returns null, and then asserting that the returned value is null using the `assertNull()` method.",
+  "Trigger_Line": [
+    12
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

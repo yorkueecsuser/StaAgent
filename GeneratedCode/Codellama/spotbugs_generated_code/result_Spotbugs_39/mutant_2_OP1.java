@@ -1,0 +1,11 @@
+class BadEqual {
+    @Override
+    public boolean equals(Object obj) { // BUG: Nm: Class defines equal(Object); should it be equals(Object)? (NM_BAD_EQUAL)
+        int randomInt = 10; // Dead Store
+        return false;
+    }
+
+    public void showBug() {
+        System.out.println("Bug: equal(Object) method is not overriding the equals(Object) method.");
+    }
+}

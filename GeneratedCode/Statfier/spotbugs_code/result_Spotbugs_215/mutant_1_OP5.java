@@ -1,0 +1,109 @@
+import edu.umd.cs.findbugs.annotations.Confidence;
+import edu.umd.cs.findbugs.annotations.ExpectWarning;
+import edu.umd.cs.findbugs.annotations.NoWarning;
+
+class Bug3571969 {
+
+  String r;
+
+  public static void main(String[] args) {
+    Bug3571969 test = new Bug3571969();
+    String s = args[0] + args[1];
+    test.r = s;
+    System.out.println(test.test1a(s));
+    System.out.println(test.test2a(s));
+    System.out.println(test.test3a(s));
+    System.out.println(test.test4a(s));
+    System.out.println(test.test1b());
+    System.out.println(test.test2b());
+    System.out.println(test.test3b());
+    System.out.println(test.test4b());
+    System.out.println(test.test1c());
+    System.out.println(test.test2c());
+    System.out.println(test.test3c());
+    System.out.println(test.test4c());
+
+    // Introduced unreachable switch statement
+    boolean condition = false;
+    switch (getValue()) {
+      case 1:
+        System.out.println("This will never be printed");
+        break;
+      default:
+        System.out.println("This will also never be printed");
+        break;
+    }
+  }
+
+  private static int getValue() {
+    return 0; // This ensures the switch condition is always 0, making it unreachable
+  }
+
+  @NoWarning(value = "ES_COMPARING_STRINGS_WITH_EQ", confidence = Confidence.LOW)
+  @ExpectWarning(value = "ES_COMPARING_PARAMETER_STRING_WITH_EQ", confidence = Confidence.MEDIUM)
+  public boolean test1a(String s) {
+    return s == "test";
+  }
+
+  @NoWarning(value = "ES_COMPARING_STRINGS_WITH_EQ", confidence = Confidence.LOW)
+  @ExpectWarning(value = "ES_COMPARING_PARAMETER_STRING_WITH_EQ", confidence = Confidence.MEDIUM)
+  public boolean test2a(String s) {
+    return "test" == s;
+  }
+
+  @NoWarning(value = "ES_COMPARING_STRINGS_WITH_EQ", confidence = Confidence.LOW)
+  @ExpectWarning(value = "ES_COMPARING_PARAMETER_STRING_WITH_EQ", confidence = Confidence.MEDIUM)
+  public boolean test3a(String s) {
+    return "test"!= s;
+  }
+
+  @NoWarning(value = "ES_COMPARING_STRINGS_WITH_EQ", confidence = Confidence.LOW)
+  @ExpectWarning(value = "ES_COMPARING_PARAMETER_STRING_WITH_EQ", confidence = Confidence.MEDIUM)
+  public boolean test4a(String s) {
+    return s!= "test";
+  }
+
+  @ExpectWarning(value = "ES_COMPARING_STRINGS_WITH_EQ", confidence = Confidence.LOW)
+  public boolean test1b() {
+    return r == "test";
+  }
+
+  @ExpectWarning(value = "ES_COMPARING_STRINGS_WITH_EQ", confidence = Confidence.LOW)
+  public boolean test2b() {
+    return "test" == r;
+  }
+
+  @ExpectWarning(value = "ES_COMPARING_STRINGS_WITH_EQ", confidence = Confidence.LOW)
+  public boolean test3b() {
+    return "test"!= r;
+  }
+
+  @ExpectWarning(value = "ES_COMPARING_STRINGS_WITH_EQ", confidence = Confidence.LOW)
+  public boolean test4b() {
+    return r!= "test";
+  }
+
+  @ExpectWarning(value = "ES_COMPARING_STRINGS_WITH_EQ", confidence = Confidence.LOW)
+  public boolean test1c() {
+    if (r == "test") r = "a";
+    return true;
+  }
+
+  @ExpectWarning(value = "ES_COMPARING_STRINGS_WITH_EQ", confidence = Confidence.LOW)
+  boolean test2c() {
+    if (r!= "test") r = "a";
+    return true;
+  }
+
+  @ExpectWarning(value = "ES_COMPARING_STRINGS_WITH_EQ", confidence = Confidence.LOW)
+  public boolean test3c() {
+    if ("test"!= r) r = "a";
+    return true;
+  }
+
+  @ExpectWarning(value = "ES_COMPARING_STRINGS_WITH_EQ", confidence = Confidence.LOW)
+  public boolean test4c() {
+    if (r!= "test") r = "a";
+    return true;
+  }
+}

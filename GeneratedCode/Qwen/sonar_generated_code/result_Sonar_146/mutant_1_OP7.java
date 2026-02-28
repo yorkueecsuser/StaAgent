@@ -1,0 +1,34 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class CollectionBugDemo {
+
+    public void showBug() {
+        List<Object> objs = new ArrayList<Object>();
+        objs.add("Hello");
+
+        boolean containsAllResult = objs.containsAll(objs); // BUG: Collections should not be passed as arguments to their own methods
+        boolean removeAllResult = objs.removeAll(objs); // BUG: Collections should not be passed as arguments to their own methods
+        boolean retainAllResult = objs.retainAll(objs); // BUG: Collections should not be passed as arguments to their own methods
+
+        System.out.println("containsAllResult: " + containsAllResult);
+        System.out.println("removeAllResult: " + removeAllResult);
+        System.out.println("retainAllResult: " + retainAllResult);
+
+        // Inserting an unreachable while loop
+        boolean conditionWhile = getCondition();
+        while (conditionWhile) {
+            // This loop is unreachable because getCondition() always returns false
+            System.out.println("This will never be printed");
+        }
+    }
+
+    private boolean getCondition() {
+        return false;
+    }
+
+    public static void main(String[] args) {
+        CollectionBugDemo demo = new CollectionBugDemo();
+        demo.showBug();
+    }
+}

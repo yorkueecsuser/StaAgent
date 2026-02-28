@@ -1,0 +1,12 @@
+class Main {
+    public static void main(String[] args) {
+        showBug();
+    }
+
+    public static void showBug(){
+        String str = null;
+        String bugStr = ""; // Mutant added line
+        // BUG: Null pointers should not be dereferenced
+        System.out.println(str.length()); // This line contains the bug
+    }
+}

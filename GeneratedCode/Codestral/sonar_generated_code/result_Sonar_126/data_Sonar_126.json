@@ -1,0 +1,20 @@
+{
+  "Bug_Title": "Child class methods named for parent class methods should be overrides",
+  "Bug_Details": "When a method in a child class has the same signature as a method in a parent class, it is assumed to be an override. However, that\u2019s not the case\nwhen:\nthe parent class method is static and the child class method is not. the arguments or return types of the child method are in different packages than those of the parent method. the parent class method is private .\nthe parent class method is static and the child class method is not.\nthe arguments or return types of the child method are in different packages than those of the parent method.\nthe parent class method is private .\nTypically, these things are done unintentionally; the private parent class method is overlooked, the static keyword in the parent\ndeclaration is overlooked, or the wrong class is imported in the child. But if the intent is truly for the child class method to be different, then\nthe method should be renamed to prevent confusion.\nNoncompliant code example\n// Parent.java\nimport computer.Pear;\npublic class Parent {\n\n  public void doSomething(Pear p) {\n    //,,,\n  }\n\n  public static void doSomethingElse() {\n    //...\n  }\n}\n\n// Child.java\nimport fruit.Pear;\npublic class Child extends Parent {\n\n  public void doSomething(Pear p) {  // Noncompliant; this is not an override\n    // ...\n  }\n\n\n  public void doSomethingElse() {  // Noncompliant; parent method is static\n    //...\n  }\n}\nCompliant solution\n// Parent.java\nimport computer.Pear;\npublic class Parent {\n\n  public void doSomething(Pear p) {\n    //,,,\n  }\n\n  public static void doSomethingElse() {\n    //...\n  }\n}\n\n// Child.java\nimport computer.Pear;  // import corrected\npublic class Child extends Parent {\n\n  public void doSomething(Pear p) {  // true override (see import)\n    //,,,\n  }\n\n  public static void doSomethingElse() {\n    //...\n  }\n}",
+  "Bug_Explanation": "The Child class has methods named for parent class methods (doSomething and doSomethingElse) that do not properly override the parent methods. The first bug is that the Child's doSomething method is not an override because it uses a different type of Pear (from the Fruit class) than the Parent's doSomething method (which uses a Pear from the Computer class). The second bug is that the Child's doSomethingElse method is not an override because the Parent's doSomethingElse method is static, which means the Child's method cannot hide it.",
+  "Buggy_Line": [
+    32,
+    35,
+    20,
+    21
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_126/seed_Sonar_126.java:35: error: doSomethingElse() in Child cannot override doSomethingElse() in Parent\n    public void doSomethingElse() { // Bug: this is not an override of the static parent method\n                ^\n  overridden method is static\n1 error\n",
+  "Trigger_Explanation": "The bug is triggered when the Child's doSomething method is called with a Fruit.Pear object. This is not an override of the parent method because it uses a different type of Pear (from the Fruit class) than the Parent's doSomething method (which uses a Pear from the Computer class). Also, the Child's doSomethingElse method is called which is not an override of the static parent method.",
+  "Trigger_Line": [
+    17,
+    20
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

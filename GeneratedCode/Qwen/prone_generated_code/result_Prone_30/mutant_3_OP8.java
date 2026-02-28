@@ -1,0 +1,29 @@
+class DangerousLiteralNullExample {
+
+    // Method that is null-hostile: passing a null literal to it is always wrong
+    public String processString(String input) {
+        return input.toUpperCase(); // This will throw a NullPointerException if input is null
+    }
+
+    // Method to demonstrate the bug
+    public String showBug() {
+        return processString(null); // BUG: DangerousLiteralNull
+    }
+
+    public static void main(String[] args) {
+        DangerousLiteralNullExample example = new DangerousLiteralNullExample();
+        try {
+            System.out.println(example.showBug());
+        } catch (NullPointerException e) {
+            System.err.println("Caught NullPointerException: " + e.getMessage());
+        }
+
+        // Mutated code
+        DangerousLiteralNullExample a = new DangerousLiteralNullExample();
+        try {
+            System.out.println(a.processString(null));
+        } catch (NullPointerException b) {
+            System.err.println("Caught NullPointerException: " + b.getMessage());
+        }
+    }
+}

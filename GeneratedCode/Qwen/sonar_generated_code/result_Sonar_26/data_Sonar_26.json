@@ -1,0 +1,20 @@
+{
+  "Bug_Title": "Members ignored during record serialization should not be used",
+  "Bug_Details": "In Records, serialization is not done the same way as for ordinary serializable or externalizable classes. The serialized representation of a\nrecord object will be a sequence of values (record components). During the deserialization of records, the stream of components is read and components\nare constructed. Then the record object is recreated by invoking the record\u2019s canonical constructor with the component values serving as arguments (or\ndefault values for absent arguments).\nThis process cannot be customized, so any class-specific writeObject , readObject , readObjectNoData , writeExternal , and readExternal methods or serialPersistentFields fields in record classes are ignored during\nserialization and deserialization.\nHowever, there is a way to substitute serialized/deserialized objects in writeReplace and readResolve .\nThis rule raises an issue when any of writeObject , readObject , readObjectNoData , writeExternal , readExternal or serialPersistentFields are present as members in a Record class.\nNoncompliant code example\nrecord Record() implements Serializable {\n  @Serial\n  private static final ObjectStreamField[] serialPersistentFields = new ObjectStreamField[0]; // Noncompliant\n  @Serial\n  private void writeObject(ObjectOutputStream out) throws IOException { // Noncompliant\n    ...\n  }\n}\nrecord Record() implements Externalizable {\n  @Override\n  public void writeExternal(ObjectOutput out) throws IOException { // Noncompliant\n    ...\n  }\n  @Override\n  public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException { // Noncompliant\n    ...\n  }\n}\nCompliant solution\nrecord Record() implements Serializable {}\n\nrecord Record() implements Serializable {\n  private Object writeReplace() throws ObjectStreamException {\n    ...\n  }\n  private Object readResolve() throws ObjectStreamException {\n    ...\n  }\n}",
+  "Bug_Explanation": "The bug is embedded in the code by including methods and fields in records that are ignored during serialization and deserialization, such as writeObject, readExternal, and serialPersistentFields. These methods and fields are annotated with comments indicating they are bugs.",
+  "Buggy_Line": [
+    32,
+    17,
+    37,
+    14
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test cases call the'showBug1' and'showBug2' methods of the NonCompliantRecord1 and NonCompliantRecord2 records respectively. These methods trigger the bug by attempting to serialize records that contain methods and fields ignored during serialization, such as 'writeObject','readExternal', and'serialPersistentFields'.",
+  "Trigger_Line": [
+    11,
+    16
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n...\nTime: 0.016\n\nOK (3 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that all three tests passed without any exceptions or errors. Since the test results do not indicate any issues or failures, it cannot be confirmed that the bug was triggered based solely on the provided test execution results."
+}

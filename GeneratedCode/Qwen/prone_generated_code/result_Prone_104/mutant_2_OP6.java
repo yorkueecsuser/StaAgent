@@ -1,0 +1,34 @@
+class MathRoundIntLong {
+
+    public int showBug(int intValue) {
+        // BUG: MathRoundIntLong
+        return (int) Math.round(intValue); // This line demonstrates the bug
+
+        // Inserting unreachable for loop
+        boolean conditionFor = getCondition();
+        for (int i = 0; conditionFor; i++) {
+            // This loop is unreachable because getCondition() always returns false
+        }
+    }
+
+    public long showBug(long longValue) {
+        // BUG: MathRoundIntLong
+        return (long) Math.round(longValue); // This line demonstrates the bug
+
+        // Inserting unreachable for loop
+        boolean conditionFor = getCondition();
+        for (int i = 0; conditionFor; i++) {
+            // This loop is unreachable because getCondition() always returns false
+        }
+    }
+
+    private boolean getCondition() {
+        return false;
+    }
+
+    public static void main(String[] args) {
+        MathRoundIntLong demo = new MathRoundIntLong();
+        System.out.println("Result of showBug with int: " + demo.showBug(Integer.MAX_VALUE));
+        System.out.println("Result of showBug with long: " + demo.showBug(Long.MAX_VALUE));
+    }
+}

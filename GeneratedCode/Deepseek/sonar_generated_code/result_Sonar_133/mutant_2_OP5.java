@@ -1,0 +1,27 @@
+class BugExample {
+    public static void main(String[] args) {
+        showBug();
+    }
+
+    public static double showBug() {
+        // BUG: Dissimilar primitive wrappers should not be used with the ternary operator without explicit casting
+        Integer a = new Integer(1);
+        Float b = new Float(2.0);
+        return a.intValue() > b.floatValue()? a.intValue() : b.floatValue(); // Bug
+    }
+    
+    public static void unreachableSwitch() {
+        int value = 0;
+        boolean condition = false;
+        switch (value) {
+            case 0:
+                condition = true;
+                break;
+            default:
+                break;
+        }
+        if (condition) {
+            System.out.println("Unreachable switch statement");
+        }
+    }
+}

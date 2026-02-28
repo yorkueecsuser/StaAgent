@@ -1,0 +1,44 @@
+import java.security.SecureRandom;
+
+class InsecureCryptoExample {
+
+    public byte[] showBug1() {
+        return badIv(); // Demonstrates the bug
+    }
+
+    public byte[] showBug2() {
+        return alsoBadIv(); // Demonstrates the bug
+    }
+
+    // Method demonstrating a secure way to generate an IV
+    private byte[] goodIv() {
+        SecureRandom random = new SecureRandom();
+        byte iv[] = new byte[16];
+        random.nextBytes(iv);
+        
+        // Adding an unreachable for loop
+        boolean conditionFor = getCondition();
+        for (int i = 0; conditionFor; i++) {
+            // unreachable code
+        }
+        
+        return iv;
+    }
+
+    // Method demonstrating an insecure way of defining an IV (hardcoded)
+    private byte[] badIv() {
+        byte[] iv = new byte[] { 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00 }; // BUG: InsecureCryptoIv
+        return iv;
+    }
+
+    // Another method demonstrating an insecure way of defining an IV (hardcoded string)
+    private byte[] alsoBadIv() {
+        byte[] iv = "secret iv in here".getBytes(); // BUG: InsecureCryptoIv
+        return iv;
+    }
+
+    // Helper method to ensure the unreachable code condition
+    private boolean getCondition() {
+        return false; // This ensures the for loop in goodIv is unreachable
+    }
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "ProtocolBufferOrdinal",
+  "Bug_Details": "To get the tag number of a protocol buffer enum, use getNumber() instead. The generated Java source files for Protocol Buffer enums have getNumber() as\naccessors for the tag number in the protobuf file. In addition, since it\u2019s a java enum, it also has the ordinal() method,\nreturning its positional index within the generated java enum. The ordinal() order of the generated Java enums isn\u2019t guaranteed, and can\nchange when a new enum value is inserted into a proto enum. The getNumber()\nvalue won\u2019t change for an enum value (since making that change is a\nbackwards-incompatible change for the protocol buffer). You should very likely use getNumber() in preference to ordinal() in all\ncircumstances since it\u2019s a more stable value. Note: If you\u2019re changing code that was already using ordinal(), it\u2019s likely that\ngetNumber() will return a different real value. Tread carefully to avoid\nmismatches if the ordinal was persisted elsewhere.",
+  "Bug_Explanation": "The ProtocolBufferOrdinal bug is present in the showBug method, where ordinal() is used instead of getNumber() to get the tag number of a protocol buffer enum. This can lead to incorrect results if the order of enum values changes.",
+  "Buggy_Line": [
+    16
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_140/seed_Prone_140.java:4: error: enum TestEnum is public, should be declared in a file named TestEnum.java\npublic enum TestEnum {\n       ^\n1 error\n",
+  "Trigger_Explanation": "The bug is triggered when using ordinal() instead of getNumber() to get the tag number of a protocol buffer enum. Since the ordinal() value can change if the enum order changes, using it to get the tag number is not recommended.",
+  "Trigger_Line": [
+    11
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

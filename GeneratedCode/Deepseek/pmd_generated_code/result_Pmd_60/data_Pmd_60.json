@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "NonCaseLabelInSwitch",
+  "Bug_Details": "A non-case label (e.g. a named break/continue label) was present in a switch statement or switch expression.\nThis is legal, but confusing. It is easy to mix up the case labels and the non-case labels.\n\nNote: This rule was renamed from `NonCaseLabelInSwitchStatement` with PMD 7.7.0.\nExamples:\npublic class Foo {\n  void bar(int a) {\n   switch (a) {\n     case 1:\n       // do something\n     mylabel: // this is legal, but confusing!\n       break;\n     default:\n       break;\n    }\n  }\n}",
+  "Bug_Explanation": "A non-case label (e.g. a named break/continue label) was present in a switch statement or switch expression. This is legal, but confusing. It is easy to mix up the case labels and the non-case labels.",
+  "Buggy_Line": [
+    11
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test calls the showBug method with an argument of 0. This causes the program to execute the 'default' case of the switch statement, which includes a break statement. Therefore, no execution path is taken through the non-case label'mylabel', which would be a possible source of confusion.",
+  "Trigger_Line": [
+    11
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not indicate that the bug was triggered. The test case passed without any issues, indicating that the bug was not present in the provided Java code."
+}

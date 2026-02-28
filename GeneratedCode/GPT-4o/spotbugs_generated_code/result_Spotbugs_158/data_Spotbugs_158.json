@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "XSS: Servlet reflected cross site scripting vulnerability in error page (XSS_REQUEST_PARAMETER_TO_SEND_ERROR)\uf0c1",
+  "Bug_Details": "This code directly writes an HTTP parameter to a Server error page (using HttpServletResponse.sendError). Echoing this untrusted input allows\nfor a reflected cross site scripting\nvulnerability. See http://en.wikipedia.org/wiki/Cross-site_scripting\nfor more information. SpotBugs looks only for the most blatant, obvious cases of cross site scripting.\nIf SpotBugs found any, you almost certainly have more cross site scripting\nvulnerabilities that SpotBugs doesn't report. If you are concerned about cross site scripting, you should seriously\nconsider using a commercial static analysis or pen-testing tool.\n",
+  "Bug_Explanation": "The code directly uses an HTTP request parameter in the response error message without validation or encoding, allowing for a reflected XSS vulnerability.",
+  "Buggy_Line": [
+    20
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case simulates a malicious user input containing a script tag and checks if the input is reflected in the error message sent by the response, thereby demonstrating an XSS vulnerability.",
+  "Trigger_Line": [
+    68
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

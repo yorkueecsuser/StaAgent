@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "TQ: Comparing values with incompatible type qualifiers (TQ_COMPARING_VALUES_WITH_INCOMPATIBLE_TYPE_QUALIFIERS)\uf0c1",
+  "Bug_Details": "\n        A value specified as carrying a type qualifier annotation is\n        compared with a value that doesn't ever carry that qualifier.\n         \n        More precisely, a value annotated with a type qualifier specifying when=ALWAYS\n        is compared with a value that where the same type qualifier specifies when=NEVER.\n         \n        For example, say that @NonNegative is a nickname for\n        the type qualifier annotation @Negative(when=When.NEVER).\n        The following code will generate this warning because\n        the return statement requires a @NonNegative value,\n        but receives one that is marked as @Negative.\n         public boolean example(@Negative Integer value1, @NonNegative Integer value2) {\n    return value1.equals(value2);\n}\n",
+  "Bug_Explanation": "The bug is embedded in the showBug method where a value annotated with @Negative is compared with a value annotated with @NonNegative. This comparison is flagged because the type qualifiers specify incompatible conditions (ALWAYS vs NEVER).",
+  "Buggy_Line": [
+    21
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method with a @Negative value (-1) and a @NonNegative value (1). The comparison within the showBug method triggers the bug due to incompatible type qualifiers.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed successfully without any assertion failures. This suggests that the method'showBug' did not behave in a way that contradicted the expected behavior defined in the test case. However, the bug rule indicates a potential issue with comparing values with incompatible type qualifiers, which is a static analysis concern rather than a runtime behavior concern. Since the test results do not provide evidence of a runtime failure due to this comparison, we cannot confirm that the bug was triggered based solely on these test results."
+}

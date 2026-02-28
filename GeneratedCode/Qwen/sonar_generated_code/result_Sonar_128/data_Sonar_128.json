@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Double-checked locking should not be used",
+  "Bug_Details": "Double-checked locking is the practice of checking a lazy-initialized object\u2019s state both before and after a synchronized block is\nentered to determine whether to initialize the object. In early JVM versions, synchronizing entire methods was not performant, which sometimes caused\nthis practice to be used in its place.\nApart from float and int types, this practice does not work reliably in a platform-independent manner without additional\nsynchronization of mutable instances. Using double-checked locking for the lazy initialization of any other type of primitive or mutable object risks\na second thread using an uninitialized or partially initialized member while the first thread is still creating it. The results can be unexpected,\npotentially even causing the application to crash.",
+  "Bug_Explanation": "The bug is embedded in the generated code through the use of double-checked locking in the getInstance() method. The pattern checks if the instance is null twice, once without synchronization and once with synchronization, which can lead to a situation where a second thread might see an incompletely constructed object.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test creates two threads that concurrently call the getInstance() method. Due to the race condition inherent in double-checked locking, one thread might see an incompletely constructed object, leading to unexpected behavior or a failure.",
+  "Trigger_Line": [
+    13,
+    16
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.013\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that the test passed without any failures or exceptions, indicating that the race condition or any issues related to double-checked locking were not observed during the test execution."
+}

@@ -1,0 +1,23 @@
+class MS_FINAL_PKGPROTECT {
+    public static int count = 0;
+
+    public static void main(String[] args) {
+        count++;
+        System.out.println("count = " + count);
+    }
+
+    public static void showBug() {
+        count = 10;
+        System.out.println("count = " + count);
+    }
+
+    // Unreachable for loop mutant
+    public static void unreachableForLoop() {
+        for (int i = 0; false; i++) {
+            // Unreachable code
+            count++;
+            System.out.println("This will never be printed");
+        }
+        System.out.println("count = " + count);
+    }
+}

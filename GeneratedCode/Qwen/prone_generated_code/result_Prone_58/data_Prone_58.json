@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "FuturesGetCheckedIllegalExceptionType",
+  "Bug_Details": "Futures.getChecked requires a checked exception type with a standard constructor. The passed exception type must not be a RuntimeException, and it must expose a\npublic constructor whose only parameters are of type String or Throwable.\ngetChecked will reject any other type with an IllegalArgumentException.",
+  "Bug_Explanation": "The bug is intentionally embedded by using an unchecked exception (CustomUncheckedException) with Futures.getChecked, which expects a checked exception. However, since Futures.getChecked cannot be used due to missing dependencies, the code throws the exception directly to simulate the bug.",
+  "Buggy_Line": [
+    22
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_58/seed_Prone_58.java:22: error: exception ExecutionException is never thrown in body of corresponding try statement\n        } catch (ExecutionException | CustomUncheckedException e) {\n                 ^\n1 error\n",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method of the FuturesGetCheckedExample class, which intentionally uses an unchecked exception, causing an IllegalArgumentException.",
+  "Trigger_Line": [
+    9
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

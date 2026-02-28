@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "BoxedPrimitiveEquality",
+  "Bug_Details": "Comparison using reference equality instead of value equality. Reference equality of boxed primitive types is usually not useful, as they are value objects, and it is bug-prone, as instances are cached for some values but not others. Comparison using reference equality instead of value equality. The inputs to\nthis comparison are boxed primitive types, where reference equality is\nparticularly bug-prone: Primitive wrapper classes cache instances for some (but\nusually not all) values, so == may be equivalent to equals() for some values but\nnot others. Additionally, not all versions of the runtime and other libraries\nuse the cache in the same cases, so upgrades may change behavior. Furthermore,\nreference identity is usually not useful for primitive wrappers, as they are\nimmutable types whose equals() method fully compares their values.",
+  "Bug_Explanation": "The bug was embedded in the comparison using reference equality instead of value equality. The comparison is between two boxed primitive types, where reference equality is particularly bug-prone because instances are cached for some values but not others.",
+  "Buggy_Line": [
+    15
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by comparing the reference equality of two boxed primitive types, which are not the same reference.",
+  "Trigger_Line": [
+    7,
+    12
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

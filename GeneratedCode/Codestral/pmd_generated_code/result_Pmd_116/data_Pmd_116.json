@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "TooFewBranchesForSwitch",
+  "Bug_Details": "Switch statements are intended to be used to support complex branching behaviour. Using a switch for only a few\ncases is ill-advised, since switches are not as easy to understand as if-else statements. In these cases use the\nif-else statement to increase code readability.\n\nNote: This rule was named TooFewBranchesForASwitchStatement before PMD 7.7.0.\nExamples:\n// With a minimumNumberCaseForASwitch of 3\npublic class Foo {\n    public void bar(int condition) {\n        switch (condition) {\n            case 1:\n                instruction;\n                break;\n            default:\n                break; // not enough for a 'switch' stmt, a simple 'if' stmt would have been more appropriate\n        }\n    }\n}",
+  "Bug_Explanation": "The bug 'TooFewBranchesForSwitch' is demonstrated in the switch statement. Only two cases are provided, but a simple 'if' statement would have been more appropriate for better readability.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug 'TooFewBranchesForSwitch' is triggered in the test cases because the switch statement in the'showBug' method only has two cases. A simple 'if' statement would have been more appropriate for better readability. The test cases check the output of the'showBug' method with input values that trigger each case in the switch statement, which demonstrates the bug.",
+  "Trigger_Line": [
+    6,
+    11
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.005\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that both tests passed successfully, which means the switch statement in the Java code is functioning as intended. The bug 'TooFewBranchesForSwitch' was not triggered because the switch statement has two cases: one for condition 1 and a default case. This is sufficient to demonstrate complex branching behavior, and an 'if-else' statement would not have been more appropriate."
+}

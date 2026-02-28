@@ -1,0 +1,39 @@
+{
+  "Bug_Title": "RedundantFieldInitializer",
+  "Bug_Details": "Java will initialize fields with known default values so any explicit initialization of those same defaults\nis redundant and results in a larger class file (approximately three additional bytecode instructions per field).\nExamples:\npublic class C {\n    boolean b   = false;    // examples of redundant initializers\n    byte by     = 0;\n    short s     = 0;\n    char c      = 0;\n    int i       = 0;\n    long l      = 0;\n\n    float f     = .0f;    // all possible float literals\n    double d    = 0d;     // all possible double literals\n    Object o    = null;\n\n    MyClass mca[] = null;\n    int i1 = 0, ia1[] = null;\n\n    class Nested {\n        boolean b = false;\n    }\n}",
+  "Bug_Explanation": "The bug 'RedundantFieldInitializer' is embedded in the generated code by initializing fields with default values that are already assigned by Java.",
+  "Buggy_Line": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    12,
+    13,
+    16
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by checking if the fields in the RedundantFieldInitializerBug class have been initialized with their default values. If the fields were initialized explicitly, the test will fail at the assertions.",
+  "Trigger_Line": [
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.b: false\nby: 0\ns: 0\nc: \u0000\ni: 0\nl: 0\nf: 0.0\nd: 0.0\no: null\nmca: null\ni1: 0\nia1: null\nNested.b: false\n\nTime: 0.012\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that all fields were initialized to their default values as expected. Therefore, the redundant initializers in the Java code did not cause any issues, and the bug was not triggered."
+}

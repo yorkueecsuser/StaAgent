@@ -1,0 +1,9 @@
+{
+  "Bug_Title": "DetachedTestCase",
+  "Bug_Details": "The method appears to be a test case since it has public or default visibility,\nnon-static access, no arguments, no return value, has no annotations, but is a\nmember of a class that has one or more JUnit test cases. If it is a utility\nmethod, it should likely have private visibility. If it is an ignored test, it\nshould be annotated with @Test and @Ignore.\nExamples:\npublic class MyTest {\n    @Test\n    public void someTest() {\n    }\n\n    // violation: Not annotated\n    public void someOtherTest () {\n    }\n\n}",
+  "Bug_Explanation": "The method 'detachedTestCase' appears to be a test case since it matches typical characteristics of a test method, such as public visibility, no arguments, and no return value. However, it lacks the @Test annotation and is part of a class that has other JUnit test cases. This method either needs to be made private if it is a utility method or properly annotated if it is intended to be a test.",
+  "Buggy_Line": [
+    13
+  ],
+  "Seed_Compilation_Status": "Successful"
+}

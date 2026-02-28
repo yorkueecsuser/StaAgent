@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "GetClassOnAnnotation",
+  "Bug_Details": "Calling getClass() on an annotation may return a proxy class Instances of an annotation interface generally return a random proxy class when\ngetClass() is called on them; to get the actual annotation type use\nannotationType(). In the following example, calling getClass() on the annotation instance\nreturns a proxy class like com.sun.proxy.$Proxy1, while annotationType()\nreturns Deprecated. @Deprecated\npublic class Test {\n  static void printAnnotationClass(Annotation annotation) {\n    System.err.println(annotation.getClass());\n    System.err.println(annotation.annotationType());\n  }\n\n  public static void main(String[] args) {\n    printAnnotationClass(Test.class.getAnnotation(Deprecated.class));\n  }\n} @Deprecated\npublic class Test {\n  static void printAnnotationClass(Annotation annotation) {\n    System.err.println(annotation.getClass());\n    System.err.println(annotation.annotationType());\n  }\n\n  public static void main(String[] args) {\n    printAnnotationClass(Test.class.getAnnotation(Deprecated.class));\n  }\n} Prints: class com.sun.proxy.$Proxy1\ninterface java.lang.Deprecated class com.sun.proxy.$Proxy1\ninterface java.lang.Deprecated",
+  "Bug_Explanation": "The bug is embedded in the line `System.out.println(annotation.getClass());` by calling `getClass()` on an annotation. This returns a proxy class instead of the actual annotation type.",
+  "Buggy_Line": [
+    20
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "Calling `getClass()` on an annotation may return a proxy class. In this case, the proxy class is `com.sun.proxy.$Proxy1`.",
+  "Trigger_Line": [
+    13
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

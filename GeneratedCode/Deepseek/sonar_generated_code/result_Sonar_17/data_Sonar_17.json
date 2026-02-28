@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Async methods should return void or Future",
+  "Bug_Details": "The Spring framework provides the annotation Async to mark a method (or all methods of a type) as a candidate for asynchronous\nexecution.\nAsynchronous methods do not necessarily, by their nature, return the result of their calculation immediately. Hence, it is unexpected and in clear\nbreach of the Async contract for such methods to have a return type that is neither void nor a Future type.",
+  "Bug_Explanation": "The Async method 'asyncMethod' returns an integer value, which violates the contract of an Async method that should return void or a Future. This demonstrates the 'Async methods should return void or Future' bug rule.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case violates the rule that Async methods should return void or Future by checking if the result is equal to 42 which is the return value of the asyncMethod(). This should fail as the asyncMethod() returns an integer",
+  "Trigger_Line": [
+    6
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The described bug is present in the provided Java code. The asyncMethod() is annotated with @Async, which is a Spring annotation indicating that the method should be executed asynchronously. However, the method is expected to return void or a Future type, but it is returning an integer. This is a violation of the Async contract and could lead to unexpected behavior."
+}

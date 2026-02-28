@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "AutoValueConstructorOrderChecker",
+  "Bug_Details": "Arguments to AutoValue constructor are in the wrong order AutoValue constructors are synthesized with their parameters in the same order\nas the abstract accessor methods. Calls to the constructor need to match this\nordering.",
+  "Bug_Explanation": "The bug is embedded in the generated code by intentionally passing arguments in the wrong order to the AutoValue-generated constructor. The correct order should be (String name, int age), but the code incorrectly uses (int age, String name).",
+  "Buggy_Line": [
+    47
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_10/seed_Prone_10.java:47: error: incompatible types: int cannot be converted to String\n        return new AutoValue_Person(30, \"John Doe\"); // Incorrect order of arguments\n                                    ^\nNote: Some messages have been simplified; recompile with -Xdiags:verbose to get full output\n1 error\n",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method, which incorrectly orders the arguments in the AutoValue_Person constructor.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

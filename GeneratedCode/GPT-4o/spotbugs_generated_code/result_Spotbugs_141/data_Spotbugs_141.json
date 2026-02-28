@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "TQ: Value without a type qualifier used where a value is required to have that qualifier (TQ_UNKNOWN_VALUE_USED_WHERE_ALWAYS_STRICTLY_REQUIRED)\uf0c1",
+  "Bug_Details": "\n    A value is being used in a way that requires the value to be annotated with a type qualifier.\nThe type qualifier is strict, so the tool rejects any values that do not have\nthe appropriate annotation.\n     \n    To coerce a value to have a strict annotation, define an identity function where the return value is annotated\nwith the strict annotation.\nThis is the only way to turn a non-annotated value into a value with a strict type qualifier annotation.\n    ",
+  "Bug_Explanation": "The method 'showBug' attempts to return a string without a '@Strict' annotation where the return type is expected to be strictly annotated with '@Strict'. This demonstrates a bug where a value is used in a way that requires it to have a type qualifier but it does not.",
+  "Buggy_Line": [
+    19
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls the showBug method with a String argument, which triggers the bug because the showBug method returns a non-annotated value where a strictly annotated value is required.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully (OK (1 test)), which means the bug was not triggered during the test execution."
+}

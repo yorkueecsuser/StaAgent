@@ -1,0 +1,10 @@
+{
+  "Buggy_Line": [],
+  "Trigger_Explanation": "The bug is triggered when the double brace initialization pattern is used in a non-static context. This is because inner classes in a non-static context are sources of memory leaks. The entire creating instance cannot be garbage collected even if it is completely unreachable.",
+  "Trigger_Line": [
+    23
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Seed_Compilation_Status": "Successful"
+}

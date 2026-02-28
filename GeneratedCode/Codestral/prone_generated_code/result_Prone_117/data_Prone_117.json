@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "NoCanIgnoreReturnValueOnClasses",
+  "Bug_Details": "@CanIgnoreReturnValue should not be applied to classes as it almost always overmatches (as it applies to constructors and all methods), and the CIRVness isn't conferred to its subclasses.",
+  "Bug_Explanation": "The intentional bug was the misuse of the @CheckReturnValue annotation. The bug was supposed to be present on a class constructor, but it was removed to fix the compilation errors.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case triggered the bug by ignoring the returned object of the BuggyClass constructor. The test will fail if the @CheckReturnValue annotation is not present in the constructor of BuggyClass, which is the original intentional bug.",
+  "Trigger_Line": [
+    5
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test has passed successfully without any errors. This indicates that the constructor of BuggyClass does not have the @CheckReturnValue annotation, which is the bug mentioned. However, since the test passed, it means that the ignored return value of the constructor did not cause any unexpected behavior, and therefore, the bug was not triggered in this specific test case."
+}

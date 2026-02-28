@@ -1,0 +1,22 @@
+{
+  "Bug_Title": "Ints and longs should not be shifted by zero or more than their number of bits-1",
+  "Bug_Details": "Since an int is a 32-bit variable, shifting by more than +/-31 is confusing at best and an error at worst. When the runtime shifts\n32-bit integers, it uses the lowest 5 bits of the shift count operand. In other words, shifting an int by 32 is the same as shifting it\nby 0, and shifting it by 33 is the same as shifting it by 1.\nSimilarly, when shifting 64-bit integers, the runtime uses the lowest 6 bits of the shift count operand and shifting long by 64 is the\nsame as shifting it by 0, and shifting it by 65 is the same as shifting it by 1.",
+  "Bug_Explanation": "The bug was embedded in the generated code by performing bitwise shifts on int and long types with shift counts that exceed the valid range (31 for int and 63 for long). Specifically, shifts by 32 and 33 for int, and by 64 and 65 for long, were used to demonstrate the issue.",
+  "Buggy_Line": [
+    10,
+    20,
+    5,
+    15
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test cases call methods in the ShiftBugDemonstration class that perform bitwise shifts with invalid shift counts. These operations are logically incorrect and the assertions are set up to fail, demonstrating the bug.",
+  "Trigger_Line": [
+    10,
+    17,
+    24,
+    31
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n....\nTime: 0.005\n\nOK (4 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show all tests passed without any failures. Although the shift operations in the code are incorrect according to the bug rule, the assertions in the test code are checking for results that happen to match the incorrect behavior, leading to passing tests. Therefore, the test results do not confirm the presence of the described bug."
+}

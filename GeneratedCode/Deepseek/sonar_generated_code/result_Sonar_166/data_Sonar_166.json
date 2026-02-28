@@ -1,0 +1,22 @@
+{
+  "Bug_Title": "Methods should not be named \"tostring\", \"hashcode\" or \"equal\"",
+  "Bug_Details": "Due to the similar name with the methods Object.toString , Object.hashCode and Object.equals , there is a\nsignificant likelihood that a developer intended to override one of these methods but made a spelling error.\nEven if no such error exists and the naming was done on purpose, these method names can be misleading. Readers might not notice the difference, or\nif they do, they may falsely assume that the developer made a mistake.",
+  "Bug_Explanation": "Due to the similar name with the methods Object.toString, Object.hashCode and Object.equals, there is a significant likelihood that a developer intended to override one of these methods but made a spelling error. If no such error exists and the naming was done on purpose, these method names can be misleading. Readers might not notice the difference, or if they do, they may falsely assume that the developer made a mistake.",
+  "Buggy_Line": [
+    12,
+    16,
+    20
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The triggering of the bug is done by calling the buggy methods (tostring, hashcode, equal) from the showBug method.",
+  "Trigger_Line": [
+    2,
+    6,
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.This is a bug\nThis is another bug\nThis is yet another bug\n.This is a bug\nThis is another bug\nThis is yet another bug\n.This is a bug\nThis is another bug\nThis is yet another bug\n\nTime: 0.005\n\nOK (3 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that no bugs were triggered. No dots were printed for failed tests, and a summary message was output indicating that all tests passed.",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The code contains three methods named 'tostring', 'hashcode', and 'equal'. These method names are similar to the methods 'toString', 'hashCode', and 'equals' in the Object class. This can lead to confusion and errors. The methods 'tostring' and 'equal' are not overridden in the code, which means they are not intended to override the methods in the Object class. The method 'hashcode' is overridden but it does not follow the standard naming convention for overriding the 'hashCode' method. This can lead to confusion and errors."
+}

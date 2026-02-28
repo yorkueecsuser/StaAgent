@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "RV: Bad attempt to compute absolute value of signed random integer (RV_ABSOLUTE_VALUE_OF_RANDOM_INT)\uf0c1",
+  "Bug_Details": " This code generates a random signed integer and then computes\nthe absolute value of that random integer.  If the number returned by the random number\ngenerator is Integer.MIN_VALUE, then the result will be negative as well (since\nMath.abs(Integer.MIN_VALUE) == Integer.MIN_VALUE). (Same problem arises for long values as well).\n Integer.MIN_VALUE Math.abs(Integer.MIN_VALUE) == Integer.MIN_VALUE",
+  "Bug_Explanation": "The code generates a random signed integer and computes its absolute value. If this random integer is Integer.MIN_VALUE, the result of Math.abs() will still be Integer.MIN_VALUE, which is negative. This is due to the fact that the absolute value of Integer.MIN_VALUE cannot be represented as a positive value in a 32-bit signed integer.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls showBug in a loop to increase the chances of encountering Integer.MIN_VALUE as a random integer. The assertion will fail if Math.abs(Integer.MIN_VALUE) returns a negative value, which is exactly the bug being tested.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.054\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any assertion errors, which means the absolute value was never negative. Therefore, the bug was not triggered during the test execution."
+}

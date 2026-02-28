@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "AvoidLosingExceptionInformation",
+  "Bug_Details": "Statements in a catch block that invoke accessors on the exception without using the information\nonly add to code size.  Either remove the invocation, or use the return result.",
+  "Bug_Explanation": "The bug is present in the line number 10, where the catch block invokes the `printStackTrace()` method on the exception object without using the information.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by invoking the doSomething() method that throws an IOException.",
+  "Trigger_Line": [
+    9
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,143 @@
+import edu.umd.cs.findbugs.annotations.DesireWarning;
+import edu.umd.cs.findbugs.annotations.ExpectWarning;
+import edu.umd.cs.findbugs.annotations.NoWarning;
+import java.util.HashMap;
+import java.util.Set;
+
+class Ideas_2009_10_13<V, K> extends HashMap<K, V> {
+  @NoWarning("GC")
+  public static <K, V> void falsePositive1(Ideas_2009_10_13<V, K> i, HashMap<K, V> h) {
+    boolean condition = getCondition();
+    if (condition) {
+      // Unreachable if-else statement
+      if (falsePositive1Unreachable()) {
+        System.out.println("This is unreachable");
+      } else {
+        System.out.println("This is also unreachable");
+      }
+    }
+    if (i.equals(h)) System.out.println("equal");
+    if (i.entrySet().containsAll(h.entrySet())) System.out.println("i contains h");
+    if (h.entrySet().containsAll(i.entrySet())) System.out.println("h contains i");
+    h.entrySet().retainAll(i.entrySet());
+    h.entrySet().removeAll(i.entrySet());
+  }
+
+  @NoWarning("GC")
+  public static void falsePositive2(
+      Ideas_2009_10_13<Integer, String> i, HashMap<String, Integer> h) {
+    boolean condition = getCondition();
+    if (condition) {
+      // Unreachable if-else statement
+      if (falsePositive2Unreachable()) {
+        System.out.println("This is unreachable");
+      } else {
+        System.out.println("This is also unreachable");
+      }
+    }
+    if (i.entrySet().containsAll(h.entrySet())) System.out.println("i contains h");
+    if (h.entrySet().containsAll(i.entrySet())) System.out.println("h contains i");
+    h.entrySet().retainAll(i.entrySet());
+    h.entrySet().removeAll(i.entrySet());
+  }
+
+  @DesireWarning("GC")
+  public static <K, V> void truePositive(Ideas_2009_10_13<K, V> i, HashMap<K, V> h) {
+    boolean condition = getCondition();
+    if (condition) {
+      // Unreachable if-else statement
+      if (truePositiveUnreachable()) {
+        System.out.println("This is unreachable");
+      } else {
+        System.out.println("This is also unreachable");
+      }
+    }
+    if (i.equals(h)) System.out.println("equal");
+    if (i.entrySet().containsAll(h.entrySet())) System.out.println("i contains h");
+    if (h.entrySet().containsAll(i.entrySet())) System.out.println("h contains i");
+    h.entrySet().retainAll(i.entrySet());
+    h.entrySet().removeAll(i.entrySet());
+  }
+
+  @DesireWarning("GC")
+  public static void truePositive2(
+      Ideas_2009_10_13<String, Integer> i, HashMap<String, Integer> h) {
+    boolean condition = getCondition();
+    if (condition) {
+      // Unreachable if-else statement
+      if (truePositive2Unreachable()) {
+        System.out.println("This is unreachable");
+      } else {
+        System.out.println("This is also unreachable");
+      }
+    }
+    if (i.entrySet().containsAll(h.entrySet())) System.out.println("i contains h");
+    if (h.entrySet().containsAll(i.entrySet())) System.out.println("h contains i");
+    h.entrySet().retainAll(i.entrySet());
+    h.entrySet().removeAll(i.entrySet());
+  }
+
+  @ExpectWarning("GC")
+  public static void truePositive3(HashMap<Integer, String> i, HashMap<String, Integer> h) {
+    boolean condition = getCondition();
+    if (condition) {
+      // Unreachable if-else statement
+      if (truePositive3Unreachable()) {
+        System.out.println("This is unreachable");
+      } else {
+        System.out.println("This is also unreachable");
+      }
+    }
+    if (i.entrySet().containsAll(h.entrySet())) System.out.println("i contains h");
+    if (h.entrySet().containsAll(i.entrySet())) System.out.println("h contains i");
+    h.entrySet().retainAll(i.entrySet());
+    h.entrySet().removeAll(i.entrySet());
+  }
+
+  @ExpectWarning("GC")
+  public static void truePositive4(HashMap<Integer, String> i, HashMap<String, Integer> h) {
+    Set<Entry<Integer, String>> iEntrySet = i.entrySet();
+    Set<Entry<String, Integer>> hEntrySet = h.entrySet();
+    boolean condition = getCondition();
+    if (condition) {
+      // Unreachable if-else statement
+      if (truePositive4Unreachable()) {
+        System.out.println("This is unreachable");
+      } else {
+        System.out.println("This is also unreachable");
+      }
+    }
+    if (iEntrySet.containsAll(hEntrySet)) System.out.println("i contains h");
+    if (hEntrySet.containsAll(iEntrySet)) System.out.println("h contains i");
+    hEntrySet.retainAll(iEntrySet);
+    hEntrySet.removeAll(iEntrySet);
+  }
+
+  private static boolean getCondition() {
+    return false; // This ensures the condition is dynamically determined but false
+  }
+
+  private static boolean falsePositive1Unreachable() {
+    return false;
+  }
+
+  private static boolean falsePositive2Unreachable() {
+    return false;
+  }
+
+  private static boolean truePositiveUnreachable() {
+    return false;
+  }
+
+  private static boolean truePositive2Unreachable() {
+    return false;
+  }
+
+  private static boolean truePositive3Unreachable() {
+    return false;
+  }
+
+  private static boolean truePositive4Unreachable() {
+    return false;
+  }
+}

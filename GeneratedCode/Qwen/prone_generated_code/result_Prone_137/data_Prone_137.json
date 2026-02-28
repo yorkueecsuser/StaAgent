@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "ProtoBuilderReturnValueIgnored",
+  "Bug_Details": "Unnecessary call to proto's #build() method.  If you don't consume the return value of #build(), the result is discarded and the only effect is to verify that all required fields are set, which can be expressed more directly with #isInitialized().",
+  "Bug_Explanation": "The bug is embedded in the'showBug' method where the return value of 'builder.build()' is ignored.",
+  "Buggy_Line": [
+    55
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the'showBug' method from the 'ProtoBuilderExample' class, which contains a call to 'builder.build()' without using its return value.",
+  "Trigger_Line": [
+    8
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

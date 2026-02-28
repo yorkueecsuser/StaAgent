@@ -1,0 +1,26 @@
+// BUG: SA: Nonsensical self computation involving a variable (e.g., x & x) (SA_LOCAL_SELF_COMPUTATION)
+class SelfComputation {
+    public static void main(String[] args) {
+        int x = 5;
+        int y = x & x; // BUG: SA: Nonsensical self computation involving a variable (e.g., x & x) (SA_LOCAL_SELF_COMPUTATION)
+        System.out.println(y);
+    }
+}
+
+// Mutant 1: Renaming variable "x" to "a"
+class SelfComputation {
+    public static void main(String[] args) {
+        int a = 5;
+        int y = a & a; // BUG: SA: Nonsensical self computation involving a variable (e.g., x & x) (SA_LOCAL_SELF_COMPUTATION)
+        System.out.println(y);
+    }
+}
+
+// Mutant 2: Renaming variable "y" to "b"
+class SelfComputation {
+    public static void main(String[] args) {
+        int x = 5;
+        int b = x & x; // BUG: SA: Nonsensical self computation involving a variable (e.g., x & x) (SA_LOCAL_SELF_COMPUTATION)
+        System.out.println(b);
+    }
+}

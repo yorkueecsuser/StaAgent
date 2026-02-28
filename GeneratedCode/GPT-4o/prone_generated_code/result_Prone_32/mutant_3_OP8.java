@@ -1,0 +1,28 @@
+class DeadThreadExample {
+
+    public String showBug() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Thread is running");
+            }
+        });
+        // BUG: DeadThread
+        // The thread is created but never started
+        
+        // Mutant code: Renaming thread to t
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Thread is running");
+            }
+        });
+        
+        return "Thread created but not started"; // To demonstrate the bug
+    }
+
+    public static void main(String[] args) {
+        DeadThreadExample example = new DeadThreadExample();
+        System.out.println(example.showBug());
+    }
+}

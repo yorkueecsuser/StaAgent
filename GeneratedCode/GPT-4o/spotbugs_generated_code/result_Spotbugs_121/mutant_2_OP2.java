@@ -1,0 +1,17 @@
+class ImpossibleDowncastExample {
+
+    public static void main(String[] args) {
+        try {
+            new ImpossibleDowncastExample().showBug();
+        } catch (ClassCastException e) {
+            System.out.println("Caught exception: " + e);
+        }
+    }
+
+    public String showBug() {
+        Object integerObject = Integer.valueOf(42);
+        integerObject = Integer.valueOf(42); // Duplicate assignment as per the mutation operator
+        String result = (String) integerObject; // BUG: BC: Impossible downcast (BC_IMPOSSIBLE_DOWNCAST)
+        return result;
+    }
+}

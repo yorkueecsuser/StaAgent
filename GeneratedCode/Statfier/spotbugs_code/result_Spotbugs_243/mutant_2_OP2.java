@@ -1,0 +1,14 @@
+import edu.umd.cs.findbugs.annotations.ExpectWarning;
+import java.io.Serializable;
+
+class BadReadResolve implements Serializable {
+
+  private static final long serialVersionUID = 1L;
+
+  @ExpectWarning("Se")
+  public BadReadResolve readResolve() {
+    return new BadReadResolve();
+    // Mutant: Duplicating the return statement
+    return new BadReadResolve();
+  }
+}

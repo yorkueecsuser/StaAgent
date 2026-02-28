@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "UnusedAnonymousClass",
+  "Bug_Details": "Instance created but never used Creating a side-effect-free anonymous class and never using it is usually a\nmistake. For example: public static void main(String[] args) {\n  new Thread(new Runnable() {\n    @Override public void run() {\n      preventMissionCriticalDisasters();\n    }\n  }); // did you mean to call Thread#start()?\n} public static void main(String[] args) {\n  new Thread(new Runnable() {\n    @Override public void run() {\n      preventMissionCriticalDisasters();\n    }\n  }); // did you mean to call Thread#start()?\n}",
+  "Bug_Explanation": "The Thread object is created but never started. It is created as an anonymous class that implements the Runnable interface and defines a run method that calls preventMissionCriticalDisasters, but this method is never called.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The Thread object is created but never started. It is created as an anonymous class that implements the Runnable interface and defines a run method that calls preventMissionCriticalDisasters, but this method is never called.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.01\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "Based on the test results, the bug was not triggered. The test case did not trigger the bug because it simply called the'showBug' method, but the thread was not started.",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The described bug is present in the provided Java code. The code creates an anonymous class that implements the Runnable interface, but it does not start the thread. This is a common mistake in Java programming, as starting a thread is necessary to execute the code in the run() method. The code does not contain any side-effects, but it is still considered a bug because it wastes resources by creating a thread that is never used."
+}

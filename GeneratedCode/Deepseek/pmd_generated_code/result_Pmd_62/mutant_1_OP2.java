@@ -1,0 +1,1 @@
+// No mutant can be generated from the provided code using the Duplication operator

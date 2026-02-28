@@ -1,0 +1,21 @@
+{
+  "Bug_Title": "\"@NonNull\" values should not be set to null",
+  "Bug_Details": "Fields, parameters and return values marked @NotNull , @NonNull , or @Nonnull are assumed to have non-null\nvalues and are not typically null-checked before use. Therefore setting one of these values to null , or failing to set such a class field\nin a constructor, could cause NullPointerException s at runtime.\nNoncompliant code example\npublic class MainClass {\n\n  @Nonnull\n  private String primary;\n  private String secondary;\n\n  public MainClass(String color) {\n    if (color != null) {\n      secondary = null;\n    }\n    primary = color;  // Noncompliant; \"primary\" is Nonnull but could be set to null here\n  }\n\n  public MainClass() { // Noncompliant; \"primary\" is Nonnull but is not initialized\n  }\n\n  @Nonnull\n  public String indirectMix() {\n    String mix = null;\n    return mix;  // Noncompliant; return value is Nonnull, but null is returned.\n  }",
+  "Bug_Explanation": "The code contains intentional bugs where @NonNull values are set to null or could potentially be null. These bugs are demonstrated by setting the 'primary' field to null, returning a null from a method expected to return a non-null value, and failing to initialize a non-null field in the constructor.",
+  "Buggy_Line": [
+    10,
+    18,
+    13
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test cases trigger the bugs by invoking methods that set @NonNull values to null directly or indirectly. These invocations result in NullPointerExceptions due to uninitialized or null-assigned @NonNull fields or return values.",
+  "Trigger_Line": [
+    9,
+    14,
+    19,
+    24
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n....\nTime: 0.013\n\nOK (4 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that all tests passed successfully without any exceptions or errors, indicating that the bug was not triggered during the test execution."
+}

@@ -1,0 +1,46 @@
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+class Bug3242908 {
+  void getTableStructure(Connection conn, Statement statement, DatabaseMetaData meta)
+      throws Exception {
+    Statement stmt = null;
+    ResultSet select_rs = null;
+    ResultSet col = null;
+    String s = null;
+
+    try {
+      stmt = conn.createStatement();
+      select_rs = statement.executeQuery("aa");
+      col = meta.getColumns("aa", "aa", "aa", null);
+      s = "aaa";
+      
+      // Inserted unreachable if-else statement
+      boolean shouldRun = getCondition();
+      if (shouldRun) {
+        // This block will never execute because getCondition() always returns false
+        System.out.println("This is an unreachable block");
+      } else {
+        // This block will also never execute because the if condition is always false
+        System.out.println("This is another unreachable block");
+      }
+    } catch (SQLException eSchema) {
+    }
+
+    try {
+      stmt.close();
+      select_rs.close();
+      col.close();
+      s.toCharArray();
+    } catch (SQLException e) {
+    }
+  }
+
+  // Method to return a condition that is always false
+  private boolean getCondition() {
+    return false;
+  }
+}

@@ -1,0 +1,1 @@
+Date date = new Date(2022, Calendar.JANUARY, 1); // BUG: SuppressWarningsDeprecated

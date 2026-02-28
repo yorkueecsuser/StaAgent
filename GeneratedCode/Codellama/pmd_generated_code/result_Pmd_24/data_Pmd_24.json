@@ -1,0 +1,13 @@
+{
+  "Buggy_Line": [
+    11,
+    22
+  ],
+  "Trigger_Explanation": "The first test case triggers the bug by calling the `showBug()` method, which contains the buggy code. The second test case triggers the bug by calling the `main()` method, which calls the `showBug()` method.",
+  "Trigger_Line": [
+    11,
+    22
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

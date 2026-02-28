@@ -1,0 +1,13 @@
+{
+  "Bug_Title": "SetUnrecognized",
+  "Bug_Details": "Setting a proto field to an UNRECOGNIZED value will result in an exception at runtime when building.",
+  "Bug_Explanation": "The bug here is about the usage of setUnrecognized when setting a proto field in protobuf. Setting a proto field to an UNRECOGNIZIZED value will result in an exception at runtime when building. In this case, the code attempts to insert an element at an index that is out of bounds. The result is that the program will throw an IndexOutOfBoundsException at runtime.",
+  "Buggy_Line": [
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "No",
+  "Model_Explanation": "The provided Java code does not contain the bug described. The bug rule 'SetUnrecognized' is related to protobuf, a protocol buffers library, not to Java. The code is using standard Java's ArrayList and does not involve any protobuf related operations."
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "CloneMethodMustImplementCloneable",
+  "Bug_Details": "The method clone() should only be implemented if the class implements the Cloneable interface with the exception of\na final method that only throws CloneNotSupportedException.\n\nThe rule can also detect, if the class implements or extends a Cloneable class.\nExamples:\npublic class MyClass {\n public Object clone() throws CloneNotSupportedException {\n  return foo;\n }\n}",
+  "Bug_Explanation": "The class CloneMethodExample implements a clone() method but does not implement the Cloneable interface, resulting in a CloneNotSupportedException when clone() is called.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testCloneMethod test case calls the showBug method, which attempts to clone an instance of CloneMethodExample. Since CloneMethodExample does not implement the Cloneable interface, this triggers a CloneNotSupportedException, causing the test to fail as expected.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.006\nThere was 1 failure:\n1) testCloneMethod(CloneMethodExampleTest)\norg.junit.ComparisonFailure: expected:<Clone Failed: [java.lang.CloneNotSupportedException]> but was:<Clone Failed: [CloneMethodExample]>\n\tat org.junit.Assert.assertEquals(Assert.java:117)\n\tat org.junit.Assert.assertEquals(Assert.java:146)\n\tat CloneMethodExampleTest.testCloneMethod(CloneMethodExampleTest.java:10)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show a failure due to an unexpected message. The expected message was 'Clone Failed: java.lang.CloneNotSupportedException', but the actual message was 'Clone Failed: CloneMethodExample'. This indicates that the test did not confirm the presence of the bug as described, which should have resulted in a CloneNotSupportedException being thrown."
+}

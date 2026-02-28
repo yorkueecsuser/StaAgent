@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "The regex escape sequence \\cX should only be used with characters in the @-_ range",
+  "Bug_Details": "In regular expressions the escape sequence \\cX , where the X stands for any character that\u2019s either @ , any capital ASCII\nletter, [ , \\ , ] , ^ or _ , represents the control character that \"corresponds\" to the\ncharacter following \\c , meaning the control character that comes 64 bytes before the given character in the ASCII encoding.\nIn some other regex engines (for example in that of Perl) this escape sequence is case insensitive and \\cd produces the same control\ncharacter as \\cD . Further using \\c with a character that\u2019s neither @ , any ASCII letter, [ , \\ , ] , ^ nor _ , will produce a warning or error in those engines. Neither of these things is true\nin Java, where the value of the character is always XORed with 64 without checking that this operation makes sense. Since this won\u2019t lead to a\nsensible result for characters that are outside of the @ to _ range, using \\c with such characters is almost\ncertainly a mistake.\nNoncompliant code example\nPattern.compile(\"\\\\ca\"); // Noncompliant, 'a' is not an upper case letter\nPattern.compile(\"\\\\c!\"); // Noncompliant, '!' is outside of the '@'-'_' range\nCompliant solution\nPattern.compile(\"\\\\cA\"); // Compliant, this will match the \"start of heading\" control character\nPattern.compile(\"\\\\c^\"); // Compliant, this will match the \"record separator\" control character",
+  "Bug_Explanation": "The code demonstrates the use of the regex escape sequence \\c with characters outside the specified @-_ range. In Java, using \\ca and \\c! is incorrect as 'a' and '!' are not valid characters for this sequence, leading to unexpected regex behavior.",
+  "Buggy_Line": [
+    13,
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test cases trigger the bug by calling the methods showBug and showBug2 from the RegexBugDemo class. These methods use the regex escape sequence \\c with characters that are outside the allowed @-_ range, resulting in incorrect regex patterns. The tests will fail, thus confirming the presence of the bug.",
+  "Trigger_Line": [
+    9,
+    15
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.004\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that both tests passed successfully without any errors or exceptions. This suggests that the bug, as described, was not triggered by the tests since a failure or error would be expected if the bug were present."
+}

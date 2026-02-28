@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Eq: equals() method defined that doesn\u2019t override equals(Object) (EQ_OTHER_NO_OBJECT)\uf0c1",
+  "Bug_Details": " This class defines an equals()\nmethod, that doesn't override the normal equals(Object) method\ndefined in the base java.lang.Object class.\u00a0 Instead, it\ninherits an equals(Object) method from a superclass.\nThe class should probably define a boolean equals(Object) method.\n equals() equals(Object) java.lang.Object equals(Object) boolean equals(Object)",
+  "Bug_Explanation": "The code defines an equals(CustomEquals) method that does not correctly override the equals(Object) method from java.lang.Object. Instead of overriding, it creates a new method with a different signature. This leads to unexpected behavior when objects are compared using the equals method, as it does not adhere to the contract of equals(Object). The correct approach should be to override equals(Object) to ensure polymorphism works as expected.",
+  "Buggy_Line": [
+    11
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test cases trigger the bug by calling the showBug method, which in turn calls the incorrectly implemented equals(CustomEquals) method. This does not override equals(Object) as intended, leading to unexpected behavior when comparing objects.",
+  "Trigger_Line": [
+    9,
+    15
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.004\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that both tests passed successfully, which means the expected behavior was observed. Therefore, the bug was not triggered according to the test results."
+}

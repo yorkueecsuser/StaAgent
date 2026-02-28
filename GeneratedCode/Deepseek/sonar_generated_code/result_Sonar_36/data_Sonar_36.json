@@ -1,0 +1,22 @@
+{
+  "Bug_Title": "Annotated Mockito objects should be initialized",
+  "Bug_Details": "Objects annotated with Mockito annotations @Mock , @Spy , @Captor ,\u00a0or @InjectMocks need to be initialized explicitly.\nThere are several ways to do this:\nCall MockitoAnnotations.openMocks(this) or MockitoAnnotations.initMocks(this) in a setup method Annotate test class with @RunWith(MockitoJUnitRunner.class) (JUnit 4) Annotate test class with @ExtendWith(MockitoExtension.class) (JUnit 5 Jupiter) Use @Rule public MockitoRule rule = MockitoJUnit.rule();\nCall MockitoAnnotations.openMocks(this) or MockitoAnnotations.initMocks(this) in a setup method\nAnnotate test class with @RunWith(MockitoJUnitRunner.class) (JUnit 4)\nAnnotate test class with @ExtendWith(MockitoExtension.class) (JUnit 5 Jupiter)\nUse @Rule public MockitoRule rule = MockitoJUnit.rule();\nTest using uninitialized mocks will fail.\nNote that this only applies to annotated Mockito objects. It is not necessary to initialize objects instantiated via Mockito.mock() or Mockito.spy() .\nThis rule raises an issue when a test class uses uninitialized mocks.\nNoncompliant code example\npublic class FooTest { // Noncompliant: Mockito initialization missing\n  @Mock private Bar bar;\n\n  @Spy private Baz baz;\n\n  @InjectMocks private Foo fooUnderTest;\n\n  @Test\n  void someTest() {\n    // test something ...\n  }\n\n  @Nested\n  public class Nested {\n    @Mock\n    private Bar bar;\n  }\nCompliant solution\n@RunWith(MockitoJUnitRunner.class)\npublic class FooTest {\n  @Mock private Bar bar;\n  // ...\n}\n@ExtendWith(MockitoExtension.class)\npublic class FooTest {\n  @Mock private Bar bar;\n  // ...\n}\npublic class FooTest {\n  @Rule\n  public MockitoRule rule = MockitoJUnit.rule();\n\n  @Mock private Bar bar;\n  // ...\n}\npublic class FooTest {\n  @Mock private Bar bar;\n  // ...\n\n  @BeforeEach\n  void setUp() {\n    MockitoAnnotations.openMocks(this);\n  }\n  // ...\n}\npublic class FooTest {\n  @Mock private Bar bar;\n  // ...\n\n  @Before\n  void setUp() {\n    MockitoAnnotations.initMocks(this);\n  }\n  // ...\n}\n@ExtendWith(MockitoExtension.class)\npublic class FooTest {\n  @Nested\n  public class Nested {\n    @Mock\n    private Bar bar;\n  }\n}",
+  "Bug_Explanation": "Annotated Mockito objects should be initialized",
+  "Buggy_Line": [
+    5,
+    7,
+    10,
+    17,
+    21
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_36/seed_Sonar_36.java:1: error: package org.mockito does not exist\nimport org.mockito.MockitoAnnotations;\n                  ^\n../sonar_clean_java_code/result_Sonar_36/seed_Sonar_36.java:4: error: cannot find symbol\n    private Bar bar;\n            ^\n  symbol:   class Bar\n  location: class Foo\n../sonar_clean_java_code/result_Sonar_36/seed_Sonar_36.java:5: error: cannot find symbol\n    private Baz baz;\n            ^\n  symbol:   class Baz\n  location: class Foo\n../sonar_clean_java_code/result_Sonar_36/seed_Sonar_36.java:15: error: cannot find symbol\n    public Bar getBar() {\n           ^\n  symbol:   class Bar\n  location: class Foo\n../sonar_clean_java_code/result_Sonar_36/seed_Sonar_36.java:19: error: cannot find symbol\n    public Baz getBaz() {\n           ^\n  symbol:   class Baz\n  location: class Foo\n../sonar_clean_java_code/result_Sonar_36/seed_Sonar_36.java:8: error: cannot find symbol\n        MockitoAnnotations.initMocks(this);\n        ^\n  symbol:   variable MockitoAnnotations\n  location: class Foo\n6 errors\n",
+  "Trigger_Explanation": "The test cases are calling the showBug() method of the Foo class which triggers the bug because its related object mocks are not correctly initialized.",
+  "Trigger_Line": [
+    13
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The described bug is present in the provided Java code. The Foo class is initializing Mockito objects in its constructor, which is not compliant with the bug rule. The bug rule states that objects annotated with Mockito annotations @Mock, @Spy, @Captor, or @InjectMocks need to be initialized explicitly. The code should be refactored to initialize the Mockito objects in a setup method or annotate the test class with @RunWith(MockitoJUnitRunner.class) or @ExtendWith(MockitoExtension.class)."
+}

@@ -1,0 +1,24 @@
+// Test/sample code for SQL-Java integration using JDBC
+// 20 May 2006
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.util.Scanner;
+
+class SQLvulnerability {
+  public static void main(String[] args) throws Exception {
+    Class.forName("com.mysql.jdbc.Driver").newInstance();
+    Connection conn =
+        DriverManager.getConnection("jdbc:mysql://localhost/database", "username", "password");
+    Statement stmt = conn.createStatement();
+    Scanner s = new Scanner(System.in);
+    stmt.executeQuery("SELECT * FROM table WHERE name = '" + s.next() + "';");
+    conn.close();
+
+    // Mutated code
+    Connection c = conn; // Renamed 'conn' to 'c'
+    Statement t = stmt;  // Renamed'stmt' to 't'
+    Scanner i = s;       // Renamed's' to 'i'
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "FromTemporalAccessor",
+  "Bug_Details": "Certain combinations of javaTimeType.from(TemporalAccessor) will always throw a DateTimeException or return the parameter directly. Not all java.time types can be created via from(TemporalAccessor). For example, you can create a Month from a LocalDate (Month.from(localDate)) because a LocalDate consists of a year, month, and day. However, you cannot create a LocalDate from a Month (since it doesn\u2019t have the year or day information). Instead of throwing a DateTimeException at runtime, this checker validates the type transformations at compile time using static type information.",
+  "Bug_Explanation": "The bug is embedded in the method'showBug1' where a LocalDate is attempted to be created from a Month, which will throw a DateTimeException at runtime.",
+  "Buggy_Line": [
+    16
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling bugDemo.showBug1(month) with a Month object, which causes a DateTimeException to be thrown because LocalDate cannot be created from Month.",
+  "Trigger_Line": [
+    18
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.008\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that both tests passed without any failures or exceptions being thrown during the test execution. Specifically, the test 'testShowBug1' is expected to throw a DateTimeException, but the overall test run result indicates no exceptions were caught, suggesting the bug was not triggered as expected."
+}

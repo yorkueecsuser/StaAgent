@@ -1,0 +1,13 @@
+{
+  "Bug_Title": "\"null\" should not be used with \"Optional\"",
+  "Bug_Details": "Optional acts as a container object that may or may not contain a non-null value. It is introduced in Java 8 to help avoid NullPointerException . It provides methods to check if a value is present and retrieve the value if it is present.\nOptional is used instead of null values to make the code more readable and avoid potential errors.\nIt is a bad practice to use null with Optional because it is unclear whether a value is present or not, leading to\nconfusion and potential NullPointerException errors.",
+  "Bug_Explanation": "The bug is caused by using null with the Optional container class. The orElse method is used to retrieve the value of the optional object, but since the optional object is null, a NullPointerException is thrown.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug() method, which sets the value of the optional variable to null.",
+  "Trigger_Line": [
+    8
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

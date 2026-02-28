@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "\"@Controller\" classes that use \"@SessionAttributes\" must call \"setComplete\" on their \"SessionStatus\" objects",
+  "Bug_Details": "A Spring @Controller that uses @SessionAttributes is designed to handle a stateful / multi-post form. Such @Controller s use the specified @SessionAttributes to store data on the server between requests. That data should be cleaned\nup when the session is over, but unless setComplete() is called on the SessionStatus object from a @RequestMapping method, neither Spring nor the JVM will know it\u2019s time to do that. Note that the SessionStatus object must\nbe passed to that method as a parameter.\nNoncompliant code example\n@Controller\n@SessionAttributes(\"hello\")  // Noncompliant; this doesn't get cleaned up\npublic class HelloWorld {\n\n  @RequestMapping(\"/greet\", method = GET)\n  public String greet(String greetee) {\n\n    return \"Hello \" + greetee;\n  }\n}\nCompliant solution\n@Controller\n@SessionAttributes(\"hello\")\npublic class HelloWorld {\n\n  @RequestMapping(\"/greet\", method = GET)\n  public String greet(String greetee) {\n\n    return \"Hello \" + greetee;\n  }\n\n  @RequestMapping(\"/goodbye\", method = POST)\n  public String goodbye(SessionStatus status) {\n    //...\n    status.setComplete();\n  }\n\n}",
+  "Bug_Explanation": "This is a simple bug in Spring MVC. A @Controller annotated class uses @SessionAttributes to store data on the server between requests. That data should be cleaned up when the session is over, but unless setComplete() is called on the SessionStatus object from a @RequestMapping method, neither Spring nor the JVM will know it\u2019s time to do that. Note that the SessionStatus object must be passed to that method as a parameter.",
+  "Buggy_Line": [
+    19
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case 'testBug' calls the greet() method and verifies the response. This does not trigger the bug because'setComplete' is not invoked on the SessionStatus object.",
+  "Trigger_Line": [
+    6
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "No",
+  "Model_Explanation": "The provided Java code does not contain the described bug. The @Controller class HelloWorldController uses @SessionAttributes, but it does not call setComplete() on its SessionStatus object. However, the code does not violate the rule because it does not use @SessionAttributes. The rule is only applicable to @Controller classes that use @SessionAttributes."
+}

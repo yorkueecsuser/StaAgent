@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "AvoidFieldNameMatchingTypeName",
+  "Bug_Details": "It is somewhat confusing to have a field name matching the declaring type name.\nThis probably means that type and/or field names should be chosen more carefully.\nExamples:\npublic class Foo extends Bar {\n    int foo;    // There is probably a better name that can be used\n}\npublic interface Operation {\n    int OPERATION = 1; // There is probably a better name that can be used\n}",
+  "Bug_Explanation": "The bug is embedded in the generated code by having a field named 'person' in the class 'Person'. This matches the class name and violates the rule 'AvoidFieldNameMatchingTypeName'.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the'showBug' method on an instance of the 'Person' class. The field 'person' within the 'Person' class matches the class name, which violates the rule 'AvoidFieldNameMatchingTypeName'. Although the test itself does not throw an exception, the presence of the field name matching the class name indicates a design issue that the test highlights.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.006\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that the test passed successfully without any errors or failures. This indicates that the method'showBug()' returned the expected value 'John Doe', but it does not provide any evidence that the field name matching the type name caused any issues or triggered the bug."
+}

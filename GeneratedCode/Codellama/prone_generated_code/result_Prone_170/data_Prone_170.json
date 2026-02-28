@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "UnnecessaryTypeArgument",
+  "Bug_Details": "Non-generic methods should not be invoked with type arguments JLS \u00a715.12.2.1 allows non-generic methods to be invoked with type arguments: a non-generic method may be potentially applicable to an invocation that\nsupplies explicit type arguments. Indeed, it may turn out to be applicable. In\nsuch a case, the type arguments will simply be ignored. This rule stems from issues of compatibility and principles of\nsubstitutability. Since interfaces or superclasses may be generified\nindependently of their subtypes, we may override a generic method with a\nnon-generic one. However, the overriding (non-generic) method must be\napplicable to calls to the generic method, including calls that explicitly\npass type arguments. Otherwise the subtype would not be substitutable for its\ngenerified supertype. There is no reason to do this in cases where the method being called is not an\noverride of a generic method.",
+  "Bug_Explanation": "The `list.remove` method is a non-generic method that is being called with a type argument `Integer.class`. This is unnecessary and may cause potential compatibility issues if the list is ever changed to a different type.",
+  "Buggy_Line": [
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug() method, which removes the first element from the list, resulting in a list size of 4.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

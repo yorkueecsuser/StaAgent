@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "MisplacedScopeAnnotations",
+  "Bug_Details": "Scope annotations used as qualifier annotations don't have any effect. Move the scope annotation to the binding location or delete it.",
+  "Bug_Explanation": "The @CustomScope annotation is incorrectly used as a qualifier instead of a scope annotation. This has no effect because scope annotations should be applied to class or method definitions, not member variables.",
+  "Buggy_Line": [
+    18
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug because it expects the databaseService to be initialized and return 'Connected to database', but due to the misplaced scope annotation, the databaseService remains null, causing the method to return 'DatabaseService is not initialized'.",
+  "Trigger_Line": [
+    36,
+    37
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

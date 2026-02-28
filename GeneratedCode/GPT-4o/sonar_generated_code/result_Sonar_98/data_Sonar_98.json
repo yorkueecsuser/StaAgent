@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "The value returned from a stream read should be checked",
+  "Bug_Details": "You cannot assume that any given stream reading call will fill the byte[] passed in to the method. Instead, you must check the value\nreturned by the read method to see how many bytes were read. Fail to do so, and you introduce bug that is both harmful and difficult to reproduce.\nSimilarly, you cannot assume that InputStream.skip will actually skip the requested number of bytes, but must check the value returned\nfrom the method.\nThis rule raises an issue when an InputStream.read method that accepts a byte[] is called, but the return value is not\nchecked, and when the return value of InputStream.skip is not checked. The rule also applies to InputStream child\nclasses.\nNoncompliant code example\npublic void doSomething(String fileName) {\n  try {\n    InputStream is = new InputStream(file);\n    byte [] buffer = new byte[1000];\n    is.read(buffer);  // Noncompliant\n    // ...\n  } catch (IOException e) { ... }\n}\nCompliant solution\npublic void doSomething(String fileName) {\n  try {\n    InputStream is = new InputStream(file);\n    byte [] buffer = new byte[1000];\n    int count = 0;\n    while (count = is.read(buffer) > 0) {\n      // ...\n    }\n  } catch (IOException e) { ... }\n}",
+  "Bug_Explanation": "The code uses InputStream.read without checking the number of bytes actually read into the buffer, leading to potential issues if the buffer is not completely filled.",
+  "Buggy_Line": [
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test triggers the bug by using the showBug method with a test file. The method reads the file content into a buffer without checking the number of bytes actually read, leading to the possibility of the buffer having uninitialized bytes. The test expects the exact content 'Hello, World!', but due to the unchecked read operation, it may contain unexpected characters, causing the test to fail.",
+  "Trigger_Line": [
+    13
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully with 'OK (1 test)', which means the test did not confirm the presence of the bug as it was expected to fail due to the bug."
+}

@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "HSM: Method hiding should be avoided. (HSM_HIDING_METHOD)\uf0c1",
+  "Bug_Details": "\nSee SEI CERT rule MET07-J. Never declare a class method that hides a method declared in a superclass or superinterface.\n",
+  "Bug_Explanation": "The ChildClass declares a static method 'display' that hides the static method 'display' in its superclass ParentClass. This causes unexpected behavior when calling the method on objects of these classes due to method hiding.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method in the test case triggers the method hiding bug by calling the showBug method which demonstrates the method hiding issue in the ChildClass, leading to unexpected output.",
+  "Trigger_Line": [
+    8
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

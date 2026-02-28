@@ -1,0 +1,145 @@
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+class Bug1830576 {
+
+  public Set<String> keySet() {
+    return null;
+  }
+
+  public String get(String key) {
+    return null;
+  }
+
+  public static void main(String[] args) {
+    method0();
+    method1();
+    method2();
+  }
+
+  public static void method0() {
+    // No warning
+    Bug1830576 fakeMap = new Bug1830576();
+    Map<String, String> realMap = new HashMap<String, String>();
+    for (String key : fakeMap.keySet()) {
+      String value = fakeMap.get(key);
+      System.out.println(value + realMap.get(key));
+    }
+    // Inserting unreachable while loop
+    boolean conditionWhile = getCondition();
+    while (conditionWhile) {
+      // This loop is unreachable
+      System.out.println("This will never be printed");
+    }
+  }
+
+  public static void method1() {
+    Map<String, String> realMap = new HashMap<String, String>();
+    for (String key : realMap.keySet()) {
+      String value = realMap.get(key);
+      System.out.println(value + realMap.get(key));
+    }
+    // Inserting unreachable while loop
+    boolean conditionWhile = getCondition();
+    while (conditionWhile) {
+      // This loop is unreachable
+      System.out.println("This will never be printed");
+    }
+  }
+
+  public static void method2() {
+    Map<String, String> realMap2 = new Bug1830576_helper<String, String>();
+    for (String key : realMap2.keySet()) {
+      String value = realMap2.get(key);
+      System.out.println(value + realMap2.get(key));
+    }
+    // Inserting unreachable while loop
+    boolean conditionWhile = getCondition();
+    while (conditionWhile) {
+      // This loop is unreachable
+      System.out.println("This will never be printed");
+    }
+  }
+
+  private static class Bug1830576_helper<K, V> implements Map<K, V> {
+
+    @Override
+    public void clear() {
+      // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public boolean containsKey(Object key) {
+      // TODO Auto-generated method stub
+      return false;
+    }
+
+    @Override
+    public boolean containsValue(Object value) {
+      // TODO Auto-generated method stub
+      return false;
+    }
+
+    @Override
+    public Set<java.util.Map.Entry<K, V>> entrySet() {
+      // TODO Auto-generated method stub
+      return null;
+    }
+
+    @Override
+    public V get(Object key) {
+      // TODO Auto-generated method stub
+      return null;
+    }
+
+    @Override
+    public boolean isEmpty() {
+      // TODO Auto-generated method stub
+      return false;
+    }
+
+    @Override
+    public Set<K> keySet() {
+      // TODO Auto-generated method stub
+      return null;
+    }
+
+    @Override
+    public V put(K key, V value) {
+      // TODO Auto-generated method stub
+      return null;
+    }
+
+    @Override
+    public void putAll(Map<? extends K,? extends V> t) {
+      // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public V remove(Object key) {
+      // TODO Auto-generated method stub
+      return null;
+    }
+
+    @Override
+    public int size() {
+      // TODO Auto-generated method stub
+      return 0;
+    }
+
+    @Override
+    public Collection<V> values() {
+      // TODO Auto-generated method stub
+      return null;
+    }
+  }
+
+  // Method to provide a dynamic condition for the while loop
+  private static boolean getCondition() {
+    return false; // This ensures the loop is unreachable
+  }
+}

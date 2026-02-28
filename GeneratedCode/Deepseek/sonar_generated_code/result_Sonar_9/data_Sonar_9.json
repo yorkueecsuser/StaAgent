@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Beans in \"@Configuration\" class should have different names",
+  "Bug_Details": "Naming conventions play a crucial role in maintaining code clarity and readability. The uniqueness of bean names in Spring configurations is vital\nto the clarity and readability of the code. When two beans share the same name within a configuration, it is not obvious to the reader which bean is\nbeing referred to. This leads to potential misunderstandings and errors.",
+  "Bug_Explanation": "The rule suggests that all beans in a @Configuration class should have unique names. However, in the original code, the two beans have the same name which causes a compilation error. This is the bug.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered because BeanNamingBug beans in @Configuration class should have different names. In the configuration class, two beans `beanNamingBug1` and `beanNamingBug2` are created with the same bean name which leads to a compilation error.",
+  "Trigger_Line": [
+    18
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The bug is present in the provided Java code. The two beans 'bean1' and 'bean2' in the '@Configuration' class 'BeanNamingBug' share the same name. This is against the rule of naming conventions for beans in Spring configurations. It makes the code unclear and difficult to read, and could potentially lead to misunderstandings and errors."
+}

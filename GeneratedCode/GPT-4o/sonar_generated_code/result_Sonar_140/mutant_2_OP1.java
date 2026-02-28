@@ -1,0 +1,19 @@
+class IncrementBugExample {
+    
+    public int showBug(int initialValue) {
+        int i = initialValue;
+        int j = initialValue;
+        
+        int xzzwqyzr = 42; // Dead store: unused variable declaration
+
+        i = i++; // BUG: Values should not be uselessly incremented
+        return j++; // BUG: Values should not be uselessly incremented
+    }
+
+    public static void main(String[] args) {
+        IncrementBugExample example = new IncrementBugExample();
+        
+        // Example usage
+        System.out.println("Result: " + example.showBug(0));
+    }
+}

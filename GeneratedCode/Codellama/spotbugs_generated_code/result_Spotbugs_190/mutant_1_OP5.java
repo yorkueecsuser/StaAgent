@@ -1,0 +1,36 @@
+import java.util.HashSet;
+import java.util.Set;
+
+class MutableCollectionBug {
+    // BUG: MS: Field is a mutable collection which should be package protected (MS_MUTABLE_COLLECTION_PKGPROTECT)
+    public static final Set<String> MY_SET = new HashSet<>();
+
+    public static void main(String[] args) {
+        MY_SET.add("foo");
+        MY_SET.add("bar");
+        System.out.println(MY_SET);
+    }
+
+    public static void showBug() {
+        MY_SET.clear();
+        System.out.println(MY_SET);
+    }
+
+    // Unreachable switch statement mutant
+    public static void unreachableSwitchStatement() {
+        boolean condition = getCondition();
+        switch (condition) {
+            case 0:
+                System.out.println("Unreachable switch statement");
+                break;
+            default:
+                System.out.println("Reachable switch statement");
+                break;
+        }
+    }
+
+    // Helper method to dynamically determine the condition of the switch statement
+    private static boolean getCondition() {
+        return Math.random() > 0.5;
+    }
+}

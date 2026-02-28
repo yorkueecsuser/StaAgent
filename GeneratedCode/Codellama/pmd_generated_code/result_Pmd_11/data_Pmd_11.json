@@ -1,0 +1,22 @@
+{
+  "Bug_Title": "AvoidEnumAsIdentifier",
+  "Bug_Details": "Use of the term `enum` will conflict with newer versions of Java since it is a reserved word.\n\nSince Java 1.5, the token `enum` became a reserved word and using it as an identifier will\nresult in a compilation failure for Java 1.5 and later. This rule is therefore only useful\nfor old Java code before Java 1.5. It can be used to identify problematic code prior to a Java update.",
+  "Bug_Explanation": "The use of the term 'enum' as an identifier conflicts with newer versions of Java since it is a reserved word. The bug is present in the 'for' loop where the variable 'fruit' is declared as an instance of the 'Fruits' enum.",
+  "Buggy_Line": [
+    18
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by accessing the private enum `Fruits` of the `AvoidEnumAsIdentifier` class, which is not accessible from the test class.",
+  "Trigger_Line": [
+    11,
+    14,
+    17,
+    20,
+    23,
+    26,
+    29,
+    32
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Eq: Covariant equals() method defined for enum (EQ_DONT_DEFINE_EQUALS_FOR_ENUM)\uf0c1",
+  "Bug_Details": " This class defines an enumeration, and equality on enumerations are defined\nusing object identity. Defining a covariant equals method for an enumeration\nvalue is exceptionally bad practice, since it would likely result\nin having two different enumeration values that compare as equals using\nthe covariant enum method, and as not equal when compared normally.\nDon't do it.\n",
+  "Bug_Explanation": "The bug was embedded in the generated code by defining a covariant equals method within the Color enum. This method accepts a parameter of type Color, which is not the standard way to override the equals method. The standard equals method should accept an Object parameter.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case calls the showBug method of the EnumEqualsBug class, which internally uses the buggy equals method defined in the Color enum. The test case asserts the expected output, but due to the covariant equals method, the behavior might differ if the method were incorrectly overridden, although in this specific case, the assertion will pass. However, the presence of the covariant equals method is inherently problematic and triggers the bug rule.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.015\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed successfully without any assertion errors. The test checks the output of the'showBug' method, which uses the incorrectly defined 'equals' method in the 'Color' enum. However, the test itself does not fail, suggesting that the incorrect 'equals' method did not cause any unexpected behavior in this specific test case. The test only verifies that the output string matches the expected value, which it does. Therefore, while the bug exists in the code due to the incorrect definition of the 'equals' method in the enum, the test results do not confirm that this bug triggered any issues in the tested scenario."
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "FloggerLogString",
+  "Bug_Details": "Arguments to log(String) must be compile-time constants or parameters annotated with @CompileTimeConstant. If possible, use Flogger's formatting log methods instead.",
+  "Bug_Explanation": "The bug occurs when a string concatenation is performed inside the LOGGER.info() method. According to the bug rule, arguments to log(String) must be compile-time constants or parameters annotated with @CompileTimeConstant. Since the userName variable is not a compile-time constant, this causes the bug.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case 'testShowBug' triggers the bug FloggerLogString by passing a non-compile-time constant string 'JohnDoe' to the showBug() method, which results in the log statement concatenating a string with a variable, causing a runtime error.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.041\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that the test passed without any errors. This indicates that the bug was not triggered during the test. The logger statement with the variable 'userName' did not cause any issues, as confirmed by the successful execution of the test."
+}

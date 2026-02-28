@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Non-thread-safe fields should not be static",
+  "Bug_Details": "When an object is marked as static , it means that it belongs to the class rather than any class instance. This means there is only one\ncopy of the static object in memory, regardless of how many class instances are created. Static objects are shared among all instances of the class\nand can be accessed using the class name rather than an instance of the class.\nA data type is considered thread-safe if it can be used correctly by multiple threads, regardless of how those threads are executed, without\nrequiring additional coordination from the calling code. In other words, a thread-safe data type can be accessed and modified by multiple threads\nsimultaneously without causing any issues or requiring extra work from the programmer to ensure correct behavior.\nNon-thread-safe objects are objects that are not designed to be used in a multi-threaded environment and can lead to race conditions and data\ninconsistencies when accessed by multiple threads simultaneously. Using them in a multi-threaded manner is highly likely to cause data problems or\nexceptions at runtime.\nWhen a non-thread-safe object is marked as static in a multi-threaded environment, it can cause issues because the non-thread-safe object will be\nshared across different instances of the containing class.\nThis rule raises an issue when any of the following instances and their subtypes are marked as static :\njava.util.Calendar , java.text.DateFormat , javax.xml.xpath.XPath , or javax.xml.validation.SchemaFactory .\njava.util.Calendar ,\njava.text.DateFormat ,\njavax.xml.xpath.XPath , or\njavax.xml.validation.SchemaFactory .",
+  "Bug_Explanation": "The bug was embedded in the generated code by declaring the SimpleDateFormat object as a static field. SimpleDateFormat is not thread-safe, and sharing a single instance across multiple threads can lead to race conditions and data inconsistencies.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by creating two threads that concurrently access the showBug method of the NonThreadSafeStaticField class. Since SimpleDateFormat is not thread-safe and is declared as a static field, concurrent modifications can lead to incorrect formatting or parsing results, causing the test to fail.",
+  "Trigger_Line": [
+    18,
+    21
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.027\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed without any errors or failures, which does not confirm that the bug was triggered. The test involved concurrent access to a non-thread-safe static field, but the outcome was successful, suggesting no race conditions or data inconsistencies were observed during this particular test execution."
+}

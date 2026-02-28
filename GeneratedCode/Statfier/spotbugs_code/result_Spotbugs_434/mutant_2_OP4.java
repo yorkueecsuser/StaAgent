@@ -1,0 +1,53 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
+
+/**
+ * Submitted by: Yvan Norsa Summary:
+ *
+ * <p>The FindOpenStream class tries to detect the case where a resource is passed to an external
+ * method, for it could be closed there. But if the resource is passed to a method in an array,
+ * FindOpenStream does not consider it as potentially closed.
+ *
+ * <p>Example : Connection c = null;
+ *
+ * <p>try { c = this.openConnection(); } catch (SQLException sqlEx) { //... } finally {
+ * DB.closeConnection(new Connection[]{c}); }
+ *
+ * <p>FindBugs (1.2.0-rc4) will indicate an ODR_OPEN_DATABASE_RESOURCE here.
+ *
+ * <p>But if you do DB.closeConnection(c); instead, it will be OK.
+ */
+class Bug1698456 {
+
+  public void closeWriters(Writer[] ws) throws IOException {
+    for (int i = 0; i < ws.length; i++) {
+      boolean shouldClose = getCondition();
+      if (shouldClose) {
+        ws[i].close();
+      } else {
+        // Unreachable else statement
+        System.out.println("This is an unreachable else statement.");
+      }
+    }
+  }
+
+  private boolean getCondition() {
+    return true; // This ensures the if block is executed and the else block is unreachable
+  }
+
+  public void test() throws IOException {
+    final File ff = File.createTempFile("sfq", ".lst");
+    PrintWriter mWriter = new PrintWriter(new BufferedWriter(new FileWriter(ff)));
+    mWriter.append('h');
+    closeWriters(new Writer[] {mWriter});
+  }
+
+  public static void main(String args[]) throws IOException {
+    Bug1698456 b = new Bug1698456();
+    b.test();
+  }
+}

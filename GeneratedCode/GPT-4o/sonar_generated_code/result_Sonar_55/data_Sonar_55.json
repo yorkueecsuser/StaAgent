@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "\"ThreadLocal\" variables should be cleaned up when no longer used",
+  "Bug_Details": "ThreadLocal variables are supposed to be garbage collected once the holding thread is no longer alive. Memory leaks can occur when\nholding threads are re-used which is the case on application servers using pool of threads.\nTo avoid such problems, it is recommended to always clean up ThreadLocal variables using the remove() method to remove\nthe current thread\u2019s value for the ThreadLocal variable.\nIn addition, calling set(null) to remove the value might keep the reference to this pointer in the map, which can cause\nmemory leak in some scenarios. Using remove is safer to avoid this issue.\nNoncompliant code example\npublic class ThreadLocalUserSession implements UserSession {\n\n  private static final ThreadLocal<UserSession> DELEGATE = new ThreadLocal<>();\n\n  public UserSession get() {\n    UserSession session = DELEGATE.get();\n    if (session != null) {\n      return session;\n    }\n    throw new UnauthorizedException(\"User is not authenticated\");\n  }\n\n  public void set(UserSession session) {\n    DELEGATE.set(session);\n  }\n\n   public void incorrectCleanup() {\n     DELEGATE.set(null); // Noncompliant\n   }\n\n  // some other methods without a call to DELEGATE.remove()\n}\nCompliant solution\npublic class ThreadLocalUserSession implements UserSession {\n\n  private static final ThreadLocal<UserSession> DELEGATE = new ThreadLocal<>();\n\n  public UserSession get() {\n    UserSession session = DELEGATE.get();\n    if (session != null) {\n      return session;\n    }\n    throw new UnauthorizedException(\"User is not authenticated\");\n  }\n\n  public void set(UserSession session) {\n    DELEGATE.set(session);\n  }\n\n  public void unload() {\n    DELEGATE.remove(); // Compliant\n  }\n\n  // ...\n}\nExceptions\nRule will not detect non-private ThreadLocal variables, because remove() can be called from another class.",
+  "Bug_Explanation": "The bug is demonstrated by the incorrect cleanup method, which sets the ThreadLocal variable to null instead of removing it with remove(). This can lead to memory leaks as the reference may persist.",
+  "Buggy_Line": [
+    31
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug method which executes the incorrectCleanup method, setting a ThreadLocal variable to null instead of removing it. This leads to a potential memory leak.",
+  "Trigger_Line": [
+    15
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

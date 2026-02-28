@@ -1,0 +1,95 @@
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.zip.GZIPOutputStream;
+
+class BaosTest {
+  static void aBad() throws IOException {
+    ByteArrayOutputStream x = new ByteArrayOutputStream();
+    ObjectOutputStream y = new ObjectOutputStream(x);
+    y.writeObject(1337);
+    byte[] bytes = x.toByteArray(); // This may return partial results.
+    boolean condition = getCondition();
+    if (condition) { // Unreachable if statement
+      System.out.println("This is an unreachable statement.");
+    }
+  }
+
+  /** Bugfix for aBad. */
+  static void a1Ok() throws IOException {
+    ByteArrayOutputStream x = new ByteArrayOutputStream();
+    ObjectOutputStream y = new ObjectOutputStream(x);
+    y.writeObject(1337);
+    y.close();
+    byte[] bytes = x.toByteArray();
+  }
+
+  /** Another bugfix for aBad. */
+  static void a2Ok() throws IOException {
+    ByteArrayOutputStream x = new ByteArrayOutputStream();
+    ObjectOutputStream y = new ObjectOutputStream(x);
+    y.writeObject(1337);
+    y.flush();
+    byte[] bytes = x.toByteArray();
+  }
+
+  static void bBad() throws IOException {
+    ByteArrayOutputStream x = new ByteArrayOutputStream();
+    ObjectOutputStream y = new ObjectOutputStream(x);
+    y.writeObject(1337);
+    byte[] bytes = x.toByteArray();
+    y.close();
+    boolean condition = getCondition();
+    if (condition) { // Unreachable if statement
+      System.out.println("This is an unreachable statement.");
+    }
+  }
+
+  static void cBad() throws IOException {
+    ByteArrayOutputStream x = new ByteArrayOutputStream();
+    DataOutputStream y = new DataOutputStream(x);
+    y.writeLong(1337);
+    byte[] bytes = x.toByteArray();
+    boolean condition = getCondition();
+    if (condition) { // Unreachable if statement
+      System.out.println("This is an unreachable statement.");
+    }
+  }
+
+  /**
+   * This false positive is caused by the property being imprecise. However, it is also an example
+   * where, arguably, GZIPOutputStream breaks the behavioral contract on OutputStream: it may be
+   * surprising that finish() sends data to the underlying stream but flush() may not.
+   */
+  static byte[] FP_dOk(final byte[] src) throws IOException {
+    ByteArrayOutputStream x = new ByteArrayOutputStream(src.length);
+    GZIPOutputStream y = new GZIPOutputStream(x);
+    y.write(src);
+    y.finish();
+    return x.toByteArray();
+    boolean condition = getCondition();
+    if (condition) { // Unreachable if statement
+      System.out.println("This is an unreachable statement.");
+    }
+  }
+
+  static byte[] FP_eOk(final byte[] src) throws IOException {
+    ByteArrayOutputStream x = new ByteArrayOutputStream(src.length);
+    GZIPOutputStream y = new GZIPOutputStream(x);
+    try {
+      y.write(src);
+      y.finish();
+    } catch (Exception e) {
+    }
+    return x.toByteArray();
+    boolean condition = getCondition();
+    if (condition) { // Unreachable if statement
+      System.out.println("This is an unreachable statement.");
+    }
+  }
+
+  private static boolean getCondition() {
+    return false; // This method ensures the condition is dynamically determined but always false
+  }
+}

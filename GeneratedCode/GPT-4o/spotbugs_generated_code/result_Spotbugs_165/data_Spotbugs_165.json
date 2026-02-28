@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Dm: Hardcoded constant database password (DMI_CONSTANT_DB_PASSWORD)\uf0c1",
+  "Bug_Details": "This code creates a database connect using a hardcoded, constant password. Anyone with access to either the source code or the compiled code can\n    easily learn the password.\n",
+  "Bug_Explanation": "The code demonstrates a common security issue where a database password is hardcoded as a constant in the source code. This makes it easily accessible to anyone who can view the source or compiled code.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by attempting to establish a database connection using the showBug method, which contains the hardcoded password. The trigger occurs when the connection is established using this hardcoded password.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.012\nThere was 1 failure:\n1) testConnectionWithHardcodedPassword(DatabaseConnectorTest)\njava.lang.AssertionError: Connection should not be null with hardcoded password.\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat org.junit.Assert.assertTrue(Assert.java:42)\n\tat org.junit.Assert.assertNotNull(Assert.java:713)\n\tat DatabaseConnectorTest.testConnectionWithHardcodedPassword(DatabaseConnectorTest.java:11)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show a failure because the connection was null, indicating that the hardcoded password did not successfully establish a connection. This does not confirm the presence of the bug related to the hardcoded password being exposed, as the test was unable to establish a connection using the hardcoded password."
+}

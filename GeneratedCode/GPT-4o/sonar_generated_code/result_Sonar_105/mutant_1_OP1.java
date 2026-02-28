@@ -1,0 +1,21 @@
+class Parent {
+
+    static int field1 = Child.method(); // BUG: Classes should not access their own subclasses during class initialization
+    static int field2 = 42;
+
+    public static void main(String[] args) {
+        int result = showBug();
+        System.out.println(result); // This will display "0" instead of "42"
+    }
+
+    public static int showBug() {
+        return Parent.field1;
+    }
+}
+
+class Child extends Parent {
+    static int method() {
+        int qwertyui = 0; // Dead store mutation: unused variable declaration
+        return Parent.field2;
+    }
+}

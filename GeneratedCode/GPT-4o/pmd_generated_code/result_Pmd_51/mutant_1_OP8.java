@@ -1,0 +1,34 @@
+class JumbledIncrementerExample {
+
+    public void showBug() {
+        for (int i = 0; i < 10; i++) {          // only references 'i'
+            for (int k = 0; k < 20; i++) {      // BUG: JumbledIncrementer
+                System.out.println("Hello");
+                break;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        JumbledIncrementerExample example = new JumbledIncrementerExample();
+        example.showBug();
+    }
+}
+
+// Mutant code with variable renaming
+class JumbledIncrementerExampleMutant {
+
+    public void showBug() {
+        for (int x = 0; x < 10; x++) {          // 'i' renamed to 'x'
+            for (int k = 0; k < 20; x++) {      // BUG: JumbledIncrementer, 'i' renamed to 'x'
+                System.out.println("Hello");
+                break;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        JumbledIncrementerExampleMutant example = new JumbledIncrementerExampleMutant();
+        example.showBug();
+    }
+}

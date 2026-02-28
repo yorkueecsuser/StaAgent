@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "DontCallThreadRun",
+  "Bug_Details": "Explicitly calling Thread.run() method will execute in the caller's thread of control.  Instead, call Thread.start() for the intended behavior.",
+  "Bug_Explanation": "The bug is caused by explicitly calling the run() method on a thread instead of starting it. This leads to the code in the run() method being executed in the caller's thread of control, which is not the intended behavior.",
+  "Buggy_Line": [
+    16
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the `showBug()` method, which creates a new thread and calls the `run()` method on it. This is incorrect, as `run()` should only be called by the thread itself, not by another thread. The correct method to call is `start()`, which creates a new thread and starts it running.",
+  "Trigger_Line": [
+    12,
+    17
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

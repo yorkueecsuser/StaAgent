@@ -1,0 +1,23 @@
+class Main {
+    private static final int UPPER = 20;
+    private static final int LOWER = 0;
+
+    public int doRangeCheck(int num) {
+        int result = Math.min(LOWER, num);
+        if (false) {
+            // unreachable if-else statement condition
+            return 0;
+        } else {
+            return Math.max(UPPER, result);
+        }
+    }
+
+    public int showBug() {
+        return doRangeCheck(12);
+    }
+
+    public static void main(String[] args) {
+        Main obj = new Main();
+        System.out.println(obj.showBug());
+    }
+}

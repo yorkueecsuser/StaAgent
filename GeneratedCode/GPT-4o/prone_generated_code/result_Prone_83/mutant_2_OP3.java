@@ -1,0 +1,31 @@
+import java.util.TimeZone;
+
+class TimeZoneDemo {
+
+    public String showBug(String timeZoneId) {
+        // Attempt to get a TimeZone object using a potentially invalid time zone ID
+        TimeZone timeZone = TimeZone.getTimeZone(timeZoneId); // BUG: InvalidTimeZoneID
+
+        // Unreachable if statement mutation
+        boolean isUnreachable = getUnreachableCondition();
+        if (isUnreachable) {
+            System.out.println("This branch is unreachable.");
+        }
+
+        return timeZone.getID();
+    }
+
+    private boolean getUnreachableCondition() {
+        // Always returns false to ensure the branch is unreachable
+        return false;
+    }
+
+    public static void main(String[] args) {
+        TimeZoneDemo demo = new TimeZoneDemo();
+        
+        // Demonstrating the bug with an invalid time zone ID
+        String invalidId = "Invalid/TimeZone";
+        String result = demo.showBug(invalidId);
+        System.out.println("TimeZone ID returned: " + result); // Expected output is "GMT" due to the bug
+    }
+}

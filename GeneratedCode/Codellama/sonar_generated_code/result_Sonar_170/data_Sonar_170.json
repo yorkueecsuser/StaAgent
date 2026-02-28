@@ -1,0 +1,12 @@
+{
+  "Bug_Title": "The signature of \"finalize()\" should match that of \"Object.finalize()\"",
+  "Bug_Details": "Object.finalize() is called by the Garbage Collector at some point after the object becomes unreferenced.\nIn general, overloading Object.finalize() is a bad idea because:\nThe overload may not be called by the Garbage Collector. Users are not expected to call Object.finalize() and will get confused.\nThe overload may not be called by the Garbage Collector.\nUsers are not expected to call Object.finalize() and will get confused.\nBut beyond that it\u2019s a terrible idea to name a method \"finalize\" if it doesn\u2019t actually override Object.finalize() .\nNoncompliant code example\npublic int finalize(int someParameter) {        // Noncompliant\n  /* ... */\n}\nCompliant solution\npublic int someBetterName(int someParameter) {  // Compliant\n  /* ... */\n}",
+  "Bug_Explanation": "The non-compliant finalize method has a different signature than Object.finalize.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not demonstrate the bug being triggered. The test case does not call the buggy method `finalize` directly, but instead calls `showBug`, which in turn calls `finalize` with a parameter. However, the `finalize` method in the test case is not the same as the one in the original code, and it does not have the same signature as `Object.finalize()`, so the bug is not triggered."
+}

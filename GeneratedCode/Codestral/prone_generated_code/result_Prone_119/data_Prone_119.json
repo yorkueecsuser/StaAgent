@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "NonFinalCompileTimeConstant",
+  "Bug_Details": "@CompileTimeConstant parameters should be final or effectively final If a method\u2019s formal parameter is annotated with @CompileTimeConstant, the\nmethod will always be invoked with an argument that is a static constant. If the\nparameter itself is non-final, then it is a mutable reference to immutable data.\nThis is rarely useful, and can be confusing when trying to use the parameter in\na context that requires an compile-time constant. For example: void f(@CompileTimeConstant y) {}\nvoid g(@CompileTimeConstant x) {\n  x = f(x); // x is not a constant\n} void f(@CompileTimeConstant y) {}\nvoid g(@CompileTimeConstant x) {\n  x = f(x); // x is not a constant\n}",
+  "Bug_Explanation": "The variable 'x' is not final or effectively final, but it is being modified inside the method 'g'. This is against the principle of @CompileTimeConstant annotation, which requires the parameter to be final or effectively final.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case'showBugTest' calls the'showBug' method of the 'CompileTimeConstantBug' class with the value '10'. This triggers the bug where the parameter 'x' is modified inside the 'g' method, which is against the principle of the '@CompileTimeConstant' annotation.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test ran successfully without any issues, indicating that the bug was not triggered."
+}

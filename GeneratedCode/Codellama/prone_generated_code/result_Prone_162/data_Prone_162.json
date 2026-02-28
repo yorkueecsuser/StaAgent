@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "ThrowIfUncheckedKnownChecked",
+  "Bug_Details": "throwIfUnchecked(knownCheckedException) is a no-op. throwIfUnchecked(knownCheckedException) is a no-op (aside from performing a\nnull check). propagateIfPossible(knownCheckedException) is a complete no-op.",
+  "Bug_Explanation": "The bug is embedded in the throwIfUnchecked() method, which is a no-op for known checked exceptions. The method call is intentionally placed on line 6 to demonstrate the bug.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_162/seed_Prone_162.java:6: error: cannot find symbol\n            throwIfUnchecked(new IOException(\"Known checked exception\")); // BUG: ThrowIfUncheckedKnownChecked\n            ^\n  symbol:   method throwIfUnchecked(IOException)\n  location: class ThrowIfUncheckedKnownChecked\n1 error\n",
+  "Trigger_Explanation": "The generated JUNIT test case triggered the bug by calling the showBug() method of the ThrowIfUncheckedKnownChecked class, which throws an IOException that is caught by the catch block in the showBug() method.",
+  "Trigger_Line": [
+    6
+  ]
+}

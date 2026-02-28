@@ -1,0 +1,29 @@
+class CovariantArrayExample {
+
+    public void showBug(Object[] array, Integer value) {
+        // BUG: CAA: Possibly incompatible element is stored in covariant array (CAA_COVARIANT_ARRAY_ELEMENT_STORE)
+        array[0] = value; // This line stores an Integer into an Object array, which is technically correct but demonstrates the potential issue
+
+        // Mutated code with an unreachable if statement
+        boolean condition = getCondition();
+        if (condition) {
+            // This block is unreachable because getCondition() always returns false
+            array[1] = "This is an unreachable statement";
+        }
+    }
+
+    private boolean getCondition() {
+        // This method always returns false, making the if block unreachable
+        return false;
+    }
+
+    public static void main(String[] args) {
+        CovariantArrayExample example = new CovariantArrayExample();
+        String[] stringArray = {"Hello"};
+        try {
+            example.showBug(stringArray, 123); // This will cause ArrayStoreException at runtime
+        } catch (ArrayStoreException e) {
+            System.out.println("Caught ArrayStoreException: " + e.getMessage());
+        }
+    }
+}

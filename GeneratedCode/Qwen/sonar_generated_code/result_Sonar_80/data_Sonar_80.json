@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "Non-primitive fields should not be \"volatile\"",
+  "Bug_Details": "Marking an array volatile means that the array itself will always be read fresh and never thread cached, but the items in the\narray will not be. Similarly, marking a mutable object field volatile means the object reference is volatile but\nthe object itself is not, and other threads may not see updates to the object state.\nThis can be salvaged with arrays by using the relevant AtomicArray class, such as AtomicIntegerArray , instead. For mutable objects,\nthe volatile should be removed, and some other method should be used to ensure thread-safety, such as synchronization, or ThreadLocal\nstorage.\nNoncompliant code example\nprivate volatile int [] vInts;  // Noncompliant\nprivate volatile MyObj myObj;  // Noncompliant\nCompliant solution\nprivate AtomicIntegerArray vInts;\nprivate MyObj myObj;",
+  "Bug_Explanation": "The bug is embedded in the generated code by declaring the fields 'vInts' and'myObj' as 'volatile'. This violates the rule that non-primitive fields should not be marked as 'volatile' because changes to the contents of the array or the object's state may not be visible to other threads.",
+  "Buggy_Line": [
+    4,
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test cases call methods'showBug1' and'showBug2' on an instance of 'VolatileExample'. These methods modify the 'vInts' and'myObj' fields, which are declared as 'volatile'. The bug is triggered because changes to these fields may not be visible to other threads due to the non-primitive nature of the fields being marked as 'volatile'.",
+  "Trigger_Line": [
+    10,
+    15
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.009\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that both tests passed without any failures. However, the test results do not provide evidence of the race conditions or inconsistent states that would confirm the bug related to non-primitive volatile fields. The assertions passing only indicate that the operations within the single-threaded test environment behaved as expected, but they do not confirm the presence of the bug under concurrent conditions."
+}

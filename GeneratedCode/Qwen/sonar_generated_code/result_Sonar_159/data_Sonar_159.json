@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "\"Iterator.hasNext()\" should not call \"Iterator.next()\"",
+  "Bug_Details": "Calling Iterator.hasNext() is not supposed to have any side effects and hence should not change the iterator\u2019s state. Iterator.next() advances the iterator by one item. So calling it inside Iterator.hasNext() breaks the hasNext() contract and will lead to unexpected behavior in production.",
+  "Bug_Explanation": "The bug was embedded in the generated code by incorrectly calling iterator.next() inside the iterator.hasNext() condition. This violates the contract of hasNext() which should not have side effects.",
+  "Buggy_Line": [
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered because the showBug method incorrectly calls iterator.next() inside the iterator.hasNext() loop, which violates the contract of hasNext() by advancing the iterator.",
+  "Trigger_Line": [
+    12,
+    20,
+    28
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n...\nTime: 0.008\n\nOK (3 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that all three tests passed successfully, indicating that the method'showBug' did not cause any failures or exceptions. Since the bug would be expected to lead to unexpected behavior or errors, the absence of such issues in the test results does not confirm that the bug was triggered."
+}

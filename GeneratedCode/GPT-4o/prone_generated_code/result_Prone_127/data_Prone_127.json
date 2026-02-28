@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "OverlappingQualifierAndScopeAnnotation",
+  "Bug_Details": "Annotations cannot be both Scope annotations and Qualifier annotations: this causes confusion when trying to use them. Qualifiers and Scoping annotations have different semantic meanings and a single\nannotation should not be both a qualifier and a scoping annotation. If an annotation is both a scoping annotation and a qualifier, unless great care\nis taken with its application and usage, the semantics of objects annotated with\nthe annotation are unclear. Take a look at this example: @Retention(RetentionPolicy.RUNTIME)\n@Scope\n@Qualifier\n@interface DayScoped {}\n\nstatic class Allowance {}\nstatic class DailyAllowance extends Allowance {}\nstatic class Spender {\n  @Inject\n  Spender(Allowance allowance) {}\n}\n\nstatic class BindingModule extends AbstractModule {\n  ...\n  @Provides\n  @DayScoped\n  Allowance providesAllowance() {\n    return new DailyAllowance();\n  }\n} @Retention(RetentionPolicy.RUNTIME)\n@Scope\n@Qualifier\n@interface DayScoped {}\n\nstatic class Allowance {}\nstatic class DailyAllowance extends Allowance {}\nstatic class Spender {\n  @Inject\n  Spender(Allowance allowance) {}\n}\n\nstatic class BindingModule extends AbstractModule {\n  ...\n  @Provides\n  @DayScoped\n  Allowance providesAllowance() {\n    return new DailyAllowance();\n  }\n} Here, the Allowance instance used by Spender isn\u2019t actually scoped to a single\nday, as the @Provides method applies the DayScoped scoping only to the\n@DayScoped Allowance. Instead, the default constructor of Allowance is used\nto create a new instance every time a Spender is created. If @DayScope wasn\u2019t a Qualifier, the provider method would do the right\nthing: the un-annotated Allowance binding would be scoped to DayScope,\nimplemented by a single DailyAllowance instance per day.",
+  "Bug_Explanation": "The annotation @DayScoped is incorrectly used as both a Scope and a Qualifier, which results in unclear semantics when applied. The intended bug is demonstrated by applying this annotation to the providesAllowance method.",
+  "Buggy_Line": [
+    27,
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug method, which uses the DayScoped annotation incorrectly as both a scope and a qualifier, causing unexpected behavior in object creation, which results in failing the assertion.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.006\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully, as denoted by 'OK (1 test)'. This suggests that the expected failure due to the bug did not occur during the test execution."
+}

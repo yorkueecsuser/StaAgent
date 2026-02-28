@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "BSHIFT: 32 bit int shifted by an amount not in the range -31..31 (ICAST_BAD_SHIFT_AMOUNT)\uf0c1",
+  "Bug_Details": "\nThe code performs shift of a 32 bit int by a constant amount outside\nthe range -31..31.\nThe effect of this is to use the lower 5 bits of the integer\nvalue to decide how much to shift by (e.g., shifting by 40 bits is the same as shifting by 8 bits,\nand shifting by 32 bits is the same as shifting by zero bits). This probably isn't what was expected,\nand it is at least confusing.\n",
+  "Bug_Explanation": "The bug was embedded in the generated code by performing left and right shifts with amounts outside the valid range (-31..31). Specifically, 'value << 32' and 'value >> 40' both utilize the lower 5 bits of the shift amount, effectively making them equivalent to 'value << 0' and 'value >> 8', respectively.",
+  "Buggy_Line": [
+    10,
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by calling the methods `showBug` and `showBug2` with specific inputs that demonstrate the incorrect behavior due to invalid shift amounts. The expected results are set to values that would only be correct if the bug did not exist, causing the tests to fail.",
+  "Trigger_Line": [
+    9,
+    13
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.007\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that both tests passed without any assertion errors. The expected output for both tests was 1, which matches the actual output printed in the main method. However, based on the bug rule, the shifts performed in the code are indeed incorrect and should not produce the expected results. Since the tests do not fail, they do not confirm that the bug is triggered as intended."
+}

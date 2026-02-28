@@ -1,0 +1,84 @@
+import edu.umd.cs.findbugs.annotations.NoWarning;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+class Bug1844671 {
+  @NoWarning("OS_OPEN_STREAM")
+  public void falsePositive1() {
+    FileWriter fw = null;
+    try {
+      fw = new FileWriter(new File(""));
+    } catch (IOException e) {
+      System.out.println(e);
+    } finally {
+      try {
+        if (fw!= null) { // no false positive
+          fw.close();
+        }
+      } catch (IOException ioe) {
+      }
+      // Introduced unreachable switch statement
+      boolean condition = getCondition();
+      switch(condition) {
+        case true:
+          System.out.println("This is unreachable");
+          break;
+      }
+    }
+  }
+
+  @NoWarning("OS_OPEN_STREAM")
+  public void falsePositive2() {
+    FileWriter fw = null;
+    try {
+      fw = new FileWriter(new File(""));
+    } catch (IOException e) {
+      System.out.println(e);
+    } finally {
+      try {
+        if (null!= fw) { // false positive
+          fw.close();
+        }
+      } catch (IOException ioe) {
+      }
+      // Introduced unreachable switch statement
+      boolean condition = getCondition();
+      switch(condition) {
+        case true:
+          System.out.println("This is unreachable");
+          break;
+      }
+    }
+  }
+
+  public void complicated() {
+    FileWriter tmp = null;
+    FileWriter fw = null;
+    try {
+      tmp = new FileWriter(new File(""));
+      fw = new FileWriter(new File(""));
+    } catch (IOException e) {
+      System.out.println(e);
+    } finally {
+      try {
+        if (tmp!= fw) {
+          if (fw!= null) fw.close();
+          tmp.close();
+        }
+      } catch (IOException ioe) {
+      }
+      // Introduced unreachable switch statement
+      boolean condition = getCondition();
+      switch(condition) {
+        case true:
+          System.out.println("This is unreachable");
+          break;
+      }
+    }
+  }
+
+  private boolean getCondition() {
+    return false; // This method ensures the condition is always false, making the switch unreachable
+  }
+}

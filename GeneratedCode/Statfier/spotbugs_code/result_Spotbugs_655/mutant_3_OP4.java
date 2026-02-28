@@ -1,0 +1,115 @@
+import edu.umd.cs.findbugs.annotations.DesireWarning;
+import edu.umd.cs.findbugs.annotations.ExpectWarning;
+import java.util.Random;
+
+class BadRandomInt {
+
+  static Random r = new Random();
+
+  @ExpectWarning("Dm")
+  int nextInt(int n) {
+    boolean shouldRun = getCondition();
+    if (shouldRun) {
+      // Unreachable if-else statement
+      if (getUnreachableCondition()) {
+        System.out.println("This is an unreachable if block");
+      } else {
+        System.out.println("This is an unreachable else block");
+      }
+    }
+    return (int) (r.nextDouble() * n);
+  }
+
+  @ExpectWarning("Dm")
+  int nextInt() {
+    boolean shouldRun = getCondition();
+    if (shouldRun) {
+      // Unreachable if-else statement
+      if (getUnreachableCondition()) {
+        System.out.println("This is an unreachable if block");
+      } else {
+        System.out.println("This is an unreachable else block");
+      }
+    }
+    return (int) (r.nextDouble() * 100);
+  }
+
+  @ExpectWarning("Dm")
+  int nextInt2(int n) {
+    boolean shouldRun = getCondition();
+    if (shouldRun) {
+      // Unreachable if-else statement
+      if (getUnreachableCondition()) {
+        System.out.println("This is an unreachable if block");
+      } else {
+        System.out.println("This is an unreachable else block");
+      }
+    }
+    return (int) (n * r.nextDouble());
+  }
+
+  @ExpectWarning("Dm")
+  int nextInt2() {
+    boolean shouldRun = getCondition();
+    if (shouldRun) {
+      // Unreachable if-else statement
+      if (getUnreachableCondition()) {
+        System.out.println("This is an unreachable if block");
+      } else {
+        System.out.println("This is an unreachable else block");
+      }
+    }
+    return (int) (100 * r.nextDouble());
+  }
+
+  @DesireWarning("DMI")
+  static int randomInt(int n) {
+    Random ran = new Random();
+    boolean shouldRun = getCondition();
+    if (shouldRun) {
+      // Unreachable if-else statement
+      if (getUnreachableCondition()) {
+        System.out.println("This is an unreachable if block");
+      } else {
+        System.out.println("This is an unreachable else block");
+      }
+    }
+    return ran.nextInt(n);
+  }
+
+  @ExpectWarning("DMI")
+  static int randomInt2(int n) {
+    boolean shouldRun = getCondition();
+    if (shouldRun) {
+      // Unreachable if-else statement
+      if (getUnreachableCondition()) {
+        System.out.println("This is an unreachable if block");
+      } else {
+        System.out.println("This is an unreachable else block");
+      }
+    }
+    return new Random().nextInt(n);
+  }
+
+  @ExpectWarning("DMI")
+  static int randomInt3() {
+    boolean shouldRun = getCondition();
+    if (shouldRun) {
+      // Unreachable if-else statement
+      if (getUnreachableCondition()) {
+        System.out.println("This is an unreachable if block");
+      } else {
+        System.out.println("This is an unreachable else block");
+      }
+    }
+    return new Random().nextInt();
+  }
+
+  private static boolean getCondition() {
+    return false; // This ensures the if block is not executed
+  }
+
+  private static boolean getUnreachableCondition() {
+    return false; // This ensures the if-else block is unreachable
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Assertion methods should not be used within the try block of a try-catch catching an Error",
+  "Bug_Details": "Assertion methods\u00a0are throwing a \" java.lang.AssertionError \". If this call is done within the try block of a try-catch cathing a\nsimilar error, you should make sure to test some properties of the exception. Otherwise, the assertion will never fail.\nNoncompliant code example\n@Test\npublic void should_throw_assertion_error() {\n  try {\n    throwAssertionError();\n    Assert.fail(\"Expected an AssertionError!\"); // Noncompliant, the AssertionError will be caught and the test will never fail.\n  } catch (AssertionError e) {}\n}\n\nprivate void throwAssertionError() {\n  throw new AssertionError(\"My assertion error\");\n}\nCompliant solution\nassertThrows(AssertionError.class, () -> throwAssertionError());\ntry {\n   throwAssertionError();\n   Assert.fail(\"Expected an AssertionError!\"); // Compliant, we made sure to test that the correct error is raised\n } catch (AssertionError e) {\n   Assert.assertThat(e.getMessage(), is(\"My assertion error\"));\n }",
+  "Bug_Explanation": "The bug is embedded in the generated code by using an assertion method within the try block of a try-catch that catches an AssertionError. This ensures that the assertion will never fail because the AssertionError is caught and handled, preventing the test from failing as expected.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method of the AssertionInTryCatch class. Inside showBug, an AssertionError is thrown and caught in the catch block. The assert statement within the try block is never reached because the AssertionError is caught, thus the test does not fail as expected.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.034\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed without any failures or errors, suggesting that the assertion within the try block did not cause the test to fail as expected. This implies that the bug, where the assertion method should not be used within a try block catching an AssertionError, was not triggered in a way that caused the test to fail."
+}

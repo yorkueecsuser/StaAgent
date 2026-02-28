@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "BadShiftAmount",
+  "Bug_Details": "Shift by an amount that is out of range For shift operations on int types, only the five lowest-order bits of the shift\namount are used as the shift distance. This means that shift amounts that are\nnot in the range 0 to 31, inclusive, are silently mapped to values in that\nrange. For example, a shift of an int by 32 is equivalent to shifting by 0,\ni.e., a no-op. See JLS 15.19, \u201cShift Operators\u201d, for more details.",
+  "Bug_Explanation": "The shift amount is greater than 31. This is an out of range shift amount. The Java specification states that only the five lowest-order bits of the shift amount are used as the shift distance. This means that shift amounts that are not in the range 0 to 31, inclusive, are silently mapped to values in that range. The shift operation of the int type is equivalent to shifting by 0, i.e., a no-op.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is expected to return 10 (which is 00001010 in binary) as a result of the shift operation with a shift amount of 32. Since the shift amount is greater than 31, it is out of range. The Java specification states that only the five lowest-order bits of the shift amount are used as the shift distance. This means that shift amounts that are not in the range 0 to 31, inclusive, are silently mapped to values in that range. The shift operation of the int type is equivalent to shifting by 0, i.e., a no-op. Hence, the result should be 10 (which is 00001010 in binary)",
+  "Trigger_Line": [
+    12
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.008\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "Based on the test execution results, the test has passed successfully, which means that the bug was not triggered. The expected output was 10 (which is 00001010 in binary), and the actual output was also 10 (which is 00001010 in binary). This is because the shift amount of 32 is out of range for int types in Java. According to the Java Language Specification (JLS), only the five lowest-order bits of the shift amount are used as the shift distance. This means that shift amounts that are not in the range 0 to 31, inclusive, are silently mapped to values in that range. For this reason, the shift operation of the int type with a shift amount of 32 is equivalent to shifting by 0, i.e., a no-op. Therefore, the result should be 10 (which is 00001010 in binary).",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The described bug is present in the provided Java code. The shift operation is performed on an integer with a shift amount that is out of range. The Java Language Specification (JLS) states that for shift operations on int types, only the five lowest-order bits of the shift amount are used as the shift distance. This means that shift amounts that are not in the range 0 to 31, inclusive, are silently mapped to values in that range. In this case, a shift of an int by 32 is equivalent to shifting by 0, i.e., a no-op. Therefore, the result of the shift operation will be the same as the original number, which is 10 in this case."
+}

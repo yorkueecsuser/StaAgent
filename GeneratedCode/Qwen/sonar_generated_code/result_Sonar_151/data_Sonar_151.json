@@ -1,0 +1,20 @@
+{
+  "Bug_Title": "Resources should be closed",
+  "Bug_Details": "Connections, streams, files, and other classes that implement the Closeable interface or its super-interface, AutoCloseable , needs to be closed after use. Further, that close call must be made in a finally block otherwise\nan exception could keep the call from being made. Preferably, when class implements AutoCloseable , resource should be created using\n\"try-with-resources\" pattern and will be closed automatically.\nFailure to properly close resources will result in a resource leak which could bring first the application and then perhaps the box the application\nis on to their knees.\nNoncompliant code example\nprivate void readTheFile() throws IOException {\n  Path path = Paths.get(this.fileName);\n  BufferedReader reader = Files.newBufferedReader(path, this.charset);\n  // ...\n  reader.close();  // Noncompliant\n  // ...\n  Files.lines(\"input.txt\").forEach(System.out::println); // Noncompliant: The stream needs to be closed\n}\n\nprivate void doSomething() {\n  OutputStream stream = null;\n  try {\n    for (String property : propertyList) {\n      stream = new FileOutputStream(\"myfile.txt\");  // Noncompliant\n      // ...\n    }\n  } catch (Exception e) {\n    // ...\n  } finally {\n    stream.close();  // Multiple streams were opened. Only the last is closed.\n  }\n}\nCompliant solution\nprivate void readTheFile(String fileName) throws IOException {\n    Path path = Paths.get(fileName);\n    try (BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {\n      reader.readLine();\n      // ...\n    }\n    // ..\n    try (Stream<String> input = Files.lines(\"input.txt\"))  {\n      input.forEach(System.out::println);\n    }\n}\n\nprivate void doSomething() {\n  OutputStream stream = null;\n  try {\n    stream = new FileOutputStream(\"myfile.txt\");\n    for (String property : propertyList) {\n      // ...\n    }\n  } catch (Exception e) {\n    // ...\n  } finally {\n    stream.close();\n  }\n}\nExceptions\nInstances of the following classes are ignored by this rule because close has no effect:\njava.io.ByteArrayOutputStream java.io.ByteArrayInputStream java.io.CharArrayReader java.io.CharArrayWriter java.io.StringReader java.io.StringWriter\njava.io.ByteArrayOutputStream\njava.io.ByteArrayInputStream\njava.io.CharArrayReader\njava.io.CharArrayWriter\njava.io.StringReader\njava.io.StringWriter\nJava 7 introduced the try-with-resources statement, which implicitly closes Closeables . All resources opened in a try-with-resources\nstatement are ignored by this rule.\ntry (BufferedReader br = new BufferedReader(new FileReader(fileName))) {\n  //...\n}\ncatch ( ... ) {\n  //...\n}",
+  "Bug_Explanation": "The code contains intentional resource leaks in methods showBug1, showBug2, and showBug3. In showBug1, the BufferedReader is not guaranteed to be closed if an exception occurs before reaching the close call. In showBug2, only the last FileOutputStream is closed, while others are leaked if an exception occurs. In showBug3, the Stream returned by Files.lines is not closed, leading to a resource leak.",
+  "Buggy_Line": [
+    48,
+    22,
+    31
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The tests trigger the bug by calling the showBug method which internally calls showBug1, showBug2, and showBug3. These methods contain resource leaks as they do not properly close the resources.",
+  "Trigger_Line": [
+    10,
+    16,
+    22
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n...\nTime: 0.01\n\nOK (3 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that all three tests passed without throwing any exceptions, even though they were expecting IOExceptions. This suggests that the resource leaks did not cause any IOExceptions during the test execution, and thus the bug was not triggered as expected based on the provided test results."
+}

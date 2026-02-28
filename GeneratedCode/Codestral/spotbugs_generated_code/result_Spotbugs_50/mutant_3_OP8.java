@@ -1,0 +1,12 @@
+class BuggyArray {
+    public static int showBug(int[] arr, int length) {
+        // BUG: RANGE: Array length is out of bounds (RANGE_ARRAY_LENGTH)
+        return arr[length];
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 3, 4, 5};
+        int len = 5; // Renaming 'length' to 'len'
+        System.out.println(showBug(arr, len)); // Index 5 is out of bounds for length 5
+    }
+}

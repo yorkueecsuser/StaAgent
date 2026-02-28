@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "AvoidCatchingThrowable",
+  "Bug_Details": "Catching Throwable errors is not recommended since its scope is very broad. It includes runtime issues such as\nOutOfMemoryError that should be exposed and managed separately.\nExamples:\npublic void bar() {\n    try {\n        // do something\n    } catch (Throwable th) {  // should not catch Throwable\n        th.printStackTrace();\n    }\n}",
+  "Bug_Explanation": "The code catches Throwable, which is too broad as it includes severe errors like OutOfMemoryError that should be handled differently.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case calls the showBug method which contains a try-catch block that catches Throwable. This is highlighted by the bug rule 'AvoidCatchingThrowable'. The test is designed to fail because the ArrayIndexOutOfBoundsException is caught by this broad catch block, demonstrating improper handling of such exceptions.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.006\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any errors or failures. This suggests that the bug related to catching Throwable was not triggered during the test execution."
+}

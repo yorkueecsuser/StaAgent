@@ -1,0 +1,11 @@
+{
+  "Buggy_Line": [
+    7
+  ],
+  "Trigger_Explanation": "The test case triggers the bug by calling the g() method with the result of the f() method, which throws an IOException.",
+  "Trigger_Line": [
+    17
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

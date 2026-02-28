@@ -1,0 +1,24 @@
+class ConfusionExample {
+
+    // BUG: Nm: Apparent method/constructor confusion (NM_METHOD_CONSTRUCTOR_CONFUSION)
+    public void ConfusionExample() {
+        System.out.println("This is not a constructor!");
+        String qzjfnrht = "unusedVariable"; // Dead store mutation
+    }
+
+    public ConfusionExample(String message) {
+        System.out.println("This is the actual constructor: " + message);
+    }
+
+    public String showBug() {
+        ConfusionExample(); // Calling the method that looks like a constructor
+        int vbnrhtyq = 42; // Dead store mutation
+        return "Check the console for the bug demonstration.";
+    }
+
+    public static void main(String[] args) {
+        ConfusionExample example = new ConfusionExample("Hello");
+        example.showBug();
+        boolean xwvfrtgb = true; // Dead store mutation
+    }
+}

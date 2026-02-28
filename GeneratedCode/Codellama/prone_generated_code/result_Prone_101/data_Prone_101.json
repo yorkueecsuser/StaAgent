@@ -1,0 +1,7 @@
+{
+  "Buggy_Line": [],
+  "Trigger_Explanation": "The test case triggers the bug by first calling the doSomething() method on the LockOnBoxedPrimitive object, which acquires the lock on the boxed primitive. Then, the test case tries to acquire the lock again by calling the synchronized() method on the same object, which should throw an IllegalMonitorStateException. However, since the boxed primitive is cached by the standard library, the lock is not released properly, leading to a deadlock.",
+  "Trigger_Line": [
+    21
+  ]
+}

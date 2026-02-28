@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "IJU: TestCase declares a bad suite method (IJU_BAD_SUITE_METHOD)\uf0c1",
+  "Bug_Details": " Class is a JUnit TestCase and defines a suite() method.\nHowever, the suite method needs to be declared as either \nor\n public static junit.framework.Test suite()\n public static junit.framework.TestSuite suite()\n",
+  "Bug_Explanation": "The bug is embedded in the'suite()' method of the 'BadSuiteMethodTest' class. The method is declared as 'public TestSuite suite()' instead of the required 'public static junit.framework.Test suite()' or 'public static junit.framework.TestSuite suite()'.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the'showBug' method of the 'BadSuiteMethodTest' class, which internally calls the incorrectly declared'suite' method. This triggers the bug because the'suite' method is not declared as 'public static junit.framework.Test suite()' or 'public static junit.framework.TestSuite suite()'.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.008\n\nOK (1 test)\n\n"
+}

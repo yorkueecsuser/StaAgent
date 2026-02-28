@@ -1,0 +1,21 @@
+{
+  "Bug_Title": "DoNotCallGarbageCollectionExplicitly",
+  "Bug_Details": "Calls to `System.gc()`, `Runtime.getRuntime().gc()`, and `System.runFinalization()` are not advised.\nCode should have the same behavior whether the garbage collection is disabled using the option\n`-Xdisableexplicitgc` or not.\n\nMoreover, \"modern\" JVMs do a very good job handling garbage collections. If memory usage issues unrelated to memory\nleaks develop within an application, it should be dealt with JVM options rather than within the code itself.\nExamples:\npublic class GCCall {\n    public GCCall() {\n        // Explicit gc call !\n        System.gc();\n    }\n\n    public void doSomething() {\n        // Explicit gc call !\n        Runtime.getRuntime().gc();\n    }\n\n    public explicitGCcall() {\n        // Explicit gc call !\n        System.gc();\n    }\n\n    public void doSomething() {\n        // Explicit gc call !\n        Runtime.getRuntime().gc();\n    }\n}",
+  "Bug_Explanation": "The bug was embedded in the generated code by explicitly calling System.gc() and Runtime.getRuntime().gc() in multiple methods including the constructors and the showBug methods.",
+  "Buggy_Line": [
+    5,
+    10,
+    15,
+    20,
+    25,
+    30
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by calling the methods'showBug' and'showBug1' on an instance of the GCCall class, which explicitly calls garbage collection.",
+  "Trigger_Line": [
+    10,
+    15
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

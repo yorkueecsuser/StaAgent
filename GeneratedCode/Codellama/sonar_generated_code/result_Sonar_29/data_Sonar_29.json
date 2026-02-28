@@ -1,0 +1,13 @@
+{
+  "Buggy_Line": [
+    14
+  ],
+  "Trigger_Explanation": "The test method triggers the bug by using a mock object to stub the `getTestMethod` method with a matcher for the first argument and a wildcard for the second argument.",
+  "Trigger_Line": [
+    10,
+    12,
+    13
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

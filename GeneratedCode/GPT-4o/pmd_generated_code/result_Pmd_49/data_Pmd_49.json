@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "InstantiationToGetClass",
+  "Bug_Details": "Avoid instantiating an object just to call getClass() on it; use the .class public member instead.\nExamples:\n// replace this\nClass c = new String().getClass();\n\n// with this:\nClass c = String.class;",
+  "Bug_Explanation": "The code demonstrates the InstantiationToGetClass bug by creating a new String object just to get its class using the getClass() method. Instead, it should directly use String.class.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls the showBug method, which contains the bug by instantiating a new String object just to obtain its class. The test fails because it expects String.class directly, highlighting the inefficiency and unnecessary object instantiation.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any errors, confirming that the bug was not triggered during the test execution."
+}

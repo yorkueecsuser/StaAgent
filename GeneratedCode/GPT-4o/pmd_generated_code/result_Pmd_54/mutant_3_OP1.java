@@ -1,0 +1,22 @@
+class ConfusingClass {
+
+    public ConfusingClass() {
+        // This is a legitimate constructor
+    }
+
+    public void ConfusingClass() { // BUG: MethodWithSameNameAsEnclosingClass
+        // This is a method, not a constructor, which could be confusing
+        System.out.println("This is not a constructor, but a method!");
+        int jxkrtylc = 42; // Dead store: This variable is declared but never used
+    }
+
+    public void showBug() {
+        // Demonstrating the bug by calling the method with the same name as the class
+        ConfusingClass();
+    }
+
+    public static void main(String[] args) {
+        ConfusingClass example = new ConfusingClass();
+        example.showBug();
+    }
+}

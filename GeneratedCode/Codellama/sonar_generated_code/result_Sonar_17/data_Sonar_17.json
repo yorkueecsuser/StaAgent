@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Async methods should return void or Future",
+  "Bug_Details": "The Spring framework provides the annotation Async to mark a method (or all methods of a type) as a candidate for asynchronous\nexecution.\nAsynchronous methods do not necessarily, by their nature, return the result of their calculation immediately. Hence, it is unexpected and in clear\nbreach of the Async contract for such methods to have a return type that is neither void nor a Future type.",
+  "Bug_Explanation": "The getData() method is marked with the @Async annotation, which means it should return void or Future. However, it returns a String instead, which is a violation of the Async contract.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_17/seed_Sonar_17.java:4: error: cannot find symbol\n    @Async\n     ^\n  symbol:   class Async\n  location: class AsyncBug\n1 error\n",
+  "Trigger_Explanation": "The test case triggers the bug by calling the `buggyMethod` method with a string parameter, which is expected to return a void or Future type, but it returns a CompletableFuture instead.",
+  "Trigger_Line": [
+    13
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "AsyncCallableReturnsNull",
+  "Bug_Details": "AsyncCallable should not return a null Future, only a Future whose result is null. Methods like Futures.whenAllComplete(\u2026).callAsync(\u2026) will throw a\nNullPointerException if the provided AsyncCallable returns a null Future. To\nproduce a Future with an output of null, instead return immediateFuture(null).",
+  "Bug_Explanation": "The method returnNullFuture() incorrectly returns null instead of a Future object. This leads to a NullPointerException when future.get() is called.",
+  "Buggy_Line": [
+    11
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls the showBug method of AsyncCallableExample. Inside showBug, the returnNullFuture method is called, which returns null instead of a Future object. This leads to a NullPointerException when future.get() is called, hence triggering the bug.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.008\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any errors or exceptions, which means that the NullPointerException expected from the bug was not triggered during the test execution."
+}

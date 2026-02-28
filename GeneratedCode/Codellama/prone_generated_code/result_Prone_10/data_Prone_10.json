@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "AutoValueConstructorOrderChecker",
+  "Bug_Details": "Arguments to AutoValue constructor are in the wrong order AutoValue constructors are synthesized with their parameters in the same order\nas the abstract accessor methods. Calls to the constructor need to match this\nordering.",
+  "Bug_Explanation": "The bug was embedded in the `create` method of the `User` class. The parameters were swapped, so the parameter `age` was passed as the `name` parameter, and the parameter `name` was passed as the `age` parameter. This caused the bug to be present in the generated code.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_10/seed_Prone_10.java:4: error: class User is public, should be declared in a file named User.java\npublic abstract class User {\n                ^\n../prone_clean_java_code/result_Prone_10/seed_Prone_10.java:1: error: package com.google.auto.value does not exist\nimport com.google.auto.value.AutoValue;\n                            ^\n../prone_clean_java_code/result_Prone_10/seed_Prone_10.java:3: error: cannot find symbol\n@AutoValue\n ^\n  symbol: class AutoValue\n../prone_clean_java_code/result_Prone_10/seed_Prone_10.java:9: error: cannot find symbol\n        return new AutoValue_User(name, age);\n                   ^\n  symbol:   class AutoValue_User\n  location: class User\n4 errors\n",
+  "Trigger_Explanation": "The test case triggers the bug by passing the parameters in the wrong order to the 'create' method.",
+  "Trigger_Line": [
+    44
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Double Brace Initialization should not be used",
+  "Bug_Details": "Because Double Brace Initialization (DBI) creates an anonymous class with a reference to the instance of the owning object, its use can lead to\nmemory leaks if the anonymous inner class is returned and held by other objects. Even when there\u2019s no leak, DBI is so obscure that it\u2019s bound to\nconfuse most maintainers.\nFor collections, use Arrays.asList instead, or explicitly add each item directly to the collection.\nNoncompliant code example\nMap source = new HashMap(){{ // Noncompliant\n    put(\"firstName\", \"John\");\n    put(\"lastName\", \"Smith\");\n}};\nCompliant solution\nMap source = new HashMap();\n// ...\nsource.put(\"firstName\", \"John\");\nsource.put(\"lastName\", \"Smith\");\n// ...",
+  "Bug_Explanation": "The bug was embedded in the generated code by using Double Brace Initialization to create a HashMap. This practice is discouraged because it creates an anonymous class with a reference to the instance of the owning object, which can lead to memory leaks and confusion.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method of DoubleBraceInitializationExample, which uses Double Brace Initialization to populate the map.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.01\nThere was 1 failure:\n1) testShowBug(DoubleBraceInitializationExampleTest)\njava.lang.AssertionError: This test is expected to fail due to the use of Double Brace Initialization\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat DoubleBraceInitializationExampleTest.testShowBug(DoubleBraceInitializationExampleTest.java:13)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show a failure, but this failure is explicitly caused by the 'fail' statement in the test code, which is intended to indicate that the test is expected to fail due to the use of Double Brace Initialization. The actual functionality of the method'showBug' does not fail; it correctly returns a map with the expected values."
+}

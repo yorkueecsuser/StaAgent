@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Conditionally executed code should be reachable",
+  "Bug_Details": "Conditional expressions which are always true or false can lead to unreachable code .\nNoncompliant code example\na = false;\nif (a) { // Noncompliant\n  doSomething(); // never executed\n}\n\nif (!a || b) { // Noncompliant; \"!a\" is always \"true\", \"b\" is never evaluated\n  doSomething();\n} else {\n  doSomethingElse(); // never executed\n}\nExceptions\nThis rule will not raise an issue in either of these cases:\nWhen the condition is a single final boolean\nWhen the condition is a single final boolean\nfinal boolean debug = false;\n//...\nif (debug) {\n  // Print something\n}\nWhen the condition is literally true or false .\nWhen the condition is literally true or false .\nif (true) {\n  // do something\n}\nIn these cases it is obvious the code is as intended.",
+  "Bug_Explanation": "The bug was embedded in the generated code by creating conditional statements where the conditions are always false, leading to unreachable code. Specifically, the variable 'a' is set to false, making the condition 'if (a)' always false. Similarly, the condition '!a || b' is always true because '!a' is always true, and 'b' is never evaluated, making the 'else' block unreachable.",
+  "Buggy_Line": [
+    10,
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test calls the showBug method, which contains unreachable code due to conditions that are always false or always true. The test itself does not catch any exceptions but uses the fail method to ensure it triggers a failure, indicating that the unreachable code was not executed as expected.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.This will also never be printed\nE\nTime: 0.008\nThere was 1 failure:\n1) testUnreachableIfBlock(UnreachableCodeExampleTest)\njava.lang.AssertionError: This test should fail because the unreachable code should be triggered\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat UnreachableCodeExampleTest.testUnreachableIfBlock(UnreachableCodeExampleTest.java:10)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test result shows that the message 'This will also never be printed' was indeed printed, indicating that the conditional block was executed. However, the test failed because the assertion was set to fail intentionally to demonstrate that the unreachable code was triggered. Since the unreachable code was supposed to be unreachable, the test failure confirms that the bug was not triggered as expected."
+}

@@ -1,0 +1,37 @@
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+class Bug3242908 {
+  void getTableStructure(Connection conn, Statement statement, DatabaseMetaData meta)
+      throws Exception {
+    Statement stmt = null;
+    ResultSet select_rs = null;
+    ResultSet col = null;
+    String s = null;
+
+    try {
+      stmt = conn.createStatement();
+      select_rs = statement.executeQuery("aa");
+      col = meta.getColumns("aa", "aa", "aa", null);
+      s = "aaa";
+    } catch (SQLException eSchema) {
+    }
+
+    // Mutated code
+    Statement q = stmt;
+    ResultSet r = select_rs;
+    ResultSet t = col;
+    String u = s;
+
+    try {
+      q.close();
+      r.close();
+      t.close();
+      u.toCharArray();
+    } catch (SQLException e) {
+    }
+  }
+}

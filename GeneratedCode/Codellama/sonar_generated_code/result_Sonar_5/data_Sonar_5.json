@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Virtual threads should not run tasks that include synchronized code",
+  "Bug_Details": "Java 21 virtual threads allow the JVM to optimize the usage of OS threads, by mounting and unmounting them on an OS thread when needed, and making\nthem more efficient when dealing with blocking operations such as HTTP requests or I/O.\nHowever, when code is executed inside a synchronized block or synchronized method, the virtual thread stays pinned to the\nunderlying OS thread and cannot be unmounted during a blocking operation. This will cause the OS thread to be blocked, which can impact the\nscalability of the application.\nTherefore, virtual threads should not execute code that contains synchronized blocks or invokes synchronized methods.\nPlatform threads should be used in these cases.\nThis rule raises an issue when a virtual thread contains synchronized blocks or invokes synchronized methods.\nCode examples\nvoid enqueue(){\n    Thread.startVirtualThread(() -> { // Noncompliant; use a platform thread instead\n            setupOperations();\n            dequeLogic();\n        }\n    });\n}\nvoid enqueue(){\n    new Thread(() -> {\n        synchronized {\n            setupOperations();\n            dequeLogic();\n        }\n    }).start();\n}\nvoid enqueue2(){\n    Thread.startVirtualThread(() -> { // Noncompliant; use a platform thread instead of a virtual one\n        if(someCondition){\n            synchronizedMethod();\n        }else{\n            defaultLogic();\n        }\n    });\n}\nsynchronized void synchronizedMethod(){}\nvoid defaultLogic(){}\nvoid enqueue2(){\n    new Thread(() -> {\n        if(someCondition){\n            synchronizedMethod();\n        }else{\n            defaultLogic();\n        }\n    }).start();\n}\nsynchronized void synchronizedMethod(){}\nvoid defaultLogic(){}",
+  "Bug_Explanation": "The code embeds the bug by using synchronized methods and blocks in virtual threads, which can cause the OS thread to be blocked and impact the scalability of the application.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_5/seed_Sonar_5.java:1: error: cannot find symbol\nimport java.util.concurrent.Thread;\n                           ^\n  symbol:   class Thread\n  location: package java.util.concurrent\n../sonar_clean_java_code/result_Sonar_5/seed_Sonar_5.java:7: error: non-static variable this cannot be referenced from a static context\n            synchronized (this) {\n                          ^\n2 errors\n",
+  "Trigger_Explanation": "The virtual thread is synchronized on the VirtualThreadBug instance, which triggers the bug.",
+  "Trigger_Line": [
+    8
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

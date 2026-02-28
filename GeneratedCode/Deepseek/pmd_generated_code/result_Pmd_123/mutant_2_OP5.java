@@ -1,0 +1,27 @@
+import java.lang.StringBuffer;
+
+class BugUseStringBufferLength {
+    // BUG: UseStringBufferLength
+    public String showBug() {
+        StringBuffer sb = new StringBuffer();
+        sb.append("Some String");
+
+        // BUG: UseStringBufferLength
+        if (sb.toString().equals("")) {
+            return "StringBuffer is empty";
+        } else {
+            return "StringBuffer is not empty";
+        }
+        // Added mutant code
+        int mutant = 1; // mutant variable
+        switch (mutant) {
+            case 0: // to ensure it is unreachable
+            break;
+        }
+    }
+
+    public static void main(String[] args) {
+        BugUseStringBufferLength bug = new BugUseStringBufferLength();
+        System.out.println(bug.showBug());
+    }
+}

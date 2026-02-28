@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "GuiceAssistedParameters",
+  "Bug_Details": "A constructor cannot have two @Assisted parameters of the same type unless they are disambiguated with named @Assisted annotations. From the javadoc of FactoryModuleBuilder: The types of the factory method\u2019s parameters must be distinct. To use multiple\nparameters of the same type, use a named @Assisted annotation to\ndisambiguate the parameters. The names must be applied to the factory method\u2019s\nparameters: public interface PaymentFactory {\n   Payment create(\n        @Assisted(\"startDate\") Date startDate,\n        @Assisted(\"dueDate\") Date dueDate,\n       Money amount);\n } public interface PaymentFactory {\n   Payment create(\n        @Assisted(\"startDate\") Date startDate,\n        @Assisted(\"dueDate\") Date dueDate,\n       Money amount);\n } \u2026and to the concrete type\u2019s constructor parameters: public class RealPayment implements Payment {\n    @Inject\n   public RealPayment(\n      CreditService creditService,\n      AuthService authService,\n       @Assisted(\"startDate\") Date startDate,\n       @Assisted(\"dueDate\") Date dueDate,\n       @Assisted Money amount) {\n     ...\n   }\n } public class RealPayment implements Payment {\n    @Inject\n   public RealPayment(\n      CreditService creditService,\n      AuthService authService,\n       @Assisted(\"startDate\") Date startDate,\n       @Assisted(\"dueDate\") Date dueDate,\n       @Assisted Money amount) {\n     ...\n   }\n }",
+  "Bug_Explanation": "A constructor cannot have two @Assisted parameters of the same type unless they are disambiguated with named @Assisted annotations. In the RealPayment constructor, the second @Assisted annotation is missing the name 'dueDate'.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_64/seed_Prone_64.java:3: error: interface PaymentFactory is public, should be declared in a file named PaymentFactory.java\npublic interface PaymentFactory {\n       ^\n1 error\n",
+  "Trigger_Explanation": "The bug is triggered when the factory.create method is called with the same type of @Assisted parameters without disambiguation through named @Assisted annotations in the RealPayment constructor.",
+  "Trigger_Line": [
+    25
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

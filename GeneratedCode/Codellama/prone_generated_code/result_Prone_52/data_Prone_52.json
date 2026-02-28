@@ -1,0 +1,14 @@
+{
+  "Buggy_Line": [
+    9,
+    14
+  ],
+  "Trigger_Explanation": "The JUnit test case triggered the bug by calling the `showBug()` method, which contains the buggy code.",
+  "Trigger_Line": [
+    9,
+    14
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.002\nThere was 1 failure:\n1) initializationError(FloggerSplitLogStatementTest)\norg.junit.runners.model.InvalidTestClassError: Invalid test class 'FloggerSplitLogStatementTest':\n  1. The class FloggerSplitLogStatementTest is not public.\n  2. Test class should have exactly one public constructor\n\tat org.junit.runners.ParentRunner.validate(ParentRunner.java:525)\n\tat org.junit.runners.ParentRunner.<init>(ParentRunner.java:102)\n\tat org.junit.runners.BlockJUnit4ClassRunner.<init>(BlockJUnit4ClassRunner.java:84)\n\tat org.junit.runners.JUnit4.<init>(JUnit4.java:23)\n\tat org.junit.internal.builders.JUnit4Builder.runnerForClass(JUnit4Builder.java:10)\n\tat org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:70)\n\tat org.junit.internal.builders.AllDefaultPossibilitiesBuilder.runnerForClass(AllDefaultPossibilitiesBuilder.java:37)\n\tat org.junit.runner.Computer.getRunner(Computer.java:50)\n\tat org.junit.runner.Computer$1.runnerForClass(Computer.java:31)\n\tat org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:70)\n\tat org.junit.runners.model.RunnerBuilder.runners(RunnerBuilder.java:125)\n\tat org.junit.runners.model.RunnerBuilder.runners(RunnerBuilder.java:111)\n\tat org.junit.runners.Suite.<init>(Suite.java:81)\n\tat org.junit.runner.Computer$2.<init>(Computer.java:33)\n\tat org.junit.runner.Computer.getSuite(Computer.java:28)\n\tat org.junit.runner.Request.classes(Request.java:77)\n\tat org.junit.runner.JUnitCommandLineParseResult.createRequest(JUnitCommandLineParseResult.java:116)\n\tat org.junit.runner.JUnitCore.runMain(JUnitCore.java:77)\n\tat org.junit.runner.JUnitCore.main(JUnitCore.java:36)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the bug was not triggered. The test failed because the test class 'FloggerSplitLogStatementTest' is not public and does not have a public constructor. This failure was not related to the bug being tested."
+}

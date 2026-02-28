@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "UseConcurrentHashMap",
+  "Bug_Details": "Since Java5 brought a new implementation of the Map designed for multi-threaded access, you can\nperform efficient map reads without blocking other threads.\nExamples:\npublic class ConcurrentApp {\n  public void getMyInstance() {\n    Map map1 = new HashMap();           // fine for single-threaded access\n    Map map2 = new ConcurrentHashMap(); // preferred for use with multiple threads\n\n    // the following case will be ignored by this rule\n    Map map3 = someModule.methodThatReturnMap(); // might be OK, if the returned map is already thread-safe\n  }\n}",
+  "Bug_Explanation": "The code uses a HashMap in a multi-threaded context, which is not thread-safe. This can lead to unpredictable behavior and data corruption when accessed by multiple threads concurrently. The correct approach would be to use a ConcurrentHashMap.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case 'testShowBugTriggersUseConcurrentHashMap' calls the 'showBug' method, which uses multiple threads to concurrently access and update a HashMap. This is not thread-safe and can lead to unpredictable results or data corruption, thus triggering the bug.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Key: apple, Value: 3\nKey: banana, Value: 2\nKey: apple, Value: 3\nKey: orange, Value: 1\nKey: banana, Value: 2\nKey: apple, Value: 3\n\nTime: 0.013\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show consistent and correct values for each key, indicating that the HashMap did not exhibit any concurrency issues during the test execution. Therefore, the test results do not confirm the bug was triggered."
+}

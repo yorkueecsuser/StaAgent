@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "DMI: Invocation of hashCode on an array (DMI_INVOKING_HASHCODE_ON_ARRAY)\uf0c1",
+  "Bug_Details": "\nThe code invokes hashCode on an array. Calling hashCode on\nan array returns the same value as System.identityHashCode, and ignores\nthe contents and length of the array. If you need a hashCode that\ndepends on the contents of an array a,\nuse java.util.Arrays.hashCode(a).\n\n a java.util.Arrays.hashCode(a)",
+  "Bug_Explanation": "The bug is embedded in the showBug method where hashCode is invoked on an array. This returns the same value as System.identityHashCode, ignoring the contents and length of the array. To avoid this, java.util.Arrays.hashCode(a) should be used.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case compares the hash codes of two identical arrays using the buggy method showBug. Since showBug uses the default hashCode method on arrays, which ignores the contents of the array, the hash codes will be the same, which will cause the test case to fail, triggering the bug.",
+  "Trigger_Line": "[7]",
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.008\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the hash codes of two arrays with the same elements are not equal. However, this is not a bug. The bug rule states that calling hashCode on an array returns the same value as System.identityHashCode, which is not the case here. The correct way to get a hash code that depends on the contents of an array is to use java.util.Arrays.hashCode(a), which is not done in the provided Java code."
+}

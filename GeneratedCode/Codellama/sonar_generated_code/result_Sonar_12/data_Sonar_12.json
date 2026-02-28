@@ -1,0 +1,19 @@
+{
+  "Bug_Title": "\"@Bean\" methods for Singleton should not be invoked in \"@Configuration\" when proxyBeanMethods is false",
+  "Bug_Details": "When setting the proxyBeanMethods attribute to false the @Bean methods are not proxied and this is similar\nto removing the @Configuration stereotype. In this scenario, @Bean methods within the @Configuration annotated\nclass operate in lite\nmode , resulting in a new bean creation each time the method is invoked.\nFor Singleton beans, this could cause unexpected outcomes as the bean is created multiple times instead of being created once and\ncached.\nThe rule raises an issue when the proxyBeanMethods attribute is set to false and the @Bean method of a Singleton bean is directly invoked in the @Configuration annotated class code.",
+  "Bug_Explanation": "The bug was embedded in the `yetAnotherService` method by calling the `myService` method, which returns a new instance of `MyService` each time it is called. This violates the singleton scope of the `MyService` bean, causing the `MyClient` class to print multiple greetings when the `showBug` method is called.",
+  "Buggy_Line": [
+    26,
+    3
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_12/seed_Sonar_12.java:4: error: package org.springframework.beans.factory.annotation does not exist\nimport org.springframework.beans.factory.annotation.Autowired;\n                                                   ^\n../sonar_clean_java_code/result_Sonar_12/seed_Sonar_12.java:5: error: package org.springframework.context.annotation does not exist\nimport org.springframework.context.annotation.Bean;\n                                             ^\n../sonar_clean_java_code/result_Sonar_12/seed_Sonar_12.java:6: error: package org.springframework.context.annotation does not exist\nimport org.springframework.context.annotation.Configuration;\n                                             ^\n../sonar_clean_java_code/result_Sonar_12/seed_Sonar_12.java:7: error: package org.springframework.context.annotation does not exist\nimport org.springframework.context.annotation.Scope;\n                                             ^\n../sonar_clean_java_code/result_Sonar_12/seed_Sonar_12.java:9: error: cannot find symbol\n@Configuration\n ^\n  symbol: class Configuration\n../sonar_clean_java_code/result_Sonar_12/seed_Sonar_12.java:30: error: cannot find symbol\n@Scope(\"singleton\")\n ^\n  symbol: class Scope\n../sonar_clean_java_code/result_Sonar_12/seed_Sonar_12.java:12: error: cannot find symbol\n    @Bean\n     ^\n  symbol:   class Bean\n  location: class MyConfiguration\n../sonar_clean_java_code/result_Sonar_12/seed_Sonar_12.java:17: error: cannot find symbol\n    @Bean\n     ^\n  symbol:   class Bean\n  location: class MyConfiguration\n../sonar_clean_java_code/result_Sonar_12/seed_Sonar_12.java:22: error: cannot find symbol\n    @Bean\n     ^\n  symbol:   class Bean\n  location: class MyConfiguration\n../sonar_clean_java_code/result_Sonar_12/seed_Sonar_12.java:44: error: cannot find symbol\n    @Autowired\n     ^\n  symbol:   class Autowired\n  location: class MyClient\n10 errors\n",
+  "Trigger_Explanation": "The test cases trigger the bug by calling the'myService' method multiple times, which creates multiple instances of 'MyService' instead of creating a single instance and caching it.",
+  "Trigger_Line": [
+    34,
+    42,
+    50
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

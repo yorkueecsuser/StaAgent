@@ -1,0 +1,19 @@
+{
+  "Bug_Title": "SelfAssignment",
+  "Bug_Details": "Variable assigned to itself The left-hand side and right-hand side of this assignment are the same. It has\nno effect. This also handles assignments in which the right-hand side is a call to\nPreconditions.checkNotNull(), which returns the variable that was checked for\nnon-nullity. If you just intended to check that the variable is non-null, please\ndon\u2019t assign the result to the checked variable; just call\nPreconditions.checkNotNull() as a bare statement.",
+  "Bug_Explanation": "The bug was embedded in the generated code by assigning a variable to itself in two different methods. In the first method, 'value = value;', the variable 'value' is assigned to itself, which has no effect. In the second method,'str = Objects.requireNonNull(str);', the variable'str' is assigned to the result of a call to Preconditions.checkNotNull(), which returns the variable itself. This also has no effect and is a violation of the bug rule.",
+  "Buggy_Line": [
+    11,
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test cases call the methods'showBug' and'showBug2' with appropriate arguments. The 'testShowBugWithNull' method specifically triggers the bug by passing null to'showBug2', which results in a NullPointerException due to the self-assignment bug.",
+  "Trigger_Line": [
+    10,
+    15,
+    20
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n...\nTime: 0.009\n\nOK (3 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that all tests passed without any failures or exceptions. The test cases did not detect any issues that would confirm the presence of the self-assignment bug, as the expected outputs were returned correctly."
+}

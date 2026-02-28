@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "DeadException",
+  "Bug_Details": "Exception created but not thrown The exception is created with new, but is not thrown, and the reference is\nlost. Creating an exception without using it is unlikely to be correct, so we assume\nthat you wanted to throw the exception.",
+  "Bug_Explanation": "The code creates an ArithmeticException object but never throws it. Instead, the exception is expected to be thrown naturally when attempting division by zero, leaving the created exception unused.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method with a divisor of 0. This leads to an attempt to divide by zero, which is where the ArithmeticException naturally occurs. However, there's a bug at line 7 in the original Java code where an ArithmeticException is created but not thrown, which is not useful in this context. The test fails because the ArithmeticException is not handled within the test, causing the test to highlight the bug naturally.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Caught an arithmetic exception: / by zero\n\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that an ArithmeticException was thrown and caught, but there's no evidence that the exception created in the code (which is not thrown) affected the outcome. The test passed successfully, demonstrating the program's execution without triggering the specific DeadException bug."
+}

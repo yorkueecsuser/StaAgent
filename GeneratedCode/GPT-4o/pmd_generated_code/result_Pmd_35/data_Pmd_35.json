@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "DoNotHardCodeSDCard",
+  "Bug_Details": "Use Environment.getExternalStorageDirectory() instead of \"/sdcard\"\nExamples:\npublic class MyActivity extends Activity {\n    protected void foo() {\n        String storageLocation = \"/sdcard/mypackage\";   // hard-coded, poor approach\n\n       storageLocation = Environment.getExternalStorageDirectory() + \"/mypackage\"; // preferred approach\n    }\n}",
+  "Bug_Explanation": "The code uses a hard-coded path '/sdcard/mypackage' to access the SD card storage, which is unreliable and not recommended. The correct approach would be to use Environment.getExternalStorageDirectory() to dynamically get the SD card path.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case 'testShowBug' triggers the bug by verifying that the method 'showBug' returns a hard-coded path. The assertion fails because it expects the method to use Environment.getExternalStorageDirectory() instead of a hard-coded path, which violates the rule 'DoNotHardCodeSDCard'.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any errors, which means the hard-coded path was not flagged as a failure. Therefore, the presence of the bug was not confirmed by the test results."
+}

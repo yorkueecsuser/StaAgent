@@ -1,0 +1,20 @@
+{
+  "Bug_Title": "ConsecutiveLiteralAppends",
+  "Bug_Details": "Consecutively calling StringBuffer/StringBuilder.append(...) with literals should be avoided.\nSince the literals are constants, they can already be combined into a single String literal and this String\ncan be appended in a single method call.\nExamples:\nStringBuilder buf = new StringBuilder();\nbuf.append(\"Hello\").append(\" \").append(\"World\");    // poor\nbuf.append(\"Hello World\");                          // good\n\nbuf.append('h').append('e').append('l').append('l').append('o'); // poor\nbuf.append(\"hello\");                                             // good\n\nbuf.append(1).append('m');  // poor\nbuf.append(\"1m\");           // good",
+  "Bug_Explanation": "The bug was embedded in the generated code by consecutively calling StringBuilder.append(...) with literals instead of combining them into a single String literal.",
+  "Buggy_Line": [
+    17,
+    11,
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test cases call the methods `showBug`, `showBug1`, and `showBug2` from the `ConsecutiveLiteralAppendsExample` class. These methods contain consecutive calls to `StringBuilder.append(...)` with literals, which triggers the bug as per the rule 'ConsecutiveLiteralAppends'. The test cases expect the correct combined string values, but since the bug exists, the tests will fail, thus demonstrating the bug.",
+  "Trigger_Line": [
+    10,
+    14,
+    18
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n...\nTime: 0.005\n\nOK (3 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that all three tests passed successfully without any failures. This means that the methods showBug(), showBug1(), and showBug2() produced the expected outputs ('Hello World', 'hello', and '1m' respectively), but it does not provide evidence that the bug was triggered. The test results only confirm that the methods work as intended, not that they exhibit the inefficient pattern of consecutive literal appends."
+}

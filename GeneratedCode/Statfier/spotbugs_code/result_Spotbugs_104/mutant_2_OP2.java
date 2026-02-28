@@ -1,0 +1,18 @@
+import java.util.ArrayList;
+import javax.swing.SwingUtilities;
+
+class Bug3031977 {
+
+  public void m() {
+    final ArrayList arr = new ArrayList();
+    Runnable r =
+        new Runnable() {
+          @Override
+          public void run() {
+            arr.add("done");
+            arr.add("done"); // Mutant: duplicated assignment statement
+          }
+        };
+    SwingUtilities.invokeLater(r);
+  }
+}

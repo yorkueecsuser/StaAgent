@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "ProtocolBufferOrdinal",
+  "Bug_Details": "To get the tag number of a protocol buffer enum, use getNumber() instead. The generated Java source files for Protocol Buffer enums have getNumber() as\naccessors for the tag number in the protobuf file. In addition, since it\u2019s a java enum, it also has the ordinal() method,\nreturning its positional index within the generated java enum. The ordinal() order of the generated Java enums isn\u2019t guaranteed, and can\nchange when a new enum value is inserted into a proto enum. The getNumber()\nvalue won\u2019t change for an enum value (since making that change is a\nbackwards-incompatible change for the protocol buffer). You should very likely use getNumber() in preference to ordinal() in all\ncircumstances since it\u2019s a more stable value. Note: If you\u2019re changing code that was already using ordinal(), it\u2019s likely that\ngetNumber() will return a different real value. Tread carefully to avoid\nmismatches if the ordinal was persisted elsewhere.",
+  "Bug_Explanation": "The bug is embedded in the line where the ordinal() method is used to retrieve the positional index of the enum value. The ordinal() method can change when a new enum value is inserted, making it an unstable value. To fix the bug, the getNumber() method should be used instead to retrieve the tag number of the enum value, which is a more stable value.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_140/seed_Prone_140.java:7: error: cannot find symbol\n        MyEnum myEnum = MyEnum.FOO;\n        ^\n  symbol:   class MyEnum\n  location: class ProtocolBufferOrdinalBug\n../prone_clean_java_code/result_Prone_140/seed_Prone_140.java:7: error: cannot find symbol\n        MyEnum myEnum = MyEnum.FOO;\n                        ^\n  symbol:   variable MyEnum\n  location: class ProtocolBufferOrdinalBug\n../prone_clean_java_code/result_Prone_140/seed_Prone_140.java:9: error: cannot find symbol\n        MyEnum myEnum2 = MyEnum.BAR;\n        ^\n  symbol:   class MyEnum\n  location: class ProtocolBufferOrdinalBug\n../prone_clean_java_code/result_Prone_140/seed_Prone_140.java:9: error: cannot find symbol\n        MyEnum myEnum2 = MyEnum.BAR;\n                         ^\n  symbol:   variable MyEnum\n  location: class ProtocolBufferOrdinalBug\n4 errors\n",
+  "Trigger_Explanation": "The JUnit test case triggers the bug by calling the `ordinal()` method on the enum values. The bug is triggered by the second call to `assertEquals(1, myEnum2.ordinal())`, which fails because the `ordinal()` method returns the positional index of the enum value, which can change when a new enum value is inserted.",
+  "Trigger_Line": [
+    11
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "SQL: A prepared statement is generated from a nonconstant String (SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING)\uf0c1",
+  "Bug_Details": "The code creates an SQL prepared statement from a nonconstant String.\nIf unchecked, tainted data from a user is used in building this String, SQL injection could\nbe used to make the prepared statement do something unexpected and undesirable.\n",
+  "Bug_Explanation": "The bug is embedded in the showBug method, where a nonconstant String is used to generate a prepared statement. This allows an attacker to inject malicious SQL code.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../spotbugs_clean_java_code/result_Spotbugs_168/seed_Spotbugs_168.java:8: error: no suitable method found for createStatement(String)\n            PreparedStatement stmt = Connection.createStatement(sql);\n                                               ^\n    method Connection.createStatement() is not applicable\n      (actual and formal argument lists differ in length)\n    method Connection.createStatement(int,int) is not applicable\n      (actual and formal argument lists differ in length)\n    method Connection.createStatement(int,int,int) is not applicable\n      (actual and formal argument lists differ in length)\n1 error\n",
+  "Trigger_Explanation": "The JUnit test case triggered the bug by using a nonconstant String to generate a prepared statement, which allows an attacker to inject malicious SQL code.",
+  "Trigger_Line": [
+    7,
+    10,
+    11
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "UR: Uninitialized read of field method called from constructor of superclass (UR_UNINIT_READ_CALLED_FROM_SUPER_CONSTRUCTOR)\uf0c1",
+  "Bug_Details": " This method is invoked in the constructor of the superclass. At this point,\n    the fields of the class have not yet initialized. To make this more concrete, consider the following classes: When a B is constructed,\nthe constructor for the A class is invoked\nbefore the constructor for B sets value.\nThus, when the constructor for A invokes getValue,\nan uninitialized value is read for value.\n abstract class A {\n    int hashCode;\n    abstract Object getValue();\n\n    A() {\n        hashCode = getValue().hashCode();\n    }\n}\n\nclass B extends A {\n    Object value;\n\n    B(Object v) {\n        this.value = v;\n    }\n\n    Object getValue() {\n        return value;\n    }\n}\n B A B value A getValue value",
+  "Bug_Explanation": "The bug is embedded in the constructor of class A where the method getValue() is called before the field 'value' in class B is initialized. This results in an uninitialized read of the field.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by creating an instance of class B with a null value. When the constructor of class B is called, it first calls the constructor of class A. In class A's constructor, the method getValue() is called before the field 'value' in class B is initialized, leading to a NullPointerException.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

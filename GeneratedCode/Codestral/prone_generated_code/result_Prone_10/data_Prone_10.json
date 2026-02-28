@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "AutoValueConstructorOrderChecker",
+  "Bug_Details": "Arguments to AutoValue constructor are in the wrong order AutoValue constructors are synthesized with their parameters in the same order\nas the abstract accessor methods. Calls to the constructor need to match this\nordering.",
+  "Bug_Explanation": "Arguments to AutoValue constructor are in the wrong order. AutoValue constructors are synthesized with their parameters in the same order as the abstract accessor methods. Calls to the constructor need to match this ordering.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_10/seed_Prone_10.java:2: error: class Person is public, should be declared in a file named Person.java\npublic abstract class Person {\n                ^\n../prone_clean_java_code/result_Prone_10/seed_Prone_10.java:7: error: cannot find symbol\n        return new AutoValue_Person(age, name); // order of arguments is wrong\n                   ^\n  symbol:   class AutoValue_Person\n  location: class Person\n2 errors\n",
+  "Trigger_Explanation": "The bug is triggered by passing the age and name arguments in the wrong order to the showBug method, which then calls the Person.create method with these arguments. The AutoValueConstructorOrderChecker bug is triggered because the arguments to the AutoValue constructor are in the wrong order.",
+  "Trigger_Line": [
+    14
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

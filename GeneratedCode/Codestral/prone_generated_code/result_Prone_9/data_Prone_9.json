@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "AutoValueBuilderDefaultsInConstructor",
+  "Bug_Details": "Defaults for AutoValue Builders should be set in the factory method returning Builder instances, not the constructor",
+  "Bug_Explanation": "The bug is embedded in the `PersonBuilder` class, where the default values for `name` and `age` are set in the constructor instead of the `builder()` method. This violates the bug rule `AutoValueBuilderDefaultsInConstructor`.",
+  "Buggy_Line": [
+    11,
+    12
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_9/seed_Prone_9.java:2: error: class Person is public, should be declared in a file named Person.java\npublic abstract class Person {\n                ^\n1 error\n",
+  "Trigger_Explanation": "The bug is triggered when the default values for 'name' and 'age' are not set in the builder() method of the PersonBuilder class. The testDefaultValues() method in the PersonTest class creates a Person object without setting any values, which will cause it to use the default values set in the PersonBuilder constructor. Since these defaults are not set in the builder() method as per the bug rule, the test will fail.",
+  "Trigger_Line": [
+    4
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.005\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that both tests passed, indicating that the default values 'Unknown' and 0 were correctly set and retrieved for the name and age properties, respectively. This indicates that the bug was not triggered in the Java code."
+}

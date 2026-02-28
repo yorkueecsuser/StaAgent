@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Expressions used in \"assert\" should not produce side effects",
+  "Bug_Details": "Since assert statements aren\u2019t executed by default (they must be enabled with JVM flags) developers should never rely on their\nexecution the evaluation of any logic required for correct program function.\nNoncompliant code example\nassert myList.remove(myList.get(0));  // Noncompliant\nCompliant solution\nboolean removed = myList.remove(myList.get(0));\nassert removed;",
+  "Bug_Explanation": "The bug is embedded in the generated code by using an assert statement that performs a side effect (removing an element from the list) during its evaluation.",
+  "Buggy_Line": [
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by calling the showBug() method, which contains an assert statement with a side effect. The assert statement removes an element from the list, causing the subsequent assertEquals assertion to fail.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully, which means the assert statement did not prevent the test from completing and the list size was not affected as expected if the assert statement had side effects. The test checks for a list size of 2, but since the test passed, it suggests that no elements were removed, contrary to what would happen if the assert statement had side effects."
+}

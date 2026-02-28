@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "CompatibleWithAnnotationMisuse",
+  "Bug_Details": "@CompatibleWith's value is not a type argument. The @CompatibleWith annotation is used to mark parameters that need extra type\nchecking on arguments passed to the method. The annotation was not appropriately\nplaced on a parameter with a valid type argument. See the javadoc for more\ndetails.",
+  "Bug_Explanation": "The bug is embedded in the generated code by using the @CompatibleWith annotation with a String literal instead of a Class type as its value. This misuse is intentional and is marked with the comment '// BUG: CompatibleWithAnnotationMisuse'.",
+  "Buggy_Line": [
+    15
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_24/seed_Prone_24.java:15: error: incompatible types: String cannot be converted to Class<?>\n    public String showBug(@CompatibleWith(\"String\") String param) { // BUG: CompatibleWithAnnotationMisuse\n                                          ^\n1 error\n",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by calling the showBug method with a String argument. The @CompatibleWith annotation is misused as it takes a String instead of a Class<?> type.",
+  "Trigger_Line": [
+    26
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

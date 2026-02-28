@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "DurationToLongTimeUnit",
+  "Bug_Details": "Unit mismatch when decomposing a Duration or Instant to call a  API",
+  "Bug_Explanation": "The bug is embedded in the showBug method where the duration in milliseconds is divided by 1000 without considering the TimeUnit. This results in incorrect conversion as it assumes the duration is already in seconds.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by calling the showBug method with a Duration object. The method incorrectly converts milliseconds to seconds by dividing the millisecond value by 1000 without proper rounding.",
+  "Trigger_Line": [
+    11,
+    20
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.008\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that both tests passed without any assertion failures. This means that the actual output matched the expected output for both test cases, suggesting that the bug did not cause the test to fail as expected."
+}

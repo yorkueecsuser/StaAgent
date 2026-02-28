@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "FromTemporalAccessor",
+  "Bug_Details": "Certain combinations of javaTimeType.from(TemporalAccessor) will always throw a DateTimeException or return the parameter directly. Not all java.time types can be created via from(TemporalAccessor). For example, you can create a Month from a LocalDate (Month.from(localDate)) because a LocalDate consists of a year, month, and day. However, you cannot create a LocalDate from a Month (since it doesn\u2019t have the year or day information). Instead of throwing a DateTimeException at runtime, this checker validates the type transformations at compile time using static type information.",
+  "Bug_Explanation": "The bug is embedded in the line 'Month month = Month.from(date);' where the method 'Month.from(TemporalAccessor)' is called with a 'LocalDate' object as an argument, which will always throw a 'DateTimeException' at runtime.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The call to `Month.from(date)` in the test code triggers the bug because `LocalDate` cannot be converted to `Month` using the `from` method.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.001\nThere was 1 failure:\n1) initializationError(org.junit.runner.JUnitCommandLineParseResult)\njava.lang.IllegalArgumentException: Could not find class [BuggyJavaCodeTest]\n\tat org.junit.runner.JUnitCommandLineParseResult.parseParameters(JUnitCommandLineParseResult.java:100)\n\tat org.junit.runner.JUnitCommandLineParseResult.parseArgs(JUnitCommandLineParseResult.java:50)\n\tat org.junit.runner.JUnitCommandLineParseResult.parse(JUnitCommandLineParseResult.java:44)\n\tat org.junit.runner.JUnitCore.runMain(JUnitCore.java:72)\n\tat org.junit.runner.JUnitCore.main(JUnitCore.java:36)\nCaused by: java.lang.ClassNotFoundException: BuggyJavaCodeTest\n\tat java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)\n\tat java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)\n\tat java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)\n\tat java.base/java.lang.Class.forName0(Native Method)\n\tat java.base/java.lang.Class.forName(Class.java:534)\n\tat java.base/java.lang.Class.forName(Class.java:513)\n\tat org.junit.internal.Classes.getClass(Classes.java:42)\n\tat org.junit.internal.Classes.getClass(Classes.java:27)\n\tat org.junit.runner.JUnitCommandLineParseResult.parseParameters(JUnitCommandLineParseResult.java:98)\n\t... 4 more\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not demonstrate the bug was triggered. The test run resulted in a ClassNotFoundException, indicating that the BuggyJavaCodeTest class was not found. This suggests that the test was not run properly, and the results do not provide sufficient evidence to confirm the presence of the bug."
+}

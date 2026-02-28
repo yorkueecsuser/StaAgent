@@ -1,0 +1,29 @@
+class FloatingPointLoopCounter {
+
+    public double showBug() {
+        double sum = 0.0;
+        for (double i = 0.0; i < 1.0; i += 0.1) { // BUG: FL: Do not use floating-point variables as loop counters (FL_FLOATS_AS_LOOP_COUNTERS)
+            sum += i;
+        }
+        return sum;
+    }
+
+    public static void main(String[] args) {
+        FloatingPointLoopCounter example = new FloatingPointLoopCounter();
+        System.out.println("Sum: " + example.showBug());
+    }
+
+    // Mutated code
+    public double mutatedShowBug() {
+        double a = 0.0;
+        for (double b = 0.0; b < 1.0; b += 0.1) { // BUG: FL: Do not use floating-point variables as loop counters (FL_FLOATS_AS_LOOP_COUNTERS)
+            a += b;
+        }
+        return a;
+    }
+
+    public static void mainMutated(String[] args) {
+        FloatingPointLoopCounter c = new FloatingPointLoopCounter();
+        System.out.println("Mutated Sum: " + c.mutatedShowBug());
+    }
+}

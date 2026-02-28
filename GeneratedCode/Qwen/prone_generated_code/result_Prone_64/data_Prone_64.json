@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "GuiceAssistedParameters",
+  "Bug_Details": "A constructor cannot have two @Assisted parameters of the same type unless they are disambiguated with named @Assisted annotations. From the javadoc of FactoryModuleBuilder: The types of the factory method\u2019s parameters must be distinct. To use multiple\nparameters of the same type, use a named @Assisted annotation to\ndisambiguate the parameters. The names must be applied to the factory method\u2019s\nparameters: public interface PaymentFactory {\n   Payment create(\n        @Assisted(\"startDate\") Date startDate,\n        @Assisted(\"dueDate\") Date dueDate,\n       Money amount);\n } public interface PaymentFactory {\n   Payment create(\n        @Assisted(\"startDate\") Date startDate,\n        @Assisted(\"dueDate\") Date dueDate,\n       Money amount);\n } \u2026and to the concrete type\u2019s constructor parameters: public class RealPayment implements Payment {\n    @Inject\n   public RealPayment(\n      CreditService creditService,\n      AuthService authService,\n       @Assisted(\"startDate\") Date startDate,\n       @Assisted(\"dueDate\") Date dueDate,\n       @Assisted Money amount) {\n     ...\n   }\n } public class RealPayment implements Payment {\n    @Inject\n   public RealPayment(\n      CreditService creditService,\n      AuthService authService,\n       @Assisted(\"startDate\") Date startDate,\n       @Assisted(\"dueDate\") Date dueDate,\n       @Assisted Money amount) {\n     ...\n   }\n }",
+  "Bug_Explanation": "The bug is embedded in the PaymentFactory interface where the create method has two Date parameters without disambiguation using @Assisted annotations. This will cause issues when using Guice for dependency injection.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method, which internally uses a PaymentFactory to create a RealPayment object with two Date parameters of the same type without disambiguating them using named @Assisted annotations.",
+  "Trigger_Line": [
+    13
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "AvoidCalendarDateCreation",
+  "Bug_Details": "Problem: `java.util.Calendar` is a heavyweight object and expensive to create. It should only be used, if\ncalendar calculations are needed.\n\nSolution: Use `new Date()`, Java 8+ `java.time.LocalDateTime.now()` or `ZonedDateTime.now()`.\nExamples:\nimport java.time.LocalDateTime;\nimport java.util.Calendar;\nimport java.util.Date;\n\npublic class DateStuff {\n    private Date bad1() {\n        return Calendar.getInstance().getTime(); // now\n    }\n    private Date good1a() {\n        return new Date(); // now\n    }\n    private LocalDateTime good1b() {\n        return LocalDateTime.now();\n    }\n    private long bad2() {\n        return Calendar.getInstance().getTimeInMillis();\n    }\n    private long good2() {\n        return System.currentTimeMillis();\n    }\n}",
+  "Bug_Explanation": "The bug was embedded in the generated code by using Calendar.getInstance().getTime() and Calendar.getInstance().getTimeInMillis() which are considered heavyweight operations. These lines violate the rule of avoiding Calendar for simple date creation.",
+  "Buggy_Line": [
+    6,
+    14
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test calls the'showBug1' and'showBug2' methods of the DateStuff class, which internally use Calendar.getInstance().getTime() and Calendar.getInstance().getTimeInMillis() respectively, triggering the AvoidCalendarDateCreation bug.",
+  "Trigger_Line": [
+    11,
+    16
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.021\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that both tests passed successfully without any errors or exceptions. This does not provide evidence that the bug was triggered, as the tests only check for non-null and positive results, which can be achieved even with the problematic Calendar usage."
+}

@@ -1,0 +1,12 @@
+{
+  "Bug_Title": "Dm: Useless/vacuous call to EasyMock method (DMI_VACUOUS_CALL_TO_EASYMOCK_METHOD)\uf0c1",
+  "Bug_Details": "This call doesn't pass any objects to the EasyMock method, so the call doesn't do anything.\n",
+  "Bug_Explanation": "The bug was embedded in the generated code by using the `Random` class to generate a random integer between 0 and 100, and then comparing it to 50 using an if-else statement. The buggy line is the `createMock(Object.class);` line, which was removed and replaced with the `Random` class implementation.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Test_Run_Result": "JUnit version 4.13.2\n.The number is less than or equal to 50!\n\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not confirm the presence of the described bug. The test output shows that the program executed correctly and printed the expected output. The test did not trigger any bug."
+}

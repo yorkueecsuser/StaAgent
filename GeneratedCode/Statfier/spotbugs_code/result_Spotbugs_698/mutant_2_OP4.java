@@ -1,0 +1,37 @@
+class Bug2690044 {
+
+  public static void main(String args[]) {
+
+    Double a1 = new Double(1);
+    // Double a2 = new Double(1.0);
+    // Double a3 = new Double(1f);
+    // Double a4 = new Double(1.0f);
+    // Double a5 = new Double(1L);
+    // Double a6 = new Double("1");
+    // Double a7 = new Double("1f");
+
+    Float b1 = new Float(1);
+    // Float b2 = new Float(1.0);
+    // Float b3 = new Float(1f);
+    // Float b4 = new Float(1.0f);
+    // Float b5 = new Float(1L);
+    // Float b6 = new Float("1");
+    // Float b7 = new Float("1f");
+
+    Integer i1 = new Integer(1);
+
+    // Introduced mutant: Unreachable if-else statement
+    boolean shouldRun = getCondition();
+    if (shouldRun) {
+      System.out.println("This will run if shouldRun is true.");
+    } else {
+      // This is the unreachable branch
+      System.out.println("This will never run because shouldRun is always false.");
+    }
+  }
+
+  // Method to simulate a dynamic condition that always returns false
+  private static boolean getCondition() {
+    return false;
+  }
+}

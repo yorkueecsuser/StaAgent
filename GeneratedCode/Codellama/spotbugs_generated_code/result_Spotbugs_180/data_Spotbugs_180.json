@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "EI2: May expose internal representation by creating a buffer which incorporates reference to array (EI_EXPOSE_BUF2)\uf0c1",
+  "Bug_Details": " This code creates a buffer which stores a reference to an external array or the array of an external buffer into\nthe internal representation of the object.\u00a0\n If instances\n are accessed by untrusted code, and unchecked changes to\n the array would compromise security or other\n important properties, you will need to do something different.\nStoring a copy of the array is a better approach in many situations.",
+  "Bug_Explanation": "The bug is embedded in the `showBug()` method where a copy of the internal buffer is created and then exposed through the `buggyBuffer` variable. This reference to the internal buffer is exposed to the outside world, which violates the encapsulation principle and can lead to security vulnerabilities.",
+  "Buggy_Line": [
+    13
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by creating a new buffer that incorporates a reference to the external array, which is then accessed by the untrusted code.",
+  "Trigger_Line": [
+    12,
+    13
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

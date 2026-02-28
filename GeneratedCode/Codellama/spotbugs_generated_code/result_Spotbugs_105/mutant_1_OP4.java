@@ -1,0 +1,16 @@
+import java.util.Arrays;
+
+class IncompatibleArrayCompareBug {
+    public static void main(String[] args) {
+        String[] strArr1 = {"hello", "world"};
+        StringBuffer[] strBufArr2 = {new StringBuffer("hello"), new StringBuffer("world")};
+        System.out.println(strArr1.equals(strBufArr2)); // BUG: EC: equals(…) used to compare incompatible arrays (EC_INCOMPATIBLE_ARRAY_COMPARE)
+
+        // Mutant code: Unreachable if-else statement
+        if (false) {
+            System.out.println("This branch is unreachable");
+        } else {
+            System.out.println("This branch is reachable");
+        }
+    }
+}

@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "EC: Using pointer equality to compare different types (EC_UNRELATED_TYPES_USING_POINTER_EQUALITY)\uf0c1",
+  "Bug_Details": " This method uses pointer equality to compare two references that seem to be of\ndifferent types. The result of this comparison will always be false at runtime.\n",
+  "Bug_Explanation": "The bug is embedded in the generated code by using pointer equality (==) to compare a String and an Integer. This will always return false at runtime because they are of different types.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "spotbugs_clean_java_code/result_Spotbugs_72/seed_Spotbugs_72.java:4: error: incomparable types: String and Integer\n        return str == num; // BUG: EC: Using pointer equality to compare different types (EC_UNRELATED_TYPES_USING_POINTER_EQUALITY)\uf0c1\n                   ^\n1 error\n",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by calling the showBug method with a String and an Integer, which uses pointer equality to compare different types.",
+  "Trigger_Line": [
+    18,
+    23
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

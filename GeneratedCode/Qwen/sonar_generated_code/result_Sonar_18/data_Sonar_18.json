@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Model attributes should follow the Java identifier naming convention",
+  "Bug_Details": "Spring Expression Language (SpEL) is an expression language used in the Spring Framework for evaluating and manipulating objects, properties, and\nconditions within Spring-based applications.\norg.springframework.ui.Model is an interface in the Spring Framework that represents a container for data that can be passed between a\ncontroller and a view in a Spring MVC web application, allowing for data sharing during the request-response cycle.\nAttributes added to the org.springframework.ui.Model should follow the Java identifier naming convention, which means they must start\nwith a letter a-z, A-Z , underscore _ , or a dollar sign $ and may be followed by letters, digits, underscores,\nor dollar signs.\nFailure to do so may result in SpEL parsing errors when using these attributes in template engines.",
+  "Bug_Explanation": "The bug was embedded in the generated code by adding an attribute to the Model with the name '1invalidAttributeName', which starts with a digit and thus does not follow the Java identifier naming convention.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_18/seed_Sonar_18.java:1: error: package org.springframework.ui does not exist\nimport org.springframework.ui.Model;\n                             ^\n../sonar_clean_java_code/result_Sonar_18/seed_Sonar_18.java:5: error: cannot find symbol\n    public String showBug(Model model) {\n                          ^\n  symbol:   class Model\n  location: class ModelAttributeBugExample\n../sonar_clean_java_code/result_Sonar_18/seed_Sonar_18.java:13: error: cannot find symbol\n        Model model = new org.springframework.validation.support.BindingAwareModelMap();\n        ^\n  symbol:   class Model\n  location: class ModelAttributeBugExample\n../sonar_clean_java_code/result_Sonar_18/seed_Sonar_18.java:13: error: package org.springframework.validation.support does not exist\n        Model model = new org.springframework.validation.support.BindingAwareModelMap();\n                                                                ^\n4 errors\n",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method, which adds an attribute with an invalid name ('1invalidAttributeName') to the Model. This violates the Java identifier naming convention, causing potential issues when using SpEL.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

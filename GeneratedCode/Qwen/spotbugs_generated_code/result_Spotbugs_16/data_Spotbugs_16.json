@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "Dm: Cannot use reflection to check for presence of annotation without runtime retention (DMI_ANNOTATION_IS_NOT_VISIBLE_TO_REFLECTION)\uf0c1",
+  "Bug_Details": " Unless an annotation has itself been annotated with  @Retention(RetentionPolicy.RUNTIME), the annotation cannot be observed using reflection\n(e.g., by using the isAnnotationPresent method).\n   .",
+  "Bug_Explanation": "The bug is embedded in the generated code by defining an annotation 'MyAnnotation' without specifying RetentionPolicy.RUNTIME. This means the annotation is not available at runtime, and thus checking for its presence using reflection in the'showBug' method will always return false.",
+  "Buggy_Line": [
+    19
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test calls the showBug method of AnnotationReflectionBug class, which uses reflection to check for the presence of MyAnnotation on myMethod. Since MyAnnotation does not have RetentionPolicy.RUNTIME, the annotation is not visible to reflection, causing the method to return false and the test to fail.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

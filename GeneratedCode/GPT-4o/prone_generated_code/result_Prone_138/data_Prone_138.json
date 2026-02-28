@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "ProtoStringFieldReferenceEquality",
+  "Bug_Details": "Comparing protobuf fields of type String using reference equality Comparing strings with == is almost always an error, but it is an error 100% of\nthe time when one of the strings is a protobuf field. Additionally, protobuf\nfields cannot be null, so Object.equals(Object) is always more correct.",
+  "Bug_Explanation": "The bug occurs when comparing strings using '==', which checks for reference equality rather than content equality. This is especially erroneous when dealing with protobuf fields, as protobuf ensures strings are non-null and should be checked with Object.equals(Object).",
+  "Buggy_Line": [
+    27
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case 'testShowBugWithIdenticalContentStrings' triggers the bug by using 'showBug' method with two strings having the same content but different references. The method incorrectly uses '==' for string comparison, failing to recognize strings with identical content but different references as equal.",
+  "Trigger_Line": [
+    9,
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.005\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that both tests passed without any assertion failures, suggesting the bug was not triggered during the test execution."
+}

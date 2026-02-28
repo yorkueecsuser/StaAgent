@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "Blocks should be synchronized on \"private final\" fields",
+  "Bug_Details": "Synchronizing on a class field synchronizes not on the field itself, but on the object assigned to it. So synchronizing on a non- final field makes it possible for the field\u2019s value to change while a thread is in a block synchronized on the old value. That would allow a second thread,\nsynchronized on the new value, to enter the block at the same time.\nThe story is very similar for synchronizing on parameters; two different threads running the method in parallel could pass two different object\ninstances in to the method as parameters, completely undermining the synchronization.\nNoncompliant code example\nprivate String color = \"red\";\n\nprivate void doSomething(){\n  synchronized(color) {  // Noncompliant; lock is actually on object instance \"red\" referred to by the color variable\n    //...\n    color = \"green\"; // other threads now allowed into this block\n    // ...\n  }\n  synchronized(new Object()) { // Noncompliant this is a no-op.\n     // ...\n  }\n}\nCompliant solution\nprivate String color = \"red\";\nprivate final Object lockObj = new Object();\n\nprivate void doSomething(){\n  synchronized(lockObj) {\n    //...\n    color = \"green\";\n    // ...\n  }\n}",
+  "Bug_Explanation": "The code synchronizes on a non-final field 'color', which allows the object's value to change within the synchronized block. This can result in other threads entering the block if 'color' changes. Additionally, using 'synchronized(new Object())' is a no-op because it locks on a new instance every time, which does not effectively synchronize any shared resource.",
+  "Buggy_Line": [
+    17,
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test starts two threads that both call the showBug method. This highlights the bug by potentially allowing both threads to enter the synchronized block despite the intention for mutual exclusion, due to the non-final nature of the field used for synchronization.",
+  "Trigger_Line": [
+    13,
+    16
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Current color: red\nColor changed to: green\nThis block does not effectively synchronize on any shared object.\nCurrent color: green\nColor changed to: green\nThis block does not effectively synchronize on any shared object.\n\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not confirm the bug triggering as there is no evidence of unsynchronized access or issues in the output. The output shows the expected sequence of print statements without any indication of concurrent modification or entry into the synchronized block by multiple threads."
+}

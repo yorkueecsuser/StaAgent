@@ -1,0 +1,20 @@
+{
+  "Bug_Title": "ProtoTruthMixedDescriptors",
+  "Bug_Details": "The arguments passed to `ignoringFields` are inconsistent with the proto which is the subject of the assertion. ProtoTruth\u2019s #ignoringFields method accepts integer field numbers, so\nsupplying field numbers from the wrong protocol buffers is possible. For\nexample: message Bar {\n  optional string name = 1;\n}\nmessage Foo {\n  optional string name = 1;\n  optional Bar bar = 2;\n} message Bar {\n  optional string name = 1;\n}\nmessage Foo {\n  optional string name = 1;\n  optional Bar bar = 2;\n} void assertOnFoo(Foo foo) {\n  assertThat(foo).ignoringFields(Bar.NAME_FIELD_NUMBER).isEqualTo(...);\n} void assertOnFoo(Foo foo) {\n  assertThat(foo).ignoringFields(Bar.NAME_FIELD_NUMBER).isEqualTo(...);\n} This will ignore the Foo#name field rather than Bar#name. The field number\ncan be turned into a Descriptor object to resolve the correct nested field to\nignore: void assertOnFoo(Foo foo) {\n  assertThat(foo)\n      .ignoringFieldDescriptors(\n          Bar.getDescriptor().findFieldByNumber(Bar.NAME_FIELD_NUMBER))\n      .isEqualTo(...);\n} void assertOnFoo(Foo foo) {\n  assertThat(foo)\n      .ignoringFieldDescriptors(\n          Bar.getDescriptor().findFieldByNumber(Bar.NAME_FIELD_NUMBER))\n      .isEqualTo(...);\n}",
+  "language": "Java",
+  "bug_category": "ProtoTruthMixedDescriptors",
+  "description": "The arguments passed to `ignoringFields` are inconsistent with the proto which is the subject of the assertion.",
+  "imports": {
+    "Required": {
+      "package": "com.google.protobuf",
+      "class": "Bar"
+    },
+    "Additional": []
+  },
+  "code_structure": {
+    "class_name": "ProtoTruthMixedDescriptors",
+    "method_name": "showBug"
+  },
+  "Seed_Compilation_Status": "Successful",
+  "Buggy_Line": []
+}

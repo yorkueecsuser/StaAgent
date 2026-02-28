@@ -1,0 +1,37 @@
+class ConditionalExpressionExample {
+
+    public Object showBug(boolean flag) {
+        // When flag is true, the expression evaluates to Double; when false, it evaluates to Integer.
+        // However, due to numeric promotion, the result is always a Double.
+        Object result = flag ? Double.valueOf(0) : Integer.valueOf(0); // BUG: ConditionalExpressionNumericPromotion
+        
+        // Unreachable switch statement mutation
+        int unreachableSwitchCondition = getUnreachableValue(); // This method guarantees a value that doesn't match any case.
+        switch (unreachableSwitchCondition) {
+            case 1:
+                System.out.println("This case is unreachable");
+                break;
+            default:
+                System.out.println("Default case, also unreachable");
+                break;
+        }
+
+        return result;
+    }
+
+    private int getUnreachableValue() {
+        // This method is designed to return a value that doesn't match any switch case.
+        // Using a runtime-determined value to avoid compile-time constant issues.
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        ConditionalExpressionExample example = new ConditionalExpressionExample();
+        
+        Object resultTrue = example.showBug(true);
+        System.out.println("Result when flag is true: " + resultTrue.getClass());
+        
+        Object resultFalse = example.showBug(false);
+        System.out.println("Result when flag is false: " + resultFalse.getClass());
+    }
+}

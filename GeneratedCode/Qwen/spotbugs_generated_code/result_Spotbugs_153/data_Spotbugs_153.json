@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "SING: Class using singleton design pattern implements clone() method without being an unconditional CloneNotSupportedException-thrower. (SING_SINGLETON_IMPLEMENTS_CLONE_METHOD)\uf0c1",
+  "Bug_Details": "\nThis class is using singleton design pattern and does not implement the Cloneable interface, but implements the clone() method without being an unconditional CloneNotSupportedException-thrower.\nWith that, it is possible to create a copy of the object, thus violating the singleton pattern.\nTherefore, implementing the clone method should be avoided, otherwise the solution would be overriding the clone method to unconditionally throw CloneNotSupportedException.\n\nFor more information, see: SEI CERT MSC07-J.\n",
+  "Bug_Explanation": "The bug is embedded in the generated code by implementing the clone() method in the SingletonExample class without throwing a CloneNotSupportedException unconditionally. This allows the creation of a cloned instance, which violates the singleton pattern.",
+  "Buggy_Line": [
+    15
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test calls the showBug method of the SingletonExample class, which attempts to clone the singleton instance. Since the clone method does not unconditionally throw CloneNotSupportedException, the cloning operation succeeds, and the test fails because it expects 'CloneNotSupportedException caught'.",
+  "Trigger_Line": [
+    11
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test 'testSingletonCloneFailure' passed, which means the actual result was 'CloneNotSupportedException caught'. However, according to the Java code, the clone method is implemented to call super.clone(), which does not throw CloneNotSupportedException unconditionally. Therefore, the test should have failed if the bug were triggered correctly. Since the test passed, it suggests that the bug was not triggered as expected, indicating that the test did not confirm the presence of the bug."
+}

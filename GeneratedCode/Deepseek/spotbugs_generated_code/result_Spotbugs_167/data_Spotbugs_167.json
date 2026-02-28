@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "SQL: Nonconstant string passed to execute or addBatch method on an SQL statement (SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE)\uf0c1",
+  "Bug_Details": "The method invokes the execute or addBatch method on an SQL statement with a String that seems\nto be dynamically generated. Consider using\na prepared statement instead. It is more efficient and less vulnerable to\nSQL injection attacks.\n",
+  "Bug_Explanation": "The SQL statement is constructed by concatenating a user input string, which could be manipulated to perform a SQL injection attack.",
+  "Buggy_Line": [
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case `testShowBug` calls the `showBug` method with a user input that contains SQL commands to drop the USERS table. This triggers an SQL injection attack as the SQL statement is constructed by concatenating a user input string.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.014\nThere was 1 failure:\n1) testShowBug(SqlBugTest)\njava.sql.SQLException: No suitable driver found for jdbc:hsqldb:mem:test\n\tat java.sql/java.sql.DriverManager.getConnection(DriverManager.java:708)\n\tat java.sql/java.sql.DriverManager.getConnection(DriverManager.java:230)\n\tat SqlBug.showBug(SqlBug.java:8)\n\tat SqlBugTest.testShowBug(SqlBugTest.java:9)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test failed due to a missing JDBC driver, not because of the SQL injection vulnerability. Therefore, the bug was not triggered in this test run."
+}

@@ -1,0 +1,76 @@
+import java.util.ArrayList;
+
+class BuggyCloneExample {
+    private ArrayList<String> data = new ArrayList<>();
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        BuggyCloneExample clone = (BuggyCloneExample) super.clone();
+        clone.data = (ArrayList<String>) this.data.clone();
+        // BUG: MC: An overridable method is called from the clone() method. (MC_OVERRIDABLE_METHOD_CALL_IN_CLONE)
+        // This method is overridable and can be modified in a subclass to affect the behavior of clone().
+        // It can also observe or modify the clone object in a partially initialized state.
+        clone.initializeData();
+        return clone;
+    }
+
+    // This method is overridable and can be modified in a subclass to affect the behavior of clone().
+    // It can also observe or modify the clone object in a partially initialized state.
+    public void initializeData() {
+        // Initialize the data in the clone object
+    }
+
+    public static void main(String[] args) {
+        try {
+            BuggyCloneExample bce = new BuggyCloneExample();
+            bce.data.add("test");
+            BuggyCloneExample clone = (BuggyCloneExample) bce.clone();
+            System.out.println(clone.data);
+        } catch (CloneNotSupportedException e) {
+            System.out.println("Clone not supported");
+        }
+    }
+}
+
+// Unreachable if-else statement mutant
+class BuggyCloneExampleMutant {
+    private ArrayList<String> data = new ArrayList<>();
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        BuggyCloneExampleMutant clone = (BuggyCloneExampleMutant) super.clone();
+        clone.data = (ArrayList<String>) this.data.clone();
+        // BUG: MC: An overridable method is called from the clone() method. (MC_OVERRIDABLE_METHOD_CALL_IN_CLONE)
+        // This method is overridable and can be modified in a subclass to affect the behavior of clone().
+        // It can also observe or modify the clone object in a partially initialized state.
+        clone.initializeData();
+
+        // Unreachable if-else statement mutant
+        if (false) {
+            // This branch is unreachable and will never execute
+            System.out.println("Unreachable branch");
+        } else {
+            // This branch is reachable and will execute
+            System.out.println("Reachable branch");
+        }
+
+        return clone;
+    }
+
+    // This method is overridable and can be modified in a subclass to affect the behavior of clone().
+    // It can also observe or modify the clone object in a partially initialized state.
+    public void initializeData() {
+        // Initialize the data in the clone object
+    }
+
+    public static void main(String[] args) {
+        try {
+            BuggyCloneExampleMutant bce = new BuggyCloneExampleMutant();
+            bce.data.add("test");
+            BuggyCloneExampleMutant clone = (BuggyCloneExampleMutant) bce.clone();
+            System.out.println(clone.data);
+        } catch (CloneNotSupportedException e) {
+            System.out.println("Clone not supported");
+        }
+    }
+}

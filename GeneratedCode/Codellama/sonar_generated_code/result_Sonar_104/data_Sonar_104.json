@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Non-serializable objects should not be stored in \"javax.servlet.http.HttpSession\" instances",
+  "Bug_Details": "HttpSession s are managed by web servers and can be serialized and stored on disk as the server manages its memory use in a process\ncalled \"passivation\" (and later restored during \"activation\").\nEven though HttpSession does not extend Serializable , you must nonetheless assume that it will be serialized. If\nnon-serializable objects are stored in the session, serialization might fail.\nNoncompliant code example\npublic class Address {\n  //...\n}\n\nHttpSession session = request.getSession();\nsession.setAttribute(\"address\", new Address());  // Noncompliant; Address isn't serializable\nCompliant solution\npublic class Address implements Serializable {\n  //...\n}\n\nHttpSession session = request.getSession();\nsession.setAttribute(\"address\", new Address());",
+  "Bug_Explanation": "Non-serializable objects should not be stored in \"javax.servlet.http.HttpSession\" instances. The bug is embedded in the generated code by storing a non-serializable object (Address) in the HttpSession instance.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_104/seed_Sonar_104.java:1: error: package javax.servlet.http does not exist\nimport javax.servlet.http.HttpSession;\n                         ^\n../sonar_clean_java_code/result_Sonar_104/seed_Sonar_104.java:8: error: cannot find symbol\n    public static void showBug(HttpSession session) {\n                               ^\n  symbol:   class HttpSession\n  location: class Example\n2 errors\n",
+  "Trigger_Explanation": "The test case triggers the bug by setting a non-serializable object as an attribute of the HttpSession object, which is not allowed.",
+  "Trigger_Line": [
+    18
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

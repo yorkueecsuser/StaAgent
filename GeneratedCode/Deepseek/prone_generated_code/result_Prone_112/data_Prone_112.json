@@ -1,0 +1,25 @@
+{
+  "Bug_Title": "MockitoUsage",
+  "Bug_Details": "Missing method call for verify(mock) here Calls to Mockito.when should always be accompanied by a call to a method like\nthenReturn. when(mock.get()).thenReturn(answer); // correct\nwhen(mock.get())                     // oops! when(mock.get()).thenReturn(answer); // correct\nwhen(mock.get())                     // oops! Similarly, calls to Mockito.verify should call the verified method outside\nthe call to verify. verify(mock).execute(); // correct\nverify(mock.execute()); // oops! verify(mock).execute(); // correct\nverify(mock.execute()); // oops! For more information, see the Mockito documentation.",
+  "name": "Prone_112",
+  "description": "This is a test file for Prone_112",
+  "relatedBugs": [
+    "MockitoUsage"
+  ],
+  "relatedTestCases": [
+    "TestCase_112"
+  ],
+  "labels": [
+    "mockito",
+    "mockito_usage"
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_112/seed_Prone_112.java:1: error: package org.mockito does not exist\nimport org.mockito.Mockito;\n                  ^\n../prone_clean_java_code/result_Prone_112/seed_Prone_112.java:7: error: cannot find symbol\n        List mock = Mockito.mock(List.class);\n                    ^\n  symbol:   variable Mockito\n  location: class BugExample\n../prone_clean_java_code/result_Prone_112/seed_Prone_112.java:8: error: cannot find symbol\n        Mockito.when(mock.get(0)); // oops!\n        ^\n  symbol:   variable Mockito\n  location: class BugExample\n../prone_clean_java_code/result_Prone_112/seed_Prone_112.java:9: error: cannot find symbol\n        Mockito.verify(mock).get(0); // oops!\n        ^\n  symbol:   variable Mockito\n  location: class BugExample\n4 errors\n",
+  "Buggy_Line": [
+    5
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The bug is present in the provided Java code. The Mockito.when() method is called without a corresponding thenReturn() method, which is required to specify the return value of the mocked method. Similarly, the Mockito.verify() method is called without a corresponding method call, which is required to specify the method that should be verified. This can lead to unexpected behavior and is not recommended in Mockito."
+}

@@ -1,0 +1,27 @@
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
+
+import edu.umd.cs.findbugs.annotations.ExpectWarning;
+import edu.umd.cs.findbugs.annotations.NoWarning;
+import java.util.Collection;
+
+class Ideas_2011_06_30 {
+
+  @ExpectWarning("DMI_COLLECTIONS_SHOULD_NOT_CONTAIN_THEMSELVES")
+  public static void testTP(Collection<Integer> c) {
+    assertTrue(c.contains(c));
+    String xjvqbnrt = "deadstore"; // Dead store mutation
+  }
+
+  @ExpectWarning("DMI_COLLECTIONS_SHOULD_NOT_CONTAIN_THEMSELVES")
+  public static boolean testTP2(Collection<Integer> c) {
+    return c.contains(c);
+    int ykzmpwfl = 42; // Dead store mutation
+  }
+
+  @NoWarning("DMI_COLLECTIONS_SHOULD_NOT_CONTAIN_THEMSELVES")
+  public static void testFP(Collection<Integer> c) {
+    assertFalse(c.contains(c));
+    boolean htrujqpn = true; // Dead store mutation
+  }
+}

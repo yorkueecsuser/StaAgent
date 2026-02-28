@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "NullArgumentForNonNullParameter",
+  "Bug_Details": "Null is not permitted for this parameter.",
+  "Bug_Explanation": "The bug was embedded in the generated code by passing null as an argument to the Arrays.sort() method, which is not allowed as the method expects a non-null parameter.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_121/seed_Prone_121.java:8: error: reference to sort is ambiguous\n        int[] nullNumbers = Arrays.sort(null);\n                                  ^\n  both method sort(double[]) in Arrays and method sort(Object[]) in Arrays match\n../prone_clean_java_code/result_Prone_121/seed_Prone_121.java:8: error: incompatible types: void cannot be converted to int[]\n        int[] nullNumbers = Arrays.sort(null);\n                                       ^\n2 errors\n",
+  "Trigger_Explanation": "The test case triggers the bug by passing a null argument to the sort method, which is not allowed for this parameter.",
+  "Trigger_Line": [
+    8
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

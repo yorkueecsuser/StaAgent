@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "LenientFormatStringValidation",
+  "Bug_Details": "The number of arguments provided to lenient format methods should match the positional specifiers. This check ensures that the number of arguments passed to \u2018lenient\u2019 formatting\nmethods like Preconditions.checkArgument match the number of format\nspecifiers. WARNING: Only the exact two-character placeholder sequence %s is recognized by\nthese methods. Any others will be ignored, and not used for argument\nsubstitution. The APIs checked by this bugpattern include: com.google.common.base.Strings#lenientFormat\ncom.google.common.base.Preconditions#check*\ncom.google.common.base.Verify#verify*\ncom.google.common.truth.Truth#assertWithMessage\ncom.google.common.truth.Subject#check\ncom.google.common.truth.StandardSubjectBuilder#withMessage",
+  "Bug_Explanation": "The bug was embedded in the showBug() method by using the String.format() method instead of the com.google.common.base.Strings.lenientFormat() method. This change was made to remove the non-standard import 'com.google.common.base.Strings' and keep only the standard Java imports.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test cases trigger the bug by passing different number of arguments to the lenient format methods, which should match the positional specifiers.",
+  "Trigger_Line": [
+    11,
+    23,
+    35
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n...\nTime: 0.005\n\nOK (3 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not demonstrate the bug being triggered, as all tests passed and the Java code does not use any of the APIs checked by the LenientFormatStringValidation bugpattern."
+}

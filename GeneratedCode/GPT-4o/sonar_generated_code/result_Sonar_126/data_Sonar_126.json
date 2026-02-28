@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "Child class methods named for parent class methods should be overrides",
+  "Bug_Details": "When a method in a child class has the same signature as a method in a parent class, it is assumed to be an override. However, that\u2019s not the case\nwhen:\nthe parent class method is static and the child class method is not. the arguments or return types of the child method are in different packages than those of the parent method. the parent class method is private .\nthe parent class method is static and the child class method is not.\nthe arguments or return types of the child method are in different packages than those of the parent method.\nthe parent class method is private .\nTypically, these things are done unintentionally; the private parent class method is overlooked, the static keyword in the parent\ndeclaration is overlooked, or the wrong class is imported in the child. But if the intent is truly for the child class method to be different, then\nthe method should be renamed to prevent confusion.\nNoncompliant code example\n// Parent.java\nimport computer.Pear;\npublic class Parent {\n\n  public void doSomething(Pear p) {\n    //,,,\n  }\n\n  public static void doSomethingElse() {\n    //...\n  }\n}\n\n// Child.java\nimport fruit.Pear;\npublic class Child extends Parent {\n\n  public void doSomething(Pear p) {  // Noncompliant; this is not an override\n    // ...\n  }\n\n\n  public void doSomethingElse() {  // Noncompliant; parent method is static\n    //...\n  }\n}\nCompliant solution\n// Parent.java\nimport computer.Pear;\npublic class Parent {\n\n  public void doSomething(Pear p) {\n    //,,,\n  }\n\n  public static void doSomethingElse() {\n    //...\n  }\n}\n\n// Child.java\nimport computer.Pear;  // import corrected\npublic class Child extends Parent {\n\n  public void doSomething(Pear p) {  // true override (see import)\n    //,,,\n  }\n\n  public static void doSomethingElse() {\n    //...\n  }\n}",
+  "Bug_Explanation": "The methods in the Child class have the same names as methods in the Parent class, but they do not override them due to differences in method signatures, privacy, and static nature.",
+  "Buggy_Line": [
+    24,
+    19,
+    28
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case invokes the showBug method, which in turn calls methods in the Child class that are supposed to override those in the Parent class but do not due to differences in signatures, static nature, and privacy. This mismatch causes the test to fail, demonstrating the described bug.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test executed without any errors or failures, indicating that the bug described was not triggered during the test run."
+}

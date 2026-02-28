@@ -1,0 +1,71 @@
+import java.util.Map;
+
+class Ideas_2009_08_27 {
+
+  // static @CheckForNull
+  // Object foo() {
+  // return System.getProperty("foo");
+  // }
+  //
+  // static public void checkDereferenceInsideCatchException() {
+  //
+  // try {
+  // foo().hashCode();
+  // } catch (Exception e) {
+  // assert true;
+  // }
+  // }
+  //
+  // static public void checkDereferenceInsideCatchRuntimeException() {
+  //
+  // try {
+  // foo().hashCode();
+  // } catch (RuntimeException e) {
+  // assert true;
+  // }
+  // }
+  //
+  // static public void checkDereferenceInsideCatchNullPointerException() {
+  //
+  // try {
+  // foo().hashCode();
+  // } catch (NullPointerException e) {
+  // assert true;
+  // }
+  // }
+
+  public static <K, V> int sumValueHashes(Map<K, V> m) {
+    int sum = 0;
+    for (K k : m.keySet()) sum += m.get(k).hashCode();
+    return sum;
+  }
+
+  // Mutated version of sumValueHashes
+  public static <K, V> int sumValueHashesb(Map<K, V> x) {
+    int a = 0;
+    for (K y : x.keySet()) a += x.get(y).hashCode();
+    return a;
+  }
+
+  public static <K, V> int getValueHash1(Map<K, V> m, K k) {
+    if (m.containsKey(k)) return m.get(k).hashCode();
+    return 0;
+  }
+
+  // Mutated version of getValueHash1
+  public static <K, V> int getValueHash1b(Map<K, V> n, K l) {
+    if (n.containsKey(l)) return n.get(l).hashCode();
+    return 0;
+  }
+
+  public static <K, V> int getValueHash2(Map<K, V> m, K k) {
+    if (m.get(k)!= null) return m.get(k).hashCode();
+    return 0;
+  }
+
+  // Mutated version of getValueHash2
+  public static <K, V> int getValueHash2b(Map<K, V> o, K p) {
+    if (o.get(p)!= null) return o.get(p).hashCode();
+    return 0;
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "IL: An apparent infinite loop (IL_INFINITE_LOOP)\uf0c1",
+  "Bug_Details": "This loop doesn't seem to have a way to terminate (other than by perhaps\nthrowing an exception).",
+  "Bug_Explanation": "The bug was embedded in the generated code by creating a while loop with a condition that is never updated within the loop body. The variable 'i' is initialized to 0 and the loop continues as long as 'i' is less than 10, but 'i' is never incremented or modified inside the loop, causing an apparent infinite loop.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by calling the `showBug` method of the `InfiniteLoopExample` class. Since the `showBug` method contains an infinite loop, the test will not complete and will effectively fail due to the infinite execution of the loop.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "Runninng test will fail system because of infinite loop.",
+  "Bug_Triggered": "Yes",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test failed due to an infinite loop, which confirms that the bug described in the bug information is triggered by the test code. The loop in the'showBug' method does not update the variable 'i', causing it to run indefinitely when the method is called."
+}

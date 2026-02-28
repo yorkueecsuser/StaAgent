@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "SQL: Method attempts to access a result set field with index 0 (SQL_BAD_RESULTSET_ACCESS)\uf0c1",
+  "Bug_Details": " A call to getXXX or updateXXX methods of a result set was made where the\nfield index is 0. As ResultSet fields start at index 1, this is always a mistake.",
+  "Bug_Explanation": "The bug is embedded in the generated code by attempting to access a ResultSet field with index 0 using the rs.getString(0) method. Since ResultSet fields start at index 1, this is always a mistake.",
+  "Buggy_Line": [
+    15
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case calls the showBug method with a dummy database URL, user, password, and query. The showBug method internally triggers the bug by attempting to access a ResultSet field with index 0 using rs.getString(0). This will cause an SQLException, which is not caught in the test, leading to a test failure.",
+  "Trigger_Line": [
+    14
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.015\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed without any exceptions, which means the bug was not triggered during the test execution. The test does not check for the expected exception that should be thrown when accessing a ResultSet field with index 0."
+}

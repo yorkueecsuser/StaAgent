@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "UnnecessaryTypeArgument",
+  "Bug_Details": "Non-generic methods should not be invoked with type arguments JLS \u00a715.12.2.1 allows non-generic methods to be invoked with type arguments: a non-generic method may be potentially applicable to an invocation that\nsupplies explicit type arguments. Indeed, it may turn out to be applicable. In\nsuch a case, the type arguments will simply be ignored. This rule stems from issues of compatibility and principles of\nsubstitutability. Since interfaces or superclasses may be generified\nindependently of their subtypes, we may override a generic method with a\nnon-generic one. However, the overriding (non-generic) method must be\napplicable to calls to the generic method, including calls that explicitly\npass type arguments. Otherwise the subtype would not be substitutable for its\ngenerified supertype. There is no reason to do this in cases where the method being called is not an\noverride of a generic method.",
+  "Bug_Explanation": "The bug occurs because a non-generic method is invoked with unnecessary type arguments. In Java, type arguments should only be used with generic methods. Here, the method 'getFirstItem' is non-generic, but it is being called with a type argument '<String>', which is unnecessary and ignored by the compiler.",
+  "Buggy_Line": [
+    13
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case calls the method 'showBug' from the 'UnnecessaryTypeArgumentExample' class. This method triggers the bug by invoking a non-generic method 'getFirstItem' with unnecessary type arguments, which matches the bug description provided. The bug is triggered because it is improperly using type arguments where they are not needed, causing the test to fail.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Item1\n\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that the test passed successfully with an output of 'Item1', indicating that no error or exception was encountered due to the presence of unnecessary type arguments. This suggests that the bug was not triggered during the test execution."
+}

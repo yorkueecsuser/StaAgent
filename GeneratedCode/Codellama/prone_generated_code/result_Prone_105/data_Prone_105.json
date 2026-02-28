@@ -1,0 +1,8 @@
+{
+  "Buggy_Line": [],
+  "Trigger_Explanation": "The JUnit test case triggered the bug by passing a string with the escape sequence \\s in the middle of a line, which is potentially misleading and could lead to confusion with the regex \\s.",
+  "Trigger_Line": [
+    20
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.006\nThere was 1 failure:\n1) testMisleadingEscapedSpace(MisleadingEscapedSpaceTest)\norg.junit.ComparisonFailure: expected:<one [two three]> but was:<one [ \ntwo  \nthree\n]>\n\tat org.junit.Assert.assertEquals(Assert.java:117)\n\tat org.junit.Assert.assertEquals(Assert.java:146)\n\tat MisleadingEscapedSpaceTest.testMisleadingEscapedSpace(MisleadingEscapedSpaceTest.java:12)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n"
+}

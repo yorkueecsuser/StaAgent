@@ -1,0 +1,10 @@
+{
+  "Bug_Title": "NP: Store of null value into field annotated @Nonnull (NP_STORE_INTO_NONNULL_FIELD)\uf0c1",
+  "Bug_Details": " A value that could be null is stored into a field that has been annotated as @Nonnull. ",
+  "Bug_Explanation": "The bug is caused by the code trying to store a null value into a field annotated with @Nonnull. The code first initializes the field to be null and then tries to store a null value into it, which is not allowed by the annotation.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../spotbugs_clean_java_code/result_Spotbugs_57/seed_Spotbugs_57.java:1: error: cannot find symbol\nimport java.lang.annotation.Nonnull;\n                           ^\n  symbol:   class Nonnull\n  location: package java.lang.annotation\n../spotbugs_clean_java_code/result_Spotbugs_57/seed_Spotbugs_57.java:4: error: cannot find symbol\n    @Nonnull\n     ^\n  symbol:   class Nonnull\n  location: class BuggyCode\n2 errors\n"
+}

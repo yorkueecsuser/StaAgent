@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "FinalizeOnlyCallsSuperFinalize",
+  "Bug_Details": "If the finalize() is implemented, it should do something besides just calling super.finalize(). Note that Oracle has declared Object.finalize() as deprecated since JDK 9.\nExamples:\nprotected void finalize() {\n    super.finalize();\n}",
+  "Bug_Explanation": "The finalize method in the FinalizeExample class is overridden but only calls super.finalize(), which is inadequate as it does nothing beyond what the superclass finalize would do. This is against the advice for overriding finalize methods, as it should perform some cleanup tasks.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testFinalizeMethodTriggersBug test case calls the showBug method, which suggests garbage collection. This can potentially invoke the finalize method, which currently only calls super.finalize(), triggering the FinalizeOnlyCallsSuperFinalize bug.",
+  "Trigger_Line": [
+    8,
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.016\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any errors or failures, suggesting that the bug was not triggered during the test execution."
+}

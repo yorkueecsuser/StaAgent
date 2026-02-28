@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "DLS: Dead store of class literal (DLS_DEAD_STORE_OF_CLASS_LITERAL)\uf0c1",
+  "Bug_Details": "\nThis instruction assigns a class literal to a variable and then never uses it.\nThe behavior of this differs in Java 1.4 and in Java 5.\nIn Java 1.4 and earlier, a reference to Foo.class would force the static initializer\nfor Foo to be executed, if it has not been executed already.\nIn Java 5 and later, it does not.\n See Oracle's article on Java SE compatibility\nfor more details and examples, and suggestions on how to force class initialization in Java 5+.\n Foo.class Foo",
+  "Bug_Explanation": "The bug is embedded in the showBug method where a class literal (Foo.class) is assigned to a variable (fooClass) and then never used. In Java 5 and later, this does not force the static initializer for the Foo class to be executed, while in Java 1.4 and earlier, it does.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered because the class literal (Foo.class) is assigned to a variable (fooClass) and then never used. This does not force the static initializer for the Foo class to be executed in Java 5 and later, while in Java 1.4 and earlier, it does. Since we are not expecting any output from the Foo class's static initializer, the test will fail if it is executed.",
+  "Trigger_Line": [
+    3
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.009\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed without any errors. Since the test is designed to trigger the bug by assigning the class literal to a variable and not using it, the absence of any errors or unexpected output in the test results indicates that the bug was not triggered. Therefore, the bug is not present in the Java code."
+}

@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Virtual threads should be used for tasks that include heavy blocking operations",
+  "Bug_Details": "Whenever a virtual thread is started, the JVM will mount it on an OS thread. As soon as the virtual thread runs into a blocking operation like an\nHTTP request or a filesystem read/write operation, the JVM will detect this and unmount the virtual thread. This allows another virtual thread to take\nover the OS thread and continue its execution.\nThis is why virtual threads should be preferred to platform threads for tasks that involve blocking operations. By default, a Java thread is a\nplatform thread. To use a virtual thread it must be started either with Thread.startVirtualThread(Runnable) or Thread.ofVirtual().start(Runnable) .\nThis rule raises an issue when a platform thread is created with a task that includes heavy blocking operations.",
+  "Bug_Explanation": "The code creates a platform thread for executing a task that includes a blocking operation (HTTP request). Instead, a virtual thread should be used for such tasks to allow better resource management by the JVM.",
+  "Buggy_Line": [
+    25,
+    13
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case 'testShowBug' calls the 'showBug' method with a URL, which internally starts a platform thread for an HTTP request (a blocking operation), triggering the bug due to not using a virtual thread.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.227\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed successfully (OK), indicating that the test did not confirm the presence of the bug related to using platform threads for blocking operations."
+}

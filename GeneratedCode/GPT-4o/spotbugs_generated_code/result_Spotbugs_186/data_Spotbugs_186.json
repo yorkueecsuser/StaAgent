@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "MS: Field should be package protected (MS_PKGPROTECT)\uf0c1",
+  "Bug_Details": " A mutable static field could be changed by malicious code or\n by accident.\n The field could be made package protected to avoid\n this vulnerability.",
+  "Bug_Explanation": "The static field 'sharedMessage' is public and mutable, which means it can be accessed and modified from outside the class, potentially leading to accidental or malicious changes. It should be package protected to limit its accessibility.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test method testSharedMessageModification modifies the public static field sharedMessage using the showBug method. This change demonstrates that the mutable static field is accessible and modifiable from outside the class, triggering the intended bug by allowing the test assertion to detect the modification.",
+  "Trigger_Line": [
+    10,
+    13
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.003\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any errors or failures. This suggests that the mutable static field being public did not cause any issues during the test execution, and therefore, the presence of the bug was not confirmed by the test results."
+}

@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "Methods should not call same-class methods with incompatible \"@Transactional\" values",
+  "Bug_Details": "Transactional methods have a propagation type parameter in the @Transaction annotation that specifies the requirements about the transactional\ncontext in which the method can be called and how it creates, appends, or suspends an ongoing transaction.\nWhen an instance that contains transactional methods is injected, Spring uses proxy objects to wrap these methods with the actual transaction\ncode.\nHowever, if a transactional method is called from another method in the same class, the this argument is used as the receiver instance\ninstead of the injected proxy object, which bypasses the wrapper code. This results in specific transitions from one transactional method to another,\nwhich are not allowed:\nnon- @Transactional\nMANDATORY, NESTED, REQUIRED, REQUIRES_NEW\nMANDATORY\nNESTED, NEVER, NOT_SUPPORTED, REQUIRES_NEW\nNESTED\nNESTED, NEVER, NOT_SUPPORTED, REQUIRES_NEW\nNEVER\nMANDATORY, NESTED, REQUIRED, REQUIRES_NEW\nNOT_SUPPORTED\nMANDATORY, NESTED, REQUIRED, REQUIRES_NEW\nREQUIRED or @Transactional\nNESTED, NEVER, NOT_SUPPORTED, REQUIRES_NEW\nREQUIRES_NEW\nNESTED, NEVER, NOT_SUPPORTED, REQUIRES_NEW\nSUPPORTS\nMANDATORY, NESTED, NEVER, NOT_SUPPORTED, REQUIRED, REQUIRES_NEW",
+  "Bug_Explanation": "Methods should not call same-class methods with incompatible @Transactional values",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_115/seed_Sonar_115.java:1: error: package org.springframework.transaction.annotation does not exist\nimport org.springframework.transaction.annotation.Transactional;\n                                                 ^\n../sonar_clean_java_code/result_Sonar_115/seed_Sonar_115.java:5: error: cannot find symbol\n    @Transactional\n     ^\n  symbol:   class Transactional\n  location: class TransactionalBug\n2 errors\n",
+  "Trigger_Explanation": "Methods should not call same-class methods with incompatible '@Transactional' values. In this case, the callingMethod() method calls the innerTransactionalMethod() method which is a transactional method, but is called from the same class. This can bypass the transactional code and can lead to inconsistent transaction states.",
+  "Trigger_Line": [
+    4
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "No",
+  "Model_Explanation": "The described bug is not present in the provided Java code. The `innerTransactionalMethod()` is not being called from another transactional method in the same class. Therefore, the propagation of transactions is not being violated."
+}

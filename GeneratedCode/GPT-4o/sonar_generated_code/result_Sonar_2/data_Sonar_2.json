@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "Consumed Stream pipelines should not be reused",
+  "Bug_Details": "Stream operations are divided into intermediate and terminal operations, and are combined to form stream pipelines. A stream should be operated on\n(invoking an intermediate or terminal stream operation) only once.\nNoncompliant code example\nStream<Widget> pipeline = widgets.stream().filter(b -> b.getColor() == Color.RED);\nvar res1 = pipeline.findAny();\nvar res2 = pipeline.mapToInt(b -> b.getWeight()).sum(); // Noncompliant",
+  "Bug_Explanation": "The code attempts to reuse a Stream pipeline after it has been consumed by a terminal operation (findAny). This results in an IllegalStateException as Streams cannot be reused once a terminal operation has been invoked.",
+  "Buggy_Line": [
+    29
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method triggers the bug by calling the showBug method of StreamReuseExample, which reuses a Stream pipeline after a terminal operation has been invoked on it, violating Stream usage rules.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

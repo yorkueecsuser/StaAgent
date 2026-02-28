@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "AvoidInstantiatingObjectsInLoops",
+  "Bug_Details": "New objects created within loops should be checked to see if they can created outside them and reused.",
+  "Bug_Explanation": "The bug is embedded in the line of code where the String.valueOf(i) method is called to convert the integer value of the loop variable 'i' to a string. This method call creates a new String object every time it is called, resulting in unnecessary object creation and memory allocation within the loop. To fix the bug, we could move this method call outside the loop and store the string value in a variable before adding it to the list.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the `showBug` method and asserting that the list returned by the method has the expected size.",
+  "Trigger_Line": [
+    8
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

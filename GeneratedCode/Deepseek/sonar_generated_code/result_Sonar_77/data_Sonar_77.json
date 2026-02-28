@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "Expressions used in \"assert\" should not produce side effects",
+  "Bug_Details": "Since assert statements aren\u2019t executed by default (they must be enabled with JVM flags) developers should never rely on their\nexecution the evaluation of any logic required for correct program function.\nNoncompliant code example\nassert myList.remove(myList.get(0));  // Noncompliant\nCompliant solution\nboolean removed = myList.remove(myList.get(0));\nassert removed;",
+  "Bug_Explanation": "The use of side-effecting expressions in an assert statement could lead to unexpected program behavior if the assert is disabled at runtime. The bug is demonstrated in line 14 of the above code where an expression is used in an assert statement. The remove method is a side-effecting method, which modifies the state of the list.",
+  "Buggy_Line": [
+    14
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug in the given Java code is triggered by the use of side-effecting expressions in an assert statement. The remove method is a side-effecting method, which modifies the state of the list. This could lead to unexpected program behavior if the assert is disabled at runtime.",
+  "Trigger_Line": [
+    14
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The provided test results do not confirm the bug. The test run was successful, which means that the test didn't encounter the bug. The test passed without any assertion errors.",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The described bug is present in the provided Java code. The assert statement is used to test the correctness of the code. However, the assert statement is used with an expression that has a side effect, i.e., the remove method of the ArrayList class. The remove method removes the first element from the list and returns true if the list was modified, false otherwise. This side effect is not desired in an assert statement, as it can alter the state of the program and potentially hide bugs. The corrected code asserts the result of the remove operation, which does not have a side effect."
+}

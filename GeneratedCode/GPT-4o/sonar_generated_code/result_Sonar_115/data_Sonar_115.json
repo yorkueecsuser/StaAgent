@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Methods should not call same-class methods with incompatible \"@Transactional\" values",
+  "Bug_Details": "Transactional methods have a propagation type parameter in the @Transaction annotation that specifies the requirements about the transactional\ncontext in which the method can be called and how it creates, appends, or suspends an ongoing transaction.\nWhen an instance that contains transactional methods is injected, Spring uses proxy objects to wrap these methods with the actual transaction\ncode.\nHowever, if a transactional method is called from another method in the same class, the this argument is used as the receiver instance\ninstead of the injected proxy object, which bypasses the wrapper code. This results in specific transitions from one transactional method to another,\nwhich are not allowed:\nnon- @Transactional\nMANDATORY, NESTED, REQUIRED, REQUIRES_NEW\nMANDATORY\nNESTED, NEVER, NOT_SUPPORTED, REQUIRES_NEW\nNESTED\nNESTED, NEVER, NOT_SUPPORTED, REQUIRES_NEW\nNEVER\nMANDATORY, NESTED, REQUIRED, REQUIRES_NEW\nNOT_SUPPORTED\nMANDATORY, NESTED, REQUIRED, REQUIRES_NEW\nREQUIRED or @Transactional\nNESTED, NEVER, NOT_SUPPORTED, REQUIRES_NEW\nREQUIRES_NEW\nNESTED, NEVER, NOT_SUPPORTED, REQUIRES_NEW\nSUPPORTS\nMANDATORY, NESTED, NEVER, NOT_SUPPORTED, REQUIRED, REQUIRES_NEW",
+  "Bug_Explanation": "The bug is caused by calling a method with a different transactional requirement from another method in the same class, which bypasses the transactional proxy mechanism. This is because the methods are intended to have different transactional propagation settings, causing a conflict when one calls the other directly.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case calls `example.showBug()`, which internally calls `performRequiredTransaction()`. This method then calls `performRequiresNewTransaction()` directly within the same class. This call should be managed by Spring's transactional proxy, but since it's a direct call, the proxy is bypassed. This triggers the bug because `performRequiresNewTransaction()` is supposed to run under a new transaction, which conflicts with how it is being invoked.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.033\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test executed without errors, as indicated by 'OK (1 test)', which suggests that the bug was not triggered during this test run."
+}

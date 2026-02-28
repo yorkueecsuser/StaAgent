@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Spring \"@Controller\" classes should not use \"@Scope\"",
+  "Bug_Details": "Spring @Controller s, @Service s, and @Repository s have singleton scope by default, meaning only\none instance of the class is ever instantiated in the application. Defining any other scope for one of these class types will result in needless churn\nas new instances are created and destroyed. In a busy web application, this could cause a significant amount of needless additional load on the\nserver.\nThis rule raises an issue when the @Scope annotation is applied to a @Controller , @Service , or @Repository with any value but \"singleton\". @Scope(\"singleton\") is redundant, but ignored.\nNoncompliant code example\n@Scope(\"prototype\")  // Noncompliant\n@Controller\npublic class HelloWorld {\nCompliant solution\n@Controller\npublic class HelloWorld {",
+  "Bug_Explanation": "The bug is embedded in the generated code by applying the @Scope annotation with the 'prototype' value to a @Controller class. This is incorrect because Spring controllers are meant to be singleton by default, and using a prototype scope can lead to inefficient resource use as each request creates a new instance of the controller.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case creates two instances of HelloWorldController and compares their results using assertNotSame. The @Scope(\"prototype\") annotation on the controller class causes each instance to be different, thus failing the test, which is not expected behavior for a Spring controller.",
+  "Trigger_Line": [
+    7,
+    8,
+    11
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "FuturesGetCheckedIllegalExceptionType",
+  "Bug_Details": "Futures.getChecked requires a checked exception type with a standard constructor. The passed exception type must not be a RuntimeException, and it must expose a\npublic constructor whose only parameters are of type String or Throwable.\ngetChecked will reject any other type with an IllegalArgumentException.",
+  "Bug_Explanation": "The bug is that the code is trying to call a non-existent method getChecked() on a Future object. This is due to a typo or misunderstanding of the Java Future API.",
+  "Buggy_Line": [
+    15
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The call to buggyFuture.showBug() in the test triggers the bug in the line future.get() of the showBug method, as future.get() is incorrectly called instead of a non-existing method getChecked().",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 1.006\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results are 'OK (1 test)' which means that the test passed without any errors or exceptions. However, the bug in the code is a compilation error because there is no getChecked method in Future, which was not executed during the test. Therefore, the test results do not confirm the presence of the described bug."
+}

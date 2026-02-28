@@ -1,0 +1,11 @@
+{
+  "Buggy_Line": [
+    11
+  ],
+  "Trigger_Explanation": "The test triggers the bug by creating a Cookie instance with an untrusted input value for the cookie name and value. This input is then used to create a new Cookie, which is later printed to the console. The bug is triggered when the cookie is set to have a max age of 60 minutes and a path of /.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,60 @@
+import java.util.Random;
+
+class RandomCastExample {
+
+    public int showBug() {
+        double randomValue = Math.random();
+        int castedValue = (int) randomValue; // BUG: RandomCast
+
+        // Introduced Unreachable while loop
+        boolean conditionWhile = getCondition();
+        while (conditionWhile) {
+            // Unreachable code
+            System.out.println("This is an unreachable loop");
+        }
+
+        return castedValue;
+    }
+
+    public long showBug1() {
+        Random random = new Random();
+        float floatValue = random.nextFloat();
+        long castedValue = (long) floatValue; // BUG: RandomCast
+
+        // Introduced Unreachable while loop
+        boolean conditionWhile = getCondition();
+        while (conditionWhile) {
+            // Unreachable code
+            System.out.println("This is an unreachable loop in showBug1");
+        }
+
+        return castedValue;
+    }
+
+    public int showBug2() {
+        Random random = new Random();
+        double doubleValue = random.nextDouble();
+        int castedValue = (int) doubleValue; // BUG: RandomCast
+
+        // Introduced Unreachable while loop
+        boolean conditionWhile = getCondition();
+        while (conditionWhile) {
+            // Unreachable code
+            System.out.println("This is an unreachable loop in showBug2");
+        }
+
+        return castedValue;
+    }
+
+    public static void main(String[] args) {
+        RandomCastExample example = new RandomCastExample();
+        System.out.println("showBug result: " + example.showBug());
+        System.out.println("showBug1 result: " + example.showBug1());
+        System.out.println("showBug2 result: " + example.showBug2());
+    }
+
+    private boolean getCondition() {
+        // This method always returns false, making the while loop unreachable
+        return false;
+    }
+}

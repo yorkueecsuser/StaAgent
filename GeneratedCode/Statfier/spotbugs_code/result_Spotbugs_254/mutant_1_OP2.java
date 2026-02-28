@@ -1,0 +1,25 @@
+import edu.umd.cs.findbugs.annotations.ExpectWarning;
+import edu.umd.cs.findbugs.annotations.NoWarning;
+import javax.annotation.CheckForNull;
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
+class CheckForNullArrayArgs {
+
+  @NoWarning("NP,RCN")
+  protected Object caller(@CheckForNull Object param) {
+    final Object[] paramArray = param == null? null : new Object[] {param};
+    final Object[] paramArrayCopy = param == null? null : new Object[] {param}; // Mutant: duplicated assignment
+    return methodTakingArray(paramArray);
+  }
+
+  @NoWarning("NP,RCN")
+  protected Object methodTakingArray(@CheckForNull Object[] params) {
+    return params == null? Boolean.FALSE : Boolean.TRUE;
+  }
+
+  @ExpectWarning("IL_INFINITE_RECURSIVE_LOOP")
+  public void infiniteRecursiveLoop() {
+    infiniteRecursiveLoop();
+  }
+}

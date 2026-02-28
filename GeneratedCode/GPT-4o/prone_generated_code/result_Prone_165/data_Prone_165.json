@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "TryFailThrowable",
+  "Bug_Details": "Catching Throwable/Error masks failures from fail() or assert*() in the try block When testing that a line of code throws an expected exception, it is typical to\nexecute that line in a try block with a fail() or assert*() on the line\nfollowing. The expectation is that the expected exception will be thrown, and\nexecution will continue in the catch block, and the fail() or assert*() will\nnot be executed. fail() and assert*() throw AssertionErrors, which are a subtype of\nThrowable. That means that if the catch block catches Throwable, then execution\nwill always jump to the catch block, and the test will always pass. To fix this, you usually want to catch Exception rather than Throwable. If you\nneed to catch throwable (e.g., the expected exception is an AssertionError),\nthen add logic in your catch block to ensure that the AssertionError that was\ncaught is not the same one thrown by the call to fail() or assert*().",
+  "Bug_Explanation": "The bug involves catching Throwable rather than Exception. This masks AssertionErrors and other errors, making it possible for tests to incorrectly pass.",
+  "Buggy_Line": [
+    14
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method in the JUnit test catches the Throwable from the showBug method, which includes the AssertionError thrown by the fail() method. This prevents fail() from causing the test to fail as expected, thus triggering the bug.",
+  "Trigger_Line": [
+    11
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.005\nThere was 1 failure:\n1) testShowBug(ThrowableCatchExampleTest)\njava.lang.AssertionError: Exception was not caught as expected\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat ThrowableCatchExampleTest.testShowBug(ThrowableCatchExampleTest.java:16)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test result shows a failure because the fail() method was executed, indicating that the exception was not caught as expected. This means the bug was not triggered, as the catch block did not mask the failure from fail()."
+}

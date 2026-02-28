@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Dm: Futile attempt to change max pool size of ScheduledThreadPoolExecutor (DMI_FUTILE_ATTEMPT_TO_CHANGE_MAXPOOL_SIZE_OF_SCHEDULED_THREAD_POOL_EXECUTOR)\uf0c1",
+  "Bug_Details": "(Javadoc)\nWhile ScheduledThreadPoolExecutor inherits from ThreadPoolExecutor, a few of the inherited tuning methods are not useful for it. In particular, because it acts as a fixed-sized pool using corePoolSize threads and an unbounded queue, adjustments to maximumPoolSize have no useful effect.\n    ",
+  "Bug_Explanation": "The code attempts to change the maximum pool size of a ScheduledThreadPoolExecutor using setMaximumPoolSize. However, this operation is futile because ScheduledThreadPoolExecutor uses a fixed core pool size and an unbounded queue, making the maximum pool size setting irrelevant.",
+  "Buggy_Line": [
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test calls the showBug method, which attempts to change the maximum pool size of a ScheduledThreadPoolExecutor. This is futile because the executor uses a fixed core pool size and an unbounded queue. The attempt is made on line 12 of the original code and is reflected in the JUnit test by failing the test to highlight the bug.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.006\nThere was 1 failure:\n1) testShowBug(ScheduledThreadPoolExecutorBugExampleTest)\njava.lang.AssertionError: Expected bug: changing max pool size of ScheduledThreadPoolExecutor is futile and should be reflected in behavior.\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat ScheduledThreadPoolExecutorBugExampleTest.testShowBug(ScheduledThreadPoolExecutorBugExampleTest.java:10)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate a failure due to an assertion error expecting a bug, but there is no evidence in the test results that the futile attempt to change the max pool size affected the behavior of the ScheduledThreadPoolExecutor. The failure is due to the assertion itself, not due to any observed incorrect behavior caused by the bug."
+}

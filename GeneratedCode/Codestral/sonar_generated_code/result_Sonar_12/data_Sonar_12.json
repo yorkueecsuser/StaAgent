@@ -1,0 +1,13 @@
+{
+  "Bug_Title": "\"@Bean\" methods for Singleton should not be invoked in \"@Configuration\" when proxyBeanMethods is false",
+  "Bug_Details": "When setting the proxyBeanMethods attribute to false the @Bean methods are not proxied and this is similar\nto removing the @Configuration stereotype. In this scenario, @Bean methods within the @Configuration annotated\nclass operate in lite\nmode , resulting in a new bean creation each time the method is invoked.\nFor Singleton beans, this could cause unexpected outcomes as the bean is created multiple times instead of being created once and\ncached.\nThe rule raises an issue when the proxyBeanMethods attribute is set to false and the @Bean method of a Singleton bean is directly invoked in the @Configuration annotated class code.",
+  "Bug_Explanation": "The bug is that the singleton bean is created multiple times in the showBug method of MyConfiguration class, which defeats the purpose of a singleton object. This creates unexpected outcomes as new beans are created every time the singletonBean() method is invoked.",
+  "Buggy_Line": [
+    40
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when two instances of SingletonBean are created within the same @Configuration class. This happens because the singletonBean() method in MyConfiguration class returns a new instance of SingletonBean each time it is called.",
+  "Trigger_Line": "[10]",
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

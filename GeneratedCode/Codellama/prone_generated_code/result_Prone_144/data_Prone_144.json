@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "RedundantSetterCall",
+  "Bug_Details": "A field was set twice in the same chained expression. Proto and AutoValue builders provide a fluent interface for constructing\ninstances. Unlike argument lists, however, they do not prevent the user from\nproviding multiple values for the same field. Setting the same field multiple times in the same chained expression is\npointless (as the intermediate value will be overwritten), and can easily mask a\nbug, especially if the setter is called with different arguments. return MyProto.newBuilder()\n    .setFoo(copy.getFoo())\n    .setFoo(copy.getBar())\n    .build(); return MyProto.newBuilder()\n    .setFoo(copy.getFoo())\n    .setFoo(copy.getBar())\n    .build();",
+  "Bug_Explanation": "The setFoo method is called twice in the same chained expression, which is redundant and can easily mask a bug. The second call to setFoo overwrites the first one, making it difficult to notice that the method was called twice.",
+  "Buggy_Line": [
+    26,
+    27
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggered the bug by calling the setFoo and setBar methods on the BuggyBuilder instance twice in the same chained expression, which is redundant and can easily mask a bug.",
+  "Trigger_Line": [
+    26,
+    27
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.002\nThere was 1 failure:\n1) initializationError(BuggyBuilderTest)\norg.junit.runners.model.InvalidTestClassError: Invalid test class 'BuggyBuilderTest':\n  1. The class BuggyBuilderTest is not public.\n  2. Test class should have exactly one public constructor\n  3. Method testBuggyBuilder() should be public\n\tat org.junit.runners.ParentRunner.validate(ParentRunner.java:525)\n\tat org.junit.runners.ParentRunner.<init>(ParentRunner.java:102)\n\tat org.junit.runners.BlockJUnit4ClassRunner.<init>(BlockJUnit4ClassRunner.java:84)\n\tat org.junit.runners.JUnit4.<init>(JUnit4.java:23)\n\tat org.junit.internal.builders.JUnit4Builder.runnerForClass(JUnit4Builder.java:10)\n\tat org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:70)\n\tat org.junit.internal.builders.AllDefaultPossibilitiesBuilder.runnerForClass(AllDefaultPossibilitiesBuilder.java:37)\n\tat org.junit.runner.Computer.getRunner(Computer.java:50)\n\tat org.junit.runner.Computer$1.runnerForClass(Computer.java:31)\n\tat org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:70)\n\tat org.junit.runners.model.RunnerBuilder.runners(RunnerBuilder.java:125)\n\tat org.junit.runners.model.RunnerBuilder.runners(RunnerBuilder.java:111)\n\tat org.junit.runners.Suite.<init>(Suite.java:81)\n\tat org.junit.runner.Computer$2.<init>(Computer.java:33)\n\tat org.junit.runner.Computer.getSuite(Computer.java:28)\n\tat org.junit.runner.Request.classes(Request.java:77)\n\tat org.junit.runner.JUnitCommandLineParseResult.createRequest(JUnitCommandLineParseResult.java:116)\n\tat org.junit.runner.JUnitCore.runMain(JUnitCore.java:77)\n\tat org.junit.runner.JUnitCore.main(JUnitCore.java:36)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the bug was not triggered. The test class 'BuggyBuilderTest' is not public, and the test method 'testBuggyBuilder' should be public. This suggests that the test was not able to properly execute the code and therefore did not trigger the bug."
+}

@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "ProvidesMethodOutsideOfModule",
+  "Bug_Details": "@Provides methods need to be declared in a Module to have any effect. Guice @Provides methods annotate methods that are used as a means of declaring\nbindings. However, this is only helpful inside of a module. Methods outside of\nthese modules are not used for binding declaration.",
+  "Bug_Explanation": "The @Provides method 'provideString' is declared outside of a module, so it doesn't have any effect and the string cannot be provided.",
+  "Buggy_Line": [
+    18
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_141/seed_Prone_141.java:1: error: package javax.inject does not exist\nimport javax.inject.Inject;\n                   ^\n../prone_clean_java_code/result_Prone_141/seed_Prone_141.java:2: error: package com.google.inject does not exist\nimport com.google.inject.Provider;\n                        ^\n../prone_clean_java_code/result_Prone_141/seed_Prone_141.java:3: error: package com.google.inject does not exist\nimport com.google.inject.Provides;\n                        ^\n../prone_clean_java_code/result_Prone_141/seed_Prone_141.java:6: error: cannot find symbol\n    private final Provider<String> stringProvider;\n                  ^\n  symbol:   class Provider\n  location: class BuggyClass\n../prone_clean_java_code/result_Prone_141/seed_Prone_141.java:9: error: cannot find symbol\n    public BuggyClass(Provider<String> stringProvider) {\n                      ^\n  symbol:   class Provider\n  location: class BuggyClass\n../prone_clean_java_code/result_Prone_141/seed_Prone_141.java:8: error: cannot find symbol\n    @Inject\n     ^\n  symbol:   class Inject\n  location: class BuggyClass\n../prone_clean_java_code/result_Prone_141/seed_Prone_141.java:18: error: cannot find symbol\n    @Provides\n     ^\n  symbol:   class Provides\n  location: class BuggyClass\n7 errors\n",
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "No",
+  "Model_Explanation": "The provided Java code does not contain the bug described. The @Provides annotation is used correctly within a module, but it is not used outside of a module. This is a valid use of the @Provides annotation and does not constitute a bug."
+}

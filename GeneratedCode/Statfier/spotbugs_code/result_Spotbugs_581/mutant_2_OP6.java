@@ -1,0 +1,68 @@
+import edu.umd.cs.findbugs.annotations.ExpectWarning;
+import edu.umd.cs.findbugs.annotations.NoWarning;
+
+class Ideas_2010_08_04 {
+  // @NoWarning("VA_FORMAT_STRING_BAD_CONVERSION")
+  public static void main(String[] args) {
+    java.sql.Time time = new java.sql.Time(System.currentTimeMillis());
+
+    java.sql.Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
+    System.out.println(String.format("%tc", time));
+    System.out.println(String.format("%tc", ts));
+    System.out.println(String.format("%Tc", time));
+    System.out.println(String.format("%Tc", ts));
+
+    // Introduced unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // Unreachable code
+      System.out.println("This loop is unreachable");
+    }
+  }
+
+  public static void checkNonNull(Object o) {
+    if (o == null) throw new IllegalArgumentException();
+
+    // Introduced unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // Unreachable code
+      System.out.println("This loop is unreachable");
+    }
+  }
+
+  @NoWarning("NP")
+  public int checkFP(int i) {
+    String num = null;
+    if (i > 0) num = Integer.toString(i);
+
+    checkNonNull(num);
+    return num.hashCode();
+
+    // Introduced unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // Unreachable code
+      System.out.println("This loop is unreachable");
+    }
+  }
+
+  @ExpectWarning("NP")
+  public int check(int i) {
+    String num = null;
+    if (i > 0) num = Integer.toString(i);
+
+    return num.hashCode();
+
+    // Introduced unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // Unreachable code
+      System.out.println("This loop is unreachable");
+    }
+  }
+
+  private static boolean getCondition() {
+    return false; // This method ensures the condition is dynamically determined but always false
+  }
+}

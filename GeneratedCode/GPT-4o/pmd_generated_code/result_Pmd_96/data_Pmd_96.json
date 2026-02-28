@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "UnsynchronizedStaticFormatter",
+  "Bug_Details": "Instances of `java.text.Format` are generally not synchronized.\nSun recommends using separate format instances for each thread.\nIf multiple threads must access a static formatter, the formatter must be\nsynchronized on block level.\nExamples:\npublic class Foo {\n    private static final SimpleDateFormat sdf = new SimpleDateFormat();\n    void bar() {\n        sdf.format(); // poor, no thread-safety\n    }\n    void foo() {\n        synchronized (sdf) { // preferred\n            sdf.format();\n        }\n    }\n}",
+  "Bug_Explanation": "The generated code demonstrates an UnsynchronizedStaticFormatter bug by using a static SimpleDateFormat instance in a thread-unsafe manner. Multiple threads accessing this method can lead to incorrect formatting or exceptions.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case 'testShowBug' triggers the UnsynchronizedStaticFormatter bug by calling the 'showBug' method from multiple threads, causing potential data corruption or exceptions due to thread-unsafe access to the static SimpleDateFormat instance.",
+  "Trigger_Line": [
+    12,
+    15
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.024\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any assertion errors, which suggests that the unsynchronized access to the static SimpleDateFormat instance did not lead to any observable issues during this test run. Therefore, the test results do not confirm the bug was triggered."
+}

@@ -1,0 +1,9 @@
+{
+  "Buggy_Line": [],
+  "Trigger_Explanation": "The test case triggers the bug by calling the NonStaticInitializerBug constructor with parameters 5 and 10, which causes the non-static initializer block to be executed. The block prints a message to the console, which is the bug that is triggered.",
+  "Trigger_Line": [
+    4
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

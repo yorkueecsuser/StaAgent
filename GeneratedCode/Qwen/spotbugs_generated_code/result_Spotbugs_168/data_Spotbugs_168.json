@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "SQL: A prepared statement is generated from a nonconstant String (SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING)\uf0c1",
+  "Bug_Details": "The code creates an SQL prepared statement from a nonconstant String.\nIf unchecked, tainted data from a user is used in building this String, SQL injection could\nbe used to make the prepared statement do something unexpected and undesirable.\n",
+  "Bug_Explanation": "The bug is embedded in the generated code by creating a PreparedStatement from a nonconstant String that includes user input. This can lead to SQL injection vulnerabilities.",
+  "Buggy_Line": [
+    15
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by calling the showBug method with malicious input 'admin' --', which constructs a nonconstant SQL query string leading to a potential SQL injection vulnerability.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.013\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed without throwing an exception, which does not confirm that the bug was triggered. The test expected an SQLException but did not receive one, suggesting that the code did not behave as expected to trigger the bug under the given input."
+}

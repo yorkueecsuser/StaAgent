@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "Consumed Stream pipelines should not be reused",
+  "Bug_Details": "Stream operations are divided into intermediate and terminal operations, and are combined to form stream pipelines. After the terminal operation is\nperformed, the stream pipeline is considered consumed, and cannot be used again. Such a reuse will yield unexpected results.\nNoncompliant code example\nStream<Widget> pipeline = widgets.stream().filter(b -> b.getColor() == RED);\nint sum1 = pipeline.sum();\nint sum2 = pipeline.mapToInt(b -> b.getWeight()).sum(); // Noncompliant",
+  "Bug_Explanation": "The code demonstrates the bug where a Stream is reused after a terminal operation. After calling count() on the pipeline, it becomes consumed. The subsequent attempt to call mapToInt() and sum() on the same pipeline results in an IllegalStateException because the stream has already been closed.",
+  "Buggy_Line": [
+    32
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the method 'showBug' which attempts to reuse a consumed stream pipeline, causing unexpected behavior.",
+  "Trigger_Line": [
+    14
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

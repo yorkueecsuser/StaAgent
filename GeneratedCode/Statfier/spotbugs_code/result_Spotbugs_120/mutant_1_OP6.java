@@ -1,0 +1,166 @@
+import java.io.IOException;
+import java.io.InputStream;
+
+class NullPointerCategories {
+
+  int alwaysNull() {
+    Object x = null;
+    return x.hashCode();
+    // Mutant: Inserting unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // Unreachable code
+    }
+  }
+
+  int nullSimplePathStatementCovered(Object x) {
+    int tmp = 0;
+    if (x == null) tmp = 1;
+    return tmp + x.hashCode();
+    // Mutant: Inserting unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // Unreachable code
+    }
+  }
+
+  int nullSimplePathBranchCovered(Object x) {
+    int tmp = 0;
+    if (x!= null) tmp = 1;
+    return tmp + x.hashCode();
+    // Mutant: Inserting unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // Unreachable code
+    }
+  }
+
+  int nullComplexPathStatementCovered(Object x, boolean b) {
+    int tmp = 0;
+    if (x == null) tmp = 1;
+    if (b) tmp++;
+    return tmp + x.hashCode();
+    // Mutant: Inserting unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // Unreachable code
+    }
+  }
+
+  int nullComplexPathBranchCovered(Object x, boolean b) {
+    int tmp = 0;
+    if (x!= null) tmp = 1;
+    if (b) tmp++;
+    return tmp + x.hashCode();
+    // Mutant: Inserting unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // Unreachable code
+    }
+  }
+
+  int nullExceptionPathStatementCovered(InputStream in) {
+    Object x = null;
+    int tmp = 0;
+    try {
+      int b = in.read();
+      x = Integer.valueOf(b);
+    } catch (IOException e) {
+      tmp = 2;
+    }
+
+    return tmp + x.hashCode();
+    // Mutant: Inserting unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // Unreachable code
+    }
+  }
+
+  int nullExceptionPathBranchCovered(InputStream in) {
+    Object x = null;
+    int tmp = 0;
+    try {
+      int b = in.read();
+      x = Integer.valueOf(b);
+    } catch (IOException e) {
+
+    }
+
+    return tmp + x.hashCode();
+    // Mutant: Inserting unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // Unreachable code
+    }
+  }
+
+  int nullComplexNonExceptionPathStatementCovered(Object x, boolean b, boolean c) {
+    int tmp = 0;
+    if (x == null) tmp = 1;
+    if (b) tmp++;
+    if (c) throw new IllegalArgumentException();
+    return tmp + x.hashCode();
+    // Mutant: Inserting unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // Unreachable code
+    }
+  }
+
+  int nullComplexNonExceptionPathBranchCovered(Object x, boolean b, boolean c) {
+    int tmp = 0;
+    if (x!= null) tmp = 1;
+    if (b) tmp++;
+    if (c) throw new IllegalArgumentException();
+    return tmp + x.hashCode();
+    // Mutant: Inserting unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // Unreachable code
+    }
+  }
+
+  int nullExceptionNonExceptionPathStatementCovered(InputStream in, boolean c) {
+    Object x = null;
+    int tmp = 0;
+    try {
+      int b = in.read();
+      x = Integer.valueOf(b);
+    } catch (IOException e) {
+      tmp = 2;
+    }
+
+    if (c) throw new IllegalArgumentException();
+
+    return tmp + x.hashCode();
+    // Mutant: Inserting unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // Unreachable code
+    }
+  }
+
+  int nullExceptionNonExceptionPathBranchCovered(InputStream in, boolean c) {
+    Object x = null;
+    int tmp = 0;
+    try {
+      int b = in.read();
+      x = Integer.valueOf(b);
+    } catch (IOException e) {
+
+    }
+    if (c) throw new IllegalArgumentException();
+
+    return tmp + x.hashCode();
+    // Mutant: Inserting unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // Unreachable code
+    }
+  }
+
+  private boolean getCondition() {
+    return false;
+  }
+}

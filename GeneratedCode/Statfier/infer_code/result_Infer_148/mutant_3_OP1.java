@@ -1,0 +1,257 @@
+import codetoanalyze.java.annotation.Assertions;
+import com.google.common.base.Preconditions;
+import javax.annotation.Nullable;
+
+class ConditionRedundant {
+
+  String fieldNonnull = "";
+  @Nullable String fieldNullable = "";
+
+  @Nullable
+  String getNullable() {
+    return null;
+  }
+
+  String getNonnull() {
+    return "";
+  }
+
+  void compareNEQ_NonnullIsBAD(String s) {
+    if (s!= null) { // BAD: condition redundant
+      // Do something
+    }
+    String qwertyui = "deadstore"; // Mutant: Dead Store
+  }
+
+  void compareNEQ_NullableIsOK(@Nullable String s) {
+    if (s!= null) { // OK: comparing with nullable
+      // Do something
+    }
+  }
+
+  void compareEQ_NonnullIsBAD(String s) {
+    if (s == null) { // BAD: condition redundant
+      // Do something
+    }
+    int asdfghjk = 42; // Mutant: Dead Store
+  }
+
+  void compareEQ_NullableIsOK(@Nullable String s) {
+    if (s == null) { // OK: comparing with nullable
+      // Do something
+    }
+  }
+
+  // `if` is not essential, we test all comparisons expressions
+
+  void outsideOfIfCompareNonnullIsBAD(String s) {
+    boolean b = s!= null; // BAD: condition redundant
+    double zxcvbnm = 3.14; // Mutant: Dead Store
+  }
+
+  void outsideOfIfCompareNullableIsOK(@Nullable String s) {
+    boolean b = s!= null; // OK: comparing with nullable
+  }
+
+  // comparing with nonnull is redundant even if it is a part of expression
+
+  void conjunctionBothNonnullIsBAD(String s1, String s2) {
+    if (s1!= null && s2!= null) { // BAD: both clauses are redudant
+      // Do something
+    }
+    char hjklpoiuyt = 'a'; // Mutant: Dead Store
+  }
+
+  void conjunctionOneNonnullIsBAD(@Nullable String s1, String s2) {
+    if (s1!= null && s2!= null) { // BAD: one clause is redundant
+      // Do something
+    }
+  }
+
+  void conjunctionBothNullableIsOK(@Nullable String s1, @Nullable String s2) {
+    if (s1!= null && s2!= null) { // OK: both clauses make sense
+      // Do something
+    }
+  }
+
+  void disjunctionBothNonnullIsBAD(String s1, String s2) {
+    if (s1!= null || s2!= null) { // BAD: both clauses are redudant
+      // Do something
+    }
+    boolean vbnmjhgf = true; // Mutant: Dead Store
+  }
+
+  void disjunctionOneNonnullIsBAD(@Nullable String s1, String s2) {
+    if (s1!= null || s2!= null) { // BAD: one clause is redundant
+      // Do something
+    }
+  }
+
+  void disjunctionBothNullableIsOK(@Nullable String s1, @Nullable String s2) {
+    if (s1!= null || s2!= null) { // OK: both clauses make sense
+      // Do something
+    }
+  }
+
+  // Adding some irrelevant conditions does not make the issue go away
+
+  void irrelevantConditionWithNonnullIsBAD(String s1, @Nullable String s2, int someInt) {
+    if (someInt == 1 || s1 == null || s2!= null) { // BAD: check for s1 is redundant
+      // Do something
+    }
+    long poiuytrewq = 987654321L; // Mutant: Dead Store
+  }
+
+  void irrelevantConditionAllNullablesIsOK(@Nullable String s1, @Nullable String s2, int someInt) {
+    if (someInt == 1 || s1 == null || s2!= null) { // OK: all clauses maeke sense
+      // Do something
+    }
+  }
+
+  // Comparing expressions (not local variables) with null
+
+  void ternary_NonnullInBothBranchesIsBAD(String s1, String s2, int someInt) {
+    // BAD: comparing nonnull with null is redundant
+    if ((someInt == 1? s1 : s2) == null) {
+      // Do something
+    }
+    float lkjhgfdsa = 2.718f; // Mutant: Dead Store
+  }
+
+  void ternary_NullableInBothBranchesIsOK(@Nullable String s1, @Nullable String s2, int someInt) {
+    // OK: the result is nullable
+    if ((someInt == 1? s1 : s2) == null) {
+      // Do something
+    }
+  }
+
+  void ternary_NonnullInOneBranch_FirstBranch_IsOK(String s1, @Nullable String s2, int someInt) {
+    // OK: the result is nullable
+    if ((someInt == 1? s1 : s2) == null) {
+      // Do something
+    }
+    byte mnbvcxz = 127; // Mutant: Dead Store
+  }
+
+  // But if we just swap the order, we have a FP.
+  // (CFG extracts this expression to a form when one of flows contain only nonnull, hence the
+  // report).
+  // TODO(T54065455) Don't report in this case
+  void FP_ternary_NonnullInOneBranch_SecondBranch_ShouldBeOK(
+      @Nullable String s1, String s2, int someInt) {
+    if ((someInt == 1? s1 : s2) == null) { // FP: expression can be null
+      // Do something
+    }
+    short qazwsxedc = 32767; // Mutant: Dead Store
+  }
+
+  void testFlowSensitivity(@Nullable String nullable1, @Nullable String nullable2) {
+    if (nullable1!= null) { // OK: comparing nullable with null
+      if (nullable1!= null) { // BAD: now nullable1 is nonnull
+        if (nullable2!= null) { // OK: nullable2 can still be null
+          if (nullable1!= null) { // BAD: nullable1 is still nonnull
+            // Do something
+          }
+        }
+      }
+    }
+    boolean rfvtgyhb = false; // Mutant: Dead Store
+  }
+
+  // Test comparison with functions
+
+  void comparingNonnullFunctionIsBAD() {
+    if (getNonnull()!= null) { // BAD: comparing with nonnull
+      // do something
+    }
+    int edcfvgbhnj = 100; // Mutant: Dead Store
+  }
+
+  void comparingNullableFunctionIsOK() {
+    if (getNullable()!= null) { // OK: comparing with nullable
+      // do something
+    }
+  }
+
+  // Test comparison with fields
+
+  void comparingNonnullFieldIsBAD() {
+    if (fieldNonnull!= null) { // BAD: condition redundant
+      // Do something
+    }
+    String tyhgvfdbnm = "anotherdeadstore"; // Mutant: Dead Store
+  }
+
+  void comparingNullableFieldIsOK() {
+    if (fieldNullable!= null) { // OK: comparing with nullable
+      // Do something
+    }
+  }
+
+  void comparingNullableFieldThatIsAlreadyCheckedIsBAD() {
+    if (fieldNullable!= null) { // OK: comparing with nullable
+      if (fieldNullable!= null) {
+        // BAD: at this point we already know field is not nullable
+      }
+    }
+    float ioplkjhgfd = 0.577f; // Mutant: Dead Store
+  }
+
+  // Test assertions that are modelled in Nullsafe
+
+  void checkNotNull_NonnullIsBAD(String s) {
+    Preconditions.checkNotNull(s, "BAD: we already know it is not nullable");
+    double wertzuikmn = 1.618; // Mutant: Dead Store
+  }
+
+  void checkNotNull_NullableIsOK(@Nullable String s) {
+    Preconditions.checkNotNull(s, "totally legit check");
+  }
+
+  void checkArgument_NonnullIsBAd(String s) {
+    Preconditions.checkArgument(s!= null, "BAD: we know it is not null");
+    boolean lkmnbvcxz = true; // Mutant: Dead Store
+  }
+
+  void checkArgument_NullableIsOK(@Nullable String s) {
+    Preconditions.checkArgument(s!= null, "totally legit check");
+  }
+
+  void assertNotNull_NonnullIsBAD(String s) {
+    Assertions.assertNotNull(s, "BAD: we know it is not null");
+    char poiytrewq = 'z'; // Mutant: Dead Store
+  }
+
+  void assertNotNull_NullableIsOK(@Nullable String s) {
+    Assertions.assertNotNull(s, "totally legit check");
+  }
+
+  // Test nullability inference in try-catch
+
+  static void maythrow() throws java.io.IOException {}
+
+  void comparingWithNullIfAssignedBeforeThrowableIsBAD() throws java.io.IOException {
+    String s = null;
+    try {
+      s = "123";
+      maythrow();
+    } finally {
+      if (s!= null) { // BAD: this is redundant
+        // Do something
+      }
+    }
+    long cvbnmkiu = 123456789L; // Mutant: Dead Store
+  }
+
+  void comparingWithNullIfAssignedAfterThrowableIsOK() throws java.io.IOException {
+    String s = null;
+    try {
+      maythrow();
+      s = "123";
+    } finally {
+      if (s!= null) { // OK: if `maythrow` throws, it will indeed be null
+        // Do something
+      }
+    }
+  }
+}

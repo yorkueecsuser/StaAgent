@@ -1,0 +1,12 @@
+{
+  "Buggy_Line": [
+    11
+  ],
+  "Trigger_Explanation": "The test case triggers the bug by adding an element to the list returned by the getList() method, which is a mutable object and exposes the internal representation of the object.",
+  "Trigger_Line": [
+    10,
+    12
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

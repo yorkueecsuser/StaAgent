@@ -1,0 +1,32 @@
+import java.util.Optional;
+
+class OptionalBugExample {
+
+    public Optional<String> showBug(String input) {
+        Optional<String> optionalValue = Optional.ofNullable(null); // BUG: "null" should not be used with "Optional"
+        
+        // Insert unreachable for loop
+        boolean conditionFor = getCondition(); // Use a method to determine the condition
+        for (int i = 0; conditionFor; i++) {
+            System.out.println("This is an unreachable for loop.");
+        }
+        
+        // Demonstrating the bug by trying to fetch value, which will return empty Optional
+        return optionalValue;
+    }
+
+    private boolean getCondition() {
+        return false; // This ensures the for loop is unreachable
+    }
+
+    public static void main(String[] args) {
+        OptionalBugExample example = new OptionalBugExample();
+        Optional<String> result = example.showBug("test");
+        
+        if (result.isPresent()) {
+            System.out.println("Value is present: " + result.get());
+        } else {
+            System.out.println("No value present.");
+        }
+    }
+}

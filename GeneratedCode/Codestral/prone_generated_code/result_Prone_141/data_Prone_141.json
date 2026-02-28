@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "ProvidesMethodOutsideOfModule",
+  "Bug_Details": "@Provides methods need to be declared in a Module to have any effect. Guice @Provides methods annotate methods that are used as a means of declaring\nbindings. However, this is only helpful inside of a module. Methods outside of\nthese modules are not used for binding declaration.",
+  "Bug_Explanation": "The bug is that the @Inject annotation is used outside of a module. The @Inject annotation is for declaring dependencies that will be automatically injected by Guice, but it needs to be used inside a module. In this code, the @Inject annotation is used outside of a module, causing the dependencies to not be injected properly and resulting in a null pointer exception when trying to access the engine object.",
+  "Buggy_Line": [
+    9,
+    2
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test is expected to fail because `main.car.engine` is null, which violates the 'ProvidesMethodOutsideOfModule' rule. This is because the `Engine` instance was not injected into the `Car` object.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

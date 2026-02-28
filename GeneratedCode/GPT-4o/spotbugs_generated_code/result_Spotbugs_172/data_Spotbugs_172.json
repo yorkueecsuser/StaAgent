@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "DP: Classloaders should only be created inside doPrivileged block (DP_CREATE_CLASSLOADER_INSIDE_DO_PRIVILEGED)\uf0c1",
+  "Bug_Details": " This code creates a classloader,  which needs permission if a security manage is installed.\nIf this code might be invoked by code that does not\nhave security permissions, then the classloader creation needs to occur inside a doPrivileged block. java.security.AccessController doPrivileged",
+  "Bug_Explanation": "The code demonstrates creating a ClassLoader object directly without wrapping it in a doPrivileged block. This is a security vulnerability when a security manager is present because the creation of a class loader should be protected with proper permissions.",
+  "Buggy_Line": [
+    13
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method which creates a ClassLoader instance without the protection of a doPrivileged block. This operation is a security risk when a security manager is enabled, causing the test to fail if the security manager is configured to prevent such actions.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any errors or exceptions, suggesting that the bug was not triggered during the test execution."
+}

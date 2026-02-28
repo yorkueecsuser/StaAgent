@@ -1,0 +1,12 @@
+{
+  "Bug_Title": "InjectOnMemberAndConstructor",
+  "Bug_Details": "Members shouldn't be annotated with @Inject if constructor is already annotated @Inject",
+  "Bug_Explanation": "The bug was embedded in the code by annotating the field `name` with `@Inject`, which is not allowed if the constructor is also annotated with `@Inject`.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_78/seed_Prone_78.java:1: error: package javax.inject does not exist\nimport javax.inject.Inject;\n                   ^\n1 error\n",
+  "Trigger_Explanation": "The test case triggers the bug by calling the `showBug()` method on an instance of `InjectOnMemberAndConstructor`. This causes the constructor to be called, which is annotated with `@Inject`, but the member `name` is not annotated with `@Inject`, which is a violation of the rule \"Members shouldn't be annotated with `@Inject` if constructor is already annotated `@Inject`\".",
+  "Trigger_Line": "[3, 8, 10]",
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

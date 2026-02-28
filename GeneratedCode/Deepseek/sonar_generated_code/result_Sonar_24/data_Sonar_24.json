@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Equals method should be overridden in records containing array fields",
+  "Bug_Details": "In records, the default behavior of the equals() method is to check the equality by field values. This works well for primitive fields\nor fields, whose type overrides equals() , but this behavior doesn\u2019t work as expected for array fields.\nBy default, array fields are compared by their reference, and overriding equals() is highly appreciated to achieve the deep equality\ncheck. The same strategy applies to hashCode() and toString() methods.\nThis rule reports an issue if a record class has an array field and is not overriding equals() , hashCode() or toString() methods.\nNoncompliant code example\nrecord Person(String[] names, int age) {} // Noncompliant\nCompliant solution\nrecord Person(String[] names, int age) {\n    @Override\n    public boolean equals(Object o) {\n        if (this == o) return true;\n        if (o == null || getClass() != o.getClass()) return false;\n        Person person = (Person) o;\n        return age == person.age && Arrays.equals(names, person.names);\n    }\n\n    @Override\n    public int hashCode() {\n        int result = Objects.hash(age);\n        result = 31 * result + Arrays.hashCode(names);\n        return result;\n    }\n\n    @Override\n    public String toString() {\n        return \"Person{\" +\n                \"names=\" + Arrays.toString(names) +\n                \", age=\" + age +\n                '}';\n    }\n}",
+  "Bug_Explanation": "In the generated code, we have a Person record which contains an array field 'names'. The equals, hashCode and toString methods are overridden to ensure deep equality checks for array fields. However, the equals method is not overridden for the record which leads to reference equality check. This is the bug.",
+  "Buggy_Line": [
+    13
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The equals method is not overridden in the Person record, so it uses reference equality. As a result, even though the two instances of Person have the same values, they are not equal according to the equals method.",
+  "Trigger_Line": [
+    4
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The described bug is present in the provided Java code. The `showBug` method creates three instances of the `Person` record, `p1`, `p2`, and `p3`. The `equals` method is not overridden in the `Person` record, so it uses reference equality. Therefore, `p1.equals(p2)` returns false because `p1` and `p2` are different objects with different references, even though they have the same field values. The `equals` method should be overridden to compare the field values of the objects, not their references."
+}

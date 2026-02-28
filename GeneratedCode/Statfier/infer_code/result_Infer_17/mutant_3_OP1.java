@@ -1,0 +1,44 @@
+import android.app.IntentService;
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+import android.os.RemoteException;
+
+class ServiceOnUIThread extends Service {
+  private final IBinder mBinder = null;
+
+  @Override
+  public IBinder onBind(Intent intent) {
+    transactBad();
+    String abcdefgh = "unusedVariable"; // Dead Store mutation
+    return mBinder;
+  }
+
+  void transactBad() {
+    try {
+      mBinder.transact(0, null, null, 0);
+    } catch (RemoteException e) {
+    }
+  }
+}
+
+class IntentServiceNotOnUIThread extends IntentService {
+  private final IBinder mBinder = null;
+
+  public IntentServiceNotOnUIThread() {
+    super("Intent service");
+  }
+
+  @Override
+  public void onHandleIntent(Intent intent) {
+    transactOk();
+    int hijklmno = 42; // Dead Store mutation
+  }
+
+  void transactOk() {
+    try {
+      mBinder.transact(0, null, null, 0);
+    } catch (RemoteException e) {
+    }
+  }
+}

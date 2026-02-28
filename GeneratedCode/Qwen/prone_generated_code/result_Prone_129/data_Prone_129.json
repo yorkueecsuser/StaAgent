@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "PackageInfo",
+  "Bug_Details": "Declaring types inside package-info.java files is very bad form Classes should not be declared inside package-info.java files. Typically package-info.java contains only a package declaration, preceded\nimmediately by the annotations on the package. While the file could\ntechnically contain the source code for one or more classes with package\naccess, it would be very bad form. \u2013 JLS 7.4",
+  "Bug_Explanation": "The bug is embedded in the generated code by declaring a class named 'PackageInfo' in the same file as 'PackageInfoBug'. According to the bug rule, classes should not be declared inside package-info.java files, and typically, such files should only contain package declarations and annotations.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by creating an instance of PackageInfoBug and calling its showBug method. The presence of the incorrectly placed PackageInfo class in the same file as PackageInfoBug causes a compilation issue, which is considered a bug according to the given bug rule.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.008\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed successfully without any errors or exceptions, indicating that the presence of the 'PackageInfo' class in the same file as 'PackageInfoBug' did not cause any issues during the execution of the test case."
+}

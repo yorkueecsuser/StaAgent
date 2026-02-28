@@ -1,0 +1,25 @@
+{
+  "Bug_Title": "NonCaseLabelInSwitchStatement",
+  "Bug_Details": "",
+  "Bug_Explanation": "The bug is present in the switch statement in the for loop. The default case label is missing a break statement, which causes the code to fall through to the next case label.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggered the bug when it tried to execute the switch statement with the 'default' case label without a break statement, causing the code to fall through to the next case label.",
+  "Trigger_Line": [
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.006\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the bug was not triggered. The test case passed, and the expected output was produced."
+}

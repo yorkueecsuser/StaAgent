@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "CloneMethodMustBePublic",
+  "Bug_Details": "The java manual says \"By convention, classes that implement this interface should override\nObject.clone (which is protected) with a public method.\"\nExamples:\npublic class Foo implements Cloneable {\n    @Override\n    protected Object clone() throws CloneNotSupportedException { // Violation, must be public\n    }\n}\n\npublic class Foo implements Cloneable {\n    @Override\n    protected Foo clone() { // Violation, must be public\n    }\n}\n\npublic class Foo implements Cloneable {\n    @Override\n    public Object clone() // Ok\n}",
+  "Bug_Explanation": "The bug was embedded in the generated code by overriding the clone method with a protected access modifier instead of public, as per the CloneMethodMustBePublic rule.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by calling the showBug method on an instance of CloneExample. Since the clone method in CloneExample is protected, attempting to clone the object within the showBug method results in an IllegalAccessException, causing the test to fail.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Cloned value: 10\n\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that the'showBug' method successfully cloned the object and printed the cloned value without throwing any exceptions. This indicates that the protected 'clone' method was accessible and did not cause a failure, which does not confirm the bug was triggered."
+}

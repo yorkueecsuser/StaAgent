@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Dm: Useless/vacuous call to EasyMock method (DMI_VACUOUS_CALL_TO_EASYMOCK_METHOD)\uf0c1",
+  "Bug_Details": "This call doesn't pass any objects to the EasyMock method, so the call doesn't do anything.\n",
+  "Bug_Explanation": "The bug is embedded in the generated code by making a vacuous call to the EasyMock.replay() method without passing any objects to it. This call does not perform any action since no mock object is specified.",
+  "Buggy_Line": [
+    13
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method of EasyMockExample, which contains a vacuous call to EasyMock.replay() without any arguments. This triggers the bug as per the provided bug rule.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.017\nThere was 1 failure:\n1) testShowBug(EasyMockExampleTest)\njava.lang.NoClassDefFoundError: net/bytebuddy/TypeCache\n\tat org.easymock.internal.MocksControl.getClassProxyFactory(MocksControl.java:162)\n\tat org.easymock.internal.MocksControl.createMock(MocksControl.java:107)\n\tat org.easymock.internal.MocksControl.createMock(MocksControl.java:83)\n\tat org.easymock.IMocksControl.mock(IMocksControl.java:44)\n\tat org.easymock.EasyMock.mock(EasyMock.java:71)\n\tat org.easymock.EasyMock.createMock(EasyMock.java:323)\n\tat EasyMockExample.showBug(EasyMockExample.java:7)\n\tat EasyMockExampleTest.testShowBug(EasyMockExampleTest.java:9)\n\t... 30 trimmed\nCaused by: java.lang.ClassNotFoundException: net.bytebuddy.TypeCache\n\tat java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)\n\tat java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)\n\tat java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)\n\t... 39 more\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate a failure due to a 'NoClassDefFoundError' for 'net.bytebuddy.TypeCache', which is unrelated to the vacuous call to the EasyMock method. The error suggests a missing dependency rather than confirming the presence of the described bug."
+}

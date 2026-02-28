@@ -1,0 +1,39 @@
+class CallSuperLastExample {
+
+    // Demonstrates the CallSuperLast bug
+    public void onPause() {
+        boolean condition = getUnreachableCondition();
+        
+        if (condition) {
+            System.out.println("This branch is unreachable.");
+        } else {
+            System.out.println("Doing some important operations before pause.");
+            foo();
+            superPause(); // BUG: CallSuperLast
+        }
+    }
+    
+    private boolean getUnreachableCondition() {
+        // This method simulates an always false condition
+        return false;
+    }
+    
+    private void foo() {
+        System.out.println("foo method execution.");
+    }
+    
+    // Simulating a super call
+    private void superPause() {
+        System.out.println("Super onPause called.");
+    }
+
+    public String showBug() {
+        onPause();
+        return "Bug demonstrated: super method called last instead of first.";
+    }
+
+    public static void main(String[] args) {
+        CallSuperLastExample example = new CallSuperLastExample();
+        System.out.println(example.showBug());
+    }
+}

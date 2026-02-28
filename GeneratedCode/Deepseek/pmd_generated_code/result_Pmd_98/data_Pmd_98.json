@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "UseNotifyAllInsteadOfNotify",
+  "Bug_Details": "Thread.notify() awakens a thread monitoring the object. If more than one thread is monitoring, then only\none is chosen.  The thread chosen is arbitrary; thus it's usually safer to call notifyAll() instead.\nExamples:\nvoid bar() {\n    x.notify();\n    // If many threads are monitoring x, only one (and you won't know which) will be notified.\n    // use instead:\n    x.notifyAll();\n  }",
+  "Bug_Explanation": "In this code, we are using Thread.notify() to wake up a thread that is waiting on an object. By doing this, we are only waking up one of the threads that are waiting on the object. If there are multiple threads waiting on the object, it's arbitrary which one gets woken up. To wake up all threads waiting on the object, we should use Thread.notifyAll().",
+  "Buggy_Line": [
+    11,
+    22
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The'showBug' method in the 'BugExample' class uses 'notify' instead of 'notifyAll', which may only wake up one thread instead of all waiting threads. This is a typical example of a race condition.",
+  "Trigger_Line": [
+    22
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the bug was not triggered. The test case passed without any failures or errors, indicating that the bug was not present in the provided Java code."
+}

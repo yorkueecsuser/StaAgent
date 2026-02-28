@@ -1,0 +1,24 @@
+import java.util.ArrayList;
+
+class UWF_NULL_FIELD {
+    private String field;
+
+    public void setField(String value) {
+        boolean condition = getCondition();
+        if (condition) {
+            field = null; // BUG: UwF: Field only ever set to null (UWF_NULL_FIELD)
+        } else {
+            field = value;
+        }
+    }
+
+    public String getField() {
+        return field;
+    }
+
+    public static void main(String[] args) {
+        UWF_NULL_FIELD uwf = new UWF_NULL_FIELD();
+        uwf.setField("Hello World");
+        System.out.println(uwf.getField());
+    }
+}

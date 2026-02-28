@@ -1,0 +1,36 @@
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.UnsupportedTemporalTypeException;
+
+class DurationExample {
+
+    public long showBug() {
+        Duration duration = Duration.ofDays(1);
+        try {
+            boolean unreachableCondition = getUnreachableCondition();
+            // Unreachable if-else statement
+            if (unreachableCondition) {
+                System.out.println("This block is unreachable.");
+            } else {
+                System.out.println("This block is also unreachable.");
+            }
+
+            // Attempt to get the value of a TemporalUnit that is not SECONDS or NANOS
+            long days = duration.get(ChronoUnit.DAYS); // BUG: DurationGetTemporalUnit
+            return days;
+        } catch (UnsupportedTemporalTypeException e) {
+            System.out.println("Caught UnsupportedTemporalTypeException: " + e.getMessage());
+            return -1;
+        }
+    }
+
+    private boolean getUnreachableCondition() {
+        // This method always returns false, making the if-else unreachable
+        return false;
+    }
+
+    public static void main(String[] args) {
+        DurationExample example = new DurationExample();
+        example.showBug();
+    }
+}

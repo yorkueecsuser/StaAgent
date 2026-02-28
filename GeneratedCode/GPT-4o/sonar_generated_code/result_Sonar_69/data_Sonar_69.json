@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "\"@Controller\" classes that use \"@SessionAttributes\" must call \"setComplete\" on their \"SessionStatus\" objects",
+  "Bug_Details": "A Spring @Controller that uses @SessionAttributes is designed to handle a stateful / multi-post form. Such @Controller s use the specified @SessionAttributes to store data on the server between requests. That data should be cleaned\nup when the session is over, but unless setComplete() is called on the SessionStatus object from a @RequestMapping method, neither Spring nor the JVM will know it\u2019s time to do that. Note that the SessionStatus object must\nbe passed to that method as a parameter.\nNoncompliant code example\n@Controller\n@SessionAttributes(\"hello\")  // Noncompliant; this doesn't get cleaned up\npublic class HelloWorld {\n\n  @RequestMapping(\"/greet\", method = GET)\n  public String greet(String greetee) {\n\n    return \"Hello \" + greetee;\n  }\n}\nCompliant solution\n@Controller\n@SessionAttributes(\"hello\")\npublic class HelloWorld {\n\n  @RequestMapping(\"/greet\", method = GET)\n  public String greet(String greetee) {\n\n    return \"Hello \" + greetee;\n  }\n\n  @RequestMapping(\"/goodbye\", method = POST)\n  public String goodbye(SessionStatus status) {\n    //...\n    status.setComplete();\n  }\n\n}",
+  "Bug_Explanation": "\"@Controller\" classes that use \"@SessionAttributes\" must call \"setComplete\" on their \"SessionStatus\" objects to ensure that session data is cleaned up properly after the session ends. The provided code does not call \"setComplete()\", resulting in potential data retention issues.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered by the usage of @SessionAttributes without the corresponding setComplete call on a SessionStatus object in the HelloWorld class. The test simulates a session attribute scenario by invoking the showBug method, which indirectly calls the greet method, demonstrating that session cleanup is not handled.",
+  "Trigger_Line": [
+    9
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,55 @@
+class BuggyClass {
+  private int x;
+  private int y;
+
+  public void setX(int val) { // BUG: Getters and setters should access the expected fields
+    this.y = val; // This line updates the wrong field
+
+    // Inserting unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // Unreachable code
+      System.out.println("This loop is unreachable");
+    }
+  }
+
+  public int getY() { // BUG: Getters and setters should access the expected fields
+    return this.x; // This line returns the wrong field
+
+    // Inserting unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // Unreachable code
+      System.out.println("This loop is unreachable");
+    }
+  }
+
+  public int showBug() {
+    setX(10); // Setting x to 10, but actually setting y
+    return getY(); // Returning y, but expecting x
+
+    // Inserting unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // Unreachable code
+      System.out.println("This loop is unreachable");
+    }
+  }
+
+  public static void main(String[] args) {
+    BuggyClass buggy = new BuggyClass();
+    System.out.println(buggy.showBug()); // This will print 0, demonstrating the bug
+
+    // Inserting unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // Unreachable code
+      System.out.println("This loop is unreachable");
+    }
+  }
+
+  // Method to provide a dynamic condition for the for loop
+  private static boolean getCondition() {
+    return false; // This will always return false, making the loop unreachable
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "Buggy_Line": [
+    8
+  ],
+  "Trigger_Explanation": "The test case triggers the bug by using reflection to check the non-runtime annotation @Override",
+  "Trigger_Line": [
+    4,
+    5
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

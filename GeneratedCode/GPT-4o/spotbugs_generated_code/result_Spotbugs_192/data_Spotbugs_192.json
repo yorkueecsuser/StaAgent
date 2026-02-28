@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "REFLC: Public method uses reflection to create a class it gets in its parameter which could increase the accessibility of any class (REFLC_REFLECTION_MAY_INCREASE_ACCESSIBILITY_OF_CLASS)\uf0c1",
+  "Bug_Details": "\nSEI CERT SEC05-J rule forbids the use of reflection to increase accessibility of classes, methods or fields. If\na class in a package provides a public method which takes an instance of java.lang.Class as its parameter and\ncalls its newInstance() method then it increases accessibility of classes in the same package without public\nconstructors. An attacker code may call this method and pass such class to create an instance of it. This should\nbe avoided by either making the method non-public or by checking for package access permission on the package.\nA third possibility is to use the java.beans.Beans.instantiate() method instead of java.lang.Class.newInstance()\nwhich checks whether the Class object being received has any public constructors.\n",
+  "Bug_Explanation": "The bug is embedded in the code by having a public method `createInstance` that takes a Class<?> parameter and uses reflection to instantiate it using `newInstance()`. This can expose internal classes or classes with private constructors to be instantiated, potentially increasing their accessibility.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case 'testTriggerBugWithSomeClass' calls the 'showBug' method with 'SomeClass.class' as the argument. 'SomeClass' has a private constructor, and the 'showBug' method internally calls 'createInstance', which uses reflection to instantiate the class via 'newInstance'. This attempt causes an IllegalAccessException to be thrown, thus triggering and demonstrating the bug because the reflection bypasses the private constructor's access control.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any errors or exceptions, suggesting that the bug was not triggered. The test run output shows 'OK (1 test)', which means the test did not confirm the presence of the bug."
+}

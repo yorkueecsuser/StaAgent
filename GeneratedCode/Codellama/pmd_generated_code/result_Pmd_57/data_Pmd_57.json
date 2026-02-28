@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "MissingStaticMethodInNonInstantiatableClass",
+  "Bug_Details": "A class that has private constructors and does not have any static methods or fields cannot be used.\n\nWhen one of the private constructors is annotated with one of the annotations, then the class is not considered\nnon-instantiatable anymore and no violation will be reported.\nSee the property `annotations`.",
+  "Bug_Explanation": "The private constructor with the @Inject annotation makes the class instantiatable, despite being private.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../pmd_clean_java_code/result_Pmd_57/seed_Pmd_57.java:8: error: cannot find symbol\n        System.out.println(new MissingStaticMethodInNonInstantiatableClass().getClass().getName());\n                                                                                       ^\n  symbol:   method getName()\n  location: class String\n../pmd_clean_java_code/result_Pmd_57/seed_Pmd_57.java:11: error: getClass() in MissingStaticMethodInNonInstantiatableClass cannot override getClass() in Object\n    public String getClass() {\n                  ^\n  overridden method is final\n2 errors\n",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug() method, which is annotated with @Test, and the main() method, which is annotated with @Test.",
+  "Trigger_Line": [
+    "12",
+    "17"
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "\"read\" and \"readLine\" return values should be used",
+  "Bug_Details": "The Reader.read() and the BufferedReader.readLine() are used for reading data from a data source. The return value of\nthese methods is the data read from the data source, or null when the end of the data source is reached. If the return value is ignored,\nthe data read from the source is thrown away and may indicate a bug.\nThis rule raises an issue when the return values of Reader.read() and BufferedReader.readLine() and their subclasses are\nignored or merely null-checked.\nNoncompliant code example\npublic void doSomethingWithFile(String fileName) {\n  try(BufferedReader buffReader = new BufferedReader(new FileReader(fileName))) {\n    while (buffReader.readLine() != null) { // Noncompliant\n      // ...\n    }\n  } catch (IOException e) {\n    // ...\n  }\n}\nCompliant solution\npublic void doSomethingWithFile(String fileName) {\n  try(BufferedReader buffReader = new BufferedReader(new FileReader(fileName))) {\n    String line = null;\n    while ((line = buffReader.readLine()) != null) {\n      // ...\n    }\n  } catch (IOException e) {\n    // ...\n  }\n}",
+  "Bug_Explanation": "The bug is embedded in the generated code by ignoring the return value of the BufferedReader.readLine() method inside the while loop. This means that the data read from the file is not being used, which can lead to logical errors in the program.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method with a non-existent file name, which triggers the IOException inside the showBug method. However, the bug itself is triggered by ignoring the return value of buffReader.readLine() in the while loop.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.008\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that the test passed without any exceptions, indicating that the bug was not triggered during the test execution. The test does not provide evidence that the return values of readLine() were ignored in a way that caused the program to behave incorrectly."
+}

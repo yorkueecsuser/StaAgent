@@ -1,0 +1,37 @@
+class Bug1948275 {
+  public static String trim(String value) {
+    return value == null? value : value.trim(); // should not report
+  }
+
+  public static String trim2(String value) {
+    if (value == null) {
+      return value; // should not report
+    }
+    return "Hello";
+  }
+
+  public static String trim3(String value) {
+    if (value == null) {
+      String s = "Hello";
+      s += value; // should report
+
+      // Inserting unreachable switch statement
+      boolean condition = getCondition();
+      switch (condition) {
+        case true:
+          s += "Unreachable";
+          break;
+        default:
+          s += "Default";
+          break;
+      }
+
+      return s;
+    }
+    return "Hello";
+  }
+
+  private static boolean getCondition() {
+    return false; // This method ensures the condition is dynamically determined at runtime
+  }
+}

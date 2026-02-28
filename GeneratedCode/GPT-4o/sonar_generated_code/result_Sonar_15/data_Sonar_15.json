@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "Use of the \"@Async\" annotation on methods declared within a \"@Configuration\" class in Spring Boot",
+  "Bug_Details": "@Configuration is a class-level annotation indicating that an object is a source of bean definitions. @Configuration classes declare beans through @Bean -annotated methods. Calls to @Bean methods on @Configuration classes can\nalso be used to define inter-bean dependencies. The @Bean annotation indicates that a method instantiates, configures, and initializes a\nnew object to be managed by the Spring IoC container.\nAnnotating a method of a bean with @Async will make it execute in a separate thread. In other words, the caller will not wait for the\ncompletion of the called method.\nThe @Async annotation is not supported on methods declared within a @Configuration class. This is because @Async methods are typically used for asynchronous processing, and they require certain infrastructure to be set up, which may not be\navailable or appropriate in a @Configuration class.",
+  "Bug_Explanation": "The @Async annotation is used on a method within a @Configuration class. This is discouraged because @Async methods require certain infrastructure for asynchronous processing, which is not suitable or available within @Configuration classes.",
+  "Buggy_Line": [
+    28
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by invoking the 'showBug' method, which internally calls 'asyncMethodExample'. This method is annotated with @Async inside a @Configuration class, which is not supported and should cause unexpected behavior.",
+  "Trigger_Line": [
+    11
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

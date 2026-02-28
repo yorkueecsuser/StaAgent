@@ -1,0 +1,9 @@
+{
+  "Bug_Title": "Assertions should not be used in production code",
+  "Bug_Details": "Assertions are intended to be used in test code, but not in production code. It is confusing, and might lead to ClassNotFoundException when the build tools only provide the required dependency in test scope.\nIn addition, assertions will throw a sub-class of Error : AssertionError , which should be avoided in production code.\nThis rule raises an issue when any assertion intended to be used in test is used in production code.\nSupported frameworks:\nJUnit FestAssert AssertJ\nJUnit\nFestAssert\nAssertJ\nNote: this does not apply for assert from Java itself or if the source code package name is related to tests (contains: test or assert or junit ).",
+  "Bug_Explanation": "The bug is embedded in the Assert.assertTrue() method, which is intended to be used in test code but not in production code. The method throws an AssertionError, which should be avoided in production code.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful"
+}

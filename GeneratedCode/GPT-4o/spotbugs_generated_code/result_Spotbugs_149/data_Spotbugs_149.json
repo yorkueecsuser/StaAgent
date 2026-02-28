@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "EOS: Data read is converted before comparison to -1 (EOS_BAD_END_OF_STREAM_CHECK)\uf0c1",
+  "Bug_Details": "\nThe method java.io.FileInputStream.read() returns an int. If this int is converted to a byte then -1 (which\nindicates an EOF) and the byte 0xFF become indistinguishable, this comparing the (converted) result to -1\ncauses the read (probably in a loop) to end prematurely if the character 0xFF is met. Similarly, the method\njava.io.FileReader.read() also returns an int. If it is converted to a char then -1 becomes 0xFFFF which is\nCharacter.MAX_VALUE. Comparing the result to -1 is pointless, since characters are unsigned in Java. If the\nchecking for EOF is the condition of a loop then this loop is infinite. \nSee SEI CERT rule FIO08-J. Distinguish between characters or bytes read from a stream and -1.\n",
+  "Bug_Explanation": "The bug occurs because the result of FileInputStream.read(), which is an int, is compared to -1 after being implicitly converted to a byte. If the byte 0xFF is read, it is interpreted as -1 due to the narrowing conversion, causing the loop to terminate prematurely when encountering 0xFF.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test 'testShowBugWithFileContainingFF' triggers the bug by reading a file containing the byte 0xFF. When this byte is read, it gets converted to -1 due to the implicit conversion to byte, which results in the premature termination of the loop, demonstrating the bug.",
+  "Trigger_Line": [
+    8,
+    13
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.005\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that both tests passed successfully without any errors or failures. This suggests that the bug was not triggered during the test execution, as the presence of the bug would likely cause the test with a file containing 0xFF to fail or behave unexpectedly."
+}

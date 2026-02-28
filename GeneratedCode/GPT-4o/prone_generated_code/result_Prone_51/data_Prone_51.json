@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "FloggerLogVarargs",
+  "Bug_Details": "logVarargs should be used to pass through format strings and arguments.",
+  "Bug_Explanation": "The bug is demonstrated by using String.format() to pass through format strings and arguments directly in the logger.info() method, which is not the correct way to handle varargs in logging calls.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug method with a format string and varargs. The improper use of String.format within logger.info causes the issue as per the FloggerLogVarargs rule.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.034\nThere was 1 failure:\n1) testShowBugWithFormatString(FloggerLogVarargsExampleTest)\njava.lang.AssertionError: Expected a logging format error due to improper varargs usage.\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat FloggerLogVarargsExampleTest.testShowBugWithFormatString(FloggerLogVarargsExampleTest.java:10)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test failed due to an assertion error expecting a logging format error, but no such error was thrown, indicating the bug was not triggered."
+}

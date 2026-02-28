@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "Return values should not be ignored when they contain the operation status code",
+  "Bug_Details": "When the return value of a function call contains the operation status code, this value should be tested to make sure the operation completed\nsuccessfully.\nThis rule raises an issue when the return values of the following are ignored:\njava.io.File operations that return a status code (except mkdirs ) Iterator.hasNext() Enumeration.hasMoreElements() Lock.tryLock() non-void Condition.await* methods CountDownLatch.await(long, TimeUnit) Semaphore.tryAcquire BlockingQueue : offer , remove\njava.io.File operations that return a status code (except mkdirs )\nIterator.hasNext()\nEnumeration.hasMoreElements()\nLock.tryLock()\nnon-void Condition.await* methods\nCountDownLatch.await(long, TimeUnit)\nSemaphore.tryAcquire\nBlockingQueue : offer , remove\nNoncompliant code example\npublic void doSomething(File file, Lock lock) {\n  file.delete();  // Noncompliant\n  // ...\n  lock.tryLock(); // Noncompliant\n}\nCompliant solution\npublic void doSomething(File file, Lock lock) {\n  if (!lock.tryLock()) {\n    // lock failed; take appropriate action\n  }\n  if (!file.delete()) {\n    // file delete failed; take appropriate action\n  }\n}",
+  "Bug_Explanation": "The bug was embedded in the generated code by ignoring the return values of the file.delete() and lock.tryLock() methods. These methods return a status code indicating whether the operation was successful, but the return values are not checked or used in any way.",
+  "Buggy_Line": [
+    8,
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by calling the showBug method with a file that does not exist and a lock that is already acquired. The showBug method ignores the return values of file.delete() and lock.tryLock(), which is the bug.",
+  "Trigger_Line": [
+    13,
+    21
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E.E\nTime: 0.009\nThere were 2 failures:\n1) testShowBugWithFileDeletionFailure(BugDemonstrationTest)\njava.lang.AssertionError\n\tat org.junit.Assert.fail(Assert.java:87)\n\tat org.junit.Assert.assertTrue(Assert.java:42)\n\tat org.junit.Assert.assertFalse(Assert.java:65)\n\tat org.junit.Assert.assertFalse(Assert.java:75)\n\tat BugDemonstrationTest.testShowBugWithFileDeletionFailure(BugDemonstrationTest.java:15)\n2) testShowBugWithLockTryLockFailure(BugDemonstrationTest)\njava.lang.AssertionError\n\tat org.junit.Assert.fail(Assert.java:87)\n\tat org.junit.Assert.assertTrue(Assert.java:42)\n\tat org.junit.Assert.assertFalse(Assert.java:65)\n\tat org.junit.Assert.assertFalse(Assert.java:75)\n\tat BugDemonstrationTest.testShowBugWithLockTryLockFailure(BugDemonstrationTest.java:24)\n\nFAILURES!!!\nTests run: 2,  Failures: 2\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show assertion errors indicating that the test cases expected the method'showBug' to return false when file deletion or lock acquisition fails, but it returned true instead. However, these results do not confirm that the bug was triggered because the method's actual behavior (ignoring the return values) is not directly evident from the test failures alone. The test failures indicate that the method did not handle the failure cases as expected, but they do not provide direct evidence that the return values were ignored within the method."
+}

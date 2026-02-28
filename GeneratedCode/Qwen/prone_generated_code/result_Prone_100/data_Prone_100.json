@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "LocalDateTemporalAmount",
+  "Bug_Details": "LocalDate.plus() and minus() does not work with Durations. LocalDate represents civil time (years/months/days), so java.time.Period is the appropriate thing to add or subtract instead.",
+  "Bug_Explanation": "The bug is embedded in the generated code by attempting to use a Duration object with the LocalDate.plus() method. LocalDate.plus() and minus() methods expect a Period object instead of a Duration, as Duration represents time in terms of seconds and nanoseconds, which is not suitable for LocalDate operations.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method with a LocalDate and a Duration. This causes an UnsupportedTemporalTypeException because LocalDate.plus() does not support Duration.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.015\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed without throwing an exception, which does not confirm that the bug was triggered."
+}

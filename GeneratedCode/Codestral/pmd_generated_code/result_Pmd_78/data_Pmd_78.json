@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "UnconditionalIfStatement",
+  "Bug_Details": "Do not use \"if\" statements whose conditionals are always true or always false.\nExamples:\npublic class Foo {\n    public void close() {\n        if (true) {        // fixed conditional, not recommended\n            // ...\n        }\n    }\n}",
+  "Bug_Explanation": "The bug is embedded in the showBug method where an 'if' statement is used without a condition that can be true or false. The 'if' statement will always execute the code within it, causing the'return false;' statement to be unreachable.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when the test case 'testShowBugWithAlwaysFalseCondition' is run. It calls the'showBug' method with a false condition, causing the 'if' statement to be skipped. This makes the'return false;' line unreachable, causing the test to fail.",
+  "Trigger_Line": "[9]",
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results did not demonstrate the bug being triggered. The test case 'testShowBugWithAlwaysFalseCondition' passed without any assertion errors, which suggests that the 'if' statement with the condition 'false' was not executed, as expected. However, this does not confirm the presence of the 'UnconditionalIfStatement' bug, as the test case did not cover the scenario where the condition is 'true'."
+}

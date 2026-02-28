@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "EOS: Data read is converted before comparison to -1 (EOS_BAD_END_OF_STREAM_CHECK)\uf0c1",
+  "Bug_Details": "\nThe method java.io.FileInputStream.read() returns an int. If this int is converted to a byte then -1 (which\nindicates an EOF) and the byte 0xFF become indistinguishable, this comparing the (converted) result to -1\ncauses the read (probably in a loop) to end prematurely if the character 0xFF is met. Similarly, the method\njava.io.FileReader.read() also returns an int. If it is converted to a char then -1 becomes 0xFFFF which is\nCharacter.MAX_VALUE. Comparing the result to -1 is pointless, since characters are unsigned in Java. If the\nchecking for EOF is the condition of a loop then this loop is infinite. \nSee SEI CERT rule FIO08-J. Distinguish between characters or bytes read from a stream and -1.\n",
+  "Bug_Explanation": "The bug was embedded in the code by using the `FileInputStream` and `FileReader` to read data from a file and then converting the read data to a character using a type cast. The while loop condition compares the converted character to -1, which is incorrect because it compares the character value to -1, which is the EOF character. This causes the loop to terminate prematurely if the character 0xFF is met.",
+  "Buggy_Line": [
+    10,
+    14
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test data 'example.txt' contains a character with the decimal value 255 (0xFF), which is converted to -1 when casted to a byte. This triggers the infinite loop in the while loop.",
+  "Trigger_Line": [
+    13,
+    20
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.006\nThere was 1 failure:\n1) testEOS_BAD_END_OF_STREAM_CHECK(EOS_BAD_END_OF_STREAM_CHECKTest)\njava.io.FileNotFoundException: example.txt (No such file or directory)\n\tat java.base/java.io.FileInputStream.open0(Native Method)\n\tat java.base/java.io.FileInputStream.open(FileInputStream.java:213)\n\tat java.base/java.io.FileInputStream.<init>(FileInputStream.java:152)\n\tat java.base/java.io.FileInputStream.<init>(FileInputStream.java:106)\n\tat EOS_BAD_END_OF_STREAM_CHECKTest.testEOS_BAD_END_OF_STREAM_CHECK(EOS_BAD_END_OF_STREAM_CHECKTest.java:11)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the program threw a `FileNotFoundException` when trying to open the file `example.txt`. This is not an indication of the bug being triggered, as the bug is related to the conversion of data read from a stream to a byte or character, and this exception occurs before any data is read."
+}

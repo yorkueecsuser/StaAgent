@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Ints and longs should not be shifted by zero or more than their number of bits-1",
+  "Bug_Details": "Since an int is a 32-bit variable, shifting by more than +/-31 is confusing at best and an error at worst. When the runtime shifts\n32-bit integers, it uses the lowest 5 bits of the shift count operand. In other words, shifting an int by 32 is the same as shifting it\nby 0, and shifting it by 33 is the same as shifting it by 1.\nSimilarly, when shifting 64-bit integers, the runtime uses the lowest 6 bits of the shift count operand and shifting long by 64 is the\nsame as shifting it by 0, and shifting it by 65 is the same as shifting it by 1.",
+  "Bug_Explanation": "The bug is embedded in the'showBug' method where an integer value is shifted by 32. Since an int is a 32-bit variable, shifting by 32 is the same as shifting it by 0, which is confusing at best and an error at worst.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered in the testShowBug method when the int value 5 is shifted by 32 in the showBug method. Since an int is a 32-bit variable, shifting by 32 is the same as shifting it by 0. The test case asserts that the result of the shift is 0, but the actual result is 5 >> 32, which is 0.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.005\nThere was 1 failure:\n1) testShowBug(ShiftBugTest)\njava.lang.AssertionError: expected:<0> but was:<5>\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat org.junit.Assert.failNotEquals(Assert.java:835)\n\tat org.junit.Assert.assertEquals(Assert.java:647)\n\tat org.junit.Assert.assertEquals(Assert.java:633)\n\tat ShiftBugTest.testShowBug(ShiftBugTest.java:11)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the bug was not triggered because the expected result was 0 but the actual result was 5. However, this is because the int value '5' was not shifted by 32 bits as expected by the test, but rather it was shifted by 0 bits due to the way Java handles the shift operation (as per bug information)."
+}

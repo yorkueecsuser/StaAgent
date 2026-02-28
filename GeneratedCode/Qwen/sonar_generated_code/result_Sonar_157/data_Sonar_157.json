@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Related \"if/else if\" statements should not have the same condition",
+  "Bug_Details": "A chain of if / else if statements is evaluated from top to bottom. At most, only one branch will be executed: the first\none with a condition that evaluates to true .\nTherefore, duplicating a condition automatically leads to dead code. Usually, this is due to a copy/paste error. At best, it\u2019s simply dead code and\nat worst, it\u2019s a bug that is likely to induce further bugs as the code is maintained, and obviously it could lead to unexpected behavior.\nNoncompliant code example\nif (param == 1)\n  openWindow();\nelse if (param == 2)\n  closeWindow();\nelse if (param == 1)  // Noncompliant\n  moveWindowToTheBackground();\n}\nCompliant solution\nif (param == 1)\n  openWindow();\nelse if (param == 2)\n  closeWindow();\nelse if (param == 3)\n  moveWindowToTheBackground();\n}",
+  "Bug_Explanation": "The bug was embedded in the generated code by having two 'else if' conditions with the same parameter check (param == 1). This results in the second 'else if' block being unreachable when the first condition is true.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case testShowBugWithParam1 triggers the bug because the method showBug returns 'openWindow' for param == 1, but the buggy code contains a duplicate condition (param == 1) in the else if statement, which makes the else if block unreachable. The test case checks if the method returns 'openWindow', which is correct, but the presence of the duplicate condition indicates a bug in the code.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n...\nTime: 0.007\n\nOK (3 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not indicate that the bug was triggered. All tests passed as expected, with the method'showBug' returning 'openWindow' for param 1, 'closeWindow' for param 2, and an empty string for param 3, which aligns with the behavior defined in the buggy code where the second 'else if (param == 1)' is never reached."
+}

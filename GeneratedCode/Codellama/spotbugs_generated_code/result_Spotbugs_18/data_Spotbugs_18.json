@@ -1,0 +1,13 @@
+{
+  "Bug_Title": "RV: Bad attempt to compute absolute value of signed random integer (RV_ABSOLUTE_VALUE_OF_RANDOM_INT)\uf0c1",
+  "Bug_Details": " This code generates a random signed integer and then computes\nthe absolute value of that random integer.  If the number returned by the random number\ngenerator is Integer.MIN_VALUE, then the result will be negative as well (since\nMath.abs(Integer.MIN_VALUE) == Integer.MIN_VALUE). (Same problem arises for long values as well).\n Integer.MIN_VALUE Math.abs(Integer.MIN_VALUE) == Integer.MIN_VALUE",
+  "Bug_Explanation": "The bug was embedded by using the Math.abs() function to compute the absolute value of a signed random integer. This causes the value to be negative if the random integer is equal to Integer.MIN_VALUE.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test method triggers the bug by calling the showBug() method, which generates a random signed integer and then computes the absolute value of that random integer. If the number returned by the random number generator is Integer.MIN_VALUE, then the result will be negative as well (since Math.abs(Integer.MIN_VALUE) == Integer.MIN_VALUE).",
+  "Trigger_Line": [
+    11
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "GuiceInjectOnFinalField",
+  "Bug_Details": "Although Guice allows injecting final fields, doing so is disallowed because the injected value may not be visible to other threads. From the Guice wiki: Injecting final fields is not recommended because the injected value may not\nbe visible to other threads.",
+  "Bug_Explanation": "The code demonstrates the GuiceInjectOnFinalField bug by simulating an injection of a value into a final field. In a real scenario where Guice is used, injecting into a final field can cause problems with visibility in multithreaded environments because other threads may not see the updated value.",
+  "Buggy_Line": [
+    11,
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method on the GuiceInjectExample instance, which uses a final field possibly leading to visibility issues in a multithreaded environment. The 'fail' method is called to ensure the test fails, indicating the bug.",
+  "Trigger_Line": [
+    8,
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.007\nThere was 1 failure:\n1) testShowBug(GuiceInjectExampleTest)\njava.lang.AssertionError: Expected bug to be triggered due to final field injection.\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat GuiceInjectExampleTest.testShowBug(GuiceInjectExampleTest.java:10)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate a failure due to an assertion error expecting a bug to be triggered. However, there is no indication from the test results that the bug related to final field injection itself was actually triggered, only that the test failed because it expected a bug to be triggered."
+}

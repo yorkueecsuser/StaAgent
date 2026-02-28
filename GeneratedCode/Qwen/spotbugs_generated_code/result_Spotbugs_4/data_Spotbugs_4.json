@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "VR: Class makes reference to unresolvable class or method (VR_UNRESOLVABLE_REFERENCE)\uf0c1",
+  "Bug_Details": "\n  This class makes a reference to a class or method that cannot be\nresolved using against the libraries it is being analyzed with.\n  ",
+  "Bug_Explanation": "The bug is embedded in the generated code by intentionally referencing a non-existent class 'NonExistentClass' within the'showBug' method.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "spotbugs_clean_java_code/result_Spotbugs_4/seed_Spotbugs_4.java:5: error: cannot find symbol\n        NonExistentClass obj = new NonExistentClass(); // BUG: VR: Class makes reference to unresolvable class or method (VR_UNRESOLVABLE_REFERENCE)\u202f\n        ^\n  symbol:   class NonExistentClass\n  location: class UnresolvableReferenceExample\nspotbugs_clean_java_code/result_Spotbugs_4/seed_Spotbugs_4.java:5: error: cannot find symbol\n        NonExistentClass obj = new NonExistentClass(); // BUG: VR: Class makes reference to unresolvable class or method (VR_UNRESOLVABLE_REFERENCE)\u202f\n                                   ^\n  symbol:   class NonExistentClass\n  location: class UnresolvableReferenceExample\n2 errors\n",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by calling the showBug method, which references the unresolvable class NonExistentClass.",
+  "Trigger_Line": [
+    9
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

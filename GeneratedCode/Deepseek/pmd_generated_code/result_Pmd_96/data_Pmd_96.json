@@ -1,0 +1,10 @@
+{
+  "Bug_Title": "UnsynchronizedStaticFormatter",
+  "Bug_Details": "Instances of `java.text.Format` are generally not synchronized.\nSun recommends using separate format instances for each thread.\nIf multiple threads must access a static formatter, the formatter must be\nsynchronized on block level.\nExamples:\npublic class Foo {\n    private static final SimpleDateFormat sdf = new SimpleDateFormat();\n    void bar() {\n        sdf.format(); // poor, no thread-safety\n    }\n    void foo() {\n        synchronized (sdf) { // preferred\n            sdf.format();\n        }\n    }\n}",
+  "Bug_Explanation": "The SimpleDateFormat is being used as a static variable without proper synchronization. This can lead to concurrent access issues and unpredictable results. The synchronized block has been added to fix the issue.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.026\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not demonstrate the bug being triggered. The test passed successfully without any exceptions or errors, indicating that the bug was not triggered."
+}

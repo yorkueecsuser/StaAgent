@@ -1,0 +1,20 @@
+{
+  "Bug_Title": "Collections should not be passed as arguments to their own methods",
+  "Bug_Details": "Passing a collection as an argument to the collection\u2019s own method is either an error - some other argument was intended - or simply nonsensical\ncode.\nFurther, because some methods require that the argument remain unmodified during the execution, passing a collection to itself can result in\nundefined behavior.\nNoncompliant code example\nList <Object> objs = new ArrayList<Object>();\nobjs.add(\"Hello\");\n\nobjs.add(objs); // Noncompliant; StackOverflowException if objs.hashCode() called\nobjs.addAll(objs); // Noncompliant; behavior undefined\nobjs.containsAll(objs); // Noncompliant; always true\nobjs.removeAll(objs); // Noncompliant; confusing. Use clear() instead\nobjs.retainAll(objs); // Noncompliant; NOOP",
+  "Bug_Explanation": "The code demonstrates passing a collection as an argument to its own methods, which can result in undefined behavior or logical errors. For example, adding a collection to itself could attempt to calculate its hash code, leading to a StackOverflowError. Methods like addAll, containsAll, removeAll, and retainAll become logically incorrect or result in no operation when the collection is passed to itself.",
+  "Buggy_Line": [
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method, which contains several lines where a collection is passed as an argument to its own methods. This results in undefined behavior and logical errors, such as attempting to modify the collection while iterating over it, leading to issues like StackOverflowError or a logical NOOP.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test executed successfully without any errors or failures, as reflected by the 'OK (1 test)' output. This suggests that the bug was not triggered during test execution."
+}

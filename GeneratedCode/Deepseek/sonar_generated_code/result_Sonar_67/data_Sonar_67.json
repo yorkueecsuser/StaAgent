@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Intermediate Stream methods should not be left unused",
+  "Bug_Details": "There are two types of stream operations: intermediate operations, which return another stream, and terminal operations, which return something\nother than a stream. Intermediate operations are lazy, meaning they aren\u2019t actually executed until and unless a terminal stream operation is performed\non their results. Consequently, if the result of an intermediate stream operation is not fed to a terminal operation, it serves no purpose, which is\nalmost certainly an error.\nNoncompliant code example\nwidgets.stream().filter(b -> b.getColor() == RED); // Noncompliant\nCompliant solution\nint sum = widgets.stream()\n                      .filter(b -> b.getColor() == RED)\n                      .mapToInt(b -> b.getWeight())\n                      .sum();\nStream<Widget> pipeline = widgets.stream()\n                                 .filter(b -> b.getColor() == GREEN)\n                                 .mapToInt(b -> b.getWeight());\nsum = pipeline.sum();",
+  "Bug_Explanation": "The bug is in the noncompliant code example where a Stream operation is performed on the collection, but the result is not consumed by a terminal operation. As a result, the Stream operation is not executed at all and thus is a waste of resources.",
+  "Buggy_Line": [
+    25
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "Stream methods should not be left unused",
+  "Trigger_Line": [
+    14
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The provided Java code contains an instance of the described bug. The noncompliant code example is the line where the stream is filtered by color, but the result is not used. This is a violation of the rule 'Intermediate Stream methods should not be left unused'. The stream is created but not used, which is a waste of resources and could potentially lead to bugs if the code was more complex."
+}

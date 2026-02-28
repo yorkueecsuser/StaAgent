@@ -1,0 +1,20 @@
+class Bug1931535 {
+  public static void main(String[] args) {
+    Boolean active = new Boolean("true");
+    Boolean active1 = Boolean.getBoolean("active")? new Boolean(null) : null;
+
+    System.out.println("active:" + active);
+    System.out.println("active1:" + active1);
+
+    // Mutant code starts here
+    boolean unreachableCondition = getUnreachableCondition();
+    if (unreachableCondition) {
+      System.out.println("This is an unreachable if statement.");
+    }
+  }
+
+  // Method to provide a dynamically determined condition that is always false
+  private static boolean getUnreachableCondition() {
+    return false;
+  }
+}

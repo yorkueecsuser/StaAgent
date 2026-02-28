@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "CallSuperFirst",
+  "Bug_Details": "Super should be called at the start of the method\nExamples:\nimport android.app.Activity;\nimport android.os.Bundle;\n\npublic class DummyActivity extends Activity {\n    public void onCreate(Bundle bundle) {\n        // missing call to super.onCreate(bundle)\n        foo();\n    }\n}",
+  "Bug_Explanation": "In the DerivedClass, the process method overrides the base class method and calls customLogic() before calling super.process(). The bug is that super.process() should be called at the start of the method to ensure base class processing logic is executed first.",
+  "Buggy_Line": [
+    15
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered because the method 'customLogic' is called before 'super.process()' in the 'process' method of 'DerivedClass'. The JUnit test verifies the order of operations within the 'showBug' method, expecting 'super.process()' to occur first but finds it to be last, thus causing the test to fail.",
+  "Trigger_Line": [
+    9
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

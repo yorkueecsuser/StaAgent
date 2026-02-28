@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Intermediate Stream methods should not be left unused",
+  "Bug_Details": "There are two types of stream operations: intermediate operations, which return another stream, and terminal operations, which return something\nother than a stream. Intermediate operations are lazy, meaning they aren\u2019t actually executed until and unless a terminal stream operation is performed\non their results. Consequently, if the result of an intermediate stream operation is not fed to a terminal operation, it serves no purpose, which is\nalmost certainly an error.\nNoncompliant code example\nwidgets.stream().filter(b -> b.getColor() == RED); // Noncompliant\nCompliant solution\nint sum = widgets.stream()\n                      .filter(b -> b.getColor() == RED)\n                      .mapToInt(b -> b.getWeight())\n                      .sum();\nStream<Widget> pipeline = widgets.stream()\n                                 .filter(b -> b.getColor() == GREEN)\n                                 .mapToInt(b -> b.getWeight());\nsum = pipeline.sum();",
+  "Bug_Explanation": "The bug is embedded in the generated code by having an intermediate stream operation (filter) without a terminal operation. The line 'words.stream().filter(word -> word.length() > 3);' creates a stream but does not perform any terminal operation on it, making the intermediate operation unnecessary and potentially indicating a mistake.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method with a list of words. Inside showBug, an intermediate stream operation (filter) is used but not followed by a terminal operation, causing the bug.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.008\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results do not indicate any failure or exception, which means the unused intermediate stream operation did not cause the test to fail. Therefore, the test results do not confirm that the bug was triggered."
+}

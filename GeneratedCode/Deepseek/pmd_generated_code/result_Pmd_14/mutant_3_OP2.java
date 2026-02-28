@@ -1,0 +1,1 @@
+cleanup(); // Mutant code

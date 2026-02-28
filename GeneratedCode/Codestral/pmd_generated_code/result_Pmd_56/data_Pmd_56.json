@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "MissingSerialVersionUID",
+  "Bug_Details": "Serializable classes should provide a serialVersionUID field.\nThe serialVersionUID field is also needed for abstract base classes. Each individual class in the inheritance\nchain needs an own serialVersionUID field. See also [Should an abstract class have a serialVersionUID](https://stackoverflow.com/questions/893259/should-an-abstract-class-have-a-serialversionuid).\nExamples:\npublic class Foo implements java.io.Serializable {\n    String name;\n    // Define serialization id to avoid serialization related bugs\n    // i.e., public static final long serialVersionUID = 4328743;\n}",
+  "Bug_Explanation": "The MissingSerialVersionUID bug is demonstrated by not defining a serialVersionUID field in the abstract base class and the derived class. This can lead to serialization related bugs during the deserialization process.",
+  "Buggy_Line": [
+    12,
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when the `showBug` method is called, which attempts to serialize and deserialize an object of the `DerivedClass` class. Since the `BaseClass` and `DerivedClass` classes do not have a `serialVersionUID` field, a `NotSerializableException` is thrown.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

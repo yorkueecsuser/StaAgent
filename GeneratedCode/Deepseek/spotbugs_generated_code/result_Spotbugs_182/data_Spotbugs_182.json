@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "MS: Field should be moved out of an interface and made package protected (MS_OOI_PKGPROTECT)\uf0c1",
+  "Bug_Details": "\n A final static field that is\ndefined in an interface references a mutable\n   object such as an array or hashtable.\n   This mutable object could\n   be changed by malicious code or\n        by accident from another package.\n   To solve this, the field needs to be moved to a class\n   and made package protected\n   to avoid\n        this vulnerability.",
+  "Bug_Explanation": "A final static field that is defined in a class references a mutable object such as a HashSet. This mutable object could be changed by malicious code or by accident from another class. To solve this, the field needs to be made package protected (i.e., it should not be publicly accessible) to avoid this vulnerability.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when the test case modifies the mutable set returned by the showBug method of the BuggyClass instance. This violates the rule 'MS: Field should be moved out of an interface and made package protected (MS_OOI_PKGPROTECT)' as the mutable set is accessible and modifiable from any class.",
+  "Trigger_Line": [
+    13
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

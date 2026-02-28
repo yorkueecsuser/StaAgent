@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "FloggerLogVarargs",
+  "Bug_Details": "logVarargs should be used to pass through format strings and arguments.",
+  "Bug_Explanation": "The intentional bug is the usage of logVarargs() method from the FluentLogger API, which takes a format string and a variable number of arguments. The method is intended to be used with varargs, but in this case, it is used with a fixed number of arguments. This bug is preserved to demonstrate the issue with the method.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_51/seed_Prone_51.java:9: error: no suitable method found for info(String,int,int)\n        logger.info(\"x = %d, y = %d\", x, y);\n              ^\n    method Logger.info(String) is not applicable\n      (actual and formal argument lists differ in length)\n    method Logger.info(Supplier<String>) is not applicable\n      (actual and formal argument lists differ in length)\n1 error\n",
+  "Trigger_Explanation": "The JUnit test case triggers the bug by calling the logVarargs() method with a fixed number of arguments instead of using varargs.",
+  "Trigger_Line": [
+    12
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

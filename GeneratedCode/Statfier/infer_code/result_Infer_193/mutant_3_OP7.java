@@ -1,0 +1,23 @@
+import java.io.FileInputStream;
+import java.io.IOException;
+
+class LeaksAliasing {
+
+  void releaseBothOk(FileInputStream stream1, FileInputStream stream2) throws IOException {
+    boolean conditionWhile = getCondition();
+    while (conditionWhile) {
+      // Unreachable code
+    }
+
+    if (stream1 == stream2) {
+      stream1.close();
+    } else {
+      stream1.close();
+      stream2.close();
+    }
+  }
+
+  private boolean getCondition() {
+    return false;
+  }
+}

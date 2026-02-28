@@ -1,0 +1,40 @@
+import com.google.inject.Inject;
+import org.apache.tapestry.spring.SpringBean;
+
+/**
+ * With annotations and inversion of control being all the rage these days, a new pattern seems to
+ * be gaining popularity: annotating class fields with something like '@SpringBean' (wicket/spring)
+ * or '@Inject' (Google Guice), and somehow have them instantiated by reflection by the framework.
+ */
+class Bug1718130 {
+  @Inject Object x;
+
+  @SpringBean Object y;
+
+  Object z;
+
+  Bug1718130() {
+    z = y;
+    // Introduced an unreachable switch statement
+    boolean condition = getCondition();
+    switch (condition? 0 : 1) {
+      case 0:
+        // This case will never be executed because condition is always false
+        System.out.println("This is unreachable");
+        break;
+      default:
+        // Default case to satisfy switch requirement
+        break;
+    }
+  }
+
+  @Override
+  public int hashCode() {
+    return x.hashCode() + y.hashCode() + z.hashCode();
+  }
+
+  private boolean getCondition() {
+    // Always returns false to ensure the switch is unreachable
+    return false;
+  }
+}
