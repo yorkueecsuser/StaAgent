@@ -1,0 +1,7 @@
+{
+  "Buggy_Line": [],
+  "Trigger_Explanation": "The test case triggers the bug by using double brace initialization to create an anonymous class with a reference to the instance of the owning object.",
+  "Trigger_Line": "[7, 8, 9]",
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

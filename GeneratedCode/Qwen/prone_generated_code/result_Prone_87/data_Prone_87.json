@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "IsLoggableTagLength",
+  "Bug_Details": "Log tag too long, cannot exceed 23 characters. Log.isLoggable(tag, level) throws an IllegalArgumentException if its tag\nargument is more than 23 characters long.",
+  "Bug_Explanation": "The bug is embedded in the showBug method where the logger.isLoggable method is incorrectly called with a string tag instead of a Level. This will throw an IllegalArgumentException if the tag exceeds 23 characters, which is the intended behavior.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method of the LogTagLengthBug class, which uses a tag longer than 23 characters. This triggers the bug because the logger.isLoggable method is incorrectly called with a Level instead of the tag, causing an IllegalArgumentException if the tag length exceeds 23 characters.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.014\nThere was 1 failure:\n1) testShowBugWithLongTag(LogTagLengthBugTest)\njava.lang.AssertionError\n\tat org.junit.Assert.fail(Assert.java:87)\n\tat org.junit.Assert.assertTrue(Assert.java:42)\n\tat org.junit.Assert.assertFalse(Assert.java:65)\n\tat org.junit.Assert.assertFalse(Assert.java:75)\n\tat LogTagLengthBugTest.testShowBugWithLongTag(LogTagLengthBugTest.java:9)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test result shows an AssertionError indicating that the assertFalse condition failed, meaning the method did not return false as expected. This suggests that the IllegalArgumentException was not caught, and thus the bug was not triggered as intended."
+}

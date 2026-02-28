@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Child class methods named for parent class methods should be overrides",
+  "Bug_Details": "When a method in a child class has the same signature as a method in a parent class, it is assumed to be an override. However, that\u2019s not the case\nwhen:\nthe parent class method is static and the child class method is not. the arguments or return types of the child method are in different packages than those of the parent method. the parent class method is private .\nthe parent class method is static and the child class method is not.\nthe arguments or return types of the child method are in different packages than those of the parent method.\nthe parent class method is private .\nTypically, these things are done unintentionally; the private parent class method is overlooked, the static keyword in the parent\ndeclaration is overlooked, or the wrong class is imported in the child. But if the intent is truly for the child class method to be different, then\nthe method should be renamed to prevent confusion.\nNoncompliant code example\n// Parent.java\nimport computer.Pear;\npublic class Parent {\n\n  public void doSomething(Pear p) {\n    //,,,\n  }\n\n  public static void doSomethingElse() {\n    //...\n  }\n}\n\n// Child.java\nimport fruit.Pear;\npublic class Child extends Parent {\n\n  public void doSomething(Pear p) {  // Noncompliant; this is not an override\n    // ...\n  }\n\n\n  public void doSomethingElse() {  // Noncompliant; parent method is static\n    //...\n  }\n}\nCompliant solution\n// Parent.java\nimport computer.Pear;\npublic class Parent {\n\n  public void doSomething(Pear p) {\n    //,,,\n  }\n\n  public static void doSomethingElse() {\n    //...\n  }\n}\n\n// Child.java\nimport computer.Pear;  // import corrected\npublic class Child extends Parent {\n\n  public void doSomething(Pear p) {  // true override (see import)\n    //,,,\n  }\n\n  public static void doSomethingElse() {\n    //...\n  }\n}",
+  "Bug_Explanation": "The child class method, `doSomething`, has the same signature as the parent class method, `doSomething`, but it is not marked as `static` and is therefore not an override. The `doSomething` method in the child class should be marked as `static` to match the parent class method.",
+  "Buggy_Line": [
+    8,
+    4
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_126/seed_Sonar_126.java:3: error: cannot find symbol\nclass Child extends Parent {\n                    ^\n  symbol: class Parent\n../sonar_clean_java_code/result_Sonar_126/seed_Sonar_126.java:4: error: cannot find symbol\n    public void doSomething(Pear p) { // BUG: Child class methods named for parent class methods should be overrides\n                            ^\n  symbol:   class Pear\n  location: class Child\n../sonar_clean_java_code/result_Sonar_126/seed_Sonar_126.java:13: error: cannot find symbol\n        doSomething(new Pear());\n                        ^\n  symbol:   class Pear\n  location: class Child\n3 errors\n",
+  "Trigger_Explanation": "Tried to call a static method from the parent class on an instance of the child class, which is a violation of the Liskov substitution principle.",
+  "Trigger_Line": [
+    12
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

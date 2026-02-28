@@ -1,0 +1,36 @@
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+
+class SkipBufferedInputStream2 {
+  public static void main(String[] args) throws Exception {
+    byte[] buffer = new byte[100];
+    ByteArrayInputStream bais = new ByteArrayInputStream(buffer);
+    BufferedInputStream bis = new BufferedInputStream(bais, 50);
+
+    byte[] smallBuf = new byte[10];
+    byte[] largeBuf = new byte[50];
+
+    bis.read(smallBuf);
+    long available = bis.available();
+    long r = bis.read(largeBuf);
+    if (r < available && r < largeBuf.length) {
+      System.out.println("Read fewer bytes than requested and fewer bytes than available");
+      System.out.println("Available: " + available);
+      System.out.println("Requested: " + largeBuf.length);
+      System.out.println("Read: " + r);
+    }
+
+    // Mutant code
+    byte[] z = new byte[10];
+    byte[] y = new byte[50];
+    bis.read(z);
+    long x = bis.available();
+    long w = bis.read(y);
+    if (w < x && w < y.length) {
+      System.out.println("Mutant - Read fewer bytes than requested and fewer bytes than available");
+      System.out.println("Available: " + x);
+      System.out.println("Requested: " + y.length);
+      System.out.println("Read: " + w);
+    }
+  }
+}

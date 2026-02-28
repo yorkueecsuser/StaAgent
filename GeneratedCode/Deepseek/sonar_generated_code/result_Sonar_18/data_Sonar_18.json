@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Model attributes should follow the Java identifier naming convention",
+  "Bug_Details": "Spring Expression Language (SpEL) is an expression language used in the Spring Framework for evaluating and manipulating objects, properties, and\nconditions within Spring-based applications.\norg.springframework.ui.Model is an interface in the Spring Framework that represents a container for data that can be passed between a\ncontroller and a view in a Spring MVC web application, allowing for data sharing during the request-response cycle.\nAttributes added to the org.springframework.ui.Model should follow the Java identifier naming convention, which means they must start\nwith a letter a-z, A-Z , underscore _ , or a dollar sign $ and may be followed by letters, digits, underscores,\nor dollar signs.\nFailure to do so may result in SpEL parsing errors when using these attributes in template engines.",
+  "Bug_Explanation": "Spring Expression Language (SpEL) is an expression language used in the Spring Framework for evaluating and manipulating objects, properties, and conditions within Spring-based applications. The Model interface in the Spring Framework represents a container for data that can be passed between a controller and a view in a Spring MVC web application. Attributes added to the Model should follow the Java identifier naming convention, which means they must start with a letter a-z, A-Z, underscore _, or a dollar sign $ and may be followed by letters, digits, underscores, or dollar signs. Adding an attribute that does not start with a valid identifier character will cause SpEL parsing errors when using these attributes in template engines. The attribute '1invalid' in the'showBug' method does not start with a valid identifier character which results in a bug.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered by calling the `showBug` method with an instance of `ModelMap`, which is a subclass of `Model`. The `ModelMap` class is used to store attributes in the Spring MVC framework. The attribute name '1invalid' does not follow the Java identifier naming convention, so it should trigger the bug.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The bug is present in the code. The attribute name '1invalid' does not follow the Java identifier naming convention. It starts with a number, which is not allowed. This will cause a SpEL parsing error when using these attributes in template engines."
+}

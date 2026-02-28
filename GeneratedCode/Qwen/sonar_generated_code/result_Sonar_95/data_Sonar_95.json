@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Files opened in append mode should not be used with \"ObjectOutputStream\"",
+  "Bug_Details": "An ObjectOutputStream writes primitive data types and graphs of Java objects to an OutputStream . The objects can be read\n(reconstituted) using an ObjectInputStream .\nWhen ObjectOutputStream is used with files opened in append mode, it can cause data corruption and unexpected behavior. This is\nbecause when ObjectOutputStream is created, it writes metadata to the output stream, which can conflict with the existing metadata when\nthe file is opened in append mode. This can lead to errors and data loss.\nWhen used with serialization, an ObjectOutputStream first writes the serialization stream header. This header should appear once per\nfile at the beginning. When you\u2019re trying to read your object(s) back from the file, only the first one will be read successfully, and a StreamCorruptedException will be thrown after that.",
+  "Bug_Explanation": "The bug was embedded in the generated code by opening a file in append mode and then using an ObjectOutputStream to write objects to it. This causes data corruption because the ObjectOutputStream writes a header to the file, which should only appear once per file. When the file is opened in append mode, the header is written again, leading to a StreamCorruptedException when attempting to read the objects back.",
+  "Buggy_Line": [
+    14
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method, which opens a file in append mode and uses an ObjectOutputStream to write objects to it. This triggers the bug as described, causing a StreamCorruptedException when attempting to read the objects back.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.First Object\nSecond Object\n\nTime: 0.023\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that both 'First Object' and 'Second Object' were printed successfully without any exceptions being thrown, indicating that the bug was not triggered as expected."
+}

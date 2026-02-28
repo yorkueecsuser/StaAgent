@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "UnusedNullCheckInEquals",
+  "Bug_Details": "After checking an object reference for null, you should invoke equals() on that object rather than passing\nit to another object's equals() method.\nExamples:\npublic class Test {\n\n    public String method1() { return \"ok\";}\n    public String method2() { return null;}\n\n    public void method(String a) {\n        String b;\n        // I don't know it method1() can be \"null\"\n        // but I know \"a\" is not null..\n        // I'd better write a.equals(method1())\n\n        if (a!=null && method1().equals(a)) { // will trigger the rule\n            //whatever\n        }\n\n        if (method1().equals(a) && a != null) { // won't trigger the rule\n            //whatever\n        }\n\n        if (a!=null && method1().equals(b)) { // won't trigger the rule\n            //whatever\n        }\n\n        if (a!=null && \"LITERAL\".equals(a)) { // won't trigger the rule\n            //whatever\n        }\n\n        if (a!=null && !a.equals(\"go\")) { // won't trigger the rule\n            a=method2();\n            if (method1().equals(a)) {\n                //whatever\n            }\n        }\n    }\n}",
+  "Bug_Explanation": "The bug is embedded in the showBug method where the null check on 'a' is performed before calling method1().equals(a). This is incorrect according to the rule as it should be a.equals(method1()) to avoid potential NullPointerException.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test cases call the'showBug' method with both a non-null and null string. In both cases, the method triggers the bug because it performs a null check on 'a' before calling'method1().equals(a)', which is incorrect according to the rule. This results in a potential NullPointerException if 'a' is null, and it does not follow the recommended practice of calling 'a.equals(method1())'.",
+  "Trigger_Line": [
+    9,
+    13
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.005\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that both tests passed successfully without any failures or errors. This does not provide evidence that the bug was triggered, as the test results only confirm that the method behaves as expected for the given inputs."
+}

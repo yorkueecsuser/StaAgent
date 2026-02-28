@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "CompatibleWithAnnotationMisuse",
+  "Bug_Details": "@CompatibleWith's value is not a type argument. The @CompatibleWith annotation is used to mark parameters that need extra type\nchecking on arguments passed to the method. The annotation was not appropriately\nplaced on a parameter with a valid type argument. See the javadoc for more\ndetails.",
+  "Bug_Explanation": "The @CompatibleWith annotation is misused because the value 'String' is not a valid type argument for any generic class. The annotation should be placed on a parameter with a valid type argument.",
+  "Buggy_Line": [
+    14
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test cases call the showBug method which internally calls the isCompatible method. The isCompatible method is incorrectly annotated with @CompatibleWith(\"String\"), which is not a valid type argument as per the bug's description. This misuse of the annotation does not affect the runtime behavior in this specific code, but it is conceptually incorrect according to the intended use of the annotation. The test cases are expected to fail because they are set up to identify and trigger the misuse.",
+  "Trigger_Line": [
+    9,
+    14
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.004\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that both tests passed successfully, as denoted by 'OK (2 tests)'. This outcome suggests that the misuse described in the bug rule did not cause any failure or unexpected behavior during the tests."
+}

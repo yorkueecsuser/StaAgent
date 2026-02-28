@@ -1,0 +1,9 @@
+{
+  "Bug_Title": "IJU: TestCase defines setUp that doesn\u2019t call super.setUp() (IJU_SETUP_NO_SUPER)\uf0c1",
+  "Bug_Details": " Class is a JUnit TestCase and implements the setUp method. The setUp method should call\nsuper.setUp(), but doesn't.",
+  "Bug_Explanation": "The setup method in the ExampleTestCase class overrides the setUp method from the TestCase class but fails to call super.setUp(), which could lead to improper setup of the test case environment.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful"
+}

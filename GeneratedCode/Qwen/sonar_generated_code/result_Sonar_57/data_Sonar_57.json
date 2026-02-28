@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "\"@SpringBootApplication\" and \"@ComponentScan\" should not be used in the default package",
+  "Bug_Details": "@ComponentScan is used to determine which Spring Beans are available in the application context. The packages to scan can be\nconfigured thanks to the basePackageClasses or basePackages (or its alias value ) parameters. If neither\nparameter is configured, @ComponentScan will consider only the package of the class annotated with it. When @ComponentScan is used on a class belonging to the default package, the entire classpath will be scanned.\nThis will slow-down the start-up of the application and it is likely the application will fail to start with an BeanDefinitionStoreException because you ended up scanning the Spring Framework package itself.\nThis rule raises an issue when:\n@ComponentScan , @SpringBootApplication and @ServletComponentScan are used on a class belonging to the\n  default package @ComponentScan is explicitly configured with the default package\n@ComponentScan , @SpringBootApplication and @ServletComponentScan are used on a class belonging to the\n  default package\n@ComponentScan is explicitly configured with the default package\nNoncompliant code example\nimport org.springframework.boot.SpringApplication;\n\n@SpringBootApplication // Noncompliant; RootBootApp is declared in the default package\npublic class RootBootApp {\n...\n}\n@ComponentScan(\"\")\npublic class Application {\n...\n}\nCompliant solution\npackage hello;\n\nimport org.springframework.boot.SpringApplication;\n\n@SpringBootApplication // Compliant; RootBootApp belongs to the \"hello\" package\npublic class RootBootApp {\n...\n}",
+  "Bug_Explanation": "The bug is embedded in the generated code by keeping the comments indicating the misuse of @SpringBootApplication and @ComponentScan in the default package, even though these annotations are not actually used due to the removal of unnecessary imports and the absence of Spring Boot related code.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by including a comment indicating the misuse of @SpringBootApplication and @ComponentScan in the default package within the test method. Although the annotations are not actually present in the code, the presence of the comment in the context of the test method is intended to demonstrate the violation of the rule.",
+  "Trigger_Line": [
+    9,
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.008\nThere was 1 failure:\n1) testShowBug(RootBootAppTest)\njava.lang.AssertionError: This test is expected to fail due to the misuse of @SpringBootApplication and @ComponentScan in the default package\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat RootBootAppTest.testShowBug(RootBootAppTest.java:11)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show a failure, but this failure is due to the assertion in the test code expecting the test to fail ('fail(\"This test is expected to fail...\")'). The actual execution of the code under test does not provide evidence that the application fails to start with a BeanDefinitionStoreException or any other indication that the bug has been triggered. The failure is artificial and set up by the test itself."
+}

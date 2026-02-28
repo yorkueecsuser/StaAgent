@@ -1,0 +1,13 @@
+{
+  "Bug_Title": "NP: Possible null pointer dereference in method on exception path (NP_NULL_ON_SOME_PATH_EXCEPTION)\uf0c1",
+  "Bug_Details": " A reference value which is null on some exception control path is\ndereferenced here.\u00a0 This may lead to a NullPointerException\nwhen the code is executed.\u00a0\nNote that because SpotBugs currently does not prune infeasible exception paths,\nthis may be a false warning.  Also note that SpotBugs considers the default case of a switch statement to\nbe an exception path, since the default case is often infeasible. NullPointerException",
+  "Bug_Explanation": "A null pointer dereference is possible on the exception path in the try-catch block when the file.txt is not found. The scanner object is dereferenced in the while loop condition, which can throw a NullPointerException if the scanner object is null.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the `showBug()` method on an instance of `PossibleNullPointerDereference`, which is a null pointer.",
+  "Trigger_Line": [
+    9
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

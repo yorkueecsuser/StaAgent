@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "OverrideBothEqualsAndHashcode",
+  "Bug_Details": "Override both public boolean Object.equals(Object other), and public int Object.hashCode(), or override neither.  Even if you are inheriting a hashCode() from a parent class, consider implementing hashCode and explicitly delegating to your superclass.\nExamples:\npublic class Bar {        // poor, missing a hashcode() method\n    public boolean equals(Object o) {\n      // do some comparison\n    }\n}\n\npublic class Baz {        // poor, missing an equals() method\n    public int hashCode() {\n      // return some hash value\n    }\n}\n\npublic class Foo {        // perfect, both methods provided\n    public boolean equals(Object other) {\n      // do some comparison\n    }\n    public int hashCode() {\n      // return some hash value\n    }\n}",
+  "Bug_Explanation": "The bug is embedded in the generated code by overriding the equals() method without overriding the hashCode() method in the Bar class, and by overriding the hashCode() method without overriding the equals() method in the Baz class. This violates the contract between equals() and hashCode() methods.",
+  "Buggy_Line": [
+    41,
+    19
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test cases trigger the bug by adding two equal objects (bar1 and bar2, baz1 and baz2) to a HashSet. Since the HashSet relies on both equals and hashCode methods to determine uniqueness, the absence of either method causes the HashSet to treat the objects as distinct, leading to a set size of 2 instead of 1.",
+  "Trigger_Line": [
+    11,
+    20
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

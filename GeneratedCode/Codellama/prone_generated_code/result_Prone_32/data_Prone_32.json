@@ -1,0 +1,9 @@
+{
+  "Buggy_Line": [
+    11
+  ],
+  "Trigger_Explanation": "The test case creates a new instance of the DeadThread class, which has a method called showBug(). The showBug() method creates a new thread and adds it to an ArrayList of threads. However, the thread is never started and is not otherwise referred to. When the test case calls the showBug() method, it triggers the bug by creating a new thread that is never started.",
+  "Trigger_Line": [
+    11
+  ]
+}

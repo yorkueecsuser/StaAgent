@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "AvoidCallingFinalize",
+  "Bug_Details": "The method Object.finalize() is called by the garbage collector on an object when garbage collection determines\nthat there are no more references to the object. It should not be invoked by application logic.\n\nNote that Oracle has declared Object.finalize() as deprecated since JDK 9.",
+  "Bug_Explanation": "The method Object.finalize() is called by the garbage collector on an object when garbage collection determines that there are no more references to the object. It should not be invoked by application logic. Oracle has declared Object.finalize() as deprecated since JDK 9.",
+  "Buggy_Line": [
+    11,
+    6
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../pmd_clean_java_code/result_Pmd_6/seed_Pmd_6.java:5: error: cannot find symbol\n        List<String> list = Arrays.asList(\"A\", \"B\", \"C\");\n                            ^\n  symbol:   variable Arrays\n  location: class AvoidCallingFinalize\n../pmd_clean_java_code/result_Pmd_6/seed_Pmd_6.java:6: error: cannot find symbol\n        list.finalize(); // BUG: AvoidCallingFinalize\n            ^\n  symbol:   method finalize()\n  location: variable list of type List<String>\n../pmd_clean_java_code/result_Pmd_6/seed_Pmd_6.java:10: error: cannot find symbol\n        List<String> list = Arrays.asList(\"A\", \"B\", \"C\");\n                            ^\n  symbol:   variable Arrays\n  location: class AvoidCallingFinalize\n../pmd_clean_java_code/result_Pmd_6/seed_Pmd_6.java:11: error: cannot find symbol\n        list.finalize(); // BUG: AvoidCallingFinalize\n            ^\n  symbol:   method finalize()\n  location: variable list of type List<String>\n../pmd_clean_java_code/result_Pmd_6/seed_Pmd_6.java:12: error: incompatible types: unexpected return value\n        return list;\n               ^\n5 errors\n",
+  "Trigger_Explanation": "The test case triggers the bug by calling the `finalize()` method on a `List` object.",
+  "Trigger_Line": [
+    5,
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,45 @@
+import java.util.ArrayList;
+import java.util.Collection;
+
+class VacuousCollectionCallDemo {
+
+    public boolean showBugContainsAll(Collection<?> collection) {
+        // Unreachable if statement to fulfill mutation operator requirement
+        boolean condition = isConditionMet();
+        if (condition) {
+            System.out.println("This code is unreachable because the condition is always false.");
+        }
+
+        // This line demonstrates the bug by calling containsAll on the collection with itself
+        return collection.containsAll(collection); // BUG: DMI: Vacuous call to collections (DMI_VACUOUS_SELF_COLLECTION_CALL)
+    }
+
+    public boolean showBugRetainAll(Collection<?> collection) {
+        // Unreachable if statement to fulfill mutation operator requirement
+        boolean condition = isConditionMet();
+        if (condition) {
+            System.out.println("This code is unreachable because the condition is always false.");
+        }
+
+        // This line demonstrates the bug by calling retainAll on the collection with itself
+        return collection.retainAll(collection); // BUG: DMI: Vacuous call to collections (DMI_VACUOUS_SELF_COLLECTION_CALL)
+    }
+
+    private boolean isConditionMet() {
+        return false; // Ensures the condition is always false, making the if block unreachable
+    }
+
+    public static void main(String[] args) {
+        VacuousCollectionCallDemo demo = new VacuousCollectionCallDemo();
+        Collection<String> exampleCollection = new ArrayList<>();
+        exampleCollection.add("example");
+
+        // Demonstrating the bug in containsAll
+        boolean resultContainsAll = demo.showBugContainsAll(exampleCollection);
+        System.out.println("Result of containsAll bug: " + resultContainsAll);
+
+        // Demonstrating the bug in retainAll
+        boolean resultRetainAll = demo.showBugRetainAll(exampleCollection);
+        System.out.println("Result of retainAll bug: " + resultRetainAll);
+    }
+}

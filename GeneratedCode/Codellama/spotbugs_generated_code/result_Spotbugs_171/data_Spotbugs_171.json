@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "DP: Method invoked that should be only be invoked inside a doPrivileged block (DP_DO_INSIDE_DO_PRIVILEGED)\uf0c1",
+  "Bug_Details": " This code invokes a method that requires a security permission check.\nIf this code will be granted security permissions, but might be invoked by code that does not\nhave security permissions, then the invocation needs to occur inside a doPrivileged block. java.security.AccessController doPrivileged",
+  "Bug_Explanation": "The method 'System.out.println(String)' requires a security permission check, but is invoked outside of a doPrivileged block. This is a violation of the Java Security Manager's permissions.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug() method, which is annotated with @Test.",
+  "Trigger_Line": [
+    13
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

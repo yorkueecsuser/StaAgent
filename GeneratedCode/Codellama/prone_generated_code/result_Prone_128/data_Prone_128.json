@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "OverridesJavaxInjectableMethod",
+  "Bug_Details": "This method is not annotated with @Inject, but it overrides a method that is  annotated with @javax.inject.Inject. The method will not be Injected. When classes declare that they have an @javax.inject.Injected method,\ndependency injection tools must call those methods after first calling any\n@javax.inject.Inject constructor, and performing any field injection. These\nmethods are part of the initialization contract for the object. When subclasses override methods annotated with @javax.inject.Inject and\ndon\u2019t also annotate themselves with @javax.inject.Inject, the injector will\nnot call those methods as part of the subclass\u2019s initialization. This may\nunexpectedly cause assumptions taken in the superclass (e.g.: this\npost-initialization routine is finished, meaning that I can safely use this\nfield) to no longer hold. This compile error is intended to prevent this unintentional breaking of\nassumptions. Possible resolutions to this error include: @Inject the overridden method, calling the super method to maintain the\ninitialization contract.\nMake the superclass\u2019 method final to avoid subclasses unintentionally\nmasking the injected method.\nMove the initialization work performed by the superclass method into the\nconstructor.\nSuppress this error, and very carefully inspect the initialization routine\nperformed by the superclass, making sure that any work that needs to be done\nthere is done in an @Inject method in the subclass. You may want to refactor\nportions of the body of the superclass method into a protected method for\nthis subclass to use.",
+  "Bug_Explanation": "The bug is embedded in the `showBug` method, which calls the `doSomething` method that is overridden by the subclass. However, the `doSomething` method is not annotated with @Inject, so it will not be injected, and the bug will be triggered.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_128/seed_Prone_128.java:1: error: package javax.inject does not exist\nimport javax.inject.Inject;\n                   ^\n../prone_clean_java_code/result_Prone_128/seed_Prone_128.java:6: error: cannot find symbol\n    private Dependency dependency;\n            ^\n  symbol:   class Dependency\n  location: class BuggyExample\n../prone_clean_java_code/result_Prone_128/seed_Prone_128.java:5: error: cannot find symbol\n    @Inject\n     ^\n  symbol:   class Inject\n  location: class BuggyExample\n../prone_clean_java_code/result_Prone_128/seed_Prone_128.java:13: error: cannot find symbol\n    @Inject\n     ^\n  symbol:   class Inject\n  location: class BuggyExample\n4 errors\n",
+  "Trigger_Explanation": "Triggering the bug by calling the showBug method",
+  "Trigger_Line": [
+    18
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

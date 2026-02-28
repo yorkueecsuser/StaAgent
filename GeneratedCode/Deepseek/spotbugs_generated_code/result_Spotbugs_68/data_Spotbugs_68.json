@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "DMI: Reversed method arguments (DMI_ARGUMENTS_WRONG_ORDER)\uf0c1",
+  "Bug_Details": " The arguments to this method call seem to be in the wrong order.\nFor example, a call Preconditions.checkNotNull(\"message\", message)\nhas reserved arguments: the value to be checked is the first argument.\n Preconditions.checkNotNull(\"message\", message)",
+  "Bug_Explanation": "The displayMessage method expects the first argument to be the message to display and the second argument to be an object to print. However, in the showBug method, the arguments are reversed when calling the displayMessage method, which can lead to unexpected results or errors.",
+  "Buggy_Line": [
+    13
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls the showBug method from the ReversedArgumentsBug class. This results in the reversed arguments bug being triggered, because in the showBug method the message and object arguments are reversed when calling the displayMessage method.",
+  "Trigger_Line": [
+    4
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Hello, World!: Hello, World!\n\nTime: 0.013\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the code executes without any errors, printing 'Hello, World!: Hello, World!'. This indicates that the arguments to the displayMessage method are not causing any issues, suggesting that the bug described (DMI: Reversed method arguments) is not present in the Java code."
+}

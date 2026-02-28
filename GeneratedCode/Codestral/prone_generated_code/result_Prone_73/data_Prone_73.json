@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "IncompatibleModifiers",
+  "Bug_Details": "This annotation has incompatible modifiers as specified by its @IncompatibleModifiers annotation The @IncompatibleModifiers annotation declares that the target annotation is\nincompatible with a set of provided modifiers. This check ensures that all\nannotations respect their @IncompatibleModifiers specifications.",
+  "Bug_Explanation": "The bug is that the FinalClass is declared as final, but the CustomAnnotation has @IncompatibleModifiers(value = \"final\") specified. This creates a conflict, as the final modifier is not compatible with the CustomAnnotation.",
+  "Buggy_Line": [
+    11
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered because the @CustomAnnotation is used on a final class, which is not allowed by the annotation's definition. This causes a compilation error due to the IncompatibleModifiers rule.",
+  "Trigger_Line": [
+    4
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

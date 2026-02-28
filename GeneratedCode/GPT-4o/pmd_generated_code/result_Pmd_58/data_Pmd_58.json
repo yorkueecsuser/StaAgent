@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "MoreThanOneLogger",
+  "Bug_Details": "Normally only one logger is used in each class. This rule supports slf4j, log4j, Java Util Logging and\nlog4j2 (since 6.19.0).\nExamples:\npublic class Foo {\n    Logger log = Logger.getLogger(Foo.class.getName());\n    // It is very rare to see two loggers on a class, normally\n    // log information is multiplexed by levels\n    Logger log2= Logger.getLogger(Foo.class.getName());\n}",
+  "Bug_Explanation": "The class 'MultiLoggerExample' demonstrates the 'MoreThanOneLogger' bug by declaring two logger instances 'log' and 'log2'. This is against the typical practice where only one logger is used per class to multiplex log information by levels.",
+  "Buggy_Line": [
+    9,
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case 'testShowBugTriggersMoreThanOneLogger' calls the 'showBug' method, which uses both logger instances 'log' and 'log2'. This demonstrates the 'MoreThanOneLogger' bug, as it is against the convention of using a single logger per class.",
+  "Trigger_Line": [
+    11
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.091\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully, as shown by 'OK (1 test)', which means the bug was not triggered during the test execution."
+}

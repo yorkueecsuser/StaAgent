@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "InjectOnMemberAndConstructor",
+  "Bug_Details": "Members shouldn't be annotated with @Inject if constructor is already annotated @Inject",
+  "Bug_Explanation": "The bug is embedded by keeping the @Inject annotation on both the constructor and the setter method, which violates the rule that members shouldn't be annotated with @Inject if the constructor is already annotated @Inject.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_78/seed_Prone_78.java:9: error: cannot find symbol\n    @Inject // BUG: InjectOnMemberAndConstructor\n     ^\n  symbol:   class Inject\n  location: class ExampleClass\n1 error\n",
+  "Trigger_Explanation": "The test triggers the bug by creating an instance of ExampleClass using its default constructor and then calling the showBug method. Since the member variable is not set through the constructor, it remains null, which is expected as per the bug rule.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "AvoidCatchingThrowable",
+  "Bug_Details": "Catching Throwable errors is not recommended since its scope is very broad. It includes runtime issues such as\nOutOfMemoryError that should be exposed and managed separately.\nExamples:\npublic void bar() {\n    try {\n        // do something\n    } catch (Throwable th) {  // should not catch Throwable\n        th.printStackTrace();\n    }\n}",
+  "Bug_Explanation": "The bug was embedded in the generated code by catching the Throwable class in the catch block of the showBug method. This is not recommended as it catches all types of exceptions and errors, including those that should not be caught, such as OutOfMemoryError.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by calling the showBug method, which contains a catch block catching Throwable. This results in an ArithmeticException being caught, demonstrating the issue.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed without any failures or exceptions being thrown, which does not confirm that the bug was triggered."
+}

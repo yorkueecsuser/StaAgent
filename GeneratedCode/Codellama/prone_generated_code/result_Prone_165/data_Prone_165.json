@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "TryFailThrowable",
+  "Bug_Details": "Catching Throwable/Error masks failures from fail() or assert*() in the try block When testing that a line of code throws an expected exception, it is typical to\nexecute that line in a try block with a fail() or assert*() on the line\nfollowing. The expectation is that the expected exception will be thrown, and\nexecution will continue in the catch block, and the fail() or assert*() will\nnot be executed. fail() and assert*() throw AssertionErrors, which are a subtype of\nThrowable. That means that if the catch block catches Throwable, then execution\nwill always jump to the catch block, and the test will always pass. To fix this, you usually want to catch Exception rather than Throwable. If you\nneed to catch throwable (e.g., the expected exception is an AssertionError),\nthen add logic in your catch block to ensure that the AssertionError that was\ncaught is not the same one thrown by the call to fail() or assert*().",
+  "Bug_Explanation": "The bug is embedded in line 8, where the `fail` method is called to throw an AssertionError. However, the `catch` block catches all Throwable and Error instances, including the AssertionError thrown by the `fail` method. This causes the test to pass even though the division by zero should have failed.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_165/seed_Prone_165.java:7: error: cannot find symbol\n            fail(\"Division by zero should fail!\"); // BUG: TryFailThrowable\n            ^\n  symbol:   method fail(String)\n  location: class TryFailThrowable\n1 error\n",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug() method, which divides 5 by 0 and catches the resulting ArithmeticException. The fail() method is then called to fail the test case, which should not be executed because the Throwable caught by the catch block is not an AssertionError.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

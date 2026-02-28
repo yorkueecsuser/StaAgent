@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Assertions should not compare an object to itself",
+  "Bug_Details": "Assertions comparing an object to itself are more likely to be bugs due to developer\u2019s carelessness.\nThis rule raises an issue when the actual expression matches the expected expression.\nNoncompliant code example\nassertThat(actual).isEqualTo(actual); // Noncompliant\nCompliant solution\nassertThat(actual).isEqualTo(expected);\nExceptions\nIn a unit test validating the equals(...) and hashCode() methods, it\u2019s legitimate to compare an object to itself. This\nrule does not raise an issue for isEqualTo , assertEquals or hasSameHashCodeAs when the unit test name contains\n(case insensitive): equal , hash_?code , object_?method . For example, in tests with the following names: test_equals , testEqual , test_hashCode , test_hash_code , test_object_methods .\nclass MyClassTest {\n  @Test\n  void test_equals_and_hash_code() {\n    MyClass obj = new MyClass();\n    assertThat(obj).isEqualTo(obj); // Compliant\n    assertThat(obj).hasSameHashCodeAs(obj); // Compliant\n  }\n}",
+  "Bug_Explanation": "The bug is embedded in the generated code by including an assertion that compares an object to itself within the showBug method. This comparison is noncompliant with the rule that assertions should not compare an object to itself.",
+  "Buggy_Line": [
+    26
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by calling the showBug method of the ExampleClass instance, which contains an assertion that compares an object to itself.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed without any assertion failures, indicating that the assertion comparing an object to itself did not cause the test to fail."
+}

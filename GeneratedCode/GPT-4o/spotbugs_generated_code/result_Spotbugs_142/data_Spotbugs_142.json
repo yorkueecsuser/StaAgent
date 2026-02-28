@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "TQ: Comparing values with incompatible type qualifiers (TQ_COMPARING_VALUES_WITH_INCOMPATIBLE_TYPE_QUALIFIERS)\uf0c1",
+  "Bug_Details": "\n        A value specified as carrying a type qualifier annotation is\n        compared with a value that doesn't ever carry that qualifier.\n         \n        More precisely, a value annotated with a type qualifier specifying when=ALWAYS\n        is compared with a value that where the same type qualifier specifies when=NEVER.\n         \n        For example, say that @NonNegative is a nickname for\n        the type qualifier annotation @Negative(when=When.NEVER).\n        The following code will generate this warning because\n        the return statement requires a @NonNegative value,\n        but receives one that is marked as @Negative.\n         public boolean example(@Negative Integer value1, @NonNegative Integer value2) {\n    return value1.equals(value2);\n}\n",
+  "Bug_Explanation": "The code compares two integers annotated with conflicting type qualifiers: one as @Negative and the other as @NonNegative. This creates a logical mismatch that constitutes an intentional bug.",
+  "Buggy_Line": [
+    20
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test cases create instances of the class with mismatched annotations for the integer values, specifically using negative and non-negative values, thereby triggering the logic flaw in the compareValues method during execution.",
+  "Trigger_Line": [
+    9,
+    15
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.004\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that both tests passed successfully, as denoted by 'OK (2 tests)'. This suggests that the bug was not triggered during the test execution, as the tests did not fail despite the expectation that they should due to the incompatible type qualifiers."
+}

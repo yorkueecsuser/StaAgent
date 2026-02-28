@@ -1,0 +1,26 @@
+import java.util.List;
+import java.util.ArrayList;
+
+class ThreadBug {
+  public static void main(String[] args) {
+    Thread t = new Thread();
+    if (false) {
+      t.run();
+    } else {
+      t.start();
+    }
+  }
+
+  public static void showBug() {
+    Thread t = new Thread(new Runnable() {
+      public void run() {
+        System.out.println("This is a bug");
+      }
+    });
+    if (false) {
+      t.run();
+    } else {
+      t.start();
+    }
+  }
+}

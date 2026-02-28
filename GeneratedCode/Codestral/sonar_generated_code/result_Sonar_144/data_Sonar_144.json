@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "\"writeObject\" argument must implement \"Serializable\"",
+  "Bug_Details": "Serialization is a platform-independent mechanism for writing the state of an object into a byte-stream. For serializing the object, we call the writeObject() method of java.io.ObjectOutputStream class. Only classes that implement Serializable or extend a\nclass that does it can successfully be serialized (or de-serialized).\nAttempting to write a class with the writeObject method of the ObjectOutputStream class that does not implement Serializable or extends a class that implements it, will throw an IOException .",
+  "Bug_Explanation": "The bug is embedded in the'showBug' method where an instance of the 'NonSerializableClass' is being written to an ObjectOutputStream. The 'NonSerializableClass' does not implement Serializable, which is a requirement for the 'writeObject' method.",
+  "Buggy_Line": [
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case `testShowBug` invokes the `showBug` method from the `SerializationBug` class, which attempts to write an instance of the `NonSerializableClass` to an `ObjectOutputStream`. Since `NonSerializableClass` does not implement `Serializable`, this triggers an `IOException`.",
+  "Trigger_Line": [
+    3
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.025\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that 1 test passed successfully ('OK (1 test)'). This means that the code did not throw an IOException as expected when trying to serialize a NonSerializableClass instance. Therefore, the bug was not triggered."
+}

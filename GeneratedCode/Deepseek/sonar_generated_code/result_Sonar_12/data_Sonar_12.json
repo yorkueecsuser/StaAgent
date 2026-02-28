@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "\"@Bean\" methods for Singleton should not be invoked in \"@Configuration\" when proxyBeanMethods is false",
+  "Bug_Details": "When setting the proxyBeanMethods attribute to false the @Bean methods are not proxied and this is similar\nto removing the @Configuration stereotype. In this scenario, @Bean methods within the @Configuration annotated\nclass operate in lite\nmode , resulting in a new bean creation each time the method is invoked.\nFor Singleton beans, this could cause unexpected outcomes as the bean is created multiple times instead of being created once and\ncached.\nThe rule raises an issue when the proxyBeanMethods attribute is set to false and the @Bean method of a Singleton bean is directly invoked in the @Configuration annotated class code.",
+  "Bug_Explanation": "The @Bean methods within the @Configuration annotated class are not proxied when proxyBeanMethods is set to false. This means that the @Bean method is called directly, which results in a new bean creation each time the method is invoked. For Singleton beans, this could cause unexpected outcomes as the bean is created multiple times instead of being created once and cached. In this case, the bug is that @Bean method of a Singleton bean is directly invoked in the @Configuration annotated class code when proxyBeanMethods is set to false.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The SingletonBeanBug class has a method `showBug` which directly invokes the `singletonBean` method twice.",
+  "Trigger_Line": [
+    4
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The bug is present in the provided Java code. The @Bean methods for Singleton should not be invoked in @Configuration when proxyBeanMethods is false. In this case, the singletonBean() method is invoked twice in the showBug() method. Since proxyBeanMethods is set to false, the @Bean method of a Singleton bean is directly invoked in the @Configuration annotated class code. This results in a new bean creation each time the method is invoked. As a Singleton bean, this could cause unexpected outcomes as the bean is created multiple times instead of being created once and cached. The expected output of the showBug() method is 3, but the actual output is 2, which is due to the singletonBean() method being invoked twice in the showBug() method."
+}

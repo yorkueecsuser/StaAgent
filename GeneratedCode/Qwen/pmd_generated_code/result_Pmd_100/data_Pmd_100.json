@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "AppendCharacterWithChar",
+  "Bug_Details": "Avoid concatenating characters as strings in StringBuffer/StringBuilder.append methods.\nExamples:\nStringBuffer sb = new StringBuffer();\nsb.append(\"a\");     // avoid this\n\nStringBuffer sb = new StringBuffer();\nsb.append('a');     // use this instead",
+  "Bug_Explanation": "The bug was embedded in the generated code by using the method StringBuffer.append with a string argument instead of a character argument. This is demonstrated in the showBug method where sb.append(\"a\"); is used.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by calling the showBug method, which uses StringBuffer.append with a string argument instead of a character argument.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n"
+}

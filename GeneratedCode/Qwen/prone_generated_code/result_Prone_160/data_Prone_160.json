@@ -1,0 +1,9 @@
+{
+  "Bug_Title": "TestParametersNotInitialized",
+  "Bug_Details": "This test has @TestParameter fields but is using the default JUnit4 runner. The parameters will not be initialised beyond their default value.",
+  "Bug_Explanation": "The bug is embedded in the generated code by using the @RunWith(JUnit4.class) annotation with @Theory and @DataPoints. The JUnit4 runner does not support parameterized theories, so the parameters will not be initialized beyond their default value.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful"
+}

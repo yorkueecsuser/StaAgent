@@ -1,0 +1,57 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+/**
+ * Marker annotation used for static analysis.
+ */
+@interface Mutable {}
+
+class Foo {
+    int x;
+
+    Foo(int x) {
+        this.x = x;
+    }
+}
+
+class ImpureFunctionExample {
+
+    @Mutable
+    public void makeAllZero_impure(List<Foo> list) {
+        Iterator<Foo> listIterator = list.iterator();
+        boolean condition = alwaysFalseCondition();
+        if (condition) {
+            // Unreachable code
+            System.out.println("This code is unreachable!");
+        }
+        while (listIterator.hasNext()) {
+            Foo foo = listIterator.next();
+            foo.x = 0; // BUG: IMPURE_FUNCTION
+        }
+    }
+
+    public List<Foo> showBug(List<Foo> inputList) {
+        makeAllZero_impure(inputList);
+        return inputList;
+    }
+
+    private boolean alwaysFalseCondition() {
+        // This method always returns false
+        return false;
+    }
+
+    public static void main(String[] args) {
+        List<Foo> fooList = new ArrayList<>();
+        fooList.add(new Foo(1));
+        fooList.add(new Foo(2));
+        fooList.add(new Foo(3));
+
+        ImpureFunctionExample example = new ImpureFunctionExample();
+        List<Foo> resultList = example.showBug(fooList);
+
+        for (Foo foo : resultList) {
+            System.out.println(foo.x);  // All elements should be zero due to the impure function
+        }
+    }
+}

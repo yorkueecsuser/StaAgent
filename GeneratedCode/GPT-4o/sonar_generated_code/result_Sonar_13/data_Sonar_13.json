@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "\"@Qualifier\" should not be used on \"@Bean\" methods",
+  "Bug_Details": "In Spring Framework, the @Qualifier annotation is typically used to disambiguate between multiple beans of the same type when\nauto-wiring dependencies. It is not necessary to use @Qualifier when defining a bean using the @Bean annotation because the\nbean\u2019s name can be explicitly specified using the name attribute or derived from the method name. Using @Qualifier on @Bean methods can lead to confusion and redundancy. Beans should be named appropriately using either the name attribute of\nthe @Bean annotation or the method name itself.\nNoncompliant code example\n@Configuration\npublic class MyConfiguration {\n  @Bean\n  @Qualifier(\"myService\")\n  public MyService myService() {\n    // ...\n    return new MyService();\n  }\n\n  @Bean\n  @Qualifier(\"betterService\")\n  public MyService aBetterService() {\n    // ...\n    return new MyService();\n  }\n\n  @Bean\n  @Qualifier(\"evenBetterService\")\n  public MyService anEvenBetterService() {\n    // ...\n    return new MyService();\n  }\n\n  @Bean\n  @Qualifier(\"differentService\")\n  public MyBean aDifferentService() {\n    // ...\n    return new MyBean();\n  }\n}\nCompliant solution\n@Configuration\npublic class MyConfiguration {\n  @Bean\n  public MyService myService() {\n    // ...\n    return new MyService();\n  }\n\n  @Bean(name=\"betterService\")\n  public MyService aBetterService() {\n    // ...\n    return new MyService();\n  }\n\n  @Bean(name=\"evenBetterService\")\n  public MyService anEvenBetterService() {\n    // ...\n    return new MyService();\n  }\n\n  @Bean(name=\"differentService\")\n  public MyBean aDifferentService() {\n    // ...\n    return new MyBean();\n  }\n}",
+  "Bug_Explanation": "The bug is embedded by using the @Qualifier annotation on methods annotated with @Bean in a Spring configuration class. According to the bug rule, @Qualifier should not be used on @Bean methods because it is redundant and can lead to confusion. The bean's name can be specified using the name attribute of the @Bean annotation or derived from the method name.",
+  "Buggy_Line": [
+    16,
+    10,
+    28,
+    22
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug method, which instantiates the MyConfiguration class and calls its bean methods that incorrectly use the @Qualifier annotation.",
+  "Trigger_Line": [
+    6
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "InlineMeValidator",
+  "Bug_Details": "Ensures that the @InlineMe annotation is used correctly.",
+  "Bug_Explanation": "The @InlineMe annotation is meant for providing guidance for inlining a method. This code demonstrates incorrect usage of the annotation as it should be applied to methods that are intended to be inlined and not to a method that should remain the same.",
+  "Buggy_Line": [
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test cases invoke the showBug method which internally calls the nonInlineMethod. The @InlineMe annotation on nonInlineMethod suggests using another method, triggering the InlineMeValidator bug as expected.",
+  "Trigger_Line": [
+    9,
+    17
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.007\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that both tests passed successfully, indicating that the bug was not triggered during execution."
+}

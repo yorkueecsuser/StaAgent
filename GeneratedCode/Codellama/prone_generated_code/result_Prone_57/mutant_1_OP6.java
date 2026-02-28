@@ -1,0 +1,18 @@
+import java.util.function.Function;
+
+class FunctionalInterfaceMethodChanged {
+    public static void main(String[] args) {
+        Function<String, String> foo = (s) -> "Foo";
+        Function<String, String> bar = (s) -> "Bar";
+        System.out.println(foo.apply("Hello")); // Outputs "Foo"
+        System.out.println(bar.apply("World")); // Outputs "Bar"
+        System.out.println(foo.compose(bar).apply("Hello World")); // Outputs "FooBar"
+        System.out.println(bar.compose(foo).apply("Hello World")); // Outputs "BarFoo"
+        
+        // Unreachable for loop mutant
+        for (int i = 0; false; i++) {
+            // This code is unreachable and should not be executed
+            System.out.println("This code should not be executed!");
+        }
+    }
+}

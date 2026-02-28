@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "AvoidAccessibilityAlteration",
+  "Bug_Details": "Methods such as `getDeclaredConstructors()`, `getDeclaredMethods()`, and `getDeclaredFields()` also\nreturn private constructors, methods and fields. These can be made accessible by calling `setAccessible(true)`.\nThis gives access to normally protected data which violates the principle of encapsulation.\n\nThis rule detects calls to `setAccessible` and finds possible accessibility alterations.\nIf the call to `setAccessible` is wrapped within a `PrivilegedAction`, then the access alteration\nis assumed to be deliberate and is not reported.\n\nNote that with Java 17 the Security Manager, which is used for `PrivilegedAction` execution,\nis deprecated: [JEP 411: Deprecate the Security Manager for Removal](https://openjdk.org/jeps/411).\nFor future-proof code, deliberate access alteration should be suppressed using the usual\nsuppression methods (e.g. by using `@SuppressWarnings` annotation).\nExamples:\nimport java.lang.reflect.Constructor;\nimport java.lang.reflect.Field;\nimport java.lang.reflect.Method;\nimport java.security.AccessController;\nimport java.security.PrivilegedAction;\n\npublic class Violation {\n    private void invalidSetAccessCalls() throws NoSuchMethodException, SecurityException {\n        Constructor<?> constructor = this.getClass().getDeclaredConstructor(String.class);\n        // call to forbidden setAccessible\n        constructor.setAccessible(true);\n\n        Method privateMethod = this.getClass().getDeclaredMethod(\"aPrivateMethod\");\n        // call to forbidden setAccessible\n        privateMethod.setAccessible(true);\n\n        // deliberate accessibility alteration\n        String privateField = AccessController.doPrivileged(new PrivilegedAction<String>() {\n            @Override\n            public String run() {\n                try {\n                    Field field = Violation.class.getDeclaredField(\"aPrivateField\");\n                    field.setAccessible(true);\n                    return (String) field.get(null);\n                } catch (ReflectiveOperationException | SecurityException e) {\n                    throw new RuntimeException(e);\n                }\n            }\n        });\n    }\n}",
+  "Bug_Explanation": "The code demonstrates accessing private constructors, methods, and fields using reflection and altering their accessibility using setAccessible(true), which violates encapsulation principles.",
+  "Buggy_Line": [
+    25,
+    20,
+    30
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the `showBug` method of the `AccessibilityAlterationDemo` class. Within `showBug`, the bug is triggered when private methods, fields, and constructors are accessed using `setAccessible(true)`, violating the AvoidAccessibilityAlteration rule.",
+  "Trigger_Line": [
+    13
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

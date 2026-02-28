@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "TQ: Value annotated as never carrying a type qualifier used where value carrying that qualifier is required (TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED)\uf0c1",
+  "Bug_Details": "\nA value specified as not carrying a type qualifier annotation is guaranteed\nto be consumed in a location or locations requiring that the value does\ncarry that annotation.\n \nMore precisely, a value annotated with a type qualifier specifying when=NEVER\nis guaranteed to reach a use or uses where the same type qualifier specifies when=ALWAYS.\n \nTODO: example\n",
+  "Bug_Explanation": "The bug was embedded in the `showBug` method by annotating the `input` parameter with `@Nullable` from the `javax.annotation` package. This annotation specifies that the `input` parameter may be null, and the `toUpperCase()` method is used on the `input` parameter without checking for nullity. This leads to a `NullPointerException` when the `input` parameter is null.",
+  "Buggy_Line": [
+    25
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case triggers the bug by calling the `showBug` method with an empty string as the input.",
+  "Trigger_Line": [
+    16
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

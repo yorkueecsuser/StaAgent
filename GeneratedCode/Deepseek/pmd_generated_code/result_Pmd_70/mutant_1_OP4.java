@@ -1,0 +1,26 @@
+class Singleton {
+
+    private static Singleton singleton = new Singleton( );
+
+    private Singleton(){ }
+
+    public static Singleton getInstance( ) {
+        return singleton;
+    }
+
+    public static Singleton getInstance(Object obj){
+        Singleton singleton = (Singleton) obj;
+        return singleton;           // BUG: SingleMethodSingleton
+    }
+
+    public void showBug() {
+        Object obj = new Object();
+        Singleton instance = getInstance(obj);
+        boolean shouldRun = false; // Mutation: Adding an unreachable if-else statement
+        if(shouldRun) {
+            // Some code
+        } else {
+            // Unreachable code
+        }
+    }
+}

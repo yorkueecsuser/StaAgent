@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "\"@SpringBootApplication\" and \"@ComponentScan\" should not be used in the default package",
+  "Bug_Details": "@ComponentScan is used to determine which Spring Beans are available in the application context. The packages to scan can be\nconfigured thanks to the basePackageClasses or basePackages (or its alias value ) parameters. If neither\nparameter is configured, @ComponentScan will consider only the package of the class annotated with it. When @ComponentScan is used on a class belonging to the default package, the entire classpath will be scanned.\nThis will slow-down the start-up of the application and it is likely the application will fail to start with an BeanDefinitionStoreException because you ended up scanning the Spring Framework package itself.\nThis rule raises an issue when:\n@ComponentScan , @SpringBootApplication and @ServletComponentScan are used on a class belonging to the\n  default package @ComponentScan is explicitly configured with the default package\n@ComponentScan , @SpringBootApplication and @ServletComponentScan are used on a class belonging to the\n  default package\n@ComponentScan is explicitly configured with the default package\nNoncompliant code example\nimport org.springframework.boot.SpringApplication;\n\n@SpringBootApplication // Noncompliant; RootBootApp is declared in the default package\npublic class RootBootApp {\n...\n}\n@ComponentScan(\"\")\npublic class Application {\n...\n}\nCompliant solution\npackage hello;\n\nimport org.springframework.boot.SpringApplication;\n\n@SpringBootApplication // Compliant; RootBootApp belongs to the \"hello\" package\npublic class RootBootApp {\n...\n}",
+  "Bug_Explanation": "The @SpringBootApplication and @ComponentScan annotations should not be used in the default package. This can lead to slow start-up times and BeanDefinitionStoreExceptions.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case attempts to create an instance of the application context. However, since the application is in the default package, it will fail to start due to the @SpringBootApplication and @ComponentScan annotations being used in the default package. This should trigger the bug.",
+  "Trigger_Line": [
+    9
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "No",
+  "Model_Explanation": "The provided Java code does not contain the described bug. The @SpringBootApplication and @ComponentScan annotations are used correctly in the RootBootApp class, which is not in the default package. The code does not contain any @ComponentScan annotation configured with the default package, nor does it contain any @SpringBootApplication or @ServletComponentScan annotations used on a class belonging to the default package."
+}

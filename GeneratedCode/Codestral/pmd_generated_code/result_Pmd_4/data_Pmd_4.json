@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "AvoidAssertAsIdentifier",
+  "Bug_Details": "Use of the term `assert` will conflict with newer versions of Java since it is a reserved word.\n\nSince Java 1.4, the token `assert` became a reserved word and using it as an identifier will\nresult in a compilation failure for Java 1.4 and later. This rule is therefore only useful\nfor old Java code before Java 1.4. It can be used to identify problematic code prior to a Java update.\nExamples:\npublic class A {\n    public class Foo {\n        String assert = \"foo\";\n    }\n}",
+  "Bug_Explanation": "The bug AvoidAssertAsIdentifier was embedded into the code by using 'assert' as the name of a variable. In Java, 'assert' is a keyword, and using it as an identifier results in a compilation failure.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by calling the showBug() method from the AvoidAssertAsIdentifierBug class. The bug is triggered in the testShowBug() method at line 8 where we attempt to access the 'assertion' variable, which is named 'assert' in the AvoidAssertAsIdentifierBug class. This causes a compilation failure, as 'assert' is a reserved keyword in Java.",
+  "Trigger_Line": "[8]",
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed successfully without any compilation failures. This indicates that the bug was not triggered in the provided test case."
+}

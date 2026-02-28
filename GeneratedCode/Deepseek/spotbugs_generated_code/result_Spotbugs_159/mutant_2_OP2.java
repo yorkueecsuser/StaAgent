@@ -1,0 +1,28 @@
+import java.io.IOException;
+
+class XSSVulnerableServlet {
+    protected void doGet(Object request, Object response) throws IOException {
+        String input = getParameter(request);  // Input from user
+
+        // Original bug
+        writeToResponse(response, "<html><body>Welcome, " + input + "</body></html>");
+
+        // Mutant: Duplicated the assignment statement
+        String duplicatedInput = input;
+        writeToResponse(response, "<html><body>Duplicated Welcome, " + duplicatedInput + "</body></html>");
+    }
+
+    private String getParameter(Object request) {
+        return request.toString();
+    }
+
+    private void writeToResponse(Object response, String data) throws IOException {
+        // This method simulates the behavior of response.getWriter().write(data)
+        System.out.println(data);
+    }
+
+    // Method to demonstrate the bug
+    public void showBug(Object request, Object response) throws IOException {
+        doGet(request, response);
+    }
+}

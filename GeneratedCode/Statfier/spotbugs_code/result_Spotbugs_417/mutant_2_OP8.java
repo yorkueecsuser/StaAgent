@@ -1,0 +1,45 @@
+import edu.umd.cs.findbugs.annotations.ExpectWarning;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
+class Nonserializable {
+
+  /**
+   * @param args
+   */
+  @ExpectWarning("DMI")
+  public static void main(String[] args) {
+    FileOutputStream fos = null;
+    try {
+      fos = new FileOutputStream("t.tmp");
+    } catch (FileNotFoundException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    try {
+      ObjectOutputStream oos = new ObjectOutputStream(fos);
+      oos.writeObject(new Thread());
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+
+    // Mutated code
+    FileOutputStream x = null;
+    try {
+      x = new FileOutputStream("t.tmp");
+    } catch (FileNotFoundException a) {
+      // TODO Auto-generated catch block
+      a.printStackTrace();
+    }
+    try {
+      ObjectOutputStream y = new ObjectOutputStream(x);
+      y.writeObject(new Thread());
+    } catch (IOException b) {
+      // TODO Auto-generated catch block
+      b.printStackTrace();
+    }
+  }
+}

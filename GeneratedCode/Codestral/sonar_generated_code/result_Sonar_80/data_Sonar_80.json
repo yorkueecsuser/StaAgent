@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "Non-primitive fields should not be \"volatile\"",
+  "Bug_Details": "Marking an array volatile means that the array itself will always be read fresh and never thread cached, but the items in the\narray will not be. Similarly, marking a mutable object field volatile means the object reference is volatile but\nthe object itself is not, and other threads may not see updates to the object state.\nThis can be salvaged with arrays by using the relevant AtomicArray class, such as AtomicIntegerArray , instead. For mutable objects,\nthe volatile should be removed, and some other method should be used to ensure thread-safety, such as synchronization, or ThreadLocal\nstorage.\nNoncompliant code example\nprivate volatile int [] vInts;  // Noncompliant\nprivate volatile MyObj myObj;  // Noncompliant\nCompliant solution\nprivate AtomicIntegerArray vInts;\nprivate MyObj myObj;",
+  "Bug_Explanation": "The bug is demonstrated by marking a non-primitive field as volatile. In this case, 'vInts' and'myObj' are both non-primitive fields that are marked as volatile, which is not recommended as it does not ensure thread-safety for the items in the array or the state of the object itself.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered by trying to access the private fields `vInts` and `myObj` of the `VolatileBug` class in the test case. This is not possible because the fields are private. Instead, the output of the `showBug()` method is compared to verify that the state of the object and the array have not changed.",
+  "Trigger_Line": [
+    15,
+    16
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "AvoidUsingVolatile",
+  "Bug_Details": "Use of the keyword 'volatile' is generally used to fine tune a Java application, and therefore, requires\na good expertise of the Java Memory Model. Moreover, its range of action is somewhat misknown. Therefore,\nthe volatile keyword should not be used for maintenance purpose and portability.\nExamples:\npublic class ThrDeux {\n  private volatile String var1; // not suggested\n  private          String var2; // preferred\n}",
+  "Bug_Explanation": "The volatile keyword is used on the sharedCounter variable to demonstrate the bug. The use of volatile is not recommended for simple use cases like maintaining a counter because it suggests a reliance on volatile for thread safety, which is beyond its intended use. Volatile should be used with an understanding of the Java Memory Model, and using it incorrectly can lead to performance issues and maintenance difficulties.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by asserting that the result of `showBug` is not 0. The incorrect use of the volatile keyword in the sharedCounter variable can lead to unexpected behavior in multi-threaded environments, making the test fail.",
+  "Trigger_Line": [
+    9,
+    11
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.005\nThere was 1 failure:\n1) testShowBug(VolatileExampleTest)\njava.lang.AssertionError: The volatile keyword is used incorrectly, leading to unexpected results.. Actual: 0\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat org.junit.Assert.failEquals(Assert.java:187)\n\tat org.junit.Assert.assertNotEquals(Assert.java:201)\n\tat VolatileExampleTest.testShowBug(VolatileExampleTest.java:13)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test expected the result to be not equal to 0 due to the incorrect use of volatile, but the actual result was 0, indicating that the volatile keyword did not lead to unexpected behavior in this case."
+}

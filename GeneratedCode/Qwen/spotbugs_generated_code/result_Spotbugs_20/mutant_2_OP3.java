@@ -1,0 +1,28 @@
+import java.util.Random;
+
+class RandomValueBug {
+
+    public int showBug() {
+        Random random = new Random();
+        int result = (int) random.nextDouble(); // BUG: RV: Random value from 0 to 1 is coerced to the integer 0 (RV_01_TO_INT) 
+
+        // Unreachable if statement mutation
+        boolean condition = getCondition();
+        if (condition) {
+            // This block is unreachable because getCondition() always returns false
+            result = 42; // Unique and arbitrary value to demonstrate the mutation
+        }
+
+        return result;
+    }
+
+    private boolean getCondition() {
+        // Always returns false to ensure the if block is unreachable
+        return false;
+    }
+
+    public static void main(String[] args) {
+        RandomValueBug bugDemo = new RandomValueBug();
+        System.out.println("Buggy Result: " + bugDemo.showBug());
+    }
+}

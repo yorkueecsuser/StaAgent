@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "Non-serializable objects should not be stored in \"javax.servlet.http.HttpSession\" instances",
+  "Bug_Details": "HttpSession s are managed by web servers and can be serialized and stored on disk as the server manages its memory use in a process\ncalled \"passivation\" (and later restored during \"activation\").\nEven though HttpSession does not extend Serializable , you must nonetheless assume that it will be serialized. If\nnon-serializable objects are stored in the session, serialization might fail.\nNoncompliant code example\npublic class Address {\n  //...\n}\n\nHttpSession session = request.getSession();\nsession.setAttribute(\"address\", new Address());  // Noncompliant; Address isn't serializable\nCompliant solution\npublic class Address implements Serializable {\n  //...\n}\n\nHttpSession session = request.getSession();\nsession.setAttribute(\"address\", new Address());",
+  "Bug_Explanation": "The Address class does not implement Serializable, and an instance of it is being stored in a HttpSession, which could be serialized by the server, potentially causing a serialization failure.",
+  "Buggy_Line": [
+    44
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method of the SessionManager class, which stores a non-serializable Address object in the HttpSession. This directly triggers the bug, as the Address class does not implement Serializable.",
+  "Trigger_Line": [
+    47
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

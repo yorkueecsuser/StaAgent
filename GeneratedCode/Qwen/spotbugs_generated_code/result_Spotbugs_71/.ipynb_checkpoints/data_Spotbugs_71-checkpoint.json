@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "VA: Primitive array passed to function expecting a variable number of object arguments (VA_PRIMITIVE_ARRAY_PASSED_TO_OBJECT_VARARG)\uf0c1",
+  "Bug_Details": "\nThis code passes a primitive array to a function that takes a variable number of object arguments.\nThis creates an array of length one to hold the primitive array and passes it to the function.\n",
+  "Bug_Explanation": "The bug is embedded in the showBug method where an int array is passed to the printObjects method which expects a variable number of Object arguments. This results in the int array being treated as a single object rather than individual integers.",
+  "Buggy_Line": [
+    13
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test calls the showBug method with an integer array, which triggers the bug because the int array is passed to the printObjects method expecting a variable number of Object arguments. This causes the int array to be treated as a single object rather than individual integers.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.[I@29444d75\n\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "Yes",
+  "Bug_Trigger_Explanation": "The test run results show the output '[I@29444d75', which is the default string representation of an integer array object in Java. This indicates that the primitive array was passed as a single object to the varargs method, confirming the bug where a primitive array is passed to a function expecting a variable number of object arguments."
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "SING: Instance-getter method of class using singleton design pattern is not synchronized. (SING_SINGLETON_GETTER_NOT_SYNCHRONIZED)\uf0c1",
+  "Bug_Details": "\nInstance-getter method of class using singleton design pattern is not synchronized. When this method is invoked by two or more threads simultaneously,\nmultiple instantiation of a singleton class becomes possible.\nSEI CERT MSC07-J rule\n",
+  "Bug_Explanation": "The bug is embedded in the getInstance() method of the SingletonExample class. The method is not synchronized, which means that if multiple threads call this method simultaneously, it can lead to the creation of multiple instances of the SingletonExample class.",
+  "Buggy_Line": [
+    15
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the unsynchronized getInstance() method multiple times concurrently through the showBug method, which uses an ExecutorService to create multiple threads.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Instance ID: 1068273589\nInstance ID: 1068273589\nInstance ID: 1068273589\nInstance ID: 1068273589\nInstance ID: 1068273589\nInstance ID: 1068273589\nInstance ID: 1068273589\nInstance ID: 1068273589\nInstance ID: 1068273589\nInstance ID: 1068273589\n\nTime: 0.013\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that all printed instance IDs are the same (1068273589), indicating that only one instance of the SingletonExample class was created. This suggests that the bug, which would allow multiple instances to be created due to lack of synchronization in the getInstance method, was not triggered in this particular test execution."
+}

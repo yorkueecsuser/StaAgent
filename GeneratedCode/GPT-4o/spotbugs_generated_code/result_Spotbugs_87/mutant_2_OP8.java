@@ -1,0 +1,18 @@
+class BitMaskExample {
+
+    public boolean showBug(int x, int C, int D) {
+        return (x | C) == D; // BUG: BIT: Incompatible bit masks (BIT_IOR)
+    }
+
+    public boolean showBug2(int y, int A, int B, int C) {
+        return (y & A | B) == C; // BUG: BIT: Incompatible bit masks (BIT_IOR)
+    }
+
+    public static void main(String[] args) {
+        BitMaskExample example = new BitMaskExample();
+        
+        // Example demonstration
+        System.out.println(example.showBug(1, 2, 3)); // Expected to demonstrate the bug
+        System.out.println(example.showBug2(1, 2, 4, 3)); // Expected to demonstrate the bug
+    }
+}

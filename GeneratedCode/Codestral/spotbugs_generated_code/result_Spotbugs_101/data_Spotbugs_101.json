@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "SQL: Method attempts to access a result set field with index 0 (SQL_BAD_RESULTSET_ACCESS)\uf0c1",
+  "Bug_Details": " A call to getXXX or updateXXX methods of a result set was made where the\nfield index is 0. As ResultSet fields start at index 1, this is always a mistake.",
+  "Bug_Explanation": "The bug occurs when attempting to access a ResultSet field using index 0. In SQL, ResultSet fields start from index 1.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when the showBug method is called with a mockResultSet. The mockResultSet throws a SQLException when the getString method is called with an index of 0, which is the buggy behavior in the original code.",
+  "Trigger_Line": [
+    24
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

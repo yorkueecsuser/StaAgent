@@ -1,0 +1,13 @@
+{
+  "Bug_Title": "IL: An apparent infinite loop (IL_INFINITE_LOOP)\uf0c1",
+  "Bug_Details": "This loop doesn't seem to have a way to terminate (other than by perhaps\nthrowing an exception).",
+  "Bug_Explanation": "The while loop has no termination condition, making it an infinite loop.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case is designed to trigger the bug by causing an infinite loop in the `main` method.",
+  "Trigger_Line": [
+    12
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "OptionalOfRedundantMethod",
+  "Bug_Details": "Optional.of() always returns a non-empty optional. Using ifPresent/isPresent/orElse/orElseGet/orElseThrow/isPresent/or/orNull method on it is unnecessary and most probably a bug.",
+  "Bug_Explanation": "The code demonstrates the use of Optional.of() which always returns a non-empty optional, making the subsequent isPresent() check unnecessary and redundant. This is a common misunderstanding where developers may not realize that Optional.of() will never return an empty Optional, hence checking isPresent() is pointless and a bug.",
+  "Buggy_Line": [
+    6,
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test cases call the showBug method which contains the redundant ifPresent() check on the Optional created with Optional.of(), which is guaranteed to contain a value. The bug is triggered because the test expects the output of showBug to match the input string, demonstrating the unnecessary nature of the isPresent() check.",
+  "Trigger_Line": [
+    10,
+    17
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.005\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that both tests passed successfully, indicating that the code executed as expected without any errors or issues. This suggests that the described bug was not triggered, as the outputs matched the expected results."
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "\"Math.abs\" and negation should not be used on numbers that could be \"MIN_VALUE\"",
+  "Bug_Details": "This rule involves the use of Math.abs and negation on numbers that could be MIN_VALUE . It is a problem because it can\nlead to incorrect results and unexpected behavior in the program.\nWhen Math.abs and negation are used on numbers that could be MIN_VALUE , the result can be incorrect due to integer\noverflow. Common methods that can return a MIN_VALUE and raise an issue when used together with Math.abs are:\nRandom.nextInt() and Random.nextLong() hashCode() compareTo()\nRandom.nextInt() and Random.nextLong()\nhashCode()\ncompareTo()\nAlternatively, the absExact() method throws an ArithmeticException for MIN_VALUE .\nNoncompliant code example\npublic void doSomething(String str) {\n  if (Math.abs(str.hashCode()) > 0) { // Noncompliant\n    // ...\n  }\n}\nCompliant solution\npublic void doSomething(String str) {\n  if (str.hashCode() != 0) {\n    // ...\n  }\n}",
+  "Bug_Explanation": "The code demonstrates the use of Math.abs on a random integer, which can be Integer.MIN_VALUE, leading to incorrect results due to integer overflow.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case uses seed 0 which can produce Integer.MIN_VALUE when calling Random.nextInt(). This triggers the bug due to the inappropriate use of Math.abs on Integer.MIN_VALUE leading to integer overflow.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.006\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully, implying that the bug was not triggered. The test case was expected to fail if the bug was present by producing Integer.MIN_VALUE, but the test passed, confirming no incorrect result due to the bug."
+}

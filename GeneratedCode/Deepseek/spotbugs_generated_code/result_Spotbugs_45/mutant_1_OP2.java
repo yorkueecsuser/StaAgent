@@ -1,0 +1,19 @@
+class UWFNullFieldBug {
+    // This field is only ever set to null
+    private String uselessField = null; // BUG: UwF: Field only ever set to null (UWF_NULL_FIELD)
+
+    public void setUselessField(String value) {
+        uselessField = value; // The bug is here
+        uselessField = value; // Mutant: Duplicate the assignment statement
+        System.out.println("Duplicated assignment: " + uselessField); // For demonstration purposes
+    }
+
+    public String getUselessField() {
+        return uselessField;
+    }
+
+    public void showBug() {
+        setUselessField("non-null value");
+        System.out.println(getUselessField()); // This will always print null, demonstrating the bug
+    }
+}

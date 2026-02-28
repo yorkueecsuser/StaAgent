@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "Eq: equals() method defined that doesn\u2019t override equals(Object) (EQ_OTHER_NO_OBJECT)\uf0c1",
+  "Bug_Details": " This class defines an equals()\nmethod, that doesn't override the normal equals(Object) method\ndefined in the base java.lang.Object class.\u00a0 Instead, it\ninherits an equals(Object) method from a superclass.\nThe class should probably define a boolean equals(Object) method.\n equals() equals(Object) java.lang.Object equals(Object) boolean equals(Object)",
+  "Bug_Explanation": "The bug is embedded in the SuperClass where the equals method is defined with a parameter of type SuperClass instead of Object. This does not override the equals(Object) method from the base java.lang.Object class.",
+  "Buggy_Line": [
+    13
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by calling the showBug() method of the SubClass instance sb1. Inside showBug(), two instances of SuperClass (sc1 and sc2) are created with the same value. The equals method of SuperClass is incorrectly defined to take a SuperClass parameter instead of an Object parameter, leading to the incorrect usage of the equals method.",
+  "Trigger_Line": [
+    13
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

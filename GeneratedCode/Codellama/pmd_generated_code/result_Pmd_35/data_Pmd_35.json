@@ -1,0 +1,13 @@
+{
+  "Buggy_Line": [
+    13,
+    7
+  ],
+  "Trigger_Explanation": "The JUnit test case trigger the bug by calling the `getSDCardPath()` method and `main()` method which both contain hardcoded `/sdcard` strings.",
+  "Trigger_Line": [
+    8,
+    16
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

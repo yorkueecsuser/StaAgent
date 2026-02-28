@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Getters and setters should be synchronized in pairs",
+  "Bug_Details": "A synchronized method is a method marked with the synchronized keyword, meaning it can only be accessed by one thread at a time. If\nmultiple threads try to access the synchronized method simultaneously, they will be blocked until the method is available.\nSynchronized methods prevent race conditions and data inconsistencies in multi-threaded environments. Ensuring that only one thread can access a\nmethod at a time, prevents multiple threads from modifying the same data simultaneously, and causing conflicts.\nWhen one part of a getter/setter pair is synchronized the other should be too. Failure to synchronize both sides may result in\ninconsistent behavior at runtime as callers access an inconsistent method state.\nThis rule raises an issue when either the method or the contents of one method in a getter/setter pair are synchronized, but the other is not.",
+  "Bug_Explanation": "The 'getValue' method is synchronized but the'setValue' method is not. This can lead to inconsistencies when these methods are accessed concurrently by multiple threads.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when the getValue and setValue methods are called concurrently by multiple threads. Since setValue is not synchronized, the values could be inconsistent. The assertion in the test fails when this inconsistency occurs, indicating that the bug has been triggered.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.006\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run did not demonstrate that the bug was triggered because the assertion in the test code did not fail. This means that the value of the object did not remain the same after both threads were allowed to complete, which would indicate that the setValue method was not correctly synchronizing with the getValue method."
+}

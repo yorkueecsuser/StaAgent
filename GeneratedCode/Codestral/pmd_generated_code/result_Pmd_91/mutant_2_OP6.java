@@ -1,0 +1,45 @@
+class VolatileBug {
+    private String sharedVar; // BUG: AvoidUsingVolatile
+
+    public void setSharedVar(String value) {
+        this.sharedVar = value;
+    }
+
+    public String getSharedVar() {
+        return this.sharedVar;
+    }
+
+    public void showBug() {
+        Thread writer = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                setSharedVar("Changed Value");
+            }
+        });
+
+        Thread reader = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(getSharedVar().equals("Initial Value")) {
+                    // Do nothing
+                }
+                System.out.println("Value changed to: " + getSharedVar());
+            }
+        });
+
+        setSharedVar("Initial Value");
+        writer.start();
+
+        // Inserted unreachable for loop
+        boolean conditionFor = getCondition();
+        for (int i = 0; conditionFor; i++) {
+            // This loop will never be executed
+        }
+
+        reader.start();
+    }
+
+    private boolean getCondition() {
+        return false;
+    }
+}

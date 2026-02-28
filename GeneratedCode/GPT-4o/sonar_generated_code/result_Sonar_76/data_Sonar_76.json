@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Value-based classes should not be used for locking",
+  "Bug_Details": "According to the documentation,\nA program may produce unpredictable results if it attempts to distinguish two references to equal values of a value-based class, whether directly\n  via reference equality or indirectly via an appeal to synchronization\u2026\u200b\nThis is because value-based classes are intended to be wrappers for value types, which will be primitive-like collections of data (similar to struct s in other languages) that will come in future versions of Java.\nInstances of a value-based class \u2026\u200b\ndo not have accessible constructors, but are instead instantiated through factory methods which make no commitment as to the identity of\n    returned instances;\ndo not have accessible constructors, but are instead instantiated through factory methods which make no commitment as to the identity of\n    returned instances;\nThis means that you can\u2019t be sure you\u2019re the only one trying to lock on any given instance of a value-based class, opening your code up to\ncontention and deadlock issues.\nUnder Java 8 breaking this rule may not actually break your code, but there are no guarantees of the behavior beyond that.\nThis rule raises an issue when a known value-based class is used for synchronization. That includes all the classes in the java.time package except Clock ; the date classes for alternate calendars, HijrahDate , JapaneseDate , MinguoDate , ThaiBuddhistDate ; and the optional classes: Optional , OptionalDouble , OptionalLong , OptionalInt .\nNote that this rule is automatically disabled when the project\u2019s sonar.java.source is lower than 8 .\nNoncompliant code example\nOptional<Foo> fOpt = doSomething();\nsynchronized (fOpt) {  // Noncompliant\n  // ...\n}",
+  "Bug_Explanation": "The code demonstrates a synchronization block using an instance of java.util.Optional, which is a value-based class. Using such classes for locking purposes may lead to unpredictable results because value-based classes are intended to be wrappers for value types and do not commit to the identity of returned instances. This can cause contention and deadlock issues.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls the showBug method of ValueBasedLockingExample, which contains a synchronized block using a value-based class instance (Optional). This triggers the bug because value-based classes should not be used for locking, as they do not guarantee unique instance identities, leading to potential deadlocks or unpredictable behavior.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Synchronized block with Optional\n\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the code executed without errors and output 'Synchronized block with Optional', suggesting that the synchronization on the Optional object did not result in any contention or deadlock issues during this test run. Therefore, the test results do not confirm the bug was triggered."
+}

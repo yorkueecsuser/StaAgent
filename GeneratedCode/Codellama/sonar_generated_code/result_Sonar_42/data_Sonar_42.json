@@ -1,0 +1,10 @@
+{
+  "Bug_Title": "Assertions should not compare an object to itself",
+  "Bug_Details": "Assertions comparing an object to itself are more likely to be bugs due to developer\u2019s carelessness.\nThis rule raises an issue when the actual expression matches the expected expression.\nNoncompliant code example\nassertThat(actual).isEqualTo(actual); // Noncompliant\nCompliant solution\nassertThat(actual).isEqualTo(expected);\nExceptions\nIn a unit test validating the equals(...) and hashCode() methods, it\u2019s legitimate to compare an object to itself. This\nrule does not raise an issue for isEqualTo , assertEquals or hasSameHashCodeAs when the unit test name contains\n(case insensitive): equal , hash_?code , object_?method . For example, in tests with the following names: test_equals , testEqual , test_hashCode , test_hash_code , test_object_methods .\nclass MyClassTest {\n  @Test\n  void test_equals_and_hash_code() {\n    MyClass obj = new MyClass();\n    assertThat(obj).isEqualTo(obj); // Compliant\n    assertThat(obj).hasSameHashCodeAs(obj); // Compliant\n  }\n}",
+  "Bug_Explanation": "The bug is embedded in the assertion, where the actual expression is compared to itself.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_42/seed_Sonar_42_junit_test.java:7: error: cannot find symbol\n    MyClass obj = new MyClass();\n    ^\n  symbol:   class MyClass\n  location: class MyClassTest\n../sonar_clean_java_code/result_Sonar_42/seed_Sonar_42_junit_test.java:7: error: cannot find symbol\n    MyClass obj = new MyClass();\n                      ^\n  symbol:   class MyClass\n  location: class MyClassTest\n2 errors\n"
+}

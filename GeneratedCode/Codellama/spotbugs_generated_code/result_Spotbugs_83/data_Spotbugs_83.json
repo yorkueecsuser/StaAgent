@@ -1,0 +1,9 @@
+{
+  "Buggy_Line": [
+    11
+  ],
+  "Trigger_Explanation": "The test case triggers the bug by calling the method `showBug` in `BadBitwiseOR`. This method loads a byte array and attempts to pack it into an int using a bitwise OR operation. However, the byte values are sign extended to 32 bits before the operation is performed, causing the method to return the wrong result.",
+  "Trigger_Line": [
+    11
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "Buggy_Line": [
+    8
+  ],
+  "Trigger_Explanation": "The test triggers the 'ComparisonWithNaN' bug by calling the'showBug' method and asserting that the result is equal to 'Double.NaN'.",
+  "Trigger_Line": [
+    11,
+    15
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

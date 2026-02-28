@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "Beans in \"@Configuration\" class should have different names",
+  "Bug_Details": "Naming conventions play a crucial role in maintaining code clarity and readability. The uniqueness of bean names in Spring configurations is vital\nto the clarity and readability of the code. When two beans share the same name within a configuration, it is not obvious to the reader which bean is\nbeing referred to. This leads to potential misunderstandings and errors.",
+  "Bug_Explanation": "The bug is created by defining two Spring beans with the same name 'myBean' in the '@Configuration' class. This leads to ambiguity when trying to retrieve the bean by name, as it is unclear which bean will be returned.",
+  "Buggy_Line": [
+    14
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case triggers the bug by attempting to retrieve a bean named 'myBean' from the Spring context, which has two beans configured with the same name in the @Configuration class. This leads to ambiguity and an exception is thrown, which is then caught and verified in the test case.",
+  "Trigger_Line": [
+    11
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,24 @@
+class AssignmentInOperandExample {
+
+    public boolean showBug() {
+        int x = 2;
+        if ((x = getX()) == 3) { // BUG: AssignmentInOperand
+            System.out.println("3!");
+            return true;
+        }
+        // Duplicate the assignment statement below
+        x = 2; // Duplicate of the initialization of x
+        return false;
+    }
+
+    private int getX() {
+        // Simulating a method that returns an integer value
+        return 3;
+    }
+
+    public static void main(String[] args) {
+        AssignmentInOperandExample example = new AssignmentInOperandExample();
+        boolean result = example.showBug();
+        System.out.println("Result: " + result);
+    }
+}

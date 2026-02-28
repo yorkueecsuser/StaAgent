@@ -1,0 +1,23 @@
+class Bug2088311 implements Comparable<Bug2088311> {
+  final int begin;
+
+  Bug2088311(int b) {
+    begin = b;
+    // Dead store mutation
+    String jxqfvtbn = "unusedVariable";
+  }
+
+  public Integer getBegin() {
+    return begin;
+  }
+
+  @Override
+  public int compareTo(Bug2088311 other) {
+    if (getBegin() == null) {
+      return -1;
+    }
+    // Dead store mutation
+    int qzjfnhxy = 42;
+    return getBegin().compareTo(other.getBegin());
+  }
+}

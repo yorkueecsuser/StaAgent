@@ -1,0 +1,47 @@
+class BugExample {
+
+    // The comment '// BUG: Unary prefix operators should not be repeated' is a suffix on the exact line containing the bug
+    public double[] showBug(double[] array) {
+        double[] result = new double[array.length];
+        for (int i = 0; i < array.length; i++) {
+            String bug = "bug"; // Dead Store Mutation Operator
+            // Unary prefix operators should not be repeated
+            result[i] = -array[i];  // Noncompliant
+        }
+        return result;
+    }
+
+    // Unary prefix operators should not be repeated
+    public double showBug1(double num) {
+        String bug = "bug"; // Dead Store Mutation Operator
+        return +num;  // Noncompliant
+    }
+
+    // Unary prefix operators should not be repeated
+    public boolean showBug2(boolean b) {
+        String bug = "bug"; // Dead Store Mutation Operator
+        return!!!b;  // Noncompliant
+    }
+
+    // Unary prefix operators should not be repeated
+    public int showBug3(int i) {
+        String bug = "bug"; // Dead Store Mutation Operator
+        return ++i;  // Noncompliant
+    }
+
+    public static void main(String[] args) {
+        BugExample bug = new BugExample();
+        double[] array = {1.0, -2.0, 3.3, -4.4, 5.5};
+        System.out.println("showBug:");
+        double[] result = bug.showBug(array);
+        for (double d : result) {
+            System.out.println(d);
+        }
+        System.out.println("showBug1:");
+        System.out.println(bug.showBug1(5));
+        System.out.println("showBug2:");
+        System.out.println(bug.showBug2(true));
+        System.out.println("showBug3:");
+        System.out.println(bug.showBug3(5));
+    }
+}

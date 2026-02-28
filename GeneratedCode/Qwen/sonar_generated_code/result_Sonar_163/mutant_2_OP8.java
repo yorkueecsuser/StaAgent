@@ -1,0 +1,25 @@
+class StringBuilderBugExample {
+
+    public String showBug() {
+        // BUG: "StringBuilder" and "StringBuffer" should not be instantiated with a character
+        StringBuilder sb = new StringBuilder('A');
+        StringBuffer sf = new StringBuffer('A');
+        
+        // Mutant: Renaming variable'sb' to 'x'
+        StringBuilder x = new StringBuilder('A');
+        
+        // Demonstrating the bug by appending to the StringBuilder and StringBuffer
+        sb.append(" Test");
+        sf.append(" Test");
+        
+        // Mutant: Demonstrating the bug by appending to the renamed StringBuilder
+        x.append(" Test");
+        
+        return "StringBuilder capacity: " + sb.capacity() + ", StringBuffer capacity: " + sf.capacity() + ", Mutant StringBuilder capacity: " + x.capacity();
+    }
+
+    public static void main(String[] args) {
+        StringBuilderBugExample example = new StringBuilderBugExample();
+        System.out.println(example.showBug());
+    }
+}

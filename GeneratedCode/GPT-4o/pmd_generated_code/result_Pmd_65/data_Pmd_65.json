@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "ProperCloneImplementation",
+  "Bug_Details": "Object clone() should be implemented with super.clone().\nExamples:\nclass Foo{\n    public Object clone(){\n        return new Foo(); // This is bad\n    }\n}",
+  "Bug_Explanation": "The clone method in the Foo class creates a new instance of Foo instead of calling super.clone(). This does not properly clone the object as it does not copy all potential fields from a superclass and does not handle CloneNotSupportedException.",
+  "Buggy_Line": [
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method triggers the bug by calling the clone method on an instance of Foo. Since the clone method does not use super.clone(), the object is not correctly cloned, leading to incorrect behavior that the test is designed to reveal.",
+  "Trigger_Line": [
+    11
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any errors or failures, suggesting that the bug was not triggered during the test execution."
+}

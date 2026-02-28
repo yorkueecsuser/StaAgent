@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "MissingSuperCall",
+  "Bug_Details": "Overriding method is missing a call to overridden super method API providers may annotate a method with an annotation like\nandroidx.annotation.CallSuper or\njavax.annotation.OverridingMethodsMustInvokeSuper to require that overriding\nmethods invoke the super method. This check enforces those annotations.",
+  "Bug_Explanation": "The bug is embedded in the Derived class's doSomething method, where the super.doSomething() call is intentionally omitted.",
+  "Buggy_Line": [
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method of the Derived class, which in turn calls the overridden doSomething method without invoking the super class's doSomething method.",
+  "Trigger_Line": [
+    9
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

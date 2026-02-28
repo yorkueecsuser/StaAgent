@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "SQL: Method attempts to access a result set field with index 0 (SQL_BAD_RESULTSET_ACCESS)\uf0c1",
+  "Bug_Details": " A call to getXXX or updateXXX methods of a result set was made where the\nfield index is 0. As ResultSet fields start at index 1, this is always a mistake.",
+  "Bug_Explanation": "The code attempts to access a result set field using index 0, which is incorrect because ResultSet fields are 1-based. This will cause an SQLException during runtime.",
+  "Buggy_Line": [
+    21
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test calls the showBug method, which attempts to access a ResultSet field with index 0. This triggers an SQLException because ResultSet fields are 1-based.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.01\nThere was 1 failure:\n1) testShowBug(SQLBadResultSetAccessExampleTest)\njava.lang.AssertionError: Expected SQLException due to accessing ResultSet with index 0\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat SQLBadResultSetAccessExampleTest.testShowBug(SQLBadResultSetAccessExampleTest.java:11)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate a failure due to an assertion error, not a SQLException. The expected SQLException due to accessing ResultSet with index 0 did not occur, suggesting the bug was not triggered."
+}

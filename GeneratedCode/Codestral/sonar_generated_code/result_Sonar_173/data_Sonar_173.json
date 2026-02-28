@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "The \"Object.finalize()\" method should not be called",
+  "Bug_Details": "Before it reclaims storage from an object that is no longer referenced, the garbage collector calls finalize() on the object.\nThis is a good time to release resources held by the object.\nBecause the general contract is that the finalize method should only be called once per object, calling this method explicitly is\nmisleading and does not respect this contract.\nWhat is the potential impact?\nAn explicit call to an object\u2019s finalize method will perform operations that most likely were supposed to be performed only when the object was not\nreferenced anymore by any thread.\nSince it is an acceptable practice to override the finalize method in any subclass of Object , by invoking it explicitly, we will run\ncode that was designed to only be ran at a different time.\nNoncompliant code example\npublic void dispose() throws Throwable {\n  this.finalize();                       // Noncompliant\n}",
+  "Bug_Explanation": "The 'Object.finalize()' method should not be called explicitly in the 'dispose()' method because it is intended to be called by the garbage collector when the object is no longer referenced. Calling it explicitly can run code that was designed to only be ran at a different time.",
+  "Buggy_Line": [
+    17
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggered the bug by explicitly calling the 'finalize()' method of 'FinalizeBug' object in 'bug.showBug();' line, which violates the bug rule.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

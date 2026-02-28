@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Classes that don't define \"hashCode()\" should not be used in hashes",
+  "Bug_Details": "Because Object implements hashCode , any Java class can be put into a hash structure. However, classes that define equals(Object) but not hashCode() aren\u2019t truly hash-able because instances that are equivalent according to the equals method can return different hashes.\nNoncompliant code example\npublic class Student {  // no hashCode() method; not hash-able\n  // ...\n\n  public boolean equals(Object o) {\n    // ...\n  }\n}\n\npublic class School {\n  private Map<Student, Integer> studentBody = // okay so far\n          new HashTable<Student, Integer>(); // Noncompliant\n\n  // ...\nCompliant solution\npublic class Student {  // has hashCode() method; hash-able\n  // ...\n\n  public boolean equals(Object o) {\n    // ...\n  }\n  public int hashCode() {\n    // ...\n  }\n}\n\npublic class School {\n  private Map<Student, Integer> studentBody = new HashTable<Student, Integer>();\n\n  // ...",
+  "Bug_Explanation": "The 'Student' class defines the 'equals' method but not 'hashCode', making it unsuitable for use in hash-based collections like 'Hashtable'. This can lead to unexpected behavior, such as failing to retrieve objects that are logically equal.",
+  "Buggy_Line": [
+    23
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when we attempt to retrieve a Student object from the Hashtable using the showBug method. Since the Student class does not override the hashCode method, two logically equal Student objects may not be considered equal by the Hashtable, leading to a failed retrieval.",
+  "Trigger_Line": [
+    10,
+    18,
+    26
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,28 @@
+{
+  "Bug_Title": "PreconditionsInvalidPlaceholder",
+  "Bug_Details": "Preconditions only accepts the %s placeholder in error message strings The Guava Preconditions checks take error message template strings that look\nsimilar to format strings, but only accept the %s format (not %d, %f, etc.).\nThis check points out places where a Preconditions error message template string\nhas a non-%s format, or where the number of arguments does not match the number\nof %s formats in the string.",
+  "Name": "PreconditionsInvalidPlaceholder",
+  "Description": "Preconditions only accepts the %s placeholder in error message strings The Guava Preconditions checks take error message template strings that look similar to format strings, but only accept the %s format (not %d, %f, etc.). This check points out places where a Preconditions error message template string has a non-%s format, or where the number of arguments does not match the number of %s formats in the string.",
+  "Tags": [
+    "Preconditions",
+    "Compilation Errors",
+    "Guava"
+  ],
+  "Category": "Bug",
+  "Subcategory": "InvalidPlaceholder",
+  "FileLocation": "/path/to/file",
+  "BuggyLines": [
+    1,
+    7
+  ],
+  "FixedLines": [
+    1,
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Buggy_Line": [],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "No",
+  "Model_Explanation": "The provided Java code does not contain the described bug. The Guava Preconditions checks only accept the %s placeholder in error message strings. The provided code does not contain any non-%s format or mismatch in the number of arguments and %s formats in the string."
+}

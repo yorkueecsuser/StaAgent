@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "\"Object.wait()\", \"Object.notify()\" and \"Object.notifyAll()\" should only be called from synchronized code",
+  "Bug_Details": "The Object.wait(\u2026\u200b) , Object.notify() and Object.notifyAll() methods are used in multithreaded environments\nto coordinate interdependent tasks that are performed by different threads. These methods are not thread-safe and by contract, they require the\ninvoking Thread to own the object\u2019s monitor. If a thread invokes one of these methods without owning the object\u2019s monitor an IllegalMonitorStateException is thrown.",
+  "Bug_Explanation": "The methods Object.wait() and Object.notify() are called outside of a synchronized block. The thread invoking these methods must own the object's monitor, otherwise an IllegalMonitorStateException is thrown.",
+  "Buggy_Line": [
+    10,
+    20
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggered the bug by calling the 'showBug' method, which contains calls to 'lock.wait()' and 'lock.notify()' outside of a synchronized block. This results in an IllegalMonitorStateException being thrown.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed successfully without any exceptions or errors, indicating that the bug was not triggered during this test run."
+}

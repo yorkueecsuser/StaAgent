@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Jump statements should not occur in \"finally\" blocks",
+  "Bug_Details": "Using return , break , throw , and so on from a finally block suppresses the propagation of any\nunhandled Throwable which was thrown in the try or catch block.\nThis rule raises an issue when a jump statement ( break , continue , return , throw , and goto ) would force control flow to leave a finally block.\nNoncompliant code example\npublic static void main(String[] args) {\n  try {\n    doSomethingWhichThrowsException();\n    System.out.println(\"OK\");   // incorrect \"OK\" message is printed\n  } catch (RuntimeException e) {\n    System.out.println(\"ERROR\");  // this message is not shown\n  }\n}\n\npublic static void doSomethingWhichThrowsException() {\n  try {\n    throw new RuntimeException();\n  } finally {\n    for (int i = 0; i < 10; i ++) {\n      //...\n      if (q == i) {\n        break; // ignored\n      }\n    }\n\n    /* ... */\n    return;      // Noncompliant - prevents the RuntimeException from being propagated\n  }\n}\nCompliant solution\npublic static void main(String[] args) {\n  try {\n    doSomethingWhichThrowsException();\n    System.out.println(\"OK\");\n  } catch (RuntimeException e) {\n    System.out.println(\"ERROR\");  // \"ERROR\" is printed as expected\n  }\n}\n\npublic static void doSomethingWhichThrowsException() {\n  try {\n    throw new RuntimeException();\n  } finally {\n    for (int i = 0; i < 10; i ++) {\n      //...\n      if (q == i) {\n        break; // ignored\n      }\n    }\n\n    /* ... */\n  }\n}",
+  "Bug_Explanation": "Using return, break, throw, and so on from a finally block suppresses the propagation of any unhandled Throwable which was thrown in the try or catch block.",
+  "Buggy_Line": [
+    16
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The return statement in the finally block suppresses the propagation of any unhandled Throwable which was thrown in the try or catch block. This results in the RuntimeException from the try block not being propagated up to the main method, and hence the exception is not caught and handled by the catch block.",
+  "Trigger_Line": [
+    15
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.008\nThere was 1 failure:\n1) testDoSomethingWhichThrowsException(MainTest)\njava.lang.AssertionError: Expected RuntimeException to be thrown\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat MainTest.testDoSomethingWhichThrowsException(MainTest.java:10)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The described bug is present in the provided Java code. The return statement in the finally block of the doSomethingWhichThrowsException() method suppresses the propagation of the RuntimeException thrown in the try block. This means that the catch block in the main method will not be able to catch the exception, and the message 'ERROR' will not be printed. The correct behavior would be for the message 'ERROR' to be printed, as the exception is being thrown and caught in the try-catch block."
+}

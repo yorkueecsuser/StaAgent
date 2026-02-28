@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "Map values should not be replaced unconditionally",
+  "Bug_Details": "Storing a value inside a collection at a given key or index and then unconditionally overwriting it without reading the initial value is a case of\na \"dead store\".\nletters.put(\"a\", \"Apple\");\nletters.put(\"a\", \"Boy\");  // Noncompliant\n\ntowns[i] = \"London\";\ntowns[i] = \"Chicago\";  // Noncompliant\nThis practice is redundant and will cause confusion for the reader. More importantly, it is often an error and not what the developer intended to\ndo.",
+  "Bug_Explanation": "This code demonstrates the unconditional replacement of Map values. The first 'put' operation to add a value to the map is ignored because of the second 'put' operation which replaces the value of the key 'a'.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case is designed to trigger the bug by storing a value inside a Map and then unconditionally overwriting it without reading the initial value. This is a case of a \"dead store\" in Java.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.{a=Boy}\n\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "Based on the provided test results, the bug was not triggered. The map values were correctly replaced without causing any problems.",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The bug is present in the provided Java code. The second put operation on the 'letters' map is overwriting the value for the key 'a' without reading the initial value. This is a case of a 'dead store' and is redundant and will cause confusion for the reader. More importantly, it is often an error and not what the developer intended to do."
+}

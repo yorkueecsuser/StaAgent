@@ -1,0 +1,1 @@
+Create a json file (`hf_access_token.json`) with key `hf_token` to store your HuggingFace token for models that require authorization.

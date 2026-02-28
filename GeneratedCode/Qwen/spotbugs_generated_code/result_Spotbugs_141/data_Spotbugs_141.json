@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "TQ: Value without a type qualifier used where a value is required to have that qualifier (TQ_UNKNOWN_VALUE_USED_WHERE_ALWAYS_STRICTLY_REQUIRED)\uf0c1",
+  "Bug_Details": "\n    A value is being used in a way that requires the value to be annotated with a type qualifier.\nThe type qualifier is strict, so the tool rejects any values that do not have\nthe appropriate annotation.\n     \n    To coerce a value to have a strict annotation, define an identity function where the return value is annotated\nwith the strict annotation.\nThis is the only way to turn a non-annotated value into a value with a strict type qualifier annotation.\n    ",
+  "Bug_Explanation": "The bug is embedded in the showBug method where the return type is not annotated with @Nonnull, even though the method signature suggests it should be. This violates the requirement that a value is used in a way that requires the value to be annotated with a type qualifier.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test cases call the showBug method with a null value and an empty string. Since the showBug method does not annotate its return value with @Nonnull, using these inputs triggers the bug by violating the requirement that a value is used in a way that requires the value to be annotated with a type qualifier.",
+  "Trigger_Line": [
+    8,
+    12
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E.E\nTime: 0.008\nThere were 2 failures:\n1) testShowBugWithNull(TypeQualifierBugTest)\njava.lang.AssertionError\n\tat org.junit.Assert.fail(Assert.java:87)\n\tat org.junit.Assert.assertTrue(Assert.java:42)\n\tat org.junit.Assert.assertNotNull(Assert.java:713)\n\tat org.junit.Assert.assertNotNull(Assert.java:723)\n\tat TypeQualifierBugTest.testShowBugWithNull(TypeQualifierBugTest.java:9)\n2) testShowBugWithEmptyString(TypeQualifierBugTest)\njava.lang.AssertionError\n\tat org.junit.Assert.fail(Assert.java:87)\n\tat org.junit.Assert.assertTrue(Assert.java:42)\n\tat org.junit.Assert.assertTrue(Assert.java:53)\n\tat TypeQualifierBugTest.testShowBugWithEmptyString(TypeQualifierBugTest.java:15)\n\nFAILURES!!!\nTests run: 2,  Failures: 2\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate failures due to assertion errors, but these failures do not confirm the presence of the described bug related to type qualifiers. The bug rule specifies that a value without a type qualifier is used where it is strictly required, but the test failures are due to incorrect assertions about the method's behavior with null and empty string inputs, not due to a lack of type qualifiers."
+}

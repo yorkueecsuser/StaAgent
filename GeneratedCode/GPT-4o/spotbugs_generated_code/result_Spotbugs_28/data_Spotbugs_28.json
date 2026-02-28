@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Eq: equals() method defined that doesn\u2019t override Object.equals(Object) (EQ_OTHER_USE_OBJECT)\uf0c1",
+  "Bug_Details": " This class defines an equals()\nmethod, that doesn't override the normal equals(Object) method\ndefined in the base java.lang.Object class.\u00a0\nThe class should probably define a boolean equals(Object) method.\n equals() equals(Object) java.lang.Object boolean equals(Object)",
+  "Bug_Explanation": "The CustomPoint class defines an 'equals' method that takes a CustomPoint object as a parameter but does not override the Object.equals(Object) method. This means that standard equality checks using Object.equals won't behave as expected, as they won't use this method.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test cases trigger the bug by calling the showBug method of the CustomPoint class, which internally calls the equals method. The equals method does not override Object.equals(Object), so when the test cases use assertTrue or assertFalse, they fail because of the incorrect equals implementation.",
+  "Trigger_Line": [
+    11,
+    20
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.004\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that both tests passed successfully, which means the custom equals method behaved as expected in the test scenarios. Therefore, the test results do not confirm the presence of the bug."
+}

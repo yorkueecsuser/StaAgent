@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "LiteByteStringUtf8",
+  "Bug_Details": "This pattern will silently corrupt certain byte sequences from the serialized protocol message. Use ByteString or byte[] directly When serializing bytes from a MessageLite, one can use toByteString to get a\nByteString, effectively an immutable wrapper over a byte[]. This ByteString\ncan be passed around and deserialized into a message using\nMyMessage.Builder.mergeFrom(ByteString). ByteString#toStringUtf8 copies UTF-8 encoded byte data living inside the\nByteString to a java.lang.String, replacing any\ninvalid UTF-8 byte sequences with \ufffd (the Unicode\nreplacement character). In this circumstance, a protocol message is being serialized to a ByteString,\nthen immediately turned into a Java String using the toStringUtf8 method.\nHowever, serialized protocol buffers are arbitrary binary data and not\nUTF-8-encoded data. Thus, the resulting String may not match the actual\nserialized bytes from the protocol message. Instead of holding the serialized protocol message in a Java String, carry\naround the actual bytes in a ByteString, byte[], or some other equivalent\ncontainer for arbitrary binary data.",
+  "Bug_Explanation": "The bug is caused by converting arbitrary binary data to a UTF-8 string using new String(byteData), which can result in corrupted data if the byte array is not valid UTF-8.",
+  "Buggy_Line": [
+    17
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by passing an invalid UTF-8 byte sequence to the showBug method, which attempts to convert the byte array to a String using the default platform charset. This conversion replaces invalid UTF-8 sequences with the Unicode replacement character (\\uFFFD), causing the test to fail as expected.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

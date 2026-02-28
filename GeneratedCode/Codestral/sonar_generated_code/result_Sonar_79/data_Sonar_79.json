@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "\"volatile\" variables should not be used with compound operators",
+  "Bug_Details": "Using compound operators as well as increments and decrements (and toggling, in the case of boolean s) on primitive fields are not\natomic operations. That is, they don\u2019t happen in a single step. For instance, when a volatile primitive field is incremented or\ndecremented you run the risk of data loss if threads interleave in the steps of the update. Instead, use a guaranteed-atomic class such as AtomicInteger , or synchronize the access.\nNoncompliant code example\nprivate volatile int count = 0;\nprivate volatile boolean boo = false;\n\npublic void incrementCount() {\n  count++;  // Noncompliant\n}\n\npublic void toggleBoo(){\n  boo = !boo;  // Noncompliant\n}\nCompliant solution\nprivate AtomicInteger count = 0;\nprivate boolean boo = false;\n\npublic void incrementCount() {\n  count.incrementAndGet();\n}\n\npublic synchronized void toggleBoo() {\n  boo = !boo;\n}",
+  "Bug_Explanation": "The bug is embedded by using volatile variables with compound operators (++ and!) in methods incrementCount() and toggleBoo(). This can lead to data loss when threads interleave in the steps of the update.",
+  "Buggy_Line": [
+    8,
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when 'volatile' variables are used with compound operators in multi-threaded scenarios. In this test case, multiple threads are incrementing the 'count' variable, which is defined as 'volatile'. This can lead to data loss or inconsistencies due to the non-atomic nature of the increment operation.",
+  "Trigger_Line": [
+    7,
+    16
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

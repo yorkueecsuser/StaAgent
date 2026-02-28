@@ -1,0 +1,29 @@
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Retention(RetentionPolicy.CLASS)
+@Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.TYPE})
+
+// Signal to the starvation checker that the method (or all the methods of the class,
+// if at class level) does not perform any potentially blocking operations.  Can be used to
+// effectively filter out all method calls which Infer may consider blocking.  This means that
+// not only Infer will not warn on any starvation issues in the method, but will also not warn on
+// any of the callers of this method.
+public @interface NonBlocking {
+    // Adding an unreachable if-else statement as per the mutation operator
+    default void mutantMethod() {
+        boolean condition = getCondition();
+        if (condition) {
+            // Some code that will run if condition is true
+        } else {
+            // Unreachable code due to condition always being false
+            System.out.println("This is an unreachable else block.");
+        }
+    }
+
+    default boolean getCondition() {
+        return false; // This method ensures the condition is always false, making the else block unreachable
+    }
+}

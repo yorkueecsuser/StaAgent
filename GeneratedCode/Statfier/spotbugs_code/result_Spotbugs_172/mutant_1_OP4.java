@@ -1,0 +1,41 @@
+import edu.umd.cs.findbugs.annotations.NonNull;
+
+class Bug3502202 {
+  static class Foo {
+    @NonNull private String bar; // <=== Not initialized by constructor
+
+    public int getBarLength() {
+      boolean shouldRun = getCondition();
+      if (shouldRun) {
+        // Some unreachable code
+        System.out.println("This is unreachable code");
+      } else {
+        // Another unreachable code
+        System.out.println("This is also unreachable code");
+      }
+      return bar.length();
+    }
+
+    private boolean getCondition() {
+      return false; // This method ensures the condition is dynamically determined but always false
+    }
+
+    public void setBar(String bar) {
+      this.bar = bar;
+    }
+  }
+
+  // Furthermore, the following 'getBarLenght()' method will throw a
+  // NullPointerException because the 'bar' field is not initialised. This is
+  // not detected either.
+
+  static class Baz {
+    public int getBarLength() {
+      return new Foo().getBarLength();
+    }
+
+    public static void main(String[] arg) {
+      System.out.println("bar length =" + new Baz().getBarLength());
+    }
+  }
+}

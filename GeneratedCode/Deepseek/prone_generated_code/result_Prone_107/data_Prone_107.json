@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "MissingSuperCall",
+  "Bug_Details": "Overriding method is missing a call to overridden super method API providers may annotate a method with an annotation like\nandroidx.annotation.CallSuper or\njavax.annotation.OverridingMethodsMustInvokeSuper to require that overriding\nmethods invoke the super method. This check enforces those annotations.",
+  "Bug_Explanation": "In the `ChildClass`, the `showBug` method is supposed to call the `showBug` method in `BaseClass` using `super.showBug()` but it is missing.",
+  "Buggy_Line": [
+    11
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug because it does not invoke the super method in the overridden method showBug().",
+  "Trigger_Line": [
+    4
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "No",
+  "Model_Explanation": "The provided Java code does not contain the bug described. The bug rule 'MissingSuperCall' is about a missing call to the super method in an overridden method. However, in the provided code, the method'showBug()' in the 'ChildClass' is overridden but it does not call the super method. This is not considered a bug as it is not a requirement for the code to function correctly."
+}

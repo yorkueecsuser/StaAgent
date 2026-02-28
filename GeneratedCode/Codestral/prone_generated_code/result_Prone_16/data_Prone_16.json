@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "ChainingConstructorIgnoresParameter",
+  "Bug_Details": "The called constructor accepts a parameter with the same name and type as one of its caller's parameters, but its caller doesn't pass that parameter to it.  It's likely that it was intended to. When a class exposes multiple constructors, they\u2019re generally used as a means of\ninitializing default parameters. If a chaining constructor ignores a parameter,\nit\u2019s likely the parameter needed to be plumbed to the chained constructor. MissileLauncher(Location target) {\n  this(target, false);\n}\nMissileLauncher(boolean askForConfirmation) {\n  this(TEST_TARGET, false); // should be askForConfirmation\n}\nMissileLauncher(Location target, boolean askForConfirmation) {\n   ...\n} MissileLauncher(Location target) {\n  this(target, false);\n}\nMissileLauncher(boolean askForConfirmation) {\n  this(TEST_TARGET, false); // should be askForConfirmation\n}\nMissileLauncher(Location target, boolean askForConfirmation) {\n   ...\n}",
+  "Bug_Explanation": "The bug was in the constructor that took a boolean parameter. It was incorrectly passing 'false' instead of the boolean parameter.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered because the constructor with a boolean parameter is not correctly chaining to the constructor with both Location and boolean parameters. Instead, it hardcodes 'false' for the boolean parameter, rather than using the parameter that was passed in.",
+  "Trigger_Line": [
+    12
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

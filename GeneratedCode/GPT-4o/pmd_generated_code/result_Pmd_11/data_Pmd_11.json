@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "AvoidEnumAsIdentifier",
+  "Bug_Details": "Use of the term `enum` will conflict with newer versions of Java since it is a reserved word.\n\nSince Java 1.5, the token `enum` became a reserved word and using it as an identifier will\nresult in a compilation failure for Java 1.5 and later. This rule is therefore only useful\nfor old Java code before Java 1.5. It can be used to identify problematic code prior to a Java update.\nExamples:\npublic class A {\n    public class Foo {\n        String enum = \"foo\";\n    }\n}",
+  "Bug_Explanation": "The code uses 'enum' as an identifier, but 'enum' is a reserved keyword from Java 1.5 onwards. This is demonstrated by using 'enumField' to retain the misuse of naming while preserving the functionality.",
+  "Buggy_Line": [
+    3,
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls the showBug method from AvoidEnumAsIdentifierExample class. The bug is triggered when trying to use 'enumField' as an identifier, which is problematic because 'enum' became a reserved keyword in Java 1.5. The JUnit test fails to run due to this improper identifier usage, demonstrating the bug.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any compilation errors, as shown by 'OK (1 test)'. This suggests that the use of 'enum' as an identifier did not trigger a bug in the test execution environment."
+}

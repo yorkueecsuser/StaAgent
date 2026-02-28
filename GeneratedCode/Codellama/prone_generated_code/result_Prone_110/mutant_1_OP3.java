@@ -1,0 +1,20 @@
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+class MisusedWeekYear {
+    public static void main(String[] args) {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
+        System.out.println(sdf.format(date)); // BUG: MisusedWeekYear
+        
+        // Unreachable if statement
+        boolean unreachableCondition = getCondition();
+        if (unreachableCondition) {
+            System.out.println("This statement is unreachable");
+        }
+    }
+    
+    private static boolean getCondition() {
+        return false;
+    }
+}

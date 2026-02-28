@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Jump statements should not occur in \"finally\" blocks",
+  "Bug_Details": "Using return , break , throw , and so on from a finally block suppresses the propagation of any\nunhandled Throwable which was thrown in the try or catch block.\nThis rule raises an issue when a jump statement ( break , continue , return , throw , and goto ) would force control flow to leave a finally block.\nNoncompliant code example\npublic static void main(String[] args) {\n  try {\n    doSomethingWhichThrowsException();\n    System.out.println(\"OK\");   // incorrect \"OK\" message is printed\n  } catch (RuntimeException e) {\n    System.out.println(\"ERROR\");  // this message is not shown\n  }\n}\n\npublic static void doSomethingWhichThrowsException() {\n  try {\n    throw new RuntimeException();\n  } finally {\n    for (int i = 0; i < 10; i ++) {\n      //...\n      if (q == i) {\n        break; // ignored\n      }\n    }\n\n    /* ... */\n    return;      // Noncompliant - prevents the RuntimeException from being propagated\n  }\n}\nCompliant solution\npublic static void main(String[] args) {\n  try {\n    doSomethingWhichThrowsException();\n    System.out.println(\"OK\");\n  } catch (RuntimeException e) {\n    System.out.println(\"ERROR\");  // \"ERROR\" is printed as expected\n  }\n}\n\npublic static void doSomethingWhichThrowsException() {\n  try {\n    throw new RuntimeException();\n  } finally {\n    for (int i = 0; i < 10; i ++) {\n      //...\n      if (q == i) {\n        break; // ignored\n      }\n    }\n\n    /* ... */\n  }\n}",
+  "Bug_Explanation": "The bug is embedded in the finally block of the throwException() method where a return statement is used, which suppresses the propagation of the RuntimeException thrown in the try block.",
+  "Buggy_Line": [
+    16
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testThrowException() method calls the BugDemonstration.throwException() method which contains a return statement in its finally block, causing a RuntimeException to be suppressed.",
+  "Trigger_Line": [
+    4
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.005\nThere was 1 failure:\n1) testThrowException(BugDemonstrationTest)\njava.lang.AssertionError: Expected a RuntimeException to be thrown\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat BugDemonstrationTest.testThrowException(BugDemonstrationTest.java:9)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test case 'testThrowException' did not throw a RuntimeException as expected, indicating that the return statement in the finally block of the 'throwException' method may not be suppressing the exception."
+}

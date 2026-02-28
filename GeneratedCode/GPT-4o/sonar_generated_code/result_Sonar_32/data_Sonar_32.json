@@ -1,0 +1,22 @@
+{
+  "Bug_Title": "Back references in regular expressions should only refer to capturing groups that are matched before the reference",
+  "Bug_Details": "When a back reference in a regex refers to a capturing group that hasn\u2019t been defined yet (or at all), it can never be matched. Named back\nreferences throw a PatternSyntaxException in that case; numeric back references fail silently when they can\u2019t match, simply making the\nmatch fail.\nWhen the group is defined before the back reference but on a different control path (like in (.)|\\1 for example), this also leads to a\nsituation where the back reference can never match.\nNoncompliant code example\nPattern.compile(\"\\\\1(.)\"); // Noncompliant, group 1 is defined after the back reference\nPattern.compile(\"(.)\\\\2\"); // Noncompliant, group 2 isn't defined at all\nPattern.compile(\"(.)|\\\\1\"); // Noncompliant, group 1 and the back reference are in different branches\nPattern.compile(\"(?<x>.)|\\\\k<x>\"); // Noncompliant, group x and the back reference are in different branches\nCompliant solution\nPattern.compile(\"(.)\\\\1\");\nPattern.compile(\"(?<x>.)\\\\k<x>\");",
+  "Bug_Explanation": "The code demonstrates common issues with back references in regular expressions. Back references should only refer to capturing groups that have been defined before them. In showBug1, the back reference \\1 appears before its capturing group. In showBug2, \\2 refers to a second group that doesn't exist. In showBug3, the back reference is on a different branch than its capturing group, making it never match. Similarly, in showBug4, the named capturing group is in a different branch from its back reference.",
+  "Buggy_Line": [
+    33,
+    45,
+    37,
+    41
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test cases invoke methods in the RegexBackReferenceBug class that contain regular expressions with incorrect back references. These methods trigger PatternSyntaxException due to the back references referring to capturing groups not defined before the reference, causing the tests to fail.",
+  "Trigger_Line": [
+    8,
+    12,
+    16,
+    20
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n....\nTime: 0.006\n\nOK (4 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that all tests passed successfully with 'OK (4 tests)', which means no exceptions were thrown. Therefore, the bug was not triggered during the test execution."
+}

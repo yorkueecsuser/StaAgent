@@ -1,0 +1,19 @@
+import com.facebook.infer.annotation.*;
+
+interface I {
+    @Lockless
+    public void no_lock();
+}
+
+class C implements I {
+    private synchronized void do_lock() {}
+
+    public void no_lock() { // this method should not acquire any locks
+        int unusedVariable = (int) (Math.random() * 10); // Adding an unused variable declaration
+        do_lock(); // BUG: LOCKLESS_VIOLATION
+    }
+
+    public void showBug() {
+        no_lock();
+    }
+}

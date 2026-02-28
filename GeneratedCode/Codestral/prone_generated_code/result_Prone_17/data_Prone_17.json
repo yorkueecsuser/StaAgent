@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "CheckNotNullMultipleTimes",
+  "Bug_Details": "A variable was checkNotNulled multiple times. Did you mean to check something else?",
+  "Bug_Explanation": "The variable 'input' was checkNotNulled multiple times. This might be an unintended behavior as the second check for null doesn't add any value and could be a mistake.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggered the bug by calling the showBug method of CheckNotNullMultipleTimesBug class with a non-null string argument. The showBug method in CheckNotNullMultipleTimesBug class checks the input for null twice, which is not necessary and could be a mistake.",
+  "Trigger_Line": "[4]",
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.003\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test runs successfully without throwing any exceptions, indicating that the input string was not null and therefore the bug was not triggered."
+}

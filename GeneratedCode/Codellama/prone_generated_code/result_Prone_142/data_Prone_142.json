@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "RandomCast",
+  "Bug_Details": "Casting a random number in the range [0.0, 1.0) to an integer or long always results in 0. Math.random(), Random#nextFloat, and Random#nextDouble return results in\nthe range [0.0, 1.0). Therefore, casting the result to (int) or (long)\nalways results in the value of 0.",
+  "Bug_Explanation": "The bug is embedded in lines 7 and 8 where a random number is cast to an integer and a long, respectively. This will always result in 0 because the range of the random number is [0.0, 1.0).",
+  "Buggy_Line": [
+    6,
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the `showBug()` method, which returns a random double value between 0.0 and 1.0. When this value is cast to an integer or long, it always results in 0.",
+  "Trigger_Line": [
+    8
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

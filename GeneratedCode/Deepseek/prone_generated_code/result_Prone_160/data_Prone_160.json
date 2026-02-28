@@ -1,0 +1,10 @@
+{
+  "Bug_Title": "TestParametersNotInitialized",
+  "Bug_Details": "This test has @TestParameter fields but is using the default JUnit4 runner. The parameters will not be initialised beyond their default value.",
+  "Bug_Explanation": "The test has @TestParameter fields but is using the default JUnit4 runner. The parameters will not be initialized beyond their default value.",
+  "Buggy_Line": [
+    13
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_160/seed_Prone_160_junit_test.java:4: error: cannot find symbol\n    @TestParameter\n     ^\n  symbol:   class TestParameter\n  location: class BuggyTest\n1 error\n"
+}

@@ -1,0 +1,191 @@
+import edu.umd.cs.findbugs.annotations.ExpectWarning;
+
+class SwitchFallthrough {
+
+  static class DeadStoreToField {
+    int x;
+
+    @ExpectWarning("SF")
+    void deadStoreToField(int i) {
+      switch (i) {
+        case 0:
+        case 1:
+          x = 1;
+        case 2:
+        case 3:
+          x = 2;
+          break;
+        case 4:
+        case 5:
+          x = 3;
+          break;
+        default:
+          break;
+      }
+      // Mutant: Adding an unreachable if-else statement
+      boolean shouldRun = getCondition();
+      if (shouldRun) {
+        x = 4; // This line is unreachable
+      } else {
+        x = 5; // This line is also unreachable
+      }
+    }
+
+    private boolean getCondition() {
+      return false;
+    }
+  }
+
+  @ExpectWarning("SF")
+  int reallyBad(int i) {
+    int result = 0;
+    switch (i) {
+      case 0:
+      case 1:
+        result = 1;
+      case 2:
+      case 3:
+        result = 2;
+        break;
+      case 4:
+      case 5:
+        result = 3;
+        break;
+      default:
+        break;
+    }
+    // Mutant: Adding an unreachable if-else statement
+    boolean shouldRun = getCondition();
+    if (shouldRun) {
+      result = 4; // This line is unreachable
+    } else {
+      result = 5; // This line is also unreachable
+    }
+    return result;
+  }
+
+  @ExpectWarning("SF")
+  int notSoBad(int i) {
+    int result = 0;
+    int x = 0;
+    switch (i) {
+      case 0:
+      case 1:
+        result = 1;
+        break;
+      case 2:
+        x = 1;
+      case 3:
+        result = 2;
+        break;
+      case 4:
+      case 5:
+        result = 3;
+        break;
+      default:
+        break;
+    }
+    // Mutant: Adding an unreachable if-else statement
+    boolean shouldRun = getCondition();
+    if (shouldRun) {
+      result = 4; // This line is unreachable
+    } else {
+      result = 5; // This line is also unreachable
+    }
+    return result + x;
+  }
+
+  void test1(int i) {
+    switch (i) {
+      case -1:
+      case 0:
+        System.out.println("zero");
+      case 1:
+      case 2:
+        System.out.println("one");
+      case 10:
+        System.out.println("four");
+      case 4:
+      case 5:
+        System.out.println("two");
+        // fallthrough
+      case 6:
+      case 7:
+        System.out.println("three");
+      default:
+        System.out.println("something else");
+    }
+    // Mutant: Adding an unreachable if-else statement
+    boolean shouldRun = getCondition();
+    if (shouldRun) {
+      System.out.println("unreachable if"); // This line is unreachable
+    } else {
+      System.out.println("unreachable else"); // This line is also unreachable
+    }
+  }
+
+  void test2(int i, int j) {
+    switch (i) {
+      case 0:
+        switch (j) {
+          case 0:
+            System.out.println("zero zero");
+        }
+
+      case 1:
+        System.out.println("zero");
+    }
+    // Mutant: Adding an unreachable if-else statement
+    boolean shouldRun = getCondition();
+    if (shouldRun) {
+      System.out.println("unreachable if"); // This line is unreachable
+    } else {
+      System.out.println("unreachable else"); // This line is also unreachable
+    }
+  }
+
+  void test3(int i, int j) {
+    switch (i) {
+      case 0:
+        if (j == 0) return;
+
+      case 1:
+        j = 1;
+        break;
+    }
+    // Mutant: Adding an unreachable if-else statement
+    boolean shouldRun = getCondition();
+    if (shouldRun) {
+      System.out.println("unreachable if"); // This line is unreachable
+    } else {
+      System.out.println("unreachable else"); // This line is also unreachable
+    }
+  }
+
+  void test4(int i) {
+    switch (i) {
+      case 0:
+        System.out.println("Leaving ok");
+        System.exit(0);
+
+      case 1:
+        System.out.println("Leaving with error");
+        System.exit(1);
+
+      default:
+    }
+
+    System.out.println("Things seem ok");
+    // Mutant: Adding an unreachable if-else statement
+    boolean shouldRun = getCondition();
+    if (shouldRun) {
+      System.out.println("unreachable if"); // This line is unreachable
+    } else {
+      System.out.println("unreachable else"); // This line is also unreachable
+    }
+  }
+
+  private boolean getCondition() {
+    return false;
+  }
+}

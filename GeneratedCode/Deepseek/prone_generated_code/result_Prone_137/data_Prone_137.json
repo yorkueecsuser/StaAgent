@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "ProtoBuilderReturnValueIgnored",
+  "Bug_Details": "Unnecessary call to proto's #build() method.  If you don't consume the return value of #build(), the result is discarded and the only effect is to verify that all required fields are set, which can be expressed more directly with #isInitialized().",
+  "Bug_Explanation": "In the code, the protobuf Message.Builder's build method is called without storing the return value in any variable. This is unnecessary and can be replaced with the isInitialized method to directly verify if all required fields are set.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_137/seed_Prone_137.java:2: error: package com.google.protobuf does not exist\nimport com.google.protobuf.Message;\n                          ^\n../prone_clean_java_code/result_Prone_137/seed_Prone_137.java:3: error: package com.google.protobuf does not exist\nimport com.google.protobuf.MessageOrBuilder;\n                          ^\n../prone_clean_java_code/result_Prone_137/seed_Prone_137.java:12: error: package Message does not exist\n    private Message.Builder getBuilder() {\n                   ^\n../prone_clean_java_code/result_Prone_137/seed_Prone_137.java:8: error: package Message does not exist\n        Message.Builder builder = getBuilder();\n               ^\n4 errors\n",
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The described bug is present in the provided Java code. The method `showBug()` calls `builder.build()` but does not store or use the return value. This is unnecessary as the return value is discarded and the only effect is to verify that all required fields are set, which can be expressed more directly with `#isInitialized()`."
+}

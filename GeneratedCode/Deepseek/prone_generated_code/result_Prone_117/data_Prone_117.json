@@ -1,0 +1,31 @@
+{
+  "Bug_Title": "NoCanIgnoreReturnValueOnClasses",
+  "Bug_Details": "@CanIgnoreReturnValue should not be applied to classes as it almost always overmatches (as it applies to constructors and all methods), and the CIRVness isn't conferred to its subclasses.",
+  "name": "<name>",
+  "description": "<description>",
+  "bug": {
+    "rule": "<rule name>",
+    "description": "<rule description>",
+    "location": "<exact line or lines containing the bug>",
+    "value": "<value(s) that the bug generates>"
+  },
+  "imports": [
+    "<import1>",
+    "<import2>",
+    "<import3>"
+  ],
+  "CompilationErrors": [
+    "<error1>",
+    "<error2>"
+  ],
+  "Justifications": [
+    "<justification1>",
+    "<justification2>"
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Buggy_Line": [],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "No",
+  "Model_Explanation": "The provided Java code does not contain the bug described. The @CanIgnoreReturnValue annotation is not applied to any class in the code. Therefore, the bug is not present in the code."
+}

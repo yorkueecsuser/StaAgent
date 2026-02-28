@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "\".equals()\" should not be used to test the values of \"Atomic\" classes",
+  "Bug_Details": "The equals method in AtomicInteger and AtomicLong returns true only if two instances are\nidentical, not if they represent the same number value.\nThis is because equals is not part of the API contract of these classes, and they do not override the method inherited from java.lang.Object . Although both classes implement the Number interface, assertions about equals comparing\nnumber values are not part of that interface either. Only the API contract of implementing classes like Integer , Long , Float , BigInteger , etc., provides such assertions.",
+  "Bug_Explanation": "\".equals()\" is used to compare the values of AtomicInteger and AtomicLong instances. However, the equals method in these classes compares object identity rather than value equality, which can lead to incorrect results if two different instances represent the same numeric value.",
+  "Buggy_Line": [
+    17,
+    14
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit tests utilize the showBug method from the AtomicComparison class, which incorrectly uses .equals() to compare the values of AtomicInteger and AtomicLong instances. This method compares object identity rather than value equality, causing the tests to fail when they expect numeric equality between different instance objects with the same value.",
+  "Trigger_Line": [
+    9,
+    15
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.005\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that both tests passed successfully, which means there was no failure in the assertions. This suggests that the bug was not triggered during the test execution, as the expected failure due to improper use of .equals() was not observed."
+}

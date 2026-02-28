@@ -1,0 +1,9 @@
+{
+  "Buggy_Line": [],
+  "Trigger_Explanation": "The `Arrays.asList()` method should autobox the primitive array as an `Integer[]`, but it actually returns a `List<int[]>`.",
+  "Trigger_Line": [
+    "8"
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

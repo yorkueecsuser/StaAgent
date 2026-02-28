@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "HashtableContains",
+  "Bug_Details": "contains() is a legacy method that is equivalent to containsValue() Hashtable.contains(Object) and ConcurrentHashMap.contains(Object) are legacy\nmethods for testing if the given object is a value in the hash table. They are\noften mistaken for containsKey, which checks whether the given object is a\nkey in the hash table. If you intended to check whether the given object is a key in the hash table,\nuse containsKey instead. If you really intended to check whether the given\nobject is a value in the hash table, use containsValue for clarity.",
+  "Bug_Explanation": "The bug has been embedded in the showBug method. The method uses the contains() method of the Hashtable class, which is a legacy method that is equivalent to containsValue(). However, the intended use of the method was to check if the given object is a key in the hash table, which can be achieved by using the containsKey() method.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case created a Hashtable with a key-value pair 'one':1 and passed the key 'one' as the value to the showBug method. The showBug method uses the contains() method which is a legacy method that is equivalent to containsValue(), not containsKey(). Hence, the assertFalse statement in the test case should fail because it expects the bug to trigger with the key 'one'.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the bug was not triggered. The method returned 'false' as expected when tested with a key, which confirms that it is correctly using the 'contains' method to check for values in the Hashtable, not keys."
+}

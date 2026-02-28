@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "NonSerializableClass",
+  "Bug_Details": "If a class is marked as `Serializable`, then all fields need to be serializable as well. In order to exclude\na field, it can be marked as transient. Static fields are not considered.\n\nThis rule reports all fields, that are not serializable.\n\nIf a class implements the methods to perform manual serialization (`writeObject`, `readObject`) or uses\na replacement object (`writeReplace`, `readResolve`) then this class is ignored.\n\nNote: This rule has been revamped with PMD 6.52.0. It was previously called \"BeanMembersShouldSerialize\".\nThe property `prefix` has been deprecated, since in a serializable class all fields have to be\nserializable regardless of the name.\nExamples:\nclass Buzz implements java.io.Serializable {\n    private static final long serialVersionUID = 1L;\n\n    private transient int someFoo;          // good, it's transient\n    private static int otherFoo;            // also OK, it's static\n    private java.io.FileInputStream stream; // bad - FileInputStream is not serializable\n\n    public void setStream(FileInputStream stream) {\n        this.stream = stream;\n    }\n\n    public int getSomeFoo() {\n          return this.someFoo;\n    }\n}",
+  "Bug_Explanation": "The bug was embedded in the generated code by including a field'stream' of type 'FileInputStream', which is not serializable. This violates the rule that all fields in a Serializable class must be serializable unless they are marked as transient or are static.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by attempting to serialize the Buzz object which contains a non-serializable FileInputStream field.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed without throwing an IOException, which contradicts the expectation set in the test annotation (@Test(expected = IOException.class)). This suggests that the bug was not triggered during the test execution."
+}

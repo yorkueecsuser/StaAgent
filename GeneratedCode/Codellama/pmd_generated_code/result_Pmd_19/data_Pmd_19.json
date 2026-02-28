@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "BrokenNullCheck",
+  "Bug_Details": "The null check is broken since it will throw a NullPointerException itself.\nIt is likely that you used || instead of && or vice versa.",
+  "Bug_Explanation": "The null check is broken since it will throw a NullPointerException itself. It is likely that you used || instead of && or vice versa.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../pmd_clean_java_code/result_Pmd_19/seed_Pmd_19.java:9: error: bad operand types for binary operator '||'\n        System.out.println(list.get(0) || list.get(1)); // BUG: BrokenNullCheck\n                                       ^\n  first type:  String\n  second type: String\n1 error\n",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug() method, which prints a string using the || operator instead of the && operator, causing a NullPointerException.",
+  "Trigger_Line": [
+    9
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

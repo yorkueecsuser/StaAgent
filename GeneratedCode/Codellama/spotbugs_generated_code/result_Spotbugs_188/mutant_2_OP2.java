@@ -1,0 +1,22 @@
+import java.util.Arrays;
+
+class MSMutableArrayBug {
+    private final static int[] ARRAY = {1, 2, 3};
+
+    public static void main(String[] args) {
+        // BUG: MS: Field is a mutable array (MS_MUTABLE_ARRAY)
+        System.out.println(Arrays.toString(ARRAY));
+        ARRAY[0] = 10;
+        System.out.println(Arrays.toString(ARRAY));
+    }
+
+    // Mutant code
+    private final static int[] ARRAY_MUTANT = {1, 2, 3};
+
+    public static void main_mutant(String[] args) {
+        // BUG: MS: Field is a mutable array (MS_MUTABLE_ARRAY)
+        System.out.println(Arrays.toString(ARRAY_MUTANT));
+        ARRAY_MUTANT[0] = 10;
+        System.out.println(Arrays.toString(ARRAY_MUTANT));
+    }
+}

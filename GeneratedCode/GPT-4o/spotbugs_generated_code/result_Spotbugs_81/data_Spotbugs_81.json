@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "INT: Bad comparison of nonnegative value with negative constant or zero (INT_BAD_COMPARISON_WITH_NONNEGATIVE_VALUE)\uf0c1",
+  "Bug_Details": " This code compares a value that is guaranteed to be non-negative with a negative constant or zero.\n",
+  "Bug_Explanation": "The code incorrectly compares a value that is guaranteed to be non-negative with a negative constant. The method isNonNegative guarantees that value is non-negative, making the comparison 'value < 0' redundant and logically incorrect.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test cases testShowBugWithNonNegativeValues and testShowBugWithZeroValues trigger the bug by passing arrays of non-negative values to the showBug method. The bug is in the logic where a non-negative value is incorrectly compared to see if it is less than zero, causing the test to fail, as this condition should never be true.",
+  "Trigger_Line": [
+    10,
+    18
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.004\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that both tests passed successfully without any errors or failures, which means the bug was not triggered. The bug involves a comparison that should never be true, and the tests confirm this by not causing any unexpected behavior."
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "SuspiciousOctalEscape",
+  "Bug_Details": "A suspicious octal escape sequence was found inside a String literal.\nThe Java language specification (section 3.10.6) says an octal\nescape sequence inside a literal String shall consist of a backslash\nfollowed by:\n\n    OctalDigit | OctalDigit OctalDigit | ZeroToThree OctalDigit OctalDigit\n\nAny octal escape sequence followed by non-octal digits can be confusing,\ne.g. \"\\038\" is interpreted as the octal escape sequence \"\\03\" followed by\nthe literal character \"8\".\nExamples:\npublic void foo() {\n  // interpreted as octal 12, followed by character '8'\n  System.out.println(\"suspicious: \\128\");\n}",
+  "Bug_Explanation": "The bug was embedded in the generated code by using the octal escape sequence '\\128' inside a String literal. According to the Java language specification, this is interpreted as the octal escape sequence '\\12' followed by the literal character '8', which makes it a suspicious octal escape sequence.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by calling the showBug method of the OctalEscapeExample class. The method returns a string with a suspicious octal escape sequence '\\128'. The test asserts that the returned string matches the expected value, which includes the suspicious octal escape sequence, thus triggering the bug.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed successfully without any errors or failures. This does not provide evidence that the suspicious octal escape sequence triggered a bug, as the test simply checks for equality with the expected string containing the octal escape sequence."
+}

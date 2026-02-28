@@ -1,0 +1,22 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class BuggyCode {
+    public boolean showBug(List<Integer> a, int[] myArray) {
+        if (a.size() >= 0) { // BUG: Collection sizes and array length comparisons should make sense
+            System.out.println("List size is non-negative");
+        }
+
+        boolean result = myArray.length >= 0; // BUG: Collection sizes and array length comparisons should make sense
+        System.out.println("Array length is non-negative: " + result);
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        BuggyCode bc = new BuggyCode();
+        List<Integer> a = new ArrayList<>();
+        int[] myArray = new int[5];
+        bc.showBug(a, myArray);
+    }
+}

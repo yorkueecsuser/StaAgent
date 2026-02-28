@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "DoNotTerminateVM",
+  "Bug_Details": "Web applications should not call `System.exit()`, since only the web container or the\napplication server should stop the JVM. Otherwise a web application would terminate all other applications\nrunning on the same application server.\n\nThis rule also checks for the equivalent calls `Runtime.getRuntime().exit()` and `Runtime.getRuntime().halt()`.\n\nThis rule has been renamed from \"DoNotCallSystemExit\" in PMD 6.29.0.\nExamples:\npublic void bar() {\n    System.exit(0);                 // never call this when running in an application server!\n}\npublic void foo() {\n    Runtime.getRuntime().exit(0);   // never stop the JVM manually, the container will do this.\n}",
+  "Bug_Explanation": "The bug is demonstrated by calling System.exit(0) in the showBug() method. This is not recommended when running in an application server as it terminates the JVM, causing all other applications running on the same application server to stop.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls the showBug method from the WebApplication class, which contains the bug of calling System.exit(0). This causes the JVM to terminate, which is the expected behavior to trigger the bug. The test then fails because it should not reach the fail statement.",
+  "Trigger_Line": "[3]",
+  "Test_Run_Result": "JUnit version 4.13.2\n.",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test did not terminate the JVM as expected, which suggests that the System.exit(0) call in the WebApplication class did not actually terminate the JVM. This indicates that the bug was not triggered in this test run."
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "EmptyFinalizer",
+  "Bug_Details": "Empty finalize methods serve no purpose and should be removed. Note that Oracle has declared Object.finalize() as deprecated since JDK 9.\nExamples:\npublic class Foo {\n   protected void finalize() {}\n}",
+  "Bug_Explanation": "The empty finalize method serves no purpose and should be removed. The Java Language Specification has declared Object.finalize() as deprecated since JDK 9.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "This test case triggers the bug by calling the `showBug()` method which contains an empty finalizer method. This finalizer method is empty and does not perform any actions, leading to the finalization of the object when it is no longer referenced. This is not how finalizers are supposed to be used and could lead to unpredictable behavior.",
+  "Trigger_Line": [
+    2
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.017\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not indicate that the bug was triggered. The test passed without any exceptions being thrown, indicating that the bug was not triggered."
+}

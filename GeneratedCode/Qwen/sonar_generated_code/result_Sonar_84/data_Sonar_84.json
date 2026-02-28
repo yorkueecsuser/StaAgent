@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "\"wait\" should not be called when multiple locks are held",
+  "Bug_Details": "When two locks are held simultaneously, a wait call only releases one of them. The other will be held until some other thread requests\na lock on the awaited object. If no unrelated code tries to lock on that object, then all other threads will be locked out, resulting in a\ndeadlock.\nNoncompliant code example\nsynchronized (this.mon1) {  // threadB can't enter this block to request this.mon2 lock & release threadA\n\tsynchronized (this.mon2) {\n\t\tthis.mon2.wait();  // Noncompliant; threadA is stuck here holding lock on this.mon1\n\t}\n}",
+  "Bug_Explanation": "The bug is embedded in the generated code by having threadA acquire locks on mon1 and mon2, and then calling wait() on mon2 while still holding the lock on mon1. This results in threadB being unable to acquire the lock on mon1, leading to a deadlock.",
+  "Buggy_Line": [
+    13
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testDeadlock method calls the showBug method of the DeadlockExample class, which triggers the bug by having threadA acquire locks on mon1 and mon2, and then calling wait() on mon2 while still holding the lock on mon1. This results in threadB being unable to acquire the lock on mon1, leading to a deadlock.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

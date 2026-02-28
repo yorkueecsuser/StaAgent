@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "LoopConditionChecker",
+  "Bug_Details": "Loop condition is never modified in loop body.",
+  "Bug_Explanation": "The bug is a infinite loop because the condition in the for loop never changes. This happens because 'i' is incremented by one on each iteration, but there's no code inside the loop that changes 'i' or the condition 'i < n'. As a result, 'i' will always be less than 'n', resulting in an infinite loop.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "This test case triggers the bug by passing a positive number to the showBug function. The expected result is 10 which is incorrect because the actual result should be n*(n-1)/2. This discrepancy triggers the bug.",
+  "Trigger_Line": [
+    4
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The bug is present in the code. The loop condition is never modified in the'showBug' method. This means that the loop will run indefinitely because 'i' is always less than 'x' (which is 10). This will cause the program to run indefinitely and consume all available system resources."
+}

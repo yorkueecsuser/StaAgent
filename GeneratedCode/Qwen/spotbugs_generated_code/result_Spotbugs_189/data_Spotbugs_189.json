@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "MS: Field is a mutable collection (MS_MUTABLE_COLLECTION)\uf0c1",
+  "Bug_Details": "A mutable collection instance is assigned to a final static field,\n  thus can be changed by malicious code or by accident from another package.\n  Consider wrapping this field into Collections.unmodifiableSet/List/Map/etc.\n  to avoid this vulnerability.",
+  "Bug_Explanation": "The bug is embedded in the generated code by declaring a public final static field MUTABLE_SET which is a mutable HashSet. This allows the set to be modified from outside the class, demonstrating the vulnerability of having a mutable collection as a static field.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method which modifies the static mutable collection and then directly modifying the same collection from outside the class.",
+  "Trigger_Line": [
+    9,
+    14
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed successfully without any assertion failures. This suggests that the mutable set was modified as expected, but the test did not fail due to an unexpected modification. The test results do not provide evidence that the bug caused any issues or inconsistencies that would lead to a failed test case."
+}

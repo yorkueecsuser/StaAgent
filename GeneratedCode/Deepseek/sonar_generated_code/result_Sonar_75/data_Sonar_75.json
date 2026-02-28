@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "Zero should not be a possible denominator",
+  "Bug_Details": "A division ( / ) or remainder operation ( % ) by zero indicates a bug or logical error. This is because in Java, a division\nor remainder operation where the denominator is zero and not a floating point value always results in an ArithmeticException being\nthrown.\nWhen working with double or float values, no exception will be thrown, but the operation will result in special floating\npoint values representing either positive infinity, negative infinity, or NaN . Unless these special values are explicitly handled by a\nprogram, zero denominators should be avoided in floating point operations, too. Otherwise, the application might produce unexpected results.\nWhat is the potential impact?\nIssues of this type interrupt the normal execution of a program, causing it to crash or putting it into an inconsistent state. Therefore, this\nissue might impact the availability and reliability of your application, or even result in data loss.\nIf the computation of the denominator is tied to user input data, this issue can potentially even be exploited by attackers to disrupt your\napplication.\nNoncompliant code example\nvoid test_divide() {\n  int z = 0;\n  if (unknown()) {\n    // ..\n    z = 3;\n  } else {\n    // ..\n  }\n  z = 1 / z; // Noncompliant, possible division by zero\n}\nCompliant solution\nvoid test_divide() {\n  int z = 0;\n  if (unknown()) {\n    // ..\n    z = 3;\n  } else {\n    // ..\n    z = 1;\n  }\n  z = 1 / z;\n}",
+  "Bug_Explanation": "The bug here is a potential division by zero. In the method `showBug`, there is a division operation (1 / z) without any checks to ensure z is not zero. If z is zero, it will result in an ArithmeticException.",
+  "Buggy_Line": [
+    18
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered because the method `showBug` contains a division operation with zero as the denominator. The JUnit test case calls this method and, as a result, the exception is not caught and the test case fails because of the bug.",
+  "Trigger_Line": [
+    3
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results do not confirm the presence of the bug. The provided Java code triggers the bug, but the test case does not cover the lines that trigger the bug.",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The bug is present in the provided Java code. The code contains a division operation by zero, which will result in an ArithmeticException at runtime. This is because in Java, a division or remainder operation where the denominator is zero and not a floating point value always results in an ArithmeticException being thrown. The potential impact of this bug is that it interrupts the normal execution of the program, causing it to crash or put it into an inconsistent state. This issue might impact the availability and reliability of your application, or even result in data loss. If the computation of the denominator is tied to user input data, this issue can potentially be exploited by attackers to disrupt your application."
+}

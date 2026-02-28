@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "SuppressWarningsDeprecated",
+  "Bug_Details": "Suppressing \"deprecated\" is probably a typo for \"deprecation\" To suppress warnings to deprecated methods, you should add the annotation\n@SuppressWarnings(\"deprecation\") and not @SuppressWarnings(\"deprecated\")",
+  "Bug_Explanation": "The bug is embedded in the '@SuppressWarnings' annotation used to suppress warnings related to the deprecated method'readLineFromDeprecatedMethod'. The correct warning type should be 'deprecation', but 'deprecated' is used instead.",
+  "Buggy_Line": [
+    15
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by calling the'showBug' method from the 'DeprecatedBug' class. The'showBug' method calls the deprecated method'readLineFromDeprecatedMethod' but an incorrect SuppressWarnings annotation is used, which is 'deprecated' instead of 'deprecation'. This causes a deprecation warning during compilation, making the test fail.",
+  "Trigger_Line": [
+    3
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

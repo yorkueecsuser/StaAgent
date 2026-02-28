@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "MC: An overridable method is called from a constructor (MC_OVERRIDABLE_METHOD_CALL_IN_CONSTRUCTOR)\uf0c1",
+  "Bug_Details": "\nCalling an overridable method during in a constructor may result in the use of uninitialized data. It may also\nleak the this reference of the partially constructed object. Only static, final or private methods should be\ninvoked from a constructor. \nSee SEI CERT rule MET05-J. Ensure that constructors do not call overridable methods.\n",
+  "Bug_Explanation": "The constructor of the Parent class calls the overridable method sayHello(). When an instance of Child is created, sayHello() is overridden and called before the Child's constructor completes. This results in sayHello() accessing an uninitialized field message in Child.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case 'testSayHelloTriggersBug' instantiates the 'Child' class, which calls the 'sayHello' method from the 'Parent' constructor before 'Child' constructor is completed. This causes 'sayHello' to access the uninitialized field 'message', resulting in a NullPointerException and failing the test.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.null\n\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any errors or failures, which suggests that the bug was not triggered during the test execution."
+}

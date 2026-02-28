@@ -1,0 +1,10 @@
+{
+  "Bug_Title": "JUnitStaticSuite",
+  "Bug_Details": "The suite() method in a JUnit test needs to be both public and static.\nExamples:\nimport junit.framework.*;\n\npublic class Foo extends TestCase {\n    public void suite() {}         // oops, should be static\n}\n---\nimport junit.framework.*;\n\npublic class Foo extends TestCase {\n    private static void suite() {} // oops, should be public\n}",
+  "Bug_Explanation": "The suite() method in the Example class should be public and static for JUnit to detect and execute it correctly as a test suite. However, it is currently non-static and private, violating the JUnitStaticSuite requirements.",
+  "Buggy_Line": [
+    9,
+    13
+  ],
+  "Seed_Compilation_Status": "Successful"
+}

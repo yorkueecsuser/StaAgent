@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "ASE: Expression in assertion may produce a side effect (ASE_ASSERTION_WITH_SIDE_EFFECT)\uf0c1",
+  "Bug_Details": "Expressions used in assertions must not produce side effects. See SEI CERT Rule EXP06\nfor more information.\n SEI CERT Rule EXP06",
+  "Bug_Explanation": "The bug is embedded in the generated code by using the method `incrementCounter()` within an assertion. This method modifies the state of the object by incrementing the `counter` variable, which is a side effect.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by calling the `showBug` method of the `AssertionSideEffect` class. The `showBug` method contains an assertion that calls `incrementCounter()`, which modifies the state of the object, thus producing a side effect.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed without any assertion errors or exceptions. Since assertions in Java are disabled by default and need to be enabled using the -ea JVM flag, it is possible that the assertion was not triggered during the test execution. Therefore, based solely on the provided test results, we cannot confirm that the bug was triggered."
+}

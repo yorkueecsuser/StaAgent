@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "InefficientStringBuffering",
+  "Bug_Details": "Avoid concatenating non-literals in a StringBuffer constructor or append() since intermediate buffers will\nneed to be be created and destroyed by the JVM.\nExamples:\n// Avoid this, two buffers are actually being created here\nStringBuffer sb = new StringBuffer(\"tmp = \"+System.getProperty(\"java.io.tmpdir\"));\n\n// do this instead\nStringBuffer sb = new StringBuffer(\"tmp = \");\nsb.append(System.getProperty(\"java.io.tmpdir\"));",
+  "Bug_Explanation": "The bug occurs because a new StringBuffer is created using string concatenation within its constructor. This causes multiple intermediate StringBuffer objects to be created and destroyed, making it inefficient. Instead, the initial string should be passed directly, and additional strings appended using the append() method.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case calls the 'showBug' method which contains the inefficient string buffering bug. The test is designed to fail by asserting an incorrect expected value, demonstrating the inefficient construction of the StringBuffer which includes non-literals concatenation.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.005\nThere was 1 failure:\n1) testShowBug(StringBufferBugExampleTest)\norg.junit.ComparisonFailure: expected:<tmp = []> but was:<tmp = [/tmp]>\n\tat org.junit.Assert.assertEquals(Assert.java:117)\n\tat org.junit.Assert.assertEquals(Assert.java:146)\n\tat StringBufferBugExampleTest.testShowBug(StringBufferBugExampleTest.java:13)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test failure is due to an incorrect expected value in the assertion, not because of the inefficient string buffering. The actual result 'tmp = /tmp' is correct based on the code logic, but the test expected 'tmp = '. The test results do not confirm the bug triggering."
+}

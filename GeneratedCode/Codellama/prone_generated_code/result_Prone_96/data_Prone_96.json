@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "JavaxInjectOnAbstractMethod",
+  "Bug_Details": "Abstract and default methods are not injectable with javax.inject.Inject The Inject annotation cannot be applied to abstract methods, per the JSR-330\nspec, since injectors will only inject those methods if the concrete implementer\nof the abstract method has the Inject annotation as well. See\nOverridesJavaxInjectableMethod for more examples of this interaction. Currently, default methods in interfaces are not injected if they have\nInject for similar reasons, although future updates to dependency injection\nframeworks may allow this, since the default methods are not abstract. See the Guice wiki page on JSR-330 for more.",
+  "Bug_Explanation": "The bug is embedded in the abstractMethod() method of the ConcreteClass. The method is annotated with @Inject, but the abstract method it overrides in the AbstractClass does not have the @Inject annotation. This means that the injector will not inject the method if the concrete implementer of the abstract method has the @Inject annotation as well.",
+  "Buggy_Line": [
+    14
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_96/seed_Prone_96.java:3: error: class AbstractClass is public, should be declared in a file named AbstractClass.java\npublic abstract class AbstractClass {\n                ^\n../prone_clean_java_code/result_Prone_96/seed_Prone_96.java:1: error: package javax.inject does not exist\nimport javax.inject.Inject;\n                   ^\n../prone_clean_java_code/result_Prone_96/seed_Prone_96.java:4: error: cannot find symbol\n  @Inject\n   ^\n  symbol:   class Inject\n  location: class AbstractClass\n../prone_clean_java_code/result_Prone_96/seed_Prone_96.java:9: error: cannot find symbol\n  @Inject\n   ^\n  symbol:   class Inject\n  location: class ConcreteClass\n4 errors\n",
+  "Trigger_Explanation": "The JUnit test case triggers the bug by calling the abstractMethod() on the ConcreteClass instance, which is not injectable because it is an abstract method.",
+  "Trigger_Line": [
+    4
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

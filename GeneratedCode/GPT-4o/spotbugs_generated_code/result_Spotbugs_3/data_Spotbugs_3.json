@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "NP: Non-null field is not initialized (NP_NONNULL_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR)\uf0c1",
+  "Bug_Details": " The field is marked as non-null, but isn't written to by the constructor.\nThe field might be initialized elsewhere during constructor, or might always\nbe initialized before use.\n   ",
+  "Bug_Explanation": "The field 'nonNullField' is declared as a final variable, indicating it should be initialized, but it is not initialized in the constructor. This leads to a null value being used, which demonstrates the NP_NONNULL_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR bug.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../spotbugs_clean_java_code/result_Spotbugs_3/seed_Spotbugs_3.java:7: error: variable nonNullField might not have been initialized\n    }\n    ^\n1 error\n",
+  "Trigger_Explanation": "The test case triggers the bug by invoking the showBug method on the NonNullFieldNotInitialized class instance. Since the nonNullField is not initialized in the constructor, accessing it in the showBug method leads to a NullPointerException.",
+  "Trigger_Line": [
+    9
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

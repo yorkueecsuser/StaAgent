@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "AutoValueConstructorOrderChecker",
+  "Bug_Details": "Arguments to AutoValue constructor are in the wrong order AutoValue constructors are synthesized with their parameters in the same order\nas the abstract accessor methods. Calls to the constructor need to match this\nordering.",
+  "Bug_Explanation": "The bug occurs because the arguments in the method `createPerson` call the constructor with parameters in the wrong order. The `AutoValueExample` constructor expects a `String` followed by an `int`, but `createPerson` passes them in the reverse order.",
+  "Buggy_Line": [
+    16
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls 'showBug' with parameters in an order that matches the bug in 'createPerson', leading the constructor to use them incorrectly and thus triggering the bug.",
+  "Trigger_Line": [
+    9,
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.009\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any assertion errors. This suggests that the code executed as expected, which means the bug described by AutoValueConstructorOrderChecker was not triggered based on the test outcomes."
+}

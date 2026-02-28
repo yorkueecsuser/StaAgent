@@ -1,0 +1,9 @@
+{
+  "Bug_Title": "IJU: TestCase defines tearDown that doesn\u2019t call super.tearDown() (IJU_TEARDOWN_NO_SUPER)\uf0c1",
+  "Bug_Details": " Class is a JUnit TestCase and implements the tearDown method. The tearDown method should call\nsuper.tearDown(), but doesn't.",
+  "Bug_Explanation": "The `tearDown` method in a JUnit TestCase subclass does not call `super.tearDown()`, which is necessary to ensure proper cleanup of resources that the superclass might handle.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful"
+}

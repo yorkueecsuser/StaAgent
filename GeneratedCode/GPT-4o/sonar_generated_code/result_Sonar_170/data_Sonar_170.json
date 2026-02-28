@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "The signature of \"finalize()\" should match that of \"Object.finalize()\"",
+  "Bug_Details": "Object.finalize() is called by the Garbage Collector at some point after the object becomes unreferenced.\nIn general, overloading Object.finalize() is a bad idea because:\nThe overload may not be called by the Garbage Collector. Users are not expected to call Object.finalize() and will get confused.\nThe overload may not be called by the Garbage Collector.\nUsers are not expected to call Object.finalize() and will get confused.\nBut beyond that it\u2019s a terrible idea to name a method \"finalize\" if it doesn\u2019t actually override Object.finalize() .\nNoncompliant code example\npublic int finalize(int someParameter) {        // Noncompliant\n  /* ... */\n}\nCompliant solution\npublic int someBetterName(int someParameter) {  // Compliant\n  /* ... */\n}",
+  "Bug_Explanation": "The method 'finalize(int someParameter)' incorrectly uses the same name as 'Object.finalize()' but with a different signature. This can be misleading as it might be expected to override Object's finalize method, but it does not.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the method showBug, which internally calls the incorrectly named finalize method with incorrect signature. The expectation is that it behaves like Object's finalize method, however, it does not, leading to incorrect behavior. The test is designed to fail by asserting a specific expected output to demonstrate the bug.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully with an OK status, meaning the expected output matched the actual output. The bug described does not affect the functionality tested by the test case, as the method with the incorrect signature was successfully called and returned the expected result."
+}

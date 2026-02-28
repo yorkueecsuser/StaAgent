@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "MC: An overridable method is called from the readObject method. (MC_OVERRIDABLE_METHOD_CALL_IN_READ_OBJECT)\uf0c1",
+  "Bug_Details": "\nThe readObject() method must not call any overridable methods. Invoking overridable methods from the readObject()\nmethod can provide the overriding method with access to the object's state before it is fully initialized. This\npremature access is possible because, in deserialization, readObject plays the role of object constructor and\ntherefore object initialization is not complete until readObject exits. \n\nSee SEI CERT rule \nSER09-J. Do not invoke overridable methods from the readObject() method.\n",
+  "Bug_Explanation": "The bug is embedded by calling an overridable method 'initialize' from within the 'readObject' method. This is problematic because 'readObject' acts like a constructor during deserialization, and calling an overridable method before the object is fully initialized can lead to unexpected behavior.",
+  "Buggy_Line": [
+    19
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by attempting to deserialize an object of the class OverridableMethodInReadObject. During deserialization, the readObject method is called, which in turn calls the overridable method initialize. This can lead to unexpected behavior because the object's state may not be fully initialized at this point, and the test is designed to fail when this undesirable call occurs.",
+  "Trigger_Line": [
+    23
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Value: 42\n\nTime: 0.014\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any assertion failures or exceptions, suggesting that the bug was not triggered during the test execution."
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Locks should be released on all paths",
+  "Bug_Details": "If a lock is acquired and released within a method, then it must be released along all execution paths of that method.\nFailing to do so will expose the conditional locking logic to the method\u2019s callers and hence be deadlock-prone.\nNoncompliant code example\npublic class MyClass {\n  public void doSomething() {\n    Lock lock = new Lock();\n    lock.lock(); // Noncompliant\n    if (isInitialized()) {\n      // ...\n      lock.unlock();\n    }\n  }\n}\nCompliant solution\npublic class MyClass {\n  public void doSomething() {\n    Lock lock = new Lock();\n    if (isInitialized()) {\n      lock.lock();\n      // ...\n      lock.unlock();\n    }\n  }\n}",
+  "Bug_Explanation": "The lock is acquired but only released if a specific condition (initialization) is met. If the condition is not met, the lock is never released, causing a potential deadlock.",
+  "Buggy_Line": [
+    19
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case initializes the BuggyClass object and then calls the showBug() method which in turn calls the doSomething() method. If the doSomething() method fails to release the lock when the 'initialized' field is true, then the assertTrue(buggyClass.lock.tryLock()) line will fail because the lock will not be free to be acquired.",
+  "Trigger_Line": [
+    6,
+    8
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

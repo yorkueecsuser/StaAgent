@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "Unary prefix operators should not be repeated",
+  "Bug_Details": "The repetition of a unary operator is usually a typo. The second operator invalidates the first one in most cases:\nint i = 1;\n\nint j = - - -i;  // Noncompliant: equivalent to \"-i\"\nint k = ~~~i;    // Noncompliant: equivalent to \"~i\"\nint m = + +i;    // Noncompliant: equivalent to \"i\"\n\nboolean b = false;\nboolean c = !!!b;   // Noncompliant\nOn the other hand, while repeating the increment and decrement operators is technically correct, it obfuscates the meaning:\nint i = 1;\nint j = ++ ++i;  // Noncompliant\nint k = i-- --; // Noncompliant\nUsing += or -= improves readability:\nint i = 1;\ni += 2;\nint j = i;\nint k = i;\ni -=2;\nThis rule raises an issue for repetitions of ! , ~ , - , + , prefix increments ++ and\nprefix decrements -- .\nExceptions\nOverflow handling for GWT compilation using ~~ is ignored.",
+  "Bug_Explanation": "The bug is embedded in the lines where the unary prefix operators are repeated. The repetition of the operators invalidates the first one in most cases.",
+  "Buggy_Line": [
+    8,
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test cases trigger the bug by using the methods `showBug` and `showBugBoolean` from the `UnaryBug` class. These methods contain the repeated unary prefix operators which is against the bug rule.",
+  "Trigger_Line": [
+    8,
+    13
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E.\nTime: 0.005\nThere was 1 failure:\n1) testShowBugBoolean(UnaryBugTest)\njava.lang.AssertionError\n\tat org.junit.Assert.fail(Assert.java:87)\n\tat org.junit.Assert.assertTrue(Assert.java:42)\n\tat org.junit.Assert.assertFalse(Assert.java:65)\n\tat org.junit.Assert.assertFalse(Assert.java:75)\n\tat UnaryBugTest.testShowBugBoolean(UnaryBugTest.java:16)\n\nFAILURES!!!\nTests run: 2,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test for 'testShowBug' passed, returning the expected value of -5. However, the test for 'testShowBugBoolean' failed due to an assertion error. Since the failure occurred in this second test, which is specifically looking for the repetition of the unary operator '!', it initially seems like the bug was triggered. However, upon closer inspection, the bug is not present in the Java code for this method, as there is no repetition of the unary operator '!'. Therefore, the test results do not demonstrate that the bug was actually triggered."
+}

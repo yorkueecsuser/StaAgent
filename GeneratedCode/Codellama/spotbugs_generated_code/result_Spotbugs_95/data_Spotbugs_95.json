@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "IJU: TestCase declares a bad suite method (IJU_BAD_SUITE_METHOD)\uf0c1",
+  "Bug_Details": " Class is a JUnit TestCase and defines a suite() method.\nHowever, the suite method needs to be declared as either \nor\n public static junit.framework.Test suite()\n public static junit.framework.TestSuite suite()\n",
+  "Bug_Explanation": "The bug was embedded in the `concat` method, which was using the `+` operator to concatenate strings. The bug was fixed by using the `StringBuilder` class to concatenate strings.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../spotbugs_clean_java_code/result_Spotbugs_95/seed_Spotbugs_95_junit_test.java:13: error: cannot find symbol\n        assertEquals(\"Hello, World, Goodbye, Cruel, World\", result);\n        ^\n  symbol:   method assertEquals(String,String)\n  location: class BadSuiteMethod\n1 error\n",
+  "Trigger_Explanation": "The test case in BadSuiteMethodTest triggers the bug by calling the showBug method on an instance of BadSuiteMethod.",
+  "Trigger_Line": [
+    15,
+    16
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

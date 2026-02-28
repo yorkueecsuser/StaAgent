@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Double Brace Initialization should not be used",
+  "Bug_Details": "Because Double Brace Initialization (DBI) creates an anonymous class with a reference to the instance of the owning object, its use can lead to\nmemory leaks if the anonymous inner class is returned and held by other objects. Even when there\u2019s no leak, DBI is so obscure that it\u2019s bound to\nconfuse most maintainers.\nFor collections, use Arrays.asList instead, or explicitly add each item directly to the collection.\nNoncompliant code example\nMap source = new HashMap(){{ // Noncompliant\n    put(\"firstName\", \"John\");\n    put(\"lastName\", \"Smith\");\n}};\nCompliant solution\nMap source = new HashMap();\n// ...\nsource.put(\"firstName\", \"John\");\nsource.put(\"lastName\", \"Smith\");\n// ...",
+  "Bug_Explanation": "The code uses Double Brace Initialization to initialize a HashMap, which inherently creates an anonymous inner class. This can lead to memory leaks if the anonymous class holds a reference to an instance of the enclosing class, causing confusion and potential maintenance issues.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method from the DoubleBraceInitializationExample class, which uses Double Brace Initialization. This results in an anonymous inner class being created, potentially leading to memory leaks, which is undesired behavior that the test aims to expose.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed without any errors, confirming that the bug was not triggered as the output was as expected."
+}

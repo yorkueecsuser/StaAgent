@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "GetClassOnAnnotation",
+  "Bug_Details": "Calling getClass() on an annotation may return a proxy class Instances of an annotation interface generally return a random proxy class when\ngetClass() is called on them; to get the actual annotation type use\nannotationType(). In the following example, calling getClass() on the annotation instance\nreturns a proxy class like com.sun.proxy.$Proxy1, while annotationType()\nreturns Deprecated. @Deprecated\npublic class Test {\n  static void printAnnotationClass(Annotation annotation) {\n    System.err.println(annotation.getClass());\n    System.err.println(annotation.annotationType());\n  }\n\n  public static void main(String[] args) {\n    printAnnotationClass(Test.class.getAnnotation(Deprecated.class));\n  }\n} @Deprecated\npublic class Test {\n  static void printAnnotationClass(Annotation annotation) {\n    System.err.println(annotation.getClass());\n    System.err.println(annotation.annotationType());\n  }\n\n  public static void main(String[] args) {\n    printAnnotationClass(Test.class.getAnnotation(Deprecated.class));\n  }\n} Prints: class com.sun.proxy.$Proxy1\ninterface java.lang.Deprecated class com.sun.proxy.$Proxy1\ninterface java.lang.Deprecated",
+  "Bug_Explanation": "Calling getClass() on the annotation instance returns a proxy class, such as com.sun.proxy.$Proxy1, instead of the actual annotation type. The correct method to get the annotation type is to use annotationType().",
+  "Buggy_Line": [
+    13
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls AnnotationExample.showBug(), which in turn calls printAnnotationClass with the Deprecated annotation from AnnotationExample. This triggers the bug because getClass() is called on the annotation, returning a proxy class instead of the actual annotation type, causing the test to fail.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed without any errors, confirming that the bug was not triggered. A triggered bug would likely result in a test failure or error message."
+}

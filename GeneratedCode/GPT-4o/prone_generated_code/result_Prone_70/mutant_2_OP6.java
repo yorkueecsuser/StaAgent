@@ -1,0 +1,51 @@
+class ProtoComparisonExample {
+
+    // Dummy class to simulate protocol buffer behavior
+    public static class MyProto {
+        // Simulate a field with a default value
+        public String getField() {
+            return ""; // Default value, never null
+        }
+
+        // Simulate a repeated field list
+        public java.util.List<String> getRepeatedFieldList() {
+            return new java.util.ArrayList<>(); // Default list, never null
+        }
+
+        // Simulate a repeated field access
+        public String getRepeatedField(int index) {
+            return ""; // Default value, never null
+        }
+    }
+
+    public void showBug(MyProto proto) {
+        // Unreachable for loop mutant
+        boolean conditionFor = getCondition();
+        for (int i = 0; conditionFor; i++) {
+            System.out.println("This loop is unreachable.");
+        }
+
+        if (proto.getField() == null) { // BUG: ImpossibleNullComparison
+            System.out.println("Field is null");
+        }
+
+        if (proto.getRepeatedFieldList() != null) { // BUG: ImpossibleNullComparison
+            System.out.println("RepeatedFieldList is not null");
+        }
+
+        if (proto.getRepeatedField(1) != null) { // BUG: ImpossibleNullComparison
+            System.out.println("RepeatedField at index 1 is not null");
+        }
+    }
+
+    // Method to simulate a dynamic condition for the for-loop
+    private boolean getCondition() {
+        return false; // This makes the for-loop condition always false at runtime
+    }
+
+    public static void main(String[] args) {
+        ProtoComparisonExample example = new ProtoComparisonExample();
+        MyProto proto = new MyProto();
+        example.showBug(proto);
+    }
+}

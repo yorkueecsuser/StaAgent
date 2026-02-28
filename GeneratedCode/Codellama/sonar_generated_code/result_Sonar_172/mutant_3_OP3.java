@@ -1,0 +1,26 @@
+import java.lang.System;
+
+class FinalizeBug {
+    public static void main(String[] args) {
+        MyObject myObject = new MyObject();
+        myObject.showBug();
+    }
+}
+
+class MyObject {
+    public void showBug() {
+        System.out.println("Buggy code execution");
+    }
+
+    protected void finalize() {
+        releaseSomeResources(); // BUG: "super.finalize()" should be called at the end of "Object.finalize()" implementations
+        if (false) { // Mutant code: always false
+            // This code is unreachable and should be removed
+            System.out.println("Unreachable code");
+        }
+    }
+
+    private void releaseSomeResources() {
+        System.out.println("Release some resources");
+    }
+}

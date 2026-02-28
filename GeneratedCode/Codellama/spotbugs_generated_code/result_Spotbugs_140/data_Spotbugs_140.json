@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "DMI: Collections should not contain themselves (DMI_COLLECTIONS_SHOULD_NOT_CONTAIN_THEMSELVES)\uf0c1",
+  "Bug_Details": " This call to a generic collection's method would only make sense if a collection contained\nitself (e.g., if s.contains(s) were true). This is unlikely to be true and would cause\nproblems if it were true (such as the computation of the hash code resulting in infinite recursion).\nIt is likely that the wrong value is being passed as a parameter.\n     s.contains(s)",
+  "Bug_Explanation": "The bug is caused by the line'set.contains(set)', which will always return true, resulting in an infinite loop.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by passing a hash set as a parameter to the contains method, which is not allowed as per the DMI rule.",
+  "Trigger_Line": [
+    7
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

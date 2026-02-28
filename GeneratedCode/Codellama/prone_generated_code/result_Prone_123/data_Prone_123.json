@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "NullableOnContainingClass",
+  "Bug_Details": "Type-use nullability annotations should annotate the inner class, not the outer class (e.g., write `A.@Nullable B` instead of `@Nullable A.B`). The correct syntax to apply a TYPE_USE annotation to an inner class is\nA.@Nullable B. For a TYPE_USE @Nullable annotation, @Nullable A.B is legal Java if B is\na non-static inner class: class A {\n  @Target(TYPE_USE)\n  @interface Nullable {}\n\n  class B {}\n  static class C {}\n\n  void test(A.@Nullable B x) {} // B is annotated ('A' is the enclosing instance type)\n  void test(A.@Nullable C x) {} // C is annotated ('A' is a 'scoping construct' here)\n} class A {\n  @Target(TYPE_USE)\n  @interface Nullable {}\n\n  class B {}\n  static class C {}\n\n  void test(A.@Nullable B x) {} // B is annotated ('A' is the enclosing instance type)\n  void test(A.@Nullable C x) {} // C is annotated ('A' is a 'scoping construct' here)\n} void test(@Nullable A.B x) {} // compiles, but likely incorrect: annotates the enclosing instance type 'A', which can never be null\n  void test(@Nullable A.C x) {} // compile error: 'A' cannot be annotated void test(@Nullable A.B x) {} // compiles, but likely incorrect: annotates the enclosing instance type 'A', which can never be null\n  void test(@Nullable A.C x) {} // compile error: 'A' cannot be annotated However, for @Nullable (and @NonNull, and friends), annotating the outer\nclass is meaningless. The reference to the outer class (A.this) can never be\nnull, so any nullability annotations are redundant.",
+  "Bug_Explanation": "The bug was embedded in the generated code by using '@Nullable' on a non-static inner class, which is not allowed in Java. The correct syntax to apply a TYPE_USE annotation to an inner class is 'A.@Nullable B'.",
+  "Buggy_Line": [
+    18
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_123/seed_Prone_123.java:14: error: unnamed classes are a preview feature and are disabled by default.\nvoid test(@Nullable A.B x) {} // compiles, but likely incorrect: annotates the enclosing instance type 'A', which can never be null\n^\n  (use --enable-preview to enable unnamed classes)\n1 error\n",
+  "Trigger_Explanation": "The JUnit test case triggers the NullableOnContainingClass bug by calling the showBug() method on an instance of class A, which has a nullable outer class.",
+  "Trigger_Line": [
+    14
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

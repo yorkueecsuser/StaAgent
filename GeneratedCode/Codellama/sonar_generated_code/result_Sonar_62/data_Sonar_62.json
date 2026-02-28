@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Map values should not be replaced unconditionally",
+  "Bug_Details": "Storing a value inside a collection at a given key or index and then unconditionally overwriting it without reading the initial value is a case of\na \"dead store\".\nletters.put(\"a\", \"Apple\");\nletters.put(\"a\", \"Boy\");  // Noncompliant\n\ntowns[i] = \"London\";\ntowns[i] = \"Chicago\";  // Noncompliant\nThis practice is redundant and will cause confusion for the reader. More importantly, it is often an error and not what the developer intended to\ndo.",
+  "Bug_Explanation": "The bug is embedded in the line letters.put(\"a\", \"Boy\"); which replaces the value for the key \"a\" without checking its original value.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by adding a duplicate key to the map and then checking the value associated with that key.",
+  "Trigger_Line": [
+    7,
+    16
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.001\nThere was 1 failure:\n1) initializationError(org.junit.runner.JUnitCommandLineParseResult)\njava.lang.IllegalArgumentException: Could not find class [MapValuesTest]\n\tat org.junit.runner.JUnitCommandLineParseResult.parseParameters(JUnitCommandLineParseResult.java:100)\n\tat org.junit.runner.JUnitCommandLineParseResult.parseArgs(JUnitCommandLineParseResult.java:50)\n\tat org.junit.runner.JUnitCommandLineParseResult.parse(JUnitCommandLineParseResult.java:44)\n\tat org.junit.runner.JUnitCore.runMain(JUnitCore.java:72)\n\tat org.junit.runner.JUnitCore.main(JUnitCore.java:36)\nCaused by: java.lang.ClassNotFoundException: MapValuesTest\n\tat java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)\n\tat java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)\n\tat java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)\n\tat java.base/java.lang.Class.forName0(Native Method)\n\tat java.base/java.lang.Class.forName(Class.java:534)\n\tat java.base/java.lang.Class.forName(Class.java:513)\n\tat org.junit.internal.Classes.getClass(Classes.java:42)\n\tat org.junit.internal.Classes.getClass(Classes.java:27)\n\tat org.junit.runner.JUnitCommandLineParseResult.parseParameters(JUnitCommandLineParseResult.java:98)\n\t... 4 more\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not demonstrate the bug was triggered. The test failed due to a `ClassNotFoundException` error, indicating that the `MapValuesTest` class was not found. This suggests that the test was not properly set up or that there was an issue with the testing framework. The bug was not triggered in the provided Java code."
+}

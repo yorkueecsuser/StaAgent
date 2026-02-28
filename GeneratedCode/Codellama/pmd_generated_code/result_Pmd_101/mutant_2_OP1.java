@@ -1,0 +1,16 @@
+import java.util.Arrays;
+
+class AvoidArrayLoops {
+    public static void main(String[] args) {
+        int[] arr1 = {1, 2, 3, 4, 5};
+        int[] arr2 = new int[arr1.length];
+
+        // BUG: AvoidArrayLoops
+        for (int i = 0; i < arr1.length; i++) {
+            int temp = arr1[i];
+            arr2[i] = temp;
+        }
+
+        System.out.println(Arrays.toString(arr2));
+    }
+}

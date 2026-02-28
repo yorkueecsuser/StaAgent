@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "DLS: Overwritten increment (DLS_OVERWRITTEN_INCREMENT)\uf0c1",
+  "Bug_Details": "\nThe code performs an increment/decrement operation (e.g., i++ / i--) and then\nimmediately overwrites it. For example, i = i++ / i = i-- immediately\noverwrites the incremented/decremented value with the original value.\n i++ i-- i = i++ i = i--",
+  "Bug_Explanation": "The bug is present in the line `i = i++;`. The increment operation (i++) is immediately overwritten with the original value of i (which is 0).",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered in the line `assertNotEquals(1, buggyCode.showBug());`. The test expects the method `buggyCode.showBug()` to return a value other than 1. However, due to the bug in the `showBug()` method which always returns 0, the test case fails.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.006\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the method'showBug' always returns 0, which is the original value of 'i' before the increment operation. This indicates that the increment operation is not being correctly reflected in the returned value, suggesting that the bug (overwriting the incremented value with the original value) is not present in the Java code."
+}

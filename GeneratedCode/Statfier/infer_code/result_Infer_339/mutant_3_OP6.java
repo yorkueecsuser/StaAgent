@@ -1,0 +1,24 @@
+class TrickyExamples {
+
+  int x;
+
+  // pulse summary only includes a single disjunct for everything upto the throw statement.
+  void loop_impure_FN() {
+    if (x > 10) {
+      throw new IllegalArgumentException("x too big");
+    }
+    x = 0;
+    for (int i = 0; i < 10; i++) {}
+
+    // Mutant: Inserting an unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int j = 0; conditionFor; j++) {
+      // This loop is unreachable because conditionFor is never set to true
+    }
+  }
+
+  // Method to provide a dynamic condition that is always false
+  private boolean getCondition() {
+    return false;
+  }
+}

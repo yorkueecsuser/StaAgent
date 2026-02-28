@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "\"Externalizable\" classes should have no-arguments constructors",
+  "Bug_Details": "A class that implements java.io.Externalizable is a class that provides a way to customize the serialization and deserialization,\nallowing greater control over how the object\u2019s state is written or read.\nThe first step of the deserialization process is to call the class' no-argument constructor before the readExternal(ObjectInput in) method.\nAn implicit default no-argument constructor exists on a class when no constructor is explicitly defined within the class. But this implicit\nconstructor does not exist when any constructor is explicitly defined, and in this case, we should always ensure that one of the constructors has\nno-argument.\nIt is an issue if the implicit or explicit no-argument constructor is missing or not public, because the deserialization will fail and throw an InvalidClassException: no valid constructor. .",
+  "Bug_Explanation": "The bug was embedded in the generated code by defining a constructor with arguments (ExternalizableExample(String data)) without providing a no-argument constructor. This hides the default no-argument constructor, causing an InvalidClassException during deserialization.",
+  "Buggy_Line": [
+    44
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug method of the ExternalizableExample class, which attempts to deserialize an object of this class. Since the class does not have a no-argument constructor, the deserialization process fails, throwing an InvalidClassException.",
+  "Trigger_Line": [
+    "9"
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.028\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed without any failures, which means the bug was not triggered as expected. The test result 'OK (1 test)' suggests that the exception 'java.io.InvalidClassException: ExternalizableExample; no valid constructor' was not thrown during the deserialization process."
+}

@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "ChainingConstructorIgnoresParameter",
+  "Bug_Details": "The called constructor accepts a parameter with the same name and type as one of its caller's parameters, but its caller doesn't pass that parameter to it.  It's likely that it was intended to. When a class exposes multiple constructors, they\u2019re generally used as a means of\ninitializing default parameters. If a chaining constructor ignores a parameter,\nit\u2019s likely the parameter needed to be plumbed to the chained constructor. MissileLauncher(Location target) {\n  this(target, false);\n}\nMissileLauncher(boolean askForConfirmation) {\n  this(TEST_TARGET, false); // should be askForConfirmation\n}\nMissileLauncher(Location target, boolean askForConfirmation) {\n   ...\n} MissileLauncher(Location target) {\n  this(target, false);\n}\nMissileLauncher(boolean askForConfirmation) {\n  this(TEST_TARGET, false); // should be askForConfirmation\n}\nMissileLauncher(Location target, boolean askForConfirmation) {\n   ...\n}",
+  "Bug_Explanation": "The bug is embedded in the constructor 'public MissileLauncher(boolean askForConfirmation)' where the 'askForConfirmation' parameter is ignored and always set to false. This is indicated by the comment '// BUG: ChainingConstructorIgnoresParameter'.",
+  "Buggy_Line": [
+    28
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test creates a MissileLauncher instance with the boolean parameter set to true. However, due to the bug in the MissileLauncher constructor, the askForConfirmation field is incorrectly set to false instead of true.",
+  "Trigger_Line": [
+    8
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

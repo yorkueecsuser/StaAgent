@@ -1,0 +1,20 @@
+// Bug: INTEGER_OVERFLOW_L2
+class IntegerOverflowL2 {
+
+    public static int getUnknownValue() {
+        int a = (int)(System.currentTimeMillis() % Integer.MAX_VALUE);
+        return a;
+    }
+
+    public int showBug() {
+        int k = getUnknownValue();
+        int l = k + 2000000000;  // Potential integer overflow
+        int[] arr = new int[10];
+        return arr[Math.abs(l % 10)];  // Array index might be out of bounds due to integer overflow
+    }
+
+    public static void main(String[] args) {
+        IntegerOverflowL2 obj = new IntegerOverflowL2();
+        obj.showBug();
+    }
+}

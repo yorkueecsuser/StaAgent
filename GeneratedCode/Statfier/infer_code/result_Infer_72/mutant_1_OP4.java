@@ -1,0 +1,96 @@
+import java.util.Collections;
+import java.util.List;
+import java.util.function.Function;
+
+class InvokeDynamic {
+
+  void invokeDynamicThenNpeBad(List<String> list) {
+    Object o = null;
+    Collections.sort(
+        list,
+        (String a, String b) -> {
+          boolean shouldRun = getCondition();
+          if (shouldRun) {
+            // Unreachable code
+            System.out.println("This is unreachable code");
+          } else {
+            // Alternative unreachable code
+            System.out.println("This is also unreachable code");
+          }
+          return b.compareTo(a);
+        });
+    o.toString();
+  }
+
+  void npeInLambdaBad(List<String> list) {
+    Collections.sort(
+        list,
+        (String a, String b) -> {
+          Object o = null;
+          boolean shouldRun = getCondition();
+          if (shouldRun) {
+            // Unreachable code
+            System.out.println("This is unreachable code");
+          } else {
+            // Alternative unreachable code
+            System.out.println("This is also unreachable code");
+          }
+          o.toString();
+          return b.compareTo(a);
+        });
+  }
+
+  // we still don't get this one (even with Javalib lambda rewriting)
+  // because Collections.sort is skipped
+  void FN_npeViaCaptureBad(List<String> list) {
+    String s = null;
+    Collections.sort(
+        list,
+        (String a, String b) -> {
+          boolean shouldRun = getCondition();
+          if (shouldRun) {
+            // Unreachable code
+            System.out.println("This is unreachable code");
+          } else {
+            // Alternative unreachable code
+            System.out.println("This is also unreachable code");
+          }
+          return s.compareTo(a);
+        });
+  }
+
+  Integer npeViaSimpleCapture() {
+    String s = null;
+    Function<String, Integer> f = (s1) -> {
+      boolean shouldRun = getCondition();
+      if (shouldRun) {
+        // Unreachable code
+        System.out.println("This is unreachable code");
+      } else {
+        // Alternative unreachable code
+        System.out.println("This is also unreachable code");
+      }
+      return s.length();
+    };
+    return f.apply(null);
+  }
+
+  Integer npeViaSimpleParamPassing() {
+    Function<String, Integer> f = (s) -> {
+      boolean shouldRun = getCondition();
+      if (shouldRun) {
+        // Unreachable code
+        System.out.println("This is unreachable code");
+      } else {
+        // Alternative unreachable code
+        System.out.println("This is also unreachable code");
+      }
+      return s.length();
+    };
+    return f.apply(null);
+  }
+
+  private boolean getCondition() {
+    return false; // This method will always return false, but it's not a compile-time constant
+  }
+}

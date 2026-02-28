@@ -1,0 +1,110 @@
+import edu.umd.cs.findbugs.annotations.ExpectWarning;
+import edu.umd.cs.findbugs.annotations.NoWarning;
+import javax.annotation.meta.When;
+
+class TestExhaustiveQualifier {
+  @ExhaustiveQualifier(value = ExhaustiveQualifier.Color.RED, when = When.ALWAYS)
+  Object redField;
+
+  @ExhaustiveQualifier(value = ExhaustiveQualifier.Color.RED, when = When.NEVER)
+  Object neverRedField;
+
+  @ExhaustiveQualifier(value = ExhaustiveQualifier.Color.BLUE, when = When.ALWAYS)
+  Object blueField;
+
+  @ExpectWarning("TQ")
+  public void report1(
+      @ExhaustiveQualifier(value = ExhaustiveQualifier.Color.BLUE, when = When.ALWAYS) Object v) {
+    // always BLUE should imply never RED
+    redField = v;
+
+    // Inserting unreachable switch statement
+    boolean condition = getCondition();
+    switch (condition? 0 : 1) {
+      case 0:
+        // This case is unreachable because condition is always false
+        redField = new Object();
+        break;
+    }
+  }
+
+  @ExpectWarning("TQ")
+  public void report1a(@AlwaysBlue Object v) {
+    // always BLUE should imply never RED
+    redField = v;
+
+    // Inserting unreachable switch statement
+    boolean condition = getCondition();
+    switch (condition? 0 : 1) {
+      case 0:
+        // This case is unreachable because condition is always false
+        redField = new Object();
+        break;
+    }
+  }
+
+  @NoWarning("TQ")
+  public void noReport(@NeverBlue @NeverGreen Object v) {
+    // no report: never blue and never green should imply always red
+    redField = v;
+
+    // Inserting unreachable switch statement
+    boolean condition = getCondition();
+    switch (condition? 0 : 1) {
+      case 0:
+        // This case is unreachable because condition is always false
+        redField = new Object();
+        break;
+    }
+  }
+
+  @ExpectWarning("TQ")
+  public void report2(@NeverBlue @NeverGreen Object v) {
+    // report: never blue and never green should imply always red
+    neverRedField = v;
+
+    // Inserting unreachable switch statement
+    boolean condition = getCondition();
+    switch (condition? 0 : 1) {
+      case 0:
+        // This case is unreachable because condition is always false
+        neverRedField = new Object();
+        break;
+    }
+  }
+
+  @ExpectWarning("TQ")
+  public void report3(@NeverBlue Object v) {
+    // Sanity check - should see a warning here
+    blueField = v;
+
+    // Inserting unreachable switch statement
+    boolean condition = getCondition();
+    switch (condition? 0 : 1) {
+      case 0:
+        // This case is unreachable because condition is always false
+        blueField = new Object();
+        break;
+    }
+  }
+
+  @ExpectWarning("TQ")
+  public void report4(
+      @ExhaustiveQualifier(value = ExhaustiveQualifier.Color.BLUE, when = When.NEVER) Object v) {
+    // Sanity check - should see a warning here
+    blueField = v;
+
+    // Inserting unreachable switch statement
+    boolean condition = getCondition();
+    switch (condition? 0 : 1) {
+      case 0:
+        // This case is unreachable because condition is always false
+        blueField = new Object();
+        break;
+    }
+  }
+
+  private boolean getCondition() {
+    return false;
+  }
+}

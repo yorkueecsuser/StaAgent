@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "DontImportSun",
+  "Bug_Details": "Avoid importing anything from the 'sun.*' packages. These packages are not portable\nand are likely to change.\n\nIf you find yourself having to depend on Sun APIs, confine this dependency to as\nsmall a scope as possible, for instance by writing a stable wrapper class around\nthe unstable API. You can then suppress this rule in the implementation of the wrapper.\nExamples:\nimport sun.misc.foo;\npublic class Foo {}",
+  "Bug_Explanation": "The bug is embedded in the generated code by intentionally using the non-portable'sun.misc.BASE64Encoder' class, which is not part of the standard Java API.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method of the SunPackageBug class, which uses the BASE64Encoder from the sun.misc package.",
+  "Trigger_Line": [
+    9
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

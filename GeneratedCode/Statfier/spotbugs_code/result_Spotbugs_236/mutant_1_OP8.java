@@ -1,0 +1,55 @@
+import annotations.DetectorUnderTest;
+import edu.umd.cs.findbugs.annotations.ExpectWarning;
+import edu.umd.cs.findbugs.annotations.NoWarning;
+import edu.umd.cs.findbugs.detect.FindUnrelatedTypesInGenericContainer;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.TreeSet;
+
+@DetectorUnderTest(FindUnrelatedTypesInGenericContainer.class)
+class Ideas_2011_07_03 {
+
+  @NoWarning("EC_UNRELATED_TYPES")
+  public boolean test(HashSet<Integer> s1, TreeSet<Integer> s2) {
+    return s1.equals(s2);
+  }
+
+  // Mutant 1
+  @NoWarning("EC_UNRELATED_TYPES")
+  public boolean test(HashSet<Integer> x, TreeSet<Integer> s2) {
+    return x.equals(s2);
+  }
+
+  @ExpectWarning("EC_UNRELATED_TYPES")
+  public boolean test(HashSet<Integer> s1, ArrayList<Integer> s2) {
+    return s1.equals(s2);
+  }
+
+  // Mutant 2
+  @ExpectWarning("EC_UNRELATED_TYPES")
+  public boolean test(HashSet<Integer> x, ArrayList<Integer> s2) {
+    return x.equals(s2);
+  }
+
+  @ExpectWarning("EC_UNRELATED_TYPES")
+  public boolean test(HashSet<Integer> s1, HashSet<String> s2) {
+    return s1.equals(s2);
+  }
+
+  // Mutant 3
+  @ExpectWarning("EC_UNRELATED_TYPES")
+  public boolean test(HashSet<Integer> x, HashSet<String> s2) {
+    return x.equals(s2);
+  }
+
+  @ExpectWarning("GC_UNRELATED_TYPES")
+  public boolean test2(HashSet<Integer> s1, HashSet<String> s2) {
+    return s1.removeAll(s2);
+  }
+
+  // Mutant 4
+  @ExpectWarning("GC_UNRELATED_TYPES")
+  public boolean test2(HashSet<Integer> x, HashSet<String> s2) {
+    return x.removeAll(s2);
+  }
+}

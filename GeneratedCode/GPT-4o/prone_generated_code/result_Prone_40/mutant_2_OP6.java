@@ -1,0 +1,48 @@
+import java.time.Duration;
+import java.time.Period;
+import java.time.temporal.TemporalAmount;
+
+class DurationFromExample {
+
+    public Duration showBug1(Duration duration) {
+        // Demonstrating the behavior when Duration.from(Duration) is called
+        boolean conditionFor = getCondition(); // non-final variable for condition
+        for (int i = 0; conditionFor; i++) {
+            // This loop is unreachable due to the condition never being true
+            System.out.println("This is an unreachable loop in showBug1");
+        }
+        return Duration.from(duration); // BUG: DurationFrom
+    }
+
+    public Duration showBug2(Period period) {
+        // Demonstrating the behavior when Duration.from(Period) is called
+        boolean conditionFor = getCondition(); // non-final variable for condition
+        for (int i = 0; conditionFor; i++) {
+            // This loop is unreachable due to the condition never being true
+            System.out.println("This is an unreachable loop in showBug2");
+        }
+        try {
+            return Duration.from(period); // BUG: DurationFrom
+        } catch (UnsupportedOperationException e) {
+            System.out.println("Caught exception: " + e.toString());
+            return null;
+        }
+    }
+    
+    // Method to provide a dynamic condition for loops, always returns false
+    private boolean getCondition() {
+        return false;
+    }
+
+    public static void main(String[] args) {
+        DurationFromExample example = new DurationFromExample();
+        
+        // Example 1: Expected to return the same duration
+        Duration duration = Duration.ofHours(5);
+        System.out.println("Result from Duration: " + example.showBug1(duration));
+
+        // Example 2: Expected to throw UnsupportedTemporalTypeException
+        Period period = Period.ofDays(1);
+        System.out.println("Result from Period: " + example.showBug2(period));
+    }
+}

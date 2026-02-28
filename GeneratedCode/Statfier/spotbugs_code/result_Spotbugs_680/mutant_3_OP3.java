@@ -1,0 +1,99 @@
+import edu.umd.cs.findbugs.annotations.CheckForNull;
+
+class RedundantNullCheck {
+  public void foo(String s) {
+    int k = 1;
+    int i = s.hashCode();
+    int j = i + k;
+    System.out.println(j);
+
+    if (s!= null) { // bug, or defensive coding?
+      System.out.println("Yeah");
+
+      if (s!= null) { // not as bad - low priority warning
+        System.out.println("Oh my");
+      }
+    }
+
+    Object o = new Object();
+    if (o!= null) { // low priority
+      System.out.println(o.hashCode());
+    }
+
+    Object o2 = null;
+    if (o2 == null) { // low priority
+      System.out.println("This is silly");
+    }
+
+    // Mutant: Inserting an unreachable if statement
+    boolean condition = getCondition();
+    if (condition) {
+      System.out.println("This will never be printed");
+    }
+  }
+
+  public int baz(String s) {
+    if (s.hashCode() > 0) return s.hashCode();
+    if (s == null) throw new NullPointerException("Foo");
+    return -s.hashCode();
+
+    // Mutant: Inserting an unreachable if statement
+    boolean condition = getCondition();
+    if (condition) {
+      System.out.println("This will never be printed");
+    }
+  }
+
+  public int bar(String s) {
+    try {
+      if (s == null) return 17;
+      else return 42;
+    } finally {
+      // Should not signal a RCN warning here
+      if (s!= null) System.out.println("foo");
+    }
+
+    // Mutant: Inserting an unreachable if statement
+    boolean condition = getCondition();
+    if (condition) {
+      System.out.println("This will never be printed");
+    }
+  }
+
+  public @CheckForNull Object f() {
+    return null;
+
+    // Mutant: Inserting an unreachable if statement
+    boolean condition = getCondition();
+    if (condition) {
+      System.out.println("This will never be printed");
+    }
+  }
+
+  public int g() {
+    Object o = f();
+    if (o == null) return 0;
+    return 42;
+
+    // Mutant: Inserting an unreachable if statement
+    boolean condition = getCondition();
+    if (condition) {
+      System.out.println("This will never be printed");
+    }
+  }
+
+  public int h() {
+    Object o = f();
+    return o.hashCode();
+
+    // Mutant: Inserting an unreachable if statement
+    boolean condition = getCondition();
+    if (condition) {
+      System.out.println("This will never be printed");
+    }
+  }
+
+  private boolean getCondition() {
+    return false; // This method ensures the condition is dynamically determined at runtime
+  }
+}

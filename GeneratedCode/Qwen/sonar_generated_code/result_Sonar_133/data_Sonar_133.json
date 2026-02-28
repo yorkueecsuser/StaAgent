@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Dissimilar primitive wrappers should not be used with the ternary operator without explicit casting",
+  "Bug_Details": "Using boxed values in a ternary operator does not simply return one operand or the other based on the condition. Instead, the values are unboxed\nand coerced to a common type, which can result in a loss of precision when converting one operand from int to float or from long to double .\nWhile this behavior is expected for arithmetic operations, it may be unexpected for the ternary operator. To avoid confusion or unexpected\nbehavior, cast to a compatible type explicitly.",
+  "Bug_Explanation": "The bug is embedded in the showBug method where the ternary operator is used with dissimilar primitive wrappers Integer and Float. The Integer value is unboxed and coerced to a float, which can lead to unexpected behavior if the integer value cannot be precisely represented as a float.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by calling the showBug method with both true and false conditions. The method uses a ternary operator with dissimilar primitive wrappers Integer and Float, which leads to unexpected behavior due to unboxing and coercion.",
+  "Trigger_Line": [
+    10,
+    13
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.007\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that both tests passed successfully without any assertion errors. This suggests that the method'showBug' returned the expected values (100.0 for true condition and 100.5 for false condition) as per the test assertions, implying that the bug was not triggered."
+}

@@ -1,0 +1,14 @@
+class SleepWithLock {
+  boolean ready;
+
+  void sleepWithLock() throws InterruptedException {
+
+    synchronized (this) {
+      while (!ready) {
+        Thread.sleep(1000L);
+      }
+      // Mutant code added here
+      String qwejrtyp = "unusedVariable";
+    }
+  }
+}

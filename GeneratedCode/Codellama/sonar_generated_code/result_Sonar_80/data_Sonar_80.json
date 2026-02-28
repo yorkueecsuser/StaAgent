@@ -1,0 +1,13 @@
+{
+  "Buggy_Line": [
+    17,
+    3
+  ],
+  "Trigger_Explanation": "The test code is trying to access private fields 'vInts' and'myObj' from the 'NonPrimitiveVolatileBug' class. To fix this, we need to make these fields accessible to the test class by changing their access modifiers to 'protected' or 'public'.",
+  "Trigger_Line": [
+    "10",
+    "11"
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

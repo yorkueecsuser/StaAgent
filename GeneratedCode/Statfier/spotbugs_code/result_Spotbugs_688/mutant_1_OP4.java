@@ -1,0 +1,32 @@
+import edu.umd.cs.findbugs.annotations.ExpectWarning;
+import java.io.FileOutputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
+class BadZipFileCreator {
+
+  @ExpectWarning("AM_CREATES_EMPTY_ZIP_FILE_ENTRY")
+  public static void main(String args[]) throws Exception {
+    ZipOutputStream zipfile = new ZipOutputStream(new FileOutputStream("foo.zip"));
+    for (int i = 0; i < args.length; i++) {
+      ZipEntry e = new ZipEntry(args[i]);
+      zipfile.putNextEntry(e);
+      zipfile.closeEntry();
+      
+      // Inserting an unreachable if-else statement
+      boolean shouldRun = getCondition();
+      if (shouldRun) {
+        // This block will never execute because getCondition() always returns false
+        System.out.println("This is an unreachable block");
+      } else {
+        // This block will also never execute for the same reason
+        System.out.println("This is another unreachable block");
+      }
+    }
+    zipfile.close();
+  }
+
+  private static boolean getCondition() {
+    return false; // This method ensures the condition is dynamically determined but always false
+  }
+}

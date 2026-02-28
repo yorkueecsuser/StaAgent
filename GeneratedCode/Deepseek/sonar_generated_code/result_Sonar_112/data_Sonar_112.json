@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "A \"for\" loop update clause should move the counter in the right direction",
+  "Bug_Details": "A for loop with a counter moving away from the end of the specified range is likely a programming mistake.\nIf the intention is to iterate over the specified range, this differs from what the loop does because the counter moves in the wrong direction.\nIf the intention is to have an infinite loop or a loop terminated only by a break statement, there are two problems:\nThe loop condition is not infinite because the counter variable will eventually overflow and fulfill the condition. This can take a long time,\n  depending on the data type of the counter.\nAn infinite loop terminated by a break statement should be implemented using a while or do while loop to make the developer\u2019s intention clear to the reader.",
+  "Bug_Explanation": "The counter in the for loop is initialized to 10 and decreased in every iteration. This means that the counter can go below zero, which can lead to unexpected behavior. The loop continues as long as the counter is greater than or equal to 0, which is incorrect. The loop should have been incremented in every iteration.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case triggers the bug by checking if the result is equal to 55 which is incorrect due to the bug in the showBug() method in BuggyCode.java",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not confirm the presence of the bug in the Java code. The test case is passing, meaning the code is behaving as expected and not triggering the bug.",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The bug is present in the code. The for loop in the'showBug' method is intended to iterate over the range from 10 to 0 (inclusive), but the counter 'i' is decremented (i--) in each iteration. This means that the loop will never execute because 'i' starts at 10 and is always greater than 0. The loop condition should be 'i >= 0' to ensure that the loop executes at least once."
+}

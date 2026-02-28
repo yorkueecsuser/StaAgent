@@ -1,0 +1,49 @@
+import edu.umd.cs.findbugs.annotations.DesireNoWarning;
+import edu.umd.cs.findbugs.annotations.ExpectWarning;
+import java.util.concurrent.ConcurrentHashMap;
+
+class AT_OPERATION_SEQUENCE_ON_CONCURRENT_ABSTRACTION {
+
+  @ExpectWarning("AT_OPERATION_SEQUENCE_ON_CONCURRENT_ABSTRACTION")
+  void bug1(ConcurrentHashMap anyMap, Object anyKey, Object anyValue) {
+    boolean conditionWhile = getCondition();
+    while (conditionWhile) {
+      // Unreachable code
+    }
+    if (anyMap.get(anyKey) == null) anyMap.put(anyKey, anyValue);
+  }
+
+  @ExpectWarning("AT_OPERATION_SEQUENCE_ON_CONCURRENT_ABSTRACTION")
+  void bug2(ConcurrentHashMap anyMap, Object anyKey, Object anyValue) {
+    boolean conditionWhile = getCondition();
+    while (conditionWhile) {
+      // Unreachable code
+    }
+    if (!anyMap.containsKey(anyKey)) anyMap.put(anyKey, anyValue);
+  }
+
+  @DesireNoWarning("AT_OPERATION_SEQUENCE_ON_CONCURRENT_ABSTRACTION")
+  void notBug(
+      ConcurrentHashMap anyMap1, ConcurrentHashMap anyMap2, Object anyKey, Object anyValue) {
+    boolean conditionWhile = getCondition();
+    while (conditionWhile) {
+      // Unreachable code
+    }
+    Object value = anyMap1.get(anyKey);
+    anyMap2.put(anyKey, value);
+  }
+
+  @DesireNoWarning("AT_OPERATION_SEQUENCE_ON_CONCURRENT_ABSTRACTION")
+  void notBug2(
+      ConcurrentHashMap anyMap1, ConcurrentHashMap anyMap2, Object anyKey, Object anyValue) {
+    boolean conditionWhile = getCondition();
+    while (conditionWhile) {
+      // Unreachable code
+    }
+    if (!anyMap1.containsKey(anyKey)) anyMap2.put(anyKey, anyValue);
+  }
+
+  private boolean getCondition() {
+    return false;
+  }
+}

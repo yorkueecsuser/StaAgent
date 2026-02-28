@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "Eq: Covariant equals() method defined for enum (EQ_DONT_DEFINE_EQUALS_FOR_ENUM)\uf0c1",
+  "Bug_Details": " This class defines an enumeration, and equality on enumerations are defined\nusing object identity. Defining a covariant equals method for an enumeration\nvalue is exceptionally bad practice, since it would likely result\nin having two different enumeration values that compare as equals using\nthe covariant enum method, and as not equal when compared normally.\nDon't do it.\n",
+  "Bug_Explanation": "An equals() method is overridden for an enum, which is not recommended since it can lead to confusion and inconsistency in comparisons. Here, the equals() method is incorrectly attempting to compare enum values using object identity instead of their actual values.",
+  "Buggy_Line": [
+    3,
+    7,
+    11
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "spotbugs_clean_java_code/result_Spotbugs_26/seed_Spotbugs_26.java:2: error: enum EnumType is public, should be declared in a file named EnumType.java\npublic enum EnumType {\n       ^\nspotbugs_clean_java_code/result_Spotbugs_26/seed_Spotbugs_26.java:7: error: equals(Object) in EnumType cannot override equals(Object) in Enum\n    public boolean equals(Object obj) {\n                   ^\n  overridden method is final\n2 errors\n",
+  "Trigger_Explanation": "The test case asserts that EnumType.A is not equal to EnumType.B, which is a contradiction to the overridden equals() method in the enum. This triggers the bug because the assertion fails.",
+  "Trigger_Line": [
+    5
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

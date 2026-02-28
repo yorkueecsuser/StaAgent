@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "Servlets should not have mutable instance fields",
+  "Bug_Details": "The processHttpRequest method and methods called from it can be executed by multiple threads within the same servlet instance, and\nstate changes to the instance caused by these methods are, therefore, not threadsafe.\nThis is due to the servlet container creating only one instance of each servlet ( javax.servlet.http.HttpServlet ) and attaching a\ndedicated thread to each incoming HTTP request. The same problem exists for org.apache.struts.action.Action but with different\nmethods.\nTo prevent unexpected behavior, avoiding mutable states in servlets is recommended. Mutable instance fields should either be refactored into local\nvariables or made immutable by declaring them final .\nExceptions\nFields annotated with @javax.inject.Inject , @javax.ejb.EJB , @org.springframework.beans.factory.annotation.Autowired , @javax.annotation.Resource Fields initialized in init() or init(ServletConfig config) methods\nFields annotated with @javax.inject.Inject , @javax.ejb.EJB , @org.springframework.beans.factory.annotation.Autowired , @javax.annotation.Resource\nFields initialized in init() or init(ServletConfig config) methods",
+  "Bug_Explanation": "The bug is embedded in the generated code by having a mutable instance field 'counter' in a servlet-like class. This field is incremented in the 'doGet' method, which simulates the behavior of handling multiple requests in a servlet environment.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by using the mutable instance field 'counter' in the MutableFieldServlet class. The 'doGet' method modifies this field, which is not thread-safe, leading to potential race conditions when accessed concurrently by multiple threads.",
+  "Trigger_Line": [
+    24,
+    34,
+    51,
+    61
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

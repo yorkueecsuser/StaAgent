@@ -1,0 +1,15 @@
+import java.lang.Math;
+
+class HashCodeBug {
+    public int showBug(String input) {
+        int hashCode = input.hashCode();
+        int absoluteValue = Math.abs(hashCode);
+        return absoluteValue;
+    }
+
+    public int showBugMutant(String input) {
+        int hCode = input.hashCode();
+        int absoluteValue = Math.abs(hCode);
+        return absoluteValue;
+    }
+}

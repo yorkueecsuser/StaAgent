@@ -1,0 +1,36 @@
+import java.io.IOException;
+
+class Bug1964520 extends Exception {
+  private static final long serialVersionUID = 1L;
+
+  public void test(Exception e) {
+    // should trigger warning (and does)
+    if (((Bug1964520) e).toString().equals("")) {
+      System.out.println("toString is blank");
+    }
+    // should trigger warning (and does)
+    if (e instanceof IOException && ((Bug1964520) e).toString().equals("")) {
+      System.out.println("toString is blank");
+    }
+    // should not trigger warning (and doesn't)
+    if (e instanceof Bug1964520 && ((Bug1964520) e).toString().equals("")) {
+      System.out.println("toString is blank");
+    }
+    // should not trigger warning (and doesn't)
+    if (e instanceof Bug1964520) {
+      if (((Bug1964520) e).toString().equals("")) {
+        System.out.println("toString is blank");
+      }
+    }
+
+    // Unreachable for loop mutant
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // This loop is unreachable because conditionFor is dynamically determined and will be false
+    }
+  }
+
+  private boolean getCondition() {
+    return false;
+  }
+}

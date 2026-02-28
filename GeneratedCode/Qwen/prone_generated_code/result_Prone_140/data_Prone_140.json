@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "ProtocolBufferOrdinal",
+  "Bug_Details": "To get the tag number of a protocol buffer enum, use getNumber() instead. The generated Java source files for Protocol Buffer enums have getNumber() as\naccessors for the tag number in the protobuf file. In addition, since it\u2019s a java enum, it also has the ordinal() method,\nreturning its positional index within the generated java enum. The ordinal() order of the generated Java enums isn\u2019t guaranteed, and can\nchange when a new enum value is inserted into a proto enum. The getNumber()\nvalue won\u2019t change for an enum value (since making that change is a\nbackwards-incompatible change for the protocol buffer). You should very likely use getNumber() in preference to ordinal() in all\ncircumstances since it\u2019s a more stable value. Note: If you\u2019re changing code that was already using ordinal(), it\u2019s likely that\ngetNumber() will return a different real value. Tread carefully to avoid\nmismatches if the ordinal was persisted elsewhere.",
+  "Bug_Explanation": "The bug is embedded in the generated code by using the ordinal() method of the enum instead of the getNumber() method to retrieve the tag number of the protocol buffer enum. This can lead to incorrect results if the enum values are reordered.",
+  "Buggy_Line": [
+    28
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by asserting the ordinal values of the enum constants instead of their tag numbers. The method showBug() uses ordinal() which is not guaranteed to be stable and can change with enum modifications.",
+  "Trigger_Line": [
+    11,
+    12,
+    13
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.01\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed without any assertion failures. This indicates that the values returned by the showBug method match the expected ordinal values for each enum constant. However, this does not confirm the bug because the test is checking for ordinal values, which is precisely what the buggy code is providing. The test does not check for the correct usage of getNumber() instead of ordinal(). Therefore, the test results do not confirm the presence of the described bug."
+}

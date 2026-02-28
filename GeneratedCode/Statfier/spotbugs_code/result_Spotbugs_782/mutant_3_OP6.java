@@ -1,0 +1,53 @@
+/*
+ * Copyright 2011 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Positive test cases for the empty statement check.
+ *
+ * @author eaftan@google.com (Eddie Aftandilian)
+ */
+class EmptyStatementPositiveCases {
+
+  public static void positiveCase1() {
+    int i = 10;
+    ;
+    i++;
+
+    // Unreachable for loop mutant
+    boolean conditionFor = getCondition();
+    for (int j = 0; conditionFor; j++) {
+      // This loop is unreachable because conditionFor is never set to true
+    }
+  }
+
+  public static void positiveCase2() {
+    int i = 10;
+    if (i == 10)
+      ;
+    i++;
+
+    // Unreachable for loop mutant
+    boolean conditionFor = getCondition();
+    for (int j = 0; conditionFor; j++) {
+      // This loop is unreachable because conditionFor is never set to true
+    }
+  }
+
+  // Method to provide a dynamic condition
+  private static boolean getCondition() {
+    return false; // This method always returns false, ensuring the loop is unreachable
+  }
+}

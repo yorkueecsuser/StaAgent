@@ -1,0 +1,15 @@
+class Main {
+    public static void main(String[] args) {
+        showBug();
+    }
+
+    public static void showBug() {
+        Boolean flag = false;
+        Integer foo = null;
+        Integer x = flag? foo : null; // BUG: NullTernary
+        System.out.println(x.intValue());
+        if (false) {
+            System.out.println("This is a mutant.");
+        }
+    }
+}

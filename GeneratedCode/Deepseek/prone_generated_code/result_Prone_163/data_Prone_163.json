@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "ThrowNull",
+  "Bug_Details": "Throwing 'null' always results in a NullPointerException being thrown.",
+  "Bug_Explanation": "Throwing 'null' will always result in a NullPointerException being thrown as per Java Language Specification (JLS).",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "This test case triggers the bug by calling the showBug method of BugExample class. The showBug method throws null, which results in a NullPointerException being thrown. The test case expects a NullPointerException to be thrown and fails if it does not.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results did not demonstrate the bug being triggered. The expected NullPointerException was not thrown.",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The code contains a bug. The 'throw' keyword in Java can only be used to throw instances of Throwable or its subclasses. Throwing 'null' will result in a NullPointerException at runtime."
+}

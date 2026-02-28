@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "EC: Call to equals() comparing unrelated class and interface (EC_UNRELATED_CLASS_AND_INTERFACE)\uf0c1",
+  "Bug_Details": "\nThis method calls equals(Object) on two references,  one of which is a class\nand the other an interface, where neither the class nor any of its\nnon-abstract subclasses implement the interface.\nTherefore, the objects being compared\nare unlikely to be members of the same class at runtime\n(unless some application classes were not analyzed, or dynamic class\nloading can occur at runtime).\nAccording to the contract of equals(),\nobjects of different\nclasses should always compare as unequal; therefore, according to the\ncontract defined by java.lang.Object.equals(Object),\nthe result of this comparison will always be false at runtime.\n",
+  "Bug_Explanation": "The bug was embedded in the showBug method. It attempts to use the equals() method of SimpleClass to compare it with a SimpleInterface object. Since SimpleClass does not implement SimpleInterface, this will always return false according to the contract of equals() method.",
+  "Buggy_Line": [
+    19
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by comparing an object of SimpleClass with an object of SimpleInterface using the equals method. Since SimpleClass does not implement SimpleInterface, the comparison will always return false.",
+  "Trigger_Line": [
+    13
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

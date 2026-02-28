@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "\"super.finalize()\" should be called at the end of \"Object.finalize()\" implementations",
+  "Bug_Details": "Overriding the Object.finalize() method must be done with caution to dispose some system resources.\nCalling the super.finalize() at the end of this method implementation is highly recommended in case parent implementations must also\ndispose some system resources.\nNoncompliant code example\nprotected void finalize() {   // Noncompliant; no call to super.finalize();\n  releaseSomeResources();\n}\n\nprotected void finalize() {\n  super.finalize();  // Noncompliant; this call should come last\n  releaseSomeResources();\n}\nCompliant solution\nprotected void finalize() {\n  releaseSomeResources();\n  super.finalize();\n}",
+  "Bug_Explanation": "The bug is embedded in the finalize method where'super.finalize()' is called before releasing resources, which is against the recommended practice.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method of the FinalizeBugExample class, which creates an instance of the class, sets it to null, and suggests garbage collection. Since the finalize method in FinalizeBugExample calls super.finalize() before releasing resources, the order of operations is incorrect, causing the test to fail implicitly by not adhering to the recommended practice.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Releasing resources...\n\nTime: 0.012\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show 'Releasing resources...' being printed, but there is no indication that the order of operations within the finalize method (i.e., calling super.finalize() before releasing resources) caused any issues or errors. The absence of any exceptions or failures in the test run does not confirm that the bug was triggered."
+}

@@ -1,0 +1,21 @@
+import java.util.Optional;
+
+class OptionalEquality {
+    public static void main(String[] args) {
+        Optional<String> optional1 = Optional.of("hello");
+        Optional<String> optional2 = Optional.of("hello");
+
+        // BUG: OptionalEquality
+        if (optional1 == optional2) { 
+            System.out.println("Optional objects are equal by reference");
+        } else {
+            System.out.println("Optional objects are not equal by reference");
+        }
+
+        // Mutant Code: Unreachable If Statement
+        boolean shouldRun = false;
+        if (shouldRun) {
+            System.out.println("This statement will never be executed due to a false condition");
+        }
+    }
+}

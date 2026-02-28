@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "BAC: Bad Applet Constructor relies on uninitialized AppletStub (BAC_BAD_APPLET_CONSTRUCTOR)\uf0c1",
+  "Bug_Details": "\nThis constructor calls methods in the parent Applet that rely on the AppletStub. Since the AppletStub\nisn't initialized until the init() method of this applet is called, these methods will not perform\ncorrectly.\n",
+  "Bug_Explanation": "The bug was embedded in the constructor of the BadAppletConstructor class by calling the getAppletStub() method, which is not initialized until the init() method is called.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../spotbugs_clean_java_code/result_Spotbugs_104/seed_Spotbugs_104.java:4: warning: [removal] Applet in java.applet has been deprecated and marked for removal\nclass BadAppletConstructor extends Applet {\n                                   ^\n../spotbugs_clean_java_code/result_Spotbugs_104/seed_Spotbugs_104.java:5: warning: [removal] AppletStub in java.applet has been deprecated and marked for removal\n    private AppletStub stub;\n            ^\n../spotbugs_clean_java_code/result_Spotbugs_104/seed_Spotbugs_104.java:8: error: cannot find symbol\n        this.stub = getAppletStub(); // BUG: BAC: Bad Applet Constructor relies on uninitialized AppletStub (BAC_BAD_APPLET_CONSTRUCTOR)\uf0c1\n                    ^\n  symbol:   method getAppletStub()\n  location: class BadAppletConstructor\n../spotbugs_clean_java_code/result_Spotbugs_104/seed_Spotbugs_104.java:12: error: cannot find symbol\n        stub.init();\n            ^\n  symbol:   method init()\n  location: variable stub of type AppletStub\n../spotbugs_clean_java_code/result_Spotbugs_104/seed_Spotbugs_104.java:16: error: cannot find symbol\n        stub.start();\n            ^\n  symbol:   method start()\n  location: variable stub of type AppletStub\n../spotbugs_clean_java_code/result_Spotbugs_104/seed_Spotbugs_104.java:20: error: cannot find symbol\n        stub.stop();\n            ^\n  symbol:   method stop()\n  location: variable stub of type AppletStub\n../spotbugs_clean_java_code/result_Spotbugs_104/seed_Spotbugs_104.java:24: error: cannot find symbol\n        stub.destroy();\n            ^\n  symbol:   method destroy()\n  location: variable stub of type AppletStub\n5 errors\n2 warnings\n",
+  "Trigger_Explanation": "The JUnit test case triggered the bug by calling the `showBug()` method, which relies on the uninitialized `AppletStub`.",
+  "Trigger_Line": [
+    12
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

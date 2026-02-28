@@ -1,0 +1,22 @@
+{
+  "Bug_Title": "Back references in regular expressions should only refer to capturing groups that are matched before the reference",
+  "Bug_Details": "When a back reference in a regex refers to a capturing group that hasn\u2019t been defined yet (or at all), it can never be matched. Named back\nreferences throw a PatternSyntaxException in that case; numeric back references fail silently when they can\u2019t match, simply making the\nmatch fail.\nWhen the group is defined before the back reference but on a different control path (like in (.)|\\1 for example), this also leads to a\nsituation where the back reference can never match.\nNoncompliant code example\nPattern.compile(\"\\\\1(.)\"); // Noncompliant, group 1 is defined after the back reference\nPattern.compile(\"(.)\\\\2\"); // Noncompliant, group 2 isn't defined at all\nPattern.compile(\"(.)|\\\\1\"); // Noncompliant, group 1 and the back reference are in different branches\nPattern.compile(\"(?<x>.)|\\\\k<x>\"); // Noncompliant, group x and the back reference are in different branches\nCompliant solution\nPattern.compile(\"(.)\\\\1\");\nPattern.compile(\"(?<x>.)\\\\k<x>\");",
+  "Bug_Explanation": "The bug is embedded in the regular expressions used to compile the patterns. In showBug1, the back reference \\1 is used before group 1 is defined. In showBug2, the back reference \\2 is used but group 2 is not defined. In showBug3, group 1 and the back reference are in different branches of the pattern, so the back reference will never match. In showBug4, group x and the back reference are in different branches of the pattern, which is not allowed and will throw a PatternSyntaxException.",
+  "Buggy_Line": [
+    8,
+    27,
+    20,
+    14
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test cases call methods from the BackReferenceBug class that contain errors in the regular expressions. These errors trigger the bug as outlined in the code comments, resulting in a test failure.",
+  "Trigger_Line": [
+    "9",
+    "14",
+    "19",
+    "24"
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.false\n.false\n.true\n.true\n\nTime: 0.005\n\nOK (4 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the bug was not triggered in any of the test cases. The regular expressions used in the tests did not cause the expected errors because they were written to avoid triggering the bug."
+}

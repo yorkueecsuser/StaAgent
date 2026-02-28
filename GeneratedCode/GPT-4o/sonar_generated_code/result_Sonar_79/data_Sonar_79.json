@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "\"volatile\" variables should not be used with compound operators",
+  "Bug_Details": "Using compound operators as well as increments and decrements (and toggling, in the case of boolean s) on primitive fields are not\natomic operations. That is, they don\u2019t happen in a single step. For instance, when a volatile primitive field is incremented or\ndecremented you run the risk of data loss if threads interleave in the steps of the update. Instead, use a guaranteed-atomic class such as AtomicInteger , or synchronize the access.\nNoncompliant code example\nprivate volatile int count = 0;\nprivate volatile boolean boo = false;\n\npublic void incrementCount() {\n  count++;  // Noncompliant\n}\n\npublic void toggleBoo(){\n  boo = !boo;  // Noncompliant\n}\nCompliant solution\nprivate AtomicInteger count = 0;\nprivate boolean boo = false;\n\npublic void incrementCount() {\n  count.incrementAndGet();\n}\n\npublic synchronized void toggleBoo() {\n  boo = !boo;\n}",
+  "Bug_Explanation": "The code uses compound operators (increment and toggle) on volatile variables, which are not atomic operations. This can lead to data loss if multiple threads access these variables simultaneously.",
+  "Buggy_Line": [
+    11,
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test cases trigger the bug by calling the methods showBug1 and showBug2 multiple times. Due to the non-atomic nature of compound operations on volatile variables, the expected outcome (incrementing or toggling the value) may not happen as intended when these methods are called consecutively. The test cases assert that the values should change as expected, but due to potential interleaving of threads, these operations are not atomic and may fail, thus triggering the bug.",
+  "Trigger_Line": [
+    9,
+    16
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.005\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that both tests passed successfully, as shown by the 'OK (2 tests)' result. This suggests that the bug was not triggered during the test execution because the tests did not fail, which would be expected if the volatile variables were causing issues as described."
+}

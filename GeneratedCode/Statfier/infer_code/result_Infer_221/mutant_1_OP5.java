@@ -1,0 +1,53 @@
+abstract class Taint {
+  abstract String badString();
+
+  abstract void sendToDb(String arg);
+
+  void fOk() {
+    String s0 = badString();
+    String s1 = "foo";
+    if (s0 == s1) return; // Hint for Pulse.
+    sendToDb(s1);
+
+    // Introduced unreachable switch statement
+    boolean condition = getCondition();
+    switch (condition? 0 : 1) {
+      case 0:
+        // This case is unreachable because condition is never true
+        System.out.println("This is unreachable");
+        break;
+      default:
+        // Default case
+        break;
+    }
+  }
+
+  void fBad() {
+    String s0 = badString();
+    if (s0 == null) return;
+    String s1 = "foo" + s0 + "bar";
+    if (s1 == s0) return;
+    String s2 = "oops" + s1;
+    if (s2 == s1 || s2 == s0) return;
+    String s3 = s1 + s1;
+    if (s3 == s0 || s3 == s1 || s3 == s2) return;
+    sendToDb(s2);
+
+    // Introduced unreachable switch statement
+    boolean condition = getCondition();
+    switch (condition? 0 : 1) {
+      case 0:
+        // This case is unreachable because condition is never true
+        System.out.println("This is unreachable");
+        break;
+      default:
+        // Default case
+        break;
+    }
+  }
+
+  // Helper method to simulate a dynamic condition
+  private boolean getCondition() {
+    return false; // This will always return false, ensuring the switch is unreachable
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "AvoidEnumAsIdentifier",
+  "Bug_Details": "Use of the term `enum` will conflict with newer versions of Java since it is a reserved word.\n\nSince Java 1.5, the token `enum` became a reserved word and using it as an identifier will\nresult in a compilation failure for Java 1.5 and later. This rule is therefore only useful\nfor old Java code before Java 1.5. It can be used to identify problematic code prior to a Java update.\nExamples:\npublic class A {\n    public class Foo {\n        String enum = \"foo\";\n    }\n}",
+  "Bug_Explanation": "The bug is embedded in the generated code by using the keyword 'enum' as an identifier in the inner class Foo. This is intentional to demonstrate the 'AvoidEnumAsIdentifier' rule.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by calling the showBug method, which accesses the field named 'enumVar' in the Foo class. The original bug was caused by using 'enum' as an identifier, which is now replaced with 'enumVar' to allow compilation. However, the comment indicates where the original bug was triggered.",
+  "Trigger_Line": [
+    16
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

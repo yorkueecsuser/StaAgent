@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "\"equals(Object obj)\" and \"hashCode()\" should be overridden in pairs",
+  "Bug_Details": "According to the Java Language Specification, there is a contract between equals(Object) and hashCode() :\nIf two objects are equal according to the equals(Object) method, then calling the hashCode method on each of the two\n  objects must produce the same integer result.\nIt is not required that if two objects are unequal according to the equals(java.lang.Object) method, then calling the hashCode method on each of the two objects must produce distinct integer results.\nHowever, the programmer should be aware that producing distinct integer results for unequal objects may improve the performance of\n  hashtables.\nIn order to comply with this contract, those methods should be either both inherited, or both overridden.",
+  "Bug_Explanation": "The equals method is overridden but the hashCode method is not. This violates the contract that says if two objects are equal according to the equals(Object) method, then calling the hashCode method on each of the two objects must produce the same integer result. The program may crash if two unequal objects produce the same hash code.",
+  "Buggy_Line": [
+    17,
+    18
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug was triggered by the fact that the equals method was overridden but the hashCode method was not.",
+  "Trigger_Line": [
+    13
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The bug is present in the code. The equals(Object obj) method is overridden but the hashCode() method is not. According to the Java Language Specification, there is a contract between equals(Object) and hashCode() : If two objects are equal according to the equals(Object) method, then calling the hashCode method on each of the two objects must produce the same integer result. If the hashCode() method is not overridden, this code will not crash, but it violates the contract. Therefore, the code is not compliant with the Java Language Specification."
+}

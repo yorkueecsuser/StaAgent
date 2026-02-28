@@ -1,0 +1,18 @@
+import java.util.Map;
+
+class DuplicateMapKeys {
+    public void showBug() {
+        Map<String, String> map = Map.ofEntries(
+            Map.entry("Foo", "Bar"),
+            Map.entry("Ping", "Pong"),
+            Map.entry("Kit", "Kat"),
+            Map.entry("Foo", "Bar")
+        );
+        
+        boolean condition = false;
+        while (condition) {
+            System.out.println("This is an unreachable while loop");
+            condition = true;
+        }
+    }
+}

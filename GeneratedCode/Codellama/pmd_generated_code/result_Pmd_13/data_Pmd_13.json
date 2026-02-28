@@ -1,0 +1,13 @@
+{
+  "Bug_Title": "AvoidFieldNameMatchingTypeName",
+  "Bug_Details": "It is somewhat confusing to have a field name matching the declaring type name.\nThis probably means that type and/or field names should be chosen more carefully.",
+  "Bug_Explanation": "The field name 'AvoidFieldNameMatchingTypeName' is the same as the declaring type name, which can cause confusion and make the code difficult to read and maintain.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug() method, which sets the value of the field 'avoidFieldNameMatchingTypeName' to 'Hello, World!'. This value is then asserted to be the same as the expected value.",
+  "Trigger_Line": "[3, 6, 7, 9]",
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

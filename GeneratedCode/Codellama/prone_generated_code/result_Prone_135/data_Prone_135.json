@@ -1,0 +1,7 @@
+{
+  "Bug_Title": "PreconditionsInvalidPlaceholder",
+  "Bug_Details": "Preconditions only accepts the %s placeholder in error message strings The Guava Preconditions checks take error message template strings that look\nsimilar to format strings, but only accept the %s format (not %d, %f, etc.).\nThis check points out places where a Preconditions error message template string\nhas a non-%s format, or where the number of arguments does not match the number\nof %s formats in the string.",
+  "Bug_Explanation": "The bug is embedded in the call to Objects.requireNonNull() in line 8. The method takes an error message template string that looks similar to a format string, but only accepts the %s format (not %d, %f, etc.). In this case, the error message template string contains the %d format, which is not allowed and should be changed to %s.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful"
+}

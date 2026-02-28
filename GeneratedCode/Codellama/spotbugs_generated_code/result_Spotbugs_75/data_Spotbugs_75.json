@@ -1,0 +1,11 @@
+{
+  "Buggy_Line": [
+    5
+  ],
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug() method, which calls the equals() method with a null argument, causing the bug to occur.",
+  "Trigger_Line": [
+    6
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

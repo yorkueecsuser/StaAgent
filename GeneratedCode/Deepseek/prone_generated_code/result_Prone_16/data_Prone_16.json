@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "ChainingConstructorIgnoresParameter",
+  "Bug_Details": "The called constructor accepts a parameter with the same name and type as one of its caller's parameters, but its caller doesn't pass that parameter to it.  It's likely that it was intended to. When a class exposes multiple constructors, they\u2019re generally used as a means of\ninitializing default parameters. If a chaining constructor ignores a parameter,\nit\u2019s likely the parameter needed to be plumbed to the chained constructor. MissileLauncher(Location target) {\n  this(target, false);\n}\nMissileLauncher(boolean askForConfirmation) {\n  this(TEST_TARGET, false); // should be askForConfirmation\n}\nMissileLauncher(Location target, boolean askForConfirmation) {\n   ...\n} MissileLauncher(Location target) {\n  this(target, false);\n}\nMissileLauncher(boolean askForConfirmation) {\n  this(TEST_TARGET, false); // should be askForConfirmation\n}\nMissileLauncher(Location target, boolean askForConfirmation) {\n   ...\n}",
+  "Bug_Explanation": "The bug here is due to the chaining of constructors where the second constructor is called with a boolean parameter, but the Location parameter is not passed to the second constructor. This results in the Location parameter being null, which is unexpected.",
+  "Buggy_Line": [
+    10,
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug here is that the constructor calls another constructor with a false value of the boolean askForConfirmation which isn't the value that is being passed to the constructor. So, the value of the askForConfirmation remains false even when it is passed as true.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The bug is present in the code. The constructor `ChainingConstructorIgnoresParameter(Location target)` calls the constructor `ChainingConstructorIgnoresParameter(Location target, boolean askForConfirmation)` with `false` as the value for `askForConfirmation`, regardless of the value passed in the constructor call. This means that the `askForConfirmation` field will always be `false`, regardless of the value passed in the constructor call. This is likely not the intended behavior."
+}

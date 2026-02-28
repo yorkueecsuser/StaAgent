@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "MS: May expose internal static state by storing a mutable object into a static field (EI_EXPOSE_STATIC_REP2)\uf0c1",
+  "Bug_Details": " This code stores a reference to an externally mutable object into a static\n field.\n If unchecked changes to\n the mutable object would compromise security or other\n important properties, you will need to do something different.\nStoring a copy of the object is better approach in many situations.",
+  "Bug_Explanation": "The bug is embedded in the generated code by storing a reference to a mutable object (ArrayList) in a static field. This allows multiple instances of the class to modify the same list, potentially leading to unexpected behavior and data inconsistency.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case creates two instances of StaticMutableStateExample and adds items to their shared list. It then checks the size of the list through both instances. Since the list is static and mutable, both instances share the same list, and modifying one affects the other. The test will fail because both instances expect their lists to have only one item, but due to the shared mutable static field, they both see two items.",
+  "Trigger_Line": [
+    16,
+    17
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.008\nThere was 1 failure:\n1) testSharedListModification(StaticMutableStateExampleTest)\njava.lang.AssertionError: expected:<2> but was:<1>\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat org.junit.Assert.failNotEquals(Assert.java:835)\n\tat org.junit.Assert.assertEquals(Assert.java:647)\n\tat org.junit.Assert.assertEquals(Assert.java:633)\n\tat StaticMutableStateExampleTest.testSharedListModification(StaticMutableStateExampleTest.java:15)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate a failure because the assertion expected the size of the list to be 2, but it was 1. This suggests that the second addition to the list did not occur as expected, which could be due to an issue in the test setup or execution rather than confirming the presence of the described bug. The bug rule indicates that the static field holding a mutable object may expose internal static state, but the test results do not clearly confirm this behavior as intended."
+}

@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "ICAST: int value converted to long and used as absolute time (ICAST_INT_2_LONG_AS_INSTANT)\uf0c1",
+  "Bug_Details": "\nThis code converts a 32-bit int value to a 64-bit long value, and then\npasses that value for a method parameter that requires an absolute time value.\nAn absolute time value is the number\nof milliseconds since the standard base time known as \"the epoch\", namely January 1, 1970, 00:00:00 GMT.\nFor example, the following method, intended to convert seconds since the epoch into a Date, is badly\nbroken: The multiplication is done using 32-bit arithmetic, and then converted to a 64-bit value.\nWhen a 32-bit value is converted to 64-bits and used to express an absolute time\nvalue, only dates in December 1969 and January 1970 can be represented. Correct implementations for the above method are: Date getDate(int seconds) { return new Date(seconds * 1000); }\n // Fails for dates after 2037\nDate getDate(int seconds) { return new Date(seconds * 1000L); }\n\n// better, works for all dates\nDate getDate(long seconds) { return new Date(seconds * 1000); }\n",
+  "Bug_Explanation": "The bug is embedded in the getMalformedDate method. It performs an integer multiplication and then converts the result to a long. This can lead to incorrect results for large integer values, causing them to overflow and result in incorrect absolute time values.",
+  "Buggy_Line": [
+    6,
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when the showBug method is called. This method uses a value that will overflow when multiplied by 1000 in the getMalformedDate method, causing an incorrect absolute time value to be created.",
+  "Trigger_Line": [
+    5
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Malformed date for seconds=2147483647: Wed Dec 31 23:59:59 UTC 1969\n\nTime: 0.031\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "Yes",
+  "Bug_Trigger_Explanation": "The test results confirm the presence of the bug. The test run demonstrates that the getMalformedDate method, which is supposed to convert seconds since the epoch into a Date, fails for dates after 2037. This is because the multiplication is done using 32-bit arithmetic, and then converted to a 64-bit value. As a result, only dates in December 1969 and January 1970 can be represented, which is outside the expected range."
+}

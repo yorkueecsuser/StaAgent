@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "DMI: Bad constant value for month (DMI_BAD_MONTH)\uf0c1",
+  "Bug_Details": "\nThis code passes a constant month\nvalue outside the expected range of 0..11 to a method.\n",
+  "Bug_Explanation": "The bug is present because the month value passed to the Calendar.set() method is 12, which is outside the valid range of 0 (January) to 11 (December) for months.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls showBug from BadMonthExample which triggers the bug by using a month value of 12 in Calendar.set(), outside the valid range of 0 to 11.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.021\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any errors or failures, suggesting that the bug was not triggered."
+}

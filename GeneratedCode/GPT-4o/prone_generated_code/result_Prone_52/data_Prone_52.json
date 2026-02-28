@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "FloggerSplitLogStatement",
+  "Bug_Details": "Splitting log statements and using Api instances directly breaks logging.",
+  "Bug_Explanation": "The bug is caused by splitting a single coherent log statement into multiple logging calls, which can result in a fragmented log entry. This breaks the atomicity of the log message and makes it difficult to correlate the parts, especially when logs are written concurrently or to external logging systems.",
+  "Buggy_Line": [
+    9,
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls the showBug method and expects a single coherent log entry. However, due to the bug, the log message is split into two parts, which violates the atomicity of the expected log entry. The assertEquals statement will fail because the log statements are fragmented and not atomic, triggering the bug.",
+  "Trigger_Line": [
+    10,
+    11
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.034\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test executed successfully without any errors or failures, which means the bug described as FloggerSplitLogStatement was not triggered during the test run."
+}

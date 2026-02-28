@@ -1,0 +1,62 @@
+class SingletonExample {
+
+    private static SingletonExample singleton = new SingletonExample();
+
+    private SingletonExample() { }
+
+    public static SingletonExample getInstance() {
+        return singleton;
+    }
+
+    public static SingletonExample getInstance(Object obj){
+        SingletonExample singleton = (SingletonExample) obj;
+        return singleton; // BUG: SingleMethodSingleton
+    }
+
+    public void showBug() {
+        // Demonstrating the bug by calling the overloaded getInstance method
+        SingletonExample instance1 = getInstance();
+        SingletonExample instance2 = getInstance(new SingletonExample());
+
+        // Output will show different hash codes, indicating different instances
+        System.out.println("Hashcode of instance1: " + instance1.hashCode());
+        System.out.println("Hashcode of instance2: " + instance2.hashCode());
+    }
+
+    public static void main(String[] args) {
+        SingletonExample example = new SingletonExample();
+        example.showBug();
+    }
+}
+
+// Mutation: Renaming user-defined variable
+class SingletonExampleMutant {
+
+    private static SingletonExampleMutant b = new SingletonExampleMutant();
+
+    private SingletonExampleMutant() { }
+
+    public static SingletonExampleMutant getInstance() {
+        return b;
+    }
+
+    public static SingletonExampleMutant getInstance(Object obj){
+        SingletonExampleMutant b = (SingletonExampleMutant) obj;
+        return b; // BUG: SingleMethodSingleton
+    }
+
+    public void showBug() {
+        // Demonstrating the bug by calling the overloaded getInstance method
+        SingletonExampleMutant instance1 = getInstance();
+        SingletonExampleMutant instance2 = getInstance(new SingletonExampleMutant());
+
+        // Output will show different hash codes, indicating different instances
+        System.out.println("Hashcode of instance1: " + instance1.hashCode());
+        System.out.println("Hashcode of instance2: " + instance2.hashCode());
+    }
+
+    public static void main(String[] args) {
+        SingletonExampleMutant example = new SingletonExampleMutant();
+        example.showBug();
+    }
+}

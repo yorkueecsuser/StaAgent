@@ -1,0 +1,11 @@
+{
+  "Buggy_Line": [
+    10
+  ],
+  "Trigger_Explanation": "The test case triggers the bug by calling the restricted method `restrictedMethod()` in the `showBug()` method.",
+  "Trigger_Line": [
+    5
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "Alternatives in regular expressions should be grouped when used with anchors",
+  "Bug_Details": "In regular expressions, anchors ( ^ , $ , \\A , \\Z and \\z ) have higher precedence than\nthe | operator. So in a regular expression like ^alt1|alt2|alt3$ , alt1 would be anchored to the beginning, alt3 to the end and alt2 wouldn\u2019t be anchored at all. Usually the intended behavior is that all alternatives are anchored at\nboth ends. To achieve this, a non-capturing group should be used around the alternatives.\nIn cases where it is intended that the anchors only apply to one alternative each, adding (non-capturing) groups around the anchors and the parts\nthat they apply to will make it explicit which parts are anchored and avoid readers misunderstanding the precedence or changing it because they\nmistakenly assume the precedence was not intended.\nNoncompliant code example\n^a|b|c$\nCompliant solution\n^(?:a|b|c)$\nor\n^a$|^b$|^c$\nor, if you do want the anchors to only apply to a and c respectively:\n(?:^a)|b|(?:c$)",
+  "Bug_Explanation": "The bug is the regular expression pattern '^a|b|c$'. The pipe character '|' is used as an OR operator, meaning 'a' or 'b' or 'c'. The anchors '^' (start of line) and '$' (end of line) are not applied to all alternatives. Therefore, 'b' matches the pattern without being anchored to the start or end of the line, which is wrong according to the regular expression rules.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is the regular expression pattern '^a|b|c$'. The pipe character '|' is used as an OR operator, meaning 'a' or 'b' or 'c'. The anchors '^' (start of line) and '$' (end of line) are not applied to all alternatives. Therefore, 'b' matches the pattern without being anchored to the start or end of the line, which is wrong according to the regular expression rules.",
+  "Trigger_Line": [
+    4
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.true\n\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "Based on the test results, the bug was not triggered. The test run results indicate that the regular expression '^a|b|c$' correctly matches the string 'b', which indicates that the bug was not triggered.",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The bug is present in the provided Java code. The regular expression `^a|b|c$` is incorrectly using the `|` operator to denote alternatives. The `|` operator has higher precedence than the anchors `^` and `$`. Therefore, the regular expression is being interpreted as `^a`, `b`, or `c$`, which is not the intended behavior. The intended behavior is that all alternatives are anchored at both ends. To achieve this, a non-capturing group should be used around the alternatives. The correct regular expression should be `^(?:a|b|c)$`."
+}

@@ -1,0 +1,12 @@
+{
+  "Buggy_Line": [
+    9
+  ],
+  "Trigger_Explanation": "The test triggers the bug by calling the `setName` method with the same value for the `name` parameter, which leads to a self-assignment and the bug is triggered.",
+  "Trigger_Line": [
+    11,
+    14
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Ints and longs should not be shifted by zero or more than their number of bits-1",
+  "Bug_Details": "Since an int is a 32-bit variable, shifting by more than +/-31 is confusing at best and an error at worst. When the runtime shifts\n32-bit integers, it uses the lowest 5 bits of the shift count operand. In other words, shifting an int by 32 is the same as shifting it\nby 0, and shifting it by 33 is the same as shifting it by 1.\nSimilarly, when shifting 64-bit integers, the runtime uses the lowest 6 bits of the shift count operand and shifting long by 64 is the\nsame as shifting it by 0, and shifting it by 65 is the same as shifting it by 1.",
+  "Bug_Explanation": "The bug was embedded in the generated code by shifting an int by more than +/-31 bits, which is an error in Java.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by shifting an int by more than +/-31 bits, which is an error in Java.",
+  "Trigger_Line": [
+    5
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not demonstrate the bug being triggered. The test output shows that the test passed with a value of 10 for the variable `y`, which is the expected behavior for a shift operation with a valid shift value. The bug is not triggered in this case."
+}

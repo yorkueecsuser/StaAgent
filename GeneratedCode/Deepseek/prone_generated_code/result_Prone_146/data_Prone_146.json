@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "RestrictedApi",
+  "Bug_Details": "Check for non-allowlisted callers to RestrictedApiChecker. Calls to APIs marked @RestrictedApi are prohibited without a corresponding\nallowlist annotation. The intended use-case for @RestrictedApi is to restrict calls to annotated\nmethods so that each usage of those APIs must be reviewed separately. For\nexample, an API might lead to security bugs unless the programmer uses it\ncorrectly. See the\njavadoc for @RestrictedApi\nfor more details.",
+  "Bug_Explanation": "This bug is demonstrated by using a custom annotation (@RestrictedApi) that is used above a method. The annotation @RestrictedApi is not included in the standard Java imports and is instead defined as a part of the class implementation. This can be used to simulate a bug where restricted methods are not allowed to be called without an allowlist annotation.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the'showBug' method from the 'RestrictedApiChecker' class, which in turn calls the'restrictedMethod' method. Since the'restrictedMethod' method is annotated with '@RestrictedApi', it should not be accessible without an allowlist annotation. This is the expected behavior when the code has a bug as per the bug rule.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results only show that one test was run successfully. They do not confirm that the bug was triggered. The bug could have been triggered if there was an error thrown or a test failed. However, given the output 'OK (1 test)', it seems that the test run was successful without any issues, which doesn't necessarily mean that the bug was triggered. The bug was not confirmed through the provided test results.",
+  "Model_Confirmed_Buggy": "No",
+  "Model_Explanation": "The provided Java code does not contain the described bug. The @RestrictedApi annotation is used on the restrictedMethod() method, but there is no corresponding allowlist annotation. The bug description states that calls to APIs marked @RestrictedApi are prohibited without a corresponding allowlist annotation. However, in the provided code, there is no such annotation. Therefore, the code does not contain the described bug."
+}

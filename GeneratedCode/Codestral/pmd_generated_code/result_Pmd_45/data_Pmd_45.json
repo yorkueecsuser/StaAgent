@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "FinalizeOverloaded",
+  "Bug_Details": "Methods named finalize() should not have parameters.  It is confusing and most likely an attempt to\noverload Object.finalize(). It will not be called by the VM.\n\nNote that Oracle has declared Object.finalize() as deprecated since JDK 9.\nExamples:\npublic class Foo {\n    // this is confusing and probably a bug\n    protected void finalize(int a) {\n    }\n}",
+  "Bug_Explanation": "The code attempts to overload the finalize() method, which is not allowed in Java. The finalize() method should not have parameters.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when the test calls the showBug() method of the FinalizeOverloadedBug class, which attempts to call the finalize(int a) method. However, since Object.finalize() cannot be overloaded with parameters, the finalize(int a) method will not be called by the VM. This causes the system to not print 'This method will not be called by the VM.', which violates the expectation set by the test case, causing it to fail.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.012\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed without any assertion errors. This indicates that the finalize(int a) method was not called by the VM, which is as expected. Therefore, the bug was not triggered in this test run."
+}

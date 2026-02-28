@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "VSC: Non-Private and non-final security check methods are vulnerable (VSC_VULNERABLE_SECURITY_CHECK_METHODS)\uf0c1",
+  "Bug_Details": "\n  Methods that perform security checks should be prevented from being overridden, so they must be declared as\n  private or final. Otherwise, these methods can be compromised when a malicious subclass overrides them\n  and omits the checks.\n  \n  See SEI CERT rule MET03-J. Methods that perform a security check must be declared private or final.\n   \n  See SEI CERT rule MET03-J. Methods that perform a security check must be declared private or final.\n  ",
+  "Bug_Explanation": "The method 'performSecurityCheck' is not declared as private or final, allowing it to be overridden in a subclass. This makes it possible for a malicious subclass to bypass the security check by overriding the method and returning true regardless of the input.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test calls the'showBug' method of the SecurityCheckExample class, which internally calls the 'performSecurityCheck' method. Since 'performSecurityCheck' is not private or final, it can be overridden in a subclass. In this case, the default implementation is used, which incorrectly allows'maliciousUser' to pass the security check, causing the test to fail.",
+  "Trigger_Line": [
+    11
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Security check result for 'maliciousUser': false\n\nTime: 0.012\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that the security check correctly returned 'false' for the input'maliciousUser', indicating that the security check method is functioning as intended in this specific test case. However, the bug description indicates a vulnerability due to the method not being private or final, which allows it to be overridden in subclasses. The test does not demonstrate this overriding behavior, so it does not confirm the presence of the bug as per the given test results."
+}

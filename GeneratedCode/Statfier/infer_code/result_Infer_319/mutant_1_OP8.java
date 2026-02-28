@@ -1,0 +1,47 @@
+import android.support.annotation.UiThread;
+import java.util.concurrent.CountDownLatch;
+
+class Countdwn {
+  CountDownLatch latch;
+
+  void awaitOnMainByCallBad() throws InterruptedException {
+    OurThreadUtils.assertMainThread();
+    latch.await();
+  }
+
+  @UiThread
+  void awaitOnMainByAnnotBad() throws InterruptedException {
+    latch.await();
+  }
+
+  void countDownOk() throws InterruptedException {
+    OurThreadUtils.assertMainThread();
+    latch.countDown();
+  }
+
+  void awaitOnAnyThreadOk() throws InterruptedException {
+    latch.await();
+  }
+
+  // Mutated code
+  CountDownLatch q;
+
+  void awaitOnMainByCallBadMutant() throws InterruptedException {
+    OurThreadUtils.assertMainThread();
+    q.await();
+  }
+
+  @UiThread
+  void awaitOnMainByAnnotBadMutant() throws InterruptedException {
+    q.await();
+  }
+
+  void countDownOkMutant() throws InterruptedException {
+    OurThreadUtils.assertMainThread();
+    q.countDown();
+  }
+
+  void awaitOnAnyThreadOkMutant() throws InterruptedException {
+    q.await();
+  }
+}

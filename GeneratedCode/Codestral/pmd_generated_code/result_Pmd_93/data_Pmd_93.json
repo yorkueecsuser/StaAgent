@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "DontCallThreadRun",
+  "Bug_Details": "Explicitly calling Thread.run() method will execute in the caller's thread of control.  Instead, call Thread.start() for the intended behavior.\nExamples:\nThread t = new Thread();\nt.run();            // use t.start() instead\nnew Thread().run(); // same violation",
+  "Bug_Explanation": "The bug occurs when the `run()` method is called directly on a Thread object, which will execute the code in the current thread instead of a new thread, which is the intended behavior of the `start()` method.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case testDontCallThreadRun calls the showBug method on an instance of DontCallThreadRun. It then asserts that the returned value is false. However, the showBug method starts a new thread that sets the threadRan variable to true, which causes the assertion to fail. This triggers the bug DontCallThreadRun, which is the explicit calling of the Thread.run() method in the showBug method.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the'showBug' method returned 'false', which indicates that the 'BuggyThread' did not execute its 'run' method. This is because the'start' method was called instead of the 'run' method, which is the correct behavior to avoid triggering the 'DontCallThreadRun' bug."
+}

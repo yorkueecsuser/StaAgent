@@ -1,0 +1,9 @@
+{
+  "Bug_Title": "InexactVarargsConditional",
+  "Bug_Details": "Conditional expression in varargs call contains array and non-array arguments When calling a varargs method, you can either pass an explicit array of\narguments, or individual arguments: void f(Object... xs) {\n  System.err.println(Arrays.deepToString(xs));\n} void f(Object... xs) {\n  System.err.println(Arrays.deepToString(xs));\n} Both of the following print [1, 2]: f(new Object[] {1, 2}) // prints \"[1, 2]\"\nf(1, 2) // prints \"[1, 2]\" f(new Object[] {1, 2}) // prints \"[1, 2]\"\nf(1, 2) // prints \"[1, 2]\" If the argument to the varargs method is a conditional expression, and either\nbranch is not an array, the result of the expression will be implicitly wrapped\nin an array. f(flag ? 1 : 2) // prints [1] or [2] f(flag ? 1 : 2) // prints [1] or [2] This means that if one branch is an array and the other branch is not, the array\nbranch will become a multi-dimensional array: f(flag ? new Object[] {1, 2} : 3); // prints [[1, 2]] or [3] f(flag ? new Object[] {1, 2} : 3); // prints [[1, 2]] or [3] To avoid the implicit array creation, the other argument can be explicitly\nwrapped in an array: f(flag ? new Object[] {1, 2} : new Object[] {3}); // prints [1, 2] or [3] f(flag ? new Object[] {1, 2} : new Object[] {3}); // prints [1, 2] or [3] Or, if the multi-dimensional array was intentional, it can be written explicitly\nas: f(flag ? new Object[][] 1 : new Object[] {3}); // prints [[1, 2]] or [3] f(flag ? new Object[][] 1 : new Object[] {3}); // prints [[1, 2]] or [3]",
+  "Bug_Explanation": "The conditional expression in the varargs call contains an array and a non-array argument, which will result in the non-array argument being implicitly wrapped in an array, causing the buggy behavior.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

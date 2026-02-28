@@ -1,0 +1,7 @@
+import java.util.concurrent.atomic.AtomicInteger;
+
+class AtomicEqualsBug {
+    public boolean showBug(AtomicInteger a, AtomicInteger b) {
+        return a.equals(b); // BUG: ".equals()" should not be used to test the values of "Atomic" classes
+    }
+}

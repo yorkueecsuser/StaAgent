@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "AvoidCalendarDateCreation",
+  "Bug_Details": "Problem: `java.util.Calendar` is a heavyweight object and expensive to create. It should only be used, if\ncalendar calculations are needed.\n\nSolution: Use `new Date()`, Java 8+ `java.time.LocalDateTime.now()` or `ZonedDateTime.now()`.\nExamples:\nimport java.time.LocalDateTime;\nimport java.util.Calendar;\nimport java.util.Date;\n\npublic class DateStuff {\n    private Date bad1() {\n        return Calendar.getInstance().getTime(); // now\n    }\n    private Date good1a() {\n        return new Date(); // now\n    }\n    private LocalDateTime good1b() {\n        return LocalDateTime.now();\n    }\n    private long bad2() {\n        return Calendar.getInstance().getTimeInMillis();\n    }\n    private long good2() {\n        return System.currentTimeMillis();\n    }\n}",
+  "Bug_Explanation": "The code demonstrates the creation of a Calendar instance to get the current date/time and time in milliseconds, which is inefficient. The bug is present where Calendar.getInstance() is used instead of more efficient alternatives like new Date() or LocalDateTime.now().",
+  "Buggy_Line": [
+    8,
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test cases testShowBug1 and testShowBug2 intentionally fail by asserting null or incorrect values as the expected result. This failure indicates the inefficiency in the showBug1 and showBug2 methods when Calendar instance creation is used instead of more efficient alternatives.",
+  "Trigger_Line": [
+    10,
+    17
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E.E...\nTime: 0.082\nThere were 2 failures:\n1) testShowBug1(DateExampleTest)\njava.lang.AssertionError: Expected showBug1 to return null due to inefficient Calendar creation expected null, but was:<Thu Jun 19 05:38:32 EDT 2025>\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat org.junit.Assert.failNotNull(Assert.java:756)\n\tat org.junit.Assert.assertNull(Assert.java:738)\n\tat DateExampleTest.testShowBug1(DateExampleTest.java:12)\n2) testShowBug2(DateExampleTest)\njava.lang.AssertionError: Expected showBug2 to return 0 due to inefficient Calendar creation expected:<0> but was:<1750325912637>\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat org.junit.Assert.failNotEquals(Assert.java:835)\n\tat org.junit.Assert.assertEquals(Assert.java:647)\n\tat DateExampleTest.testShowBug2(DateExampleTest.java:19)\n\nFAILURES!!!\nTests run: 5,  Failures: 2\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not confirm the bug triggering. The failures in testShowBug1 and testShowBug2 are due to incorrect assertions expecting null and 0, respectively, rather than confirming the presence of the AvoidCalendarDateCreation bug."
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "CollectionToArraySafeParameter",
+  "Bug_Details": "The type of the array parameter of Collection.toArray needs to be compatible with the array type",
+  "Bug_Explanation": "The bug is embedded in the'showBug' method where a List<String> is incorrectly converted to an Integer array, and then cast to a String array, causing a ClassCastException.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_20/seed_Prone_20.java:9: error: incompatible types: Integer[] cannot be converted to String[]\n        return (String[]) result; // This will cause a ClassCastException\n                          ^\n1 error\n",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method with a List<String>. Inside showBug, the List<String> is incorrectly converted to an Integer array, which leads to a ClassCastException when attempting to cast it back to a String array.",
+  "Trigger_Line": [
+    17
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

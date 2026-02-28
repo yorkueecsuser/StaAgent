@@ -1,0 +1,9 @@
+{
+  "Buggy_Line": [
+    9
+  ],
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug() method, which uses the Hashtable.contains() method to test if a value is contained in the map. However, the Hashtable.contains() method is a legacy method that is equivalent to containsValue(), so it will always return true if the value is contained in the map, even if the key is not present. Therefore, the test case fails when it checks if the value 'value1' is contained in the map, because the map does not contain the key 'value1', even though it contains the value 'value1'.",
+  "Trigger_Line": [
+    9
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "RV: Exception created and dropped rather than thrown (RV_EXCEPTION_NOT_THROWN)\uf0c1",
+  "Bug_Details": " This code creates an exception (or error) object, but doesn't do anything with it. For example,\nsomething like  It was probably the intent of the programmer to throw the created exception: if (x < 0) {\n    new IllegalArgumentException(\"x must be nonnegative\");\n}\n if (x < 0) {\n    throw new IllegalArgumentException(\"x must be nonnegative\");\n}\n",
+  "Bug_Explanation": "The bug is embedded in the generated code by creating an IllegalArgumentException object when x is less than 0, but not throwing it. This means that the exception is created and immediately discarded, which is likely not the intended behavior.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method with a negative input (-5). Inside the showBug method, an IllegalArgumentException is created but not thrown when x is less than 0. Since the exception is not thrown, the test does not pass, effectively triggering the bug.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed without throwing any exceptions. Since the bug involves creating an exception but not throwing it, the absence of an exception being thrown during the test execution confirms that the bug was not triggered."
+}

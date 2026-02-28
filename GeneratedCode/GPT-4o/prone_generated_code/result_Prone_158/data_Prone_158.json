@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "SuppressWarningsDeprecated",
+  "Bug_Details": "Suppressing \"deprecated\" is probably a typo for \"deprecation\" To suppress warnings to deprecated methods, you should add the annotation\n@SuppressWarnings(\"deprecation\") and not @SuppressWarnings(\"deprecated\")",
+  "Bug_Explanation": "The code uses @SuppressWarnings(\"deprecated\") which is incorrect for suppressing warnings of deprecated methods. It should use @SuppressWarnings(\"deprecation\") instead.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method in the JUnit test class instantiates DeprecatedWarningExample and calls the showBug method. This method invokes useDeprecatedMethod, which in turn calls the deprecatedMethod. The SuppressWarnings annotation in useDeprecatedMethod incorrectly uses 'deprecated' instead of 'deprecation', which does not suppress the warning correctly, causing a failure when deprecatedMethod is called.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "Runninng test will fail system because of infinite loop.",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate an infinite loop, which does not confirm the presence of the SuppressWarningsDeprecated bug. The bug is related to the misuse of SuppressWarnings, not to infinite loops."
+}

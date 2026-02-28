@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "\"String.indexOf\" should be used with correct ranges",
+  "Bug_Details": "Java 21 adds new String.indexOf methods that accept ranges ( beginIndex , to endIndex ) rather than just a\nstart index. A StringIndexOutOfBounds can be thrown when indicating an invalid range, namely when:\nbeginIndex > endIndex (eg: beginIndex and endIndex arguments are mistakenly reversed) beginIndex < 0 (eg: because the older String.indexOf(what, fromIndex) accepts negative values)\nbeginIndex > endIndex (eg: beginIndex and endIndex arguments are mistakenly reversed)\nbeginIndex < 0 (eg: because the older String.indexOf(what, fromIndex) accepts negative values)",
+  "Bug_Explanation": "The code demonstrates two incorrect usages of the new String.indexOf method with beginIndex and endIndex parameters. In the first case, the beginIndex is greater than the endIndex, which is not a valid range, causing a StringIndexOutOfBoundsException. In the second case, the beginIndex is negative, which is not allowed by the new method signature and also results in an exception.",
+  "Buggy_Line": [
+    22,
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test cases trigger the bug by calling the showBug method with incorrect beginIndex and endIndex values, resulting in a StringIndexOutOfBoundsException. The first test case uses a reversed range (beginIndex > endIndex), and the second test case uses a negative beginIndex, both of which are invalid and cause the exception to be thrown.",
+  "Trigger_Line": [
+    10,
+    16
+  ],
+  "Test_Run_Result": "Runninng test will fail system because of infinite loop.",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate an infinite loop rather than a StringIndexOutOfBoundsException, suggesting the test did not confirm the triggering of the described bug."
+}

@@ -1,0 +1,32 @@
+import java.util.HashMap;
+import java.util.Map;
+
+class NP {
+
+  int x;
+
+  static Map m = new HashMap();
+
+  public static void main(String args[]) {
+    NP n = (NP) m.get("Foo");
+
+    // Inserting an unreachable while loop
+    boolean conditionWhile = getCondition();
+    while (conditionWhile) {
+      // This loop is unreachable because conditionWhile will always be false
+      System.out.println("This is an unreachable loop");
+    }
+
+    if (n == null) System.out.println(n.x);
+    else System.out.println(n.x);
+    if (n!= null) System.out.println(n.x);
+    else System.out.println(n.x);
+
+    System.out.println(null!= n? n.hashCode() : 0);
+  }
+
+  // Method to provide a dynamic condition that will always be false
+  private static boolean getCondition() {
+    return false;
+  }
+}

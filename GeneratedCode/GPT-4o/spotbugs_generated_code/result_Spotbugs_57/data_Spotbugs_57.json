@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "NP: Store of null value into field annotated @Nonnull (NP_STORE_INTO_NONNULL_FIELD)\uf0c1",
+  "Bug_Details": " A value that could be null is stored into a field that has been annotated as @Nonnull. ",
+  "Bug_Explanation": "The method showBug sets the nonNullField directly to the value passed without checking for null, which violates the intended @Nonnull annotation behavior, leading to potential null assignments.",
+  "Buggy_Line": [
+    14
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case 'testShowBugWithNull' directly calls the 'showBug' method with a null argument, which leads to the null being assigned to 'nonNullField' without any check, thereby triggering the bug.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any errors or exceptions, suggesting that the bug was not triggered during the test execution."
+}

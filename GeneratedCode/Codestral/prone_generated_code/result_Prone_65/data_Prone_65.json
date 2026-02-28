@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "GuiceInjectOnFinalField",
+  "Bug_Details": "Although Guice allows injecting final fields, doing so is disallowed because the injected value may not be visible to other threads. From the Guice wiki: Injecting final fields is not recommended because the injected value may not\nbe visible to other threads.",
+  "Bug_Explanation": "The bug is about Guice injecting a final field, which is not recommended because the injected value may not be visible to other threads. In the fixed code, we manually create an instance of InjectedClass and assign it to a final field, demonstrating the same issue.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case attempts to trigger the bug by reflectively accessing and modifying the final field 'injectedClass' in the MainClass. The bug is triggered when the modified value of 'injectedClass' is not visible in the'showBug()' method, which indicates that the final field was modified after the MainClass instance was constructed.",
+  "Trigger_Line": [
+    22
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

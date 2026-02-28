@@ -1,0 +1,53 @@
+class Bug1648646 {
+
+  public static Bug1648646 foo() {
+    return buildHierarchy(null);
+  }
+
+  public static Bug1648646 buildHierarchy(Class clzz) {
+
+    Bug1648646 hier = new Bug1648646();
+    hier.setBaseClass(clzz);
+    Class superclass = clzz.getSuperclass();
+
+    if (superclass!= null && superclass.getName().equals("java.lang.Object")) {
+      return hier;
+    } else {
+      while ((clzz.getSuperclass()!= null)
+          && (!clzz.getSuperclass().getName().equals("java.lang.Object"))) {
+        clzz = clzz.getSuperclass();
+        hier.addClass(clzz);
+      }
+      return hier;
+    }
+  }
+
+  // Mutated variable name
+  public static Bug1648646 buildHierarchyMutant(Class a) {
+
+    Bug1648646 b = new Bug1648646();
+    b.setBaseClass(a);
+    Class c = a.getSuperclass();
+
+    if (c!= null && c.getName().equals("java.lang.Object")) {
+      return b;
+    } else {
+      while ((a.getSuperclass()!= null)
+          && (!a.getSuperclass().getName().equals("java.lang.Object"))) {
+        a = a.getSuperclass();
+        b.addClass(a);
+      }
+      return b;
+    }
+  }
+
+  private void addClass(Class clzz) {
+    // TODO Auto-generated method stub
+
+  }
+
+  private void setBaseClass(Class clzz) {
+    // TODO Auto-generated method stub
+
+  }
+}

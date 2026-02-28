@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "BIT: Bitwise add of signed byte value (BIT_ADD_OF_SIGNED_BYTE)\uf0c1",
+  "Bug_Details": " Adds a byte value and a value which is known to have the 8 lower bits clear.\nValues loaded from a byte array are sign extended to 32 bits\nbefore any bitwise operations are performed on the value.\nThus, if b[0] contains the value 0xff, and\nx is initially 0, then the code\n((x << 8) + b[0])  will sign extend 0xff\nto get 0xffffffff, and thus give the value\n0xffffffff as the result.\n In particular, the following code for packing a byte array into an int is badly wrong:  The following idiom will work instead:  b[0] 0xff x ((x << 8) + b[0]) 0xff 0xffffffff 0xffffffff int result = 0;\nfor (int i = 0; i < 4; i++)\n    result = ((result << 8) + b[i]);\n int result = 0;\nfor (int i = 0; i < 4; i++)\n    result = ((result << 8) + (b[i] & 0xff));\n",
+  "Bug_Explanation": "In the provided code, when adding a byte value from a byte array to an integer after left shifting, the byte value is sign-extended to 32 bits. This means that if the byte is negative (e.g., 0xFF), it is extended to 0xFFFFFFFF, leading to incorrect results when packed into an integer.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case fails because it uses the method showBug, which incorrectly handles the byte array by sign-extending the bytes. This triggers the bug when the byte 0xFF is sign-extended to 0xFFFFFFFF, resulting in an incorrect packed integer value.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully (OK), which means the assertion did not fail. This suggests that the bug was not triggered during the test execution."
+}

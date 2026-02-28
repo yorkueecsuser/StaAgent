@@ -1,0 +1,49 @@
+import edu.umd.cs.findbugs.annotations.NoWarning;
+import java.util.Comparator;
+
+class UncallableMethodOfAnonymousClass {
+  private static final Comparator COMPARATOR =
+      new Comparator() {
+        @Override
+        public int compare(Object o1, Object o2) {
+          int result = o1.hashCode() - o2.hashCode();
+          assert (result > 0);
+          return result;
+        }
+      };
+
+  private class DepFactory {
+
+    public Object getDep() {
+      return new Object() {
+        @NoWarning("IMA_INEFFICIENT_MEMBER_ACCESS")
+        public UncallableMethodOfAnonymousClass getDepSetter() {
+          return UncallableMethodOfAnonymousClass.this;
+        }
+      };
+    }
+  }
+
+  // Mutated code
+  private static final Comparator c =
+      new Comparator() {
+        @Override
+        public int compare(Object a, Object b) {
+          int r = a.hashCode() - b.hashCode();
+          assert (r > 0);
+          return r;
+        }
+      };
+
+  private class D {
+
+    public Object g() {
+      return new Object() {
+        @NoWarning("IMA_INEFFICIENT_MEMBER_ACCESS")
+        public UncallableMethodOfAnonymousClass s() {
+          return UncallableMethodOfAnonymousClass.this;
+        }
+      };
+    }
+  }
+}

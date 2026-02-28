@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Locks should be released on all paths",
+  "Bug_Details": "If a lock is acquired and released within a method, then it must be released along all execution paths of that method.\nFailing to do so will expose the conditional locking logic to the method\u2019s callers and hence be deadlock-prone.\nNoncompliant code example\npublic class MyClass {\n  public void doSomething() {\n    Lock lock = new Lock();\n    lock.lock(); // Noncompliant\n    if (isInitialized()) {\n      // ...\n      lock.unlock();\n    }\n  }\n}\nCompliant solution\npublic class MyClass {\n  public void doSomething() {\n    Lock lock = new Lock();\n    if (isInitialized()) {\n      lock.lock();\n      // ...\n      lock.unlock();\n    }\n  }\n}",
+  "Bug_Explanation": "In the method 'doSomething', a lock is acquired but is only conditionally released when 'initialized' is true, leading to potential deadlock if 'initialized' is false.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case 'testShowBugWithInitializedFalse' triggers the bug by setting 'initialized' to false, which causes the lock to not be released in the 'doSomething' method, leading to potential deadlock. The test case 'testShowBugWithInitializedTrue' does not trigger the bug itself, but ensures the lock release logic is consistent when initialized is true.",
+  "Trigger_Line": [
+    8,
+    13
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.005\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that both tests passed successfully without any errors or failures, which suggests that the bug was not triggered during execution. If the bug were triggered, we would expect to see test failures or errors."
+}

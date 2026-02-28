@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "Methods with Spring proxying annotations should be public",
+  "Bug_Details": "Marking a non-public method @Async or @Transactional is misleading because Spring does not recognize non-public methods,\nand so makes no provision for their proper invocation. Nor does Spring make provision for the methods invoked by the method it called.\nTherefore marking a private method, for instance, @Transactional can only result in a runtime error or exception if the method is annotated as\n@Transactional.",
+  "Bug_Explanation": "The private method `privateMethod` is annotated with `@Transactional`, which is misleading because Spring does not recognize non-public methods.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case `testShowBug` invokes a private method `privateMethod` from `BugExample` class which is annotated with @Transactional. This is a misleading annotation because Spring does not recognize non-public methods.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The provided test results indicate that the bug was not triggered. The test run was successful, indicating that the private method in the Java code was executed without any runtime errors or exceptions. This is because Spring handles method invocation using proxies, and it only recognizes public methods.",
+  "Model_Confirmed_Buggy": "No",
+  "Model_Explanation": "The code does not contain a bug as per the provided bug description. The private method 'privateMethod' is not annotated with any Spring proxying annotations. Therefore, it does not violate the rule that methods with Spring proxying annotations should be public."
+}

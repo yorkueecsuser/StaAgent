@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Intermediate Stream methods should not be left unused",
+  "Bug_Details": "There are two types of stream operations: intermediate operations, which return another stream, and terminal operations, which return something\nother than a stream. Intermediate operations are lazy, meaning they aren\u2019t actually executed until and unless a terminal stream operation is performed\non their results. Consequently, if the result of an intermediate stream operation is not fed to a terminal operation, it serves no purpose, which is\nalmost certainly an error.\nNoncompliant code example\nwidgets.stream().filter(b -> b.getColor() == RED); // Noncompliant\nCompliant solution\nint sum = widgets.stream()\n                      .filter(b -> b.getColor() == RED)\n                      .mapToInt(b -> b.getWeight())\n                      .sum();\nStream<Widget> pipeline = widgets.stream()\n                                 .filter(b -> b.getColor() == GREEN)\n                                 .mapToInt(b -> b.getWeight());\nsum = pipeline.sum();",
+  "Bug_Explanation": "The bug is demonstrated by using a stream's intermediate 'filter' operation without a terminal operation. This results in the filter operation having no effect, as it is not executed.",
+  "Buggy_Line": [
+    27
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls 'showBug' with a list of widgets, which contains an unused intermediate stream operation. This lack of a terminal operation triggers the bug by demonstrating that the filter operation is not executed, hence the test is designed to fail.",
+  "Trigger_Line": [
+    12
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test executed successfully without any errors, indicating that the bug was not triggered."
+}

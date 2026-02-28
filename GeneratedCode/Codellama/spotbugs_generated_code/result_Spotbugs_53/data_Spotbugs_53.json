@@ -1,0 +1,11 @@
+{
+  "Buggy_Line": [
+    7
+  ],
+  "Trigger_Explanation": "The JUnit test case triggers the bug by creating an IllegalArgumentException and not throwing it, which causes the program to continue executing instead of throwing the exception.",
+  "Trigger_Line": [
+    11
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

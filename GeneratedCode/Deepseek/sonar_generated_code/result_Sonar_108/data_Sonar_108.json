@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "\"Object.wait()\", \"Object.notify()\" and \"Object.notifyAll()\" should only be called from synchronized code",
+  "Bug_Details": "The Object.wait(\u2026\u200b) , Object.notify() and Object.notifyAll() methods are used in multithreaded environments\nto coordinate interdependent tasks that are performed by different threads. These methods are not thread-safe and by contract, they require the\ninvoking Thread to own the object\u2019s monitor. If a thread invokes one of these methods without owning the object\u2019s monitor an IllegalMonitorStateException is thrown.",
+  "Bug_Explanation": "The bug is in the showBug method. The wait() and notify()/notifyAll() methods are being called outside of a synchronized block, which is not allowed as per the Java Language Specification",
+  "Buggy_Line": [
+    15,
+    20
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Test_Run_Result": "JUnit version 4.13.2\n.",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The provided test results do not demonstrate the bug being triggered. The entire JSON output is '.' which means all tests have passed. This means that the bug described in the Bug Information section is not present in the Java code provided.",
+  "Model_Confirmed_Buggy": "No",
+  "Model_Explanation": "The provided Java code does not contain the described bug. The Object.wait(), Object.notify() and Object.notifyAll() methods are called from synchronized code blocks. The synchronized keyword ensures that only one thread can execute the synchronized code block at a time, thus preventing race conditions. The wait() method releases the lock and the thread goes into waiting state, and the notify() or notifyAll() method wakes up the waiting thread."
+}

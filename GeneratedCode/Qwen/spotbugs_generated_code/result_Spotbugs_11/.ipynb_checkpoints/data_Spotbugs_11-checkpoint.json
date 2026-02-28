@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "CAA: Possibly incompatible element is stored in covariant array (CAA_COVARIANT_ARRAY_ELEMENT_STORE)\uf0c1",
+  "Bug_Details": "Value is stored into the array and the value type doesn't match the array type.\nIt's known from the analysis that actual array type is narrower than the declared type of its variable or field\nand this assignment doesn't satisfy the original array type. This assignment may cause ArrayStoreException\nat runtime.\n",
+  "Bug_Explanation": "The bug is embedded in the showBug method where an Integer is stored into an array declared as Object[]. However, when the method is called with a String array, it leads to an ArrayStoreException at runtime because the actual array type (String[]) is narrower than the declared type (Object[]).",
+  "Buggy_Line": [
+    11
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test method testShowBugWithIntegerInStringArray calls the showBug method with a String array and an Integer value. This triggers the bug because the showBug method attempts to store an Integer into an array that is actually a String array, leading to an ArrayStoreException.",
+  "Trigger_Line": [
+    11
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.007\nThere was 1 failure:\n1) testShowBugWithIntegerInStringArray(CovariantArrayExampleTest)\njava.lang.ArrayStoreException: java.lang.Integer\n\tat CovariantArrayExample.showBug(CovariantArrayExample.java:5)\n\tat CovariantArrayExampleTest.testShowBugWithIntegerInStringArray(CovariantArrayExampleTest.java:10)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "Yes",
+  "Bug_Trigger_Explanation": "The test results show that an ArrayStoreException was thrown when an Integer was stored in a String array, confirming that the bug described by the rule CAA_COVARIANT_ARRAY_ELEMENT_STORE is triggered."
+}

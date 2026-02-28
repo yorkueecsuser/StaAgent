@@ -1,0 +1,34 @@
+import java.io.Closeable;
+import java.io.IOException;
+
+class NullCloseExample {
+
+    public void showBug() {
+        Closeable resource = null;
+        try {
+            // Simulate some operations that might set resource
+            // In this case, resource remains null
+        } finally {
+            // Inserting an unreachable while loop
+            boolean conditionWhile = getCondition();
+            while (conditionWhile) {
+                // This loop is unreachable because getCondition() always returns false
+                System.out.println("This loop should never execute");
+            }
+            try {
+                resource.close(); // BUG: NP: close() invoked on a value that is always null (NP_CLOSING_NULL)
+            } catch (IOException e) {
+                // Intentionally left blank to preserve the bug
+            }
+        }
+    }
+
+    private boolean getCondition() {
+        return false;
+    }
+
+    public static void main(String[] args) {
+        NullCloseExample example = new NullCloseExample();
+        example.showBug();
+    }
+}

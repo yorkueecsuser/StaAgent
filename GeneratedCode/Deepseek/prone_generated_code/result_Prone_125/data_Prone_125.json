@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "OptionalMapUnusedValue",
+  "Bug_Details": "Optional.ifPresent is preferred over Optional.map when the return value is unused",
+  "Bug_Explanation": "The `map` method is used on an Optional object, but the returned Optional is not used afterwards. This is a common mistake and can be easily fixed by using `ifPresent` instead.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "Since the Optional.map method is used but not used afterwards, the test case will not fail. Hence, the bug can be triggered by not asserting anything.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test case does not assert anything. Even though the Optional.map method is used, it is not asserted or stored in a variable. Therefore, the test case does not detect the bug.",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The provided Java code contains a bug. The Optional.map method is used to transform the value inside the Optional, but the transformed value is not used. This is a violation of the Optional.ifPresent method, which is preferred over Optional.map when the return value is unused. This bug could potentially lead to unnecessary computation or memory usage."
+}

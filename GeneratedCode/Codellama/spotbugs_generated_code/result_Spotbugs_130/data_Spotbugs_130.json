@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "IM: Integer multiply of result of integer remainder (IM_MULTIPLYING_RESULT_OF_IREM)\uf0c1",
+  "Bug_Details": "\nThe code multiplies the result of an integer remaining by an integer constant.\nBe sure you don't have your operator precedence confused. For example\ni % 60 * 1000 is (i % 60) * 1000, not i % (60 * 1000).\n",
+  "Bug_Explanation": "The bug is caused by multiplying the result of an integer remainder by an integer constant. The expression 'i % 60 * j' should be surrounded by parentheses to ensure correct order of operations.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when the result of the integer remainder is non-zero.",
+  "Trigger_Line": [
+    17,
+    21
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

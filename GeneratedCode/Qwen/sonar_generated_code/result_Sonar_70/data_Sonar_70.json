@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Spring \"@Controller\" classes should not use \"@Scope\"",
+  "Bug_Details": "Spring @Controller s, @Service s, and @Repository s have singleton scope by default, meaning only\none instance of the class is ever instantiated in the application. Defining any other scope for one of these class types will result in needless churn\nas new instances are created and destroyed. In a busy web application, this could cause a significant amount of needless additional load on the\nserver.\nThis rule raises an issue when the @Scope annotation is applied to a @Controller , @Service , or @Repository with any value but \"singleton\". @Scope(\"singleton\") is redundant, but ignored.\nNoncompliant code example\n@Scope(\"prototype\")  // Noncompliant\n@Controller\npublic class HelloWorld {\nCompliant solution\n@Controller\npublic class HelloWorld {",
+  "Bug_Explanation": "The bug was embedded in the generated code by applying the @Scope(\"prototype\") annotation to a @Controller class. This violates the rule that @Controller classes should not use @Scope, as they are singleton by default.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_70/seed_Sonar_70.java:1: error: package org.springframework.stereotype does not exist\nimport org.springframework.stereotype.Controller;\n                                     ^\n../sonar_clean_java_code/result_Sonar_70/seed_Sonar_70.java:2: error: package org.springframework.context.annotation does not exist\nimport org.springframework.context.annotation.Scope;\n                                             ^\n../sonar_clean_java_code/result_Sonar_70/seed_Sonar_70.java:4: error: cannot find symbol\n@Controller\n ^\n  symbol: class Controller\n../sonar_clean_java_code/result_Sonar_70/seed_Sonar_70.java:5: error: cannot find symbol\n@Scope(\"prototype\") // BUG: Spring \"@Controller\" classes should not use \"@Scope\"\n ^\n  symbol: class Scope\n4 errors\n",
+  "Trigger_Explanation": "The test creates two instances of HelloWorld and calls showBug on each. Due to the @Scope(\"prototype\") annotation, each instance has its own counter, which should both be 1 if the bug is triggered.",
+  "Trigger_Line": [
+    8,
+    9
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Assignment of lazy-initialized members should be the last step with double-checked locking",
+  "Bug_Details": "Double-checked locking can be used for lazy initialization of volatile fields, but only if field assignment is the last step in the synchronized block. Otherwise you run the risk of threads accessing a half-initialized object.\nNoncompliant code example\npublic class MyClass {\n\n  private volatile List<String> strings;\n\n  public List<String> getStrings() {\n    if (strings == null) {  // check#1\n      synchronized(MyClass.class) {\n        if (strings == null) {\n          strings = new ArrayList<>();  // Noncompliant\n          strings.add(\"Hello\");  //When threadA gets here, threadB can skip the synchronized block because check#1 is false\n          strings.add(\"World\");\n        }\n      }\n    }\n    return strings;\n  }\n}\nCompliant solution\npublic class MyClass {\n\n  private volatile List<String> strings;\n\n  public List<String> getStrings() {\n    if (strings == null) {  // check#1\n      synchronized(MyClass.class) {\n        if (strings == null) {\n          List<String> tmpList = new ArrayList<>();\n          tmpList.add(\"Hello\");\n          tmpList.add(\"World\");\n          strings = tmpList;\n        }\n      }\n    }\n    return strings;\n  }\n}",
+  "Bug_Explanation": "The bug is caused by modifying the volatile field'strings' after it has been assigned a non-null value inside the synchronized block. This can lead to threads accessing a half-initialized object.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when one thread accesses the `strings` list before it has been fully initialized by another thread.",
+  "Trigger_Line": [
+    26,
+    27,
+    28,
+    29
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.006\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run was successful, and the assertions in the test code passed without any errors. This indicates that the double-checked locking implementation in the getStrings() method successfully initialized the strings list without any issues, even in a multi-threaded environment. Therefore, the strings list was fully initialized before it was accessed in the test code, which means the bug described in the bug information was not triggered."
+}

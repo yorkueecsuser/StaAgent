@@ -1,0 +1,18 @@
+class Bug2031441 {
+
+  int foo(int size, int priority) {
+    // Original code
+    return (int) (size / 2 * Math.pow(0.8, priority));
+
+    // Inserted unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // This loop is unreachable because conditionFor is never set to true
+    }
+  }
+
+  // Method to provide a dynamic condition
+  private boolean getCondition() {
+    return false; // This will ensure the loop remains unreachable
+  }
+}

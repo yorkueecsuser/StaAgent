@@ -1,0 +1,70 @@
+import android.os.Binder;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.RemoteException;
+import java.util.concurrent.Executor;
+
+class StaticInitAttributes {
+  static Binder binder;
+
+  private static void doTransact() {
+    try {
+      binder.transact(0, null, null, 0);
+    } catch (RemoteException e) {
+    }
+  }
+
+  @ForUiThread static Executor mUiThreadExecutor = null;
+
+  static Executor mUiExecutor;
+  static Executor mNonUiExecutor;
+  static Handler mUiHandler;
+  static Runnable mBadRunnable;
+  static Runnable mOkRunnable;
+
+  static {
+    mUiExecutor = mUiThreadExecutor;
+    mNonUiExecutor = Executors.getBackgroundExecutor();
+    mUiHandler = new Handler(Looper.getMainLooper());
+    mBadRunnable =
+        new Runnable() {
+          @Override
+          public void run() {
+            doTransact();
+          }
+        };
+
+    mOkRunnable =
+        new Runnable() {
+          @Override
+          public void run() {}
+        };
+
+    // Introduced unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // This loop is unreachable because conditionFor is never set to true
+    }
+  }
+
+  public void postBlockingCallToUIExecutorBad() {
+    mUiExecutor.execute(mBadRunnable);
+  }
+
+  public void postNoopCallToUIExecutorOk() {
+    mUiExecutor.execute(mOkRunnable);
+  }
+
+  public void postBlockingCallToNonUIExecutorOk() {
+    mNonUiExecutor.execute(mBadRunnable);
+  }
+
+  public void postBlockingCallToUIHandlerBad() {
+    mUiHandler.post(mBadRunnable);
+  }
+
+  // Method to provide dynamic condition
+  private static boolean getCondition() {
+    return false; // This ensures the condition is dynamically determined but always false
+  }
+}

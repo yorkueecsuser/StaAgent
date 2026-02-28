@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "InefficientEmptyStringCheck",
+  "Bug_Details": "String.trim().length() == 0 (or String.trim().isEmpty() for the same reason) is an inefficient\nway to check if a String is really blank, as it creates a new String object just to check its size.\nConsider creating a static function that loops through a string, checking Character.isWhitespace()\non each character and returning false if a non-whitespace character is found. A Smarter code to\ncheck for an empty string would be:\n\n```java\nprivate boolean checkTrimEmpty(String str) {\n    for(int i = 0; i < str.length(); i++) {\n        if(!Character.isWhitespace(str.charAt(i))) {\n            return false;\n        }\n    }\n    return true;\n}\n```\n\nYou can refer to Apache's StringUtils#isBlank (in commons-lang),\nSpring's StringUtils#hasText (in the Spring framework) or Google's\nCharMatcher#whitespace (in Guava) for existing implementations (some might\ninclude the check for != null).\nExamples:\npublic void bar(String string) {\n    if (string != null && string.trim().length() > 0) {\n        doSomething();\n    }\n}",
+  "Bug_Explanation": "The method bar uses string.trim().length() > 0 to check if the string is not blank. This approach is inefficient because it creates a new String object after trimming to check its length. The same inefficient check is used in the showBug method.",
+  "Buggy_Line": [
+    24,
+    13
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test cases trigger the bug by using strings that are either only whitespace or contain non-whitespace characters. The bug is due to the inefficient check using string.trim().length(), which is expected to fail for only whitespace strings, causing the test case to fail when checking for non-emptiness.",
+  "Trigger_Line": [
+    9,
+    16
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.String is not empty\n.\nTime: 0.004\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that both tests passed successfully, which means the inefficient empty string check did not cause any test failures. Therefore, the presence of the bug was not confirmed by the test results."
+}

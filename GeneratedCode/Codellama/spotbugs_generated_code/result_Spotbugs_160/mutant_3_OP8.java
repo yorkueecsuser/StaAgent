@@ -1,0 +1,14 @@
+import java.io.*;
+
+class XSS_Example {
+    public static void showBug(String name) {
+        // BUG: XSS: JSP reflected cross site scripting vulnerability (XSS_REQUEST_PARAMETER_TO_JSP_WRITER)
+        System.out.println("Hello, " + name);
+    }
+    
+    // Renaming user-defined variables declared in a program. If there exist multiple variables, we randomly select one for the mutation. The new name of the variable will be in the form of [a-z].
+    public static void showBug(String x) {
+        // BUG: XSS: JSP reflected cross site scripting vulnerability (XSS_REQUEST_PARAMETER_TO_JSP_WRITER)
+        System.out.println("Hello, " + x);
+    }
+}

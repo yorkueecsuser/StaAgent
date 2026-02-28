@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "MissingSerialVersionUID",
+  "Bug_Details": "Serializable classes should provide a serialVersionUID field.\nThe serialVersionUID field is also needed for abstract base classes. Each individual class in the inheritance\nchain needs an own serialVersionUID field. See also [Should an abstract class have a serialVersionUID](https://stackoverflow.com/questions/893259/should-an-abstract-class-have-a-serialversionuid).\nExamples:\npublic class Foo implements java.io.Serializable {\n    String name;\n    // Define serialization id to avoid serialization related bugs\n    // i.e., public static final long serialVersionUID = 4328743;\n}",
+  "Bug_Explanation": "The bug was embedded in the generated code by omitting the serialVersionUID field in both the abstract class AbstractBase and the concrete class ConcreteClass. This omission can lead to serialization-related issues when the classes are serialized and deserialized.",
+  "Buggy_Line": [
+    11,
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method of SerializationExample, which creates an instance of ConcreteClass. Since both AbstractBase and ConcreteClass are missing the serialVersionUID field, this will trigger a warning or error during serialization, thus failing the test.",
+  "Trigger_Line": [
+    "10"
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

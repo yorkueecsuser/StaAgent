@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "ProperCloneImplementation",
+  "Bug_Details": "Object clone() should be implemented with super.clone().",
+  "Bug_Explanation": "The bug was embedded in the `clone()` method of the `MyObject` class, which should have returned a shallow copy of the object using `super.clone()`, but instead it returned a new object with the same name and age as the original object.",
+  "Buggy_Line": [
+    42
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../pmd_clean_java_code/result_Pmd_65/seed_Pmd_65.java:42: error: constructor MyObject in class MyObject cannot be applied to given types;\n        return new MyObject(this.name, this.age);\n               ^\n  required: no arguments\n  found:    String,int\n  reason: actual and formal argument lists differ in length\n1 error\n",
+  "Trigger_Explanation": "The test case triggers the bug by calling the clone() method on an instance of MyObject, which is a class that implements the Cloneable interface. The clone() method creates a new instance of the class, but does not copy the original object's values to the new instance. As a result, the new instance has the same reference as the original object, which causes the test case to fail.",
+  "Trigger_Line": [
+    42
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,79 @@
+import edu.umd.cs.findbugs.annotations.ExpectWarning;
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+class Bug2003253 {
+  @Nonnull private Object foo;
+
+  //
+  // The InconsistentAnnotations detector should report
+  // a warning here.
+  //
+  @ExpectWarning("NP")
+  public void report1(@Nullable Object bar) {
+    this.foo = bar;
+    boolean condition = getCondition();
+    switch(condition) {
+      case true:
+        // This case is intentionally left empty to make the switch statement unreachable
+        break;
+    }
+  }
+
+  //
+  // FindNullDeref should report a warning here.
+  //
+  @ExpectWarning("NP")
+  public void report2(@CheckForNull Object bar) {
+    this.foo = bar;
+    boolean condition = getCondition();
+    switch(condition) {
+      case true:
+        // This case is intentionally left empty to make the switch statement unreachable
+        break;
+    }
+  }
+
+  //
+  // FindNullDeref should report a warning here.
+  //
+  @ExpectWarning("NP")
+  public int report3(@CheckForNull Object bar) {
+    return bar.hashCode();
+    boolean condition = getCondition();
+    switch(condition) {
+      case true:
+        // This case is intentionally left empty to make the switch statement unreachable
+        break;
+    }
+  }
+
+  //
+  // FindNullDeref should report a warning here.
+  //
+  @ExpectWarning("NP")
+  public int report4(@CheckForNull Object bar) {
+    return nonnull(bar);
+    boolean condition = getCondition();
+    switch(condition) {
+      case true:
+        // This case is intentionally left empty to make the switch statement unreachable
+        break;
+    }
+  }
+
+  public int nonnull(@Nonnull Object bar) {
+    return bar.hashCode();
+    boolean condition = getCondition();
+    switch(condition) {
+      case true:
+        // This case is intentionally left empty to make the switch statement unreachable
+        break;
+    }
+  }
+
+  private boolean getCondition() {
+    return false;
+  }
+}

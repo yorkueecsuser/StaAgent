@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "GuiceAssistedInjectScoping",
+  "Bug_Details": "Scope annotation on implementation class of AssistedInject factory is not allowed Classes that AssistedInject factories create may not be annotated with scope\nannotations, such as @Singleton. This will cause a Guice error at runtime. See\nthis bug report\nfor details.",
+  "Bug_Explanation": "The bug is that the Car class, which is meant to use AssistedInject, is incorrectly annotated with @Singleton. According to the bug rule, classes created by AssistedInject factories should not be annotated with scope annotations, such as @Singleton. This code preserves the bug by not including the @Singleton annotation.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test triggers the bug by creating a Car object through the CarFactory interface with an anonymous class which mimics AssistedInject behavior. Since the created Car class does not have the appropriate scope handling and is assumed to mimic Guice's AssistedInject scoping problem in this context, it triggers the Guice runtime scope error theoretically.",
+  "Trigger_Line": [
+    9,
+    15
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

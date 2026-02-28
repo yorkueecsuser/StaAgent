@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "UseCorrectExceptionLogging",
+  "Bug_Details": "To make sure the full stacktrace is printed out, use the logging statement with two arguments: a String and a Throwable.\n\nThis rule only applies to [Apache Commons Logging](https://commons.apache.org/proper/commons-logging/).\nExamples:\npublic class Main {\n    private static final Log _LOG = LogFactory.getLog( Main.class );\n    void bar() {\n        try {\n        } catch( Exception e ) {\n            _LOG.error( e ); //Wrong!\n        } catch( OtherException oe ) {\n            _LOG.error( oe.getMessage(), oe ); //Correct\n        }\n    }\n}",
+  "Bug_Explanation": "The bug is embedded in the line where the exception is logged using _LOG.log(Level.SEVERE, e.getMessage()). According to the rule, the correct way would be to use _LOG.log(Level.SEVERE, \"\", e) to log the full stack trace. However, the current implementation only logs the message, which is the intentional bug.",
+  "Buggy_Line": [
+    11
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test calls the showBug method of the ExceptionLogger class, which contains the buggy logging statement. This triggers the bug because the exception is logged without the full stack trace.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.034\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed successfully without any errors or failures. This does not provide evidence that the bug was triggered, as the test only checks if the returned message matches the expected exception message and does not verify the logging behavior."
+}

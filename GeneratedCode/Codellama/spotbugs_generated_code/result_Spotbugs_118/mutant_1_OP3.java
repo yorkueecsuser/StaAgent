@@ -1,0 +1,25 @@
+import java.util.*;
+
+class NPNullInstanceOfBug {
+    public static void main(String[] args) {
+        Object obj = null;
+        // BUG: NP: A known null value is checked to see if it is an instance of a type (NP_NULL_INSTANCEOF)
+        if (obj instanceof String) {
+            System.out.println("Object is a string");
+        } else {
+            System.out.println("Object is not a string");
+        }
+
+        // Add mutant code below
+        boolean condition = getCondition();
+        if (condition) {
+            System.out.println("Mutant code executed");
+        } else {
+            System.out.println("Mutant code not executed");
+        }
+    }
+
+    public static boolean getCondition() {
+        return false;
+    }
+}

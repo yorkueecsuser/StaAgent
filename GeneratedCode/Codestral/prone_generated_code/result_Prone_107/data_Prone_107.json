@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "MissingSuperCall",
+  "Bug_Details": "Overriding method is missing a call to overridden super method API providers may annotate a method with an annotation like\nandroidx.annotation.CallSuper or\njavax.annotation.OverridingMethodsMustInvokeSuper to require that overriding\nmethods invoke the super method. This check enforces those annotations.",
+  "Bug_Explanation": "The bug 'MissingSuperCall' was embedded in the 'initialize' method of 'SubClass' by not calling the super method'super.initialize()'.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test checks if the output contains 'BaseClass initialize' which is not printed in SubClass's initialize method due to the missing super call. This is expected to fail because of the MissingSuperCall bug.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

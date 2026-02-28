@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "CloneMethodMustImplementCloneable",
+  "Bug_Details": "The method clone() should only be implemented if the class implements the Cloneable interface with the exception of\na final method that only throws CloneNotSupportedException.\n\nThe rule can also detect, if the class implements or extends a Cloneable class.\nExamples:\npublic class MyClass {\n public Object clone() throws CloneNotSupportedException {\n  return foo;\n }\n}",
+  "Bug_Explanation": "The class MyClass implements the clone() method without implementing the Cloneable interface, which is not allowed unless the method only throws CloneNotSupportedException.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug 'CloneMethodMustImplementCloneable' is triggered when the'showBug()' method is called in the test case, which in turn calls the 'clone()' method of an object of class 'MyClass'. This bug occurs because the 'MyClass' does not implement the 'Cloneable' interface, which is required by the 'clone()' method.",
+  "Trigger_Line": [
+    7
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

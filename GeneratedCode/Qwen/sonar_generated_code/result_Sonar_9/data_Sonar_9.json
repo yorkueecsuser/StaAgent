@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "Beans in \"@Configuration\" class should have different names",
+  "Bug_Details": "Naming conventions play a crucial role in maintaining code clarity and readability. The uniqueness of bean names in Spring configurations is vital\nto the clarity and readability of the code. When two beans share the same name within a configuration, it is not obvious to the reader which bean is\nbeing referred to. This leads to potential misunderstandings and errors.",
+  "Bug_Explanation": "The bug is embedded in the generated code by having two methods with the same name'myBean'. This violates the rule that beans in a '@Configuration' class should have different names. The bug is preserved by keeping both methods with the same name and using a @PostConstruct method to demonstrate the issue.",
+  "Buggy_Line": [
+    18,
+    10,
+    11
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_9/seed_Sonar_9.java:1: error: package javax.annotation does not exist\nimport javax.annotation.PostConstruct;\n                       ^\n../sonar_clean_java_code/result_Sonar_9/seed_Sonar_9.java:18: error: method myBean() is already defined in class BeanConfig\n    public String myBean() { // BUG: Beans in \"@Configuration\" class should have different names\n                  ^\n../sonar_clean_java_code/result_Sonar_9/seed_Sonar_9.java:8: error: cannot find symbol\n    @PostConstruct\n     ^\n  symbol:   class PostConstruct\n  location: class BeanConfig\n3 errors\n",
+  "Trigger_Explanation": "The test triggers the bug by calling the init() method on BeanConfig, which initializes bean1 and bean2 using methods with the same name in the original code. Although the bug is fixed in the provided code, the test logic remains as per the original requirement to trigger the bug.",
+  "Trigger_Line": [
+    19
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

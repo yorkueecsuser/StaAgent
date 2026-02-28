@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Dissimilar primitive wrappers should not be used with the ternary operator without explicit casting",
+  "Bug_Details": "Using boxed values in a ternary operator does not simply return one operand or the other based on the condition. Instead, the values are unboxed\nand coerced to a common type, which can result in a loss of precision when converting one operand from int to float or from long to double .\nWhile this behavior is expected for arithmetic operations, it may be unexpected for the ternary operator. To avoid confusion or unexpected\nbehavior, cast to a compatible type explicitly.",
+  "Bug_Explanation": "The ternary operator is used with Integer and Double boxed values. The values are unboxed, coerced to a common type (double), resulting in a potential loss of precision of the integer value in this process.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test cases trigger the bug by using the ternary operator with Integer and Double wrapped values. This leads to unboxing and coercion to a common type (double), causing potential precision loss of the integer value. The assert statements expect exact match, causing the test to fail due to precision mismatch.",
+  "Trigger_Line": [
+    12,
+    19
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.004\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that both tests passed successfully without any assertion errors, meaning the expected values matched the actual values. This suggests that the bug related to the use of dissimilar primitive wrappers in the ternary operator did not manifest during the test execution."
+}

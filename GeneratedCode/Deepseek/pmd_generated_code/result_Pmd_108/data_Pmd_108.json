@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "InefficientEmptyStringCheck",
+  "Bug_Details": "String.trim().length() == 0 (or String.trim().isEmpty() for the same reason) is an inefficient\nway to check if a String is really blank, as it creates a new String object just to check its size.\nConsider creating a static function that loops through a string, checking Character.isWhitespace()\non each character and returning false if a non-whitespace character is found. A Smarter code to\ncheck for an empty string would be:\n\n```java\nprivate boolean checkTrimEmpty(String str) {\n    for(int i = 0; i < str.length(); i++) {\n        if(!Character.isWhitespace(str.charAt(i))) {\n            return false;\n        }\n    }\n    return true;\n}\n```\n\nYou can refer to Apache's StringUtils#isBlank (in commons-lang),\nSpring's StringUtils#hasText (in the Spring framework) or Google's\nCharMatcher#whitespace (in Guava) for existing implementations (some might\ninclude the check for != null).\nExamples:\npublic void bar(String string) {\n    if (string != null && string.trim().length() > 0) {\n        doSomething();\n    }\n}",
+  "Bug_Explanation": "The method bar() checks for non-empty strings, while the method checkTrimEmpty() checks for whitespace-only strings. This difference in behavior is intended to be an inefficient way to check if a String is really blank.",
+  "Buggy_Line": [
+    10,
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered by the condition in the 'bar' method where it checks if the trimmed string's length is greater than 0. This is inefficient because it creates a new String object just to check its size.",
+  "Trigger_Line": [
+    "12",
+    "13"
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

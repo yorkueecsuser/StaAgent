@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "\"Iterator.hasNext()\" should not call \"Iterator.next()\"",
+  "Bug_Details": "Calling Iterator.hasNext() is not supposed to have any side effects and hence should not change the iterator\u2019s state. Iterator.next() advances the iterator by one item. So calling it inside Iterator.hasNext() breaks the hasNext() contract and will lead to unexpected behavior in production.",
+  "Bug_Explanation": "The bug is in the use of `hasNext` method in `while` loop. This method is supposed to return true if there are more elements in the iteration, but it also advances the iteration. Hence, it leads to skipping of elements in the iteration. In this case, it skips the first even number (2) and returns the first odd number (3) instead of the next odd number (1).",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when the 'hasNext' method is called inside the while loop. This method is supposed to return true if there are more elements in the iteration, but it also advances the iteration. Hence, it leads to skipping of elements in the iteration. In this case, it skips the first even number (2) and returns the first odd number (3) instead of the next odd number (1).",
+  "Trigger_Line": [
+    13
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "Based on the test run results, the bug is not triggered. The test execution output indicates that the test was successful, indicating that no errors were encountered during testing.",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The bug is present in the provided Java code. The Iterator.hasNext() method is called inside the while loop, which changes the state of the iterator. This breaks the contract of the hasNext() method, which is supposed to not have any side effects. This leads to unexpected behavior in the code. In this case, the code will return the first odd number it encounters, not the next odd number. So, when the code is run, it will print 3 instead of 1."
+}

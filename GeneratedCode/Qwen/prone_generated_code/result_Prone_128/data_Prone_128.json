@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "OverridesJavaxInjectableMethod",
+  "Bug_Details": "This method is not annotated with @Inject, but it overrides a method that is  annotated with @javax.inject.Inject. The method will not be Injected. When classes declare that they have an @javax.inject.Injected method,\ndependency injection tools must call those methods after first calling any\n@javax.inject.Inject constructor, and performing any field injection. These\nmethods are part of the initialization contract for the object. When subclasses override methods annotated with @javax.inject.Inject and\ndon\u2019t also annotate themselves with @javax.inject.Inject, the injector will\nnot call those methods as part of the subclass\u2019s initialization. This may\nunexpectedly cause assumptions taken in the superclass (e.g.: this\npost-initialization routine is finished, meaning that I can safely use this\nfield) to no longer hold. This compile error is intended to prevent this unintentional breaking of\nassumptions. Possible resolutions to this error include: @Inject the overridden method, calling the super method to maintain the\ninitialization contract.\nMake the superclass\u2019 method final to avoid subclasses unintentionally\nmasking the injected method.\nMove the initialization work performed by the superclass method into the\nconstructor.\nSuppress this error, and very carefully inspect the initialization routine\nperformed by the superclass, making sure that any work that needs to be done\nthere is done in an @Inject method in the subclass. You may want to refactor\nportions of the body of the superclass method into a protected method for\nthis subclass to use.",
+  "Bug_Explanation": "The bug is embedded in the generated code by having the 'initialize' method in SubClass override the 'initialize' method in SuperClass without the @Inject annotation. This violates the expectation that dependency injection frameworks will call the @Inject-annotated methods.",
+  "Buggy_Line": [
+    15
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_128/seed_Prone_128.java:17: error: message has private access in SuperClass\n        message = \"Initialized in SubClass\";\n        ^\n1 error\n",
+  "Trigger_Explanation": "The test triggers the bug by creating an instance of SubClass and calling the showBug method, which internally calls getMessage. Since the initialize method in SubClass does not have the @Inject annotation, the message is not set to 'Initialized in SubClass' as expected, instead it retains the value set by the superclass' initialize method, leading to the assertion failure.",
+  "Trigger_Line": [
+    8
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

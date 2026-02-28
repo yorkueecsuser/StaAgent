@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "IsLoggableTagLength",
+  "Bug_Details": "Log tag too long, cannot exceed 23 characters. Log.isLoggable(tag, level) throws an IllegalArgumentException if its tag\nargument is more than 23 characters long.",
+  "Bug_Explanation": "The bug is demonstrated by using a log tag longer than 23 characters. In the showBug method, the logger.isLoggable method is called with a tag parameter that exceeds the 23 character limit, causing an IllegalArgumentException to be thrown.",
+  "Buggy_Line": [
+    11
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case 'testShowBugWithLongTag' triggers the bug by passing a log tag longer than 23 characters to the 'showBug' method, causing an IllegalArgumentException due to the excessive length of the log tag.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.011\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test completed successfully with an 'OK' status, indicating that no exception was thrown and the bug was not triggered despite the long tag."
+}

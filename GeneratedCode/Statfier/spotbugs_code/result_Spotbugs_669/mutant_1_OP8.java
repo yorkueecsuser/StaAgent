@@ -1,0 +1,68 @@
+import edu.umd.cs.findbugs.annotations.DesireNoWarning;
+import edu.umd.cs.findbugs.annotations.ExpectWarning;
+import edu.umd.cs.findbugs.annotations.NoWarning;
+import java.util.Random;
+
+class Ideas_2010_09_13 {
+
+  static final int SHIFT_AMOUNT = 32;
+
+  @NoWarning("ICAST")
+  public int testWarningForDeadCode(int x) {
+    return SHIFT_AMOUNT == 32? x : x << SHIFT_AMOUNT;
+  }
+
+  @NoWarning("ICAST")
+  public int testWarningForDeadCode2(int x) {
+    return SHIFT_AMOUNT!= 32? x << SHIFT_AMOUNT : x;
+  }
+
+  @ExpectWarning("ICAST_BAD_SHIFT_AMOUNT")
+  public int testShiftWarning(int x) {
+    return x << SHIFT_AMOUNT;
+  }
+
+  @ExpectWarning("ICAST_BAD_SHIFT_AMOUNT")
+  public long testShiftWarning2(int x) {
+    return x << SHIFT_AMOUNT;
+  }
+
+  final Random r = new Random();
+
+  @DesireNoWarning("RV_ABSOLUTE_VALUE_OF_RANDOM_INT")
+  public int testRandomInt() {
+    int x = Math.abs(r.nextInt());
+    if (x == Integer.MIN_VALUE) return 0;
+    return x;
+  }
+
+  // Mutated code
+  @NoWarning("ICAST")
+  public int testWarningForDeadCode(char a) {
+    return SHIFT_AMOUNT == 32? a : a << SHIFT_AMOUNT;
+  }
+
+  @NoWarning("ICAST")
+  public int testWarningForDeadCode2(byte b) {
+    return SHIFT_AMOUNT!= 32? b << SHIFT_AMOUNT : b;
+  }
+
+  @ExpectWarning("ICAST_BAD_SHIFT_AMOUNT")
+  public int testShiftWarning(short c) {
+    return c << SHIFT_AMOUNT;
+  }
+
+  @ExpectWarning("ICAST_BAD_SHIFT_AMOUNT")
+  public long testShiftWarning2(float d) {
+    return (int)d << SHIFT_AMOUNT;
+  }
+
+  final Random s = new Random();
+
+  @DesireNoWarning("RV_ABSOLUTE_VALUE_OF_RANDOM_INT")
+  public int testRandomInt2() {
+    int y = Math.abs(s.nextInt());
+    if (y == Integer.MIN_VALUE) return 0;
+    return y;
+  }
+}

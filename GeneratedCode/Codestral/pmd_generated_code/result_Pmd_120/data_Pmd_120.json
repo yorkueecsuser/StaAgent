@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "UseIOStreamsWithApacheCommonsFileItem",
+  "Bug_Details": "Problem: Use of [FileItem.get()](https://javadoc.io/static/commons-fileupload/commons-fileupload/1.5/org/apache/commons/fileupload/FileItem.html#get--)\nand [FileItem.getString()](https://javadoc.io/static/commons-fileupload/commons-fileupload/1.5/org/apache/commons/fileupload/FileItem.html#getString--)\ncould exhaust memory since they load the entire file into memory.\n\nSolution: Use [FileItem.getInputStream()](https://javadoc.io/static/commons-fileupload/commons-fileupload/1.5/org/apache/commons/fileupload/FileItem.html#getInputStream--)\nand buffering.\nExamples:\nimport org.apache.commons.fileupload.FileItem;\n\npublic class FileStuff {\n   private String bad(FileItem fileItem) {\n        return fileItem.getString();\n   }\n\n   private InputStream good(FileItem fileItem) {\n        return fileItem.getInputStream();\n   }\n}",
+  "Bug_Explanation": "The bug is caused by using FileItem.getString() to load the entire file into memory, which can lead to memory exhaustion. The buggy code is commented out due to missing imports.",
+  "Buggy_Line": [
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The `testShowBug` method calls the `showBug` method of the `FileUploadServlet` class, which uses `getString()` to load the entire file into memory, causing a memory exhaustion bug as per the bug details provided.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test ran successfully without any errors. This indicates that the bug was not triggered during the test run. However, it's important to note that the test might not have been designed to trigger the bug, or the bug might not have been present in the code at the time of testing."
+}

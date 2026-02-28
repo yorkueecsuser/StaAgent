@@ -1,0 +1,23 @@
+import java.util.Arrays;
+
+class ArrayToStringBug {
+
+    public String showBug(int[] array) {
+        boolean conditionWhile = getCondition();
+        while (conditionWhile) {
+            // Unreachable code
+        }
+        return array.toString(); // BUG: ArrayToString
+    }
+
+    private boolean getCondition() {
+        return false; // This method ensures the condition is dynamically determined at runtime
+    }
+
+    public static void main(String[] args) {
+        ArrayToStringBug bugDemo = new ArrayToStringBug();
+        int[] sampleArray = {1, 2, 3, 4, 5};
+        System.out.println("Buggy Output: " + bugDemo.showBug(sampleArray));
+        System.out.println("Correct Output: " + Arrays.toString(sampleArray));
+    }
+}

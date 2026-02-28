@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "UnnecessaryTypeArgument",
+  "Bug_Details": "Non-generic methods should not be invoked with type arguments JLS \u00a715.12.2.1 allows non-generic methods to be invoked with type arguments: a non-generic method may be potentially applicable to an invocation that\nsupplies explicit type arguments. Indeed, it may turn out to be applicable. In\nsuch a case, the type arguments will simply be ignored. This rule stems from issues of compatibility and principles of\nsubstitutability. Since interfaces or superclasses may be generified\nindependently of their subtypes, we may override a generic method with a\nnon-generic one. However, the overriding (non-generic) method must be\napplicable to calls to the generic method, including calls that explicitly\npass type arguments. Otherwise the subtype would not be substitutable for its\ngenerified supertype. There is no reason to do this in cases where the method being called is not an\noverride of a generic method.",
+  "Bug_Explanation": "The bug is embedded in the line where an object of the GenericClass is created. The generic type argument `String` is provided although the class itself is generic and can accept any type. This is unnecessary and should be removed for the code to function as expected.",
+  "Buggy_Line": [
+    28
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is caused by providing the type argument 'String' while creating an object of the GenericClass. The GenericClass is already generic and can accept any type, so the type argument is unnecessary and should be removed.",
+  "Trigger_Line": [
+    28
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Hello\nWorld\n\nTime: 0.011\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The provided test run results do not show any signs of the bug being triggered. The test results display the expected output without any indication of the bug.",
+  "Model_Confirmed_Buggy": "No",
+  "Model_Explanation": "The described bug is not present in the provided Java code. The Java code does not contain any unnecessary type arguments. The GenericClass is correctly instantiated with a type argument, which is necessary according to the bug description."
+}

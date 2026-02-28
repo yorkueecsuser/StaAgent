@@ -1,0 +1,22 @@
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+class BugDemoTest {
+    @Test
+    public void testBugDemo() {
+        int[] arr = new int[5];
+        arr[0] = 10;
+        arr[1] = 20;
+        arr[2] = 30;
+        arr[3] = 40;
+        arr[4] = 50;
+
+        int sum = 0;
+        for (int i = 0; i < 10; i++) {
+            sum += arr[i]; // TRIGGER BUG: Accessing an array element should not trigger an ArrayIndexOutOfBoundsException
+        }
+        System.out.println("Sum: " + sum);
+
+        assertEquals("Sum: 150", sum);
+    }
+}

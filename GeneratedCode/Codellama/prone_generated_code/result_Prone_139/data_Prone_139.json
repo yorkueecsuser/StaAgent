@@ -1,0 +1,17 @@
+{
+  "Buggy_Line": [
+    16,
+    11
+  ],
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by calling the `showBug` method, which calls the `assertThat` method with the `Foo` object and the `ignoringFields` method with the field numbers `1` and `2`. This causes the `Bar` object to be ignored, and the test case fails.",
+  "Trigger_Line": [
+    14,
+    5,
+    7,
+    9,
+    18,
+    20
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

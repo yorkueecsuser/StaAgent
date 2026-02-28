@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "TreeToString",
+  "Bug_Details": "Tree#toString shouldn't be used for Trees deriving from the code being compiled, as it discards whitespace and comments. Tree#toString shouldn\u2019t be used for Trees deriving from the code being\ncompiled, as it discards whitespace and comments. This check only runs inside Error Prone code. Suggested replacements include: Prefer VisitorState#getConstantExpression for escaping constants in\ngenerated code.\nVisitorState#getSourceForNode : it will give you the original source text.\nNote that for synthetic trees (e.g.: implicit constructors), that source may\nbe null.\nIf the string representation was being used for comparison with keywords\nlike this and super, try tree.getName().contentEquals(\"this\")\nOne can also get the symbol name and use it for comparison :\nASTHelpers.getSymbol(tree).getSimpleName().toString()",
+  "Bug_Explanation": "The Tree#toString method is used to convert a tree node to a string. This method discards all whitespace and comments. Therefore, using this method to generate source code may lead to incorrect results.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the `showBug` method with null as parameter. This leads to a NullPointerException to be thrown, which is expected. The test case is designed to fail if the NullPointerException is not thrown.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.008\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test execution was successful and did not fail. The test case was designed to fail when a NullPointerException is expected and it indeed failed as expected.",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The bug is present in the code. The method showBug(Tree tree) is using the toString() method of the Tree class, which discards whitespace and comments. This can lead to incorrect results when comparing the string representation of the tree with keywords like 'this' or'super'. The suggested replacements include using VisitorState#getConstantExpression for escaping constants in generated code, VisitorState#getSourceForNode to get the original source text, or ASTHelpers.getSymbol(tree).getSimpleName().toString() to get the symbol name and use it for comparison."
+}

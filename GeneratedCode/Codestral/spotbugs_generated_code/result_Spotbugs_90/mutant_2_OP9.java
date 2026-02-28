@@ -1,0 +1,20 @@
+class NonsensicalSelfComputationBug {
+
+    public int showBug(int x) {
+        // BUG: SA: Nonsensical self computation involving a variable (e.g., x & x) (SA_LOCAL_SELF_COMPUTATION)
+        int result = x & x;
+
+        // Mutation: Equivalent Loop Replacement
+        do {
+            // Empty loop body
+        } while (result > 0);
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        NonsensicalSelfComputationBug bug = new NonsensicalSelfComputationBug();
+        int result = bug.showBug(5);
+        System.out.println("Result of buggy computation: " + result);
+    }
+}

@@ -1,0 +1,20 @@
+class EI2 {
+
+  EI2[] myArray;
+
+  public void setStuff(EI2[] myArray) {
+    if (myArray.length > 0) this.myArray = myArray;
+    
+    // Introduced an unreachable while loop as per the mutation operator
+    boolean conditionWhile = getCondition();
+    while (conditionWhile) {
+      // This loop is unreachable because getCondition() always returns false
+    }
+  }
+
+  private boolean getCondition() {
+    return false;
+  }
+
+  public static void main(String[] args) {}
+}

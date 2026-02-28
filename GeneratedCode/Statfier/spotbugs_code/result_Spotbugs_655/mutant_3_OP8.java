@@ -1,0 +1,87 @@
+import edu.umd.cs.findbugs.annotations.DesireWarning;
+import edu.umd.cs.findbugs.annotations.ExpectWarning;
+import java.util.Random;
+
+class BadRandomInt {
+
+  static Random r = new Random();
+
+  @ExpectWarning("Dm")
+  int nextInt(int n) {
+    return (int) (r.nextDouble() * n);
+  }
+
+  @ExpectWarning("Dm")
+  int nextInt() {
+    return (int) (r.nextDouble() * 100);
+  }
+
+  @ExpectWarning("Dm")
+  int nextInt2(int n) {
+    return (int) (n * r.nextDouble());
+  }
+
+  @ExpectWarning("Dm")
+  int nextInt2() {
+    return (int) (100 * r.nextDouble());
+  }
+
+  @DesireWarning("DMI")
+  static int randomInt(int n) {
+    Random ran = new Random();
+    return ran.nextInt(n);
+  }
+
+  @ExpectWarning("DMI")
+  static int randomInt2(int n) {
+    return new Random().nextInt(n);
+  }
+
+  @ExpectWarning("DMI")
+  static int randomInt3() {
+    return new Random().nextInt();
+  }
+
+  // Mutated code
+  @ExpectWarning("Dm")
+  int nextInt(int m) {
+    Random x = new Random();
+    return (int) (x.nextDouble() * m);
+  }
+
+  @ExpectWarning("Dm")
+  int nextInt() {
+    Random y = new Random();
+    return (int) (y.nextDouble() * 100);
+  }
+
+  @ExpectWarning("Dm")
+  int nextInt2(int p) {
+    Random z = new Random();
+    return (int) (p * z.nextDouble());
+  }
+
+  @ExpectWarning("Dm")
+  int nextInt2() {
+    Random w = new Random();
+    return (int) (100 * w.nextDouble());
+  }
+
+  @DesireWarning("DMI")
+  static int randomInt(int q) {
+    Random v = new Random();
+    return v.nextInt(q);
+  }
+
+  @ExpectWarning("DMI")
+  static int randomInt2(int s) {
+    Random t = new Random();
+    return t.nextInt(s);
+  }
+
+  @ExpectWarning("DMI")
+  static int randomInt3() {
+    Random u = new Random();
+    return u.nextInt();
+  }
+}

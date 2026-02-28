@@ -1,0 +1,33 @@
+import java.lang.reflect.Field;
+
+class ProtoBug {
+    static class Foo {
+        static final int ID_FIELD_NUMBER = 1;
+    }
+
+    static class Bar {
+        static final int ID_FIELD_NUMBER = 2;
+    }
+
+    public Object showBug() throws NoSuchFieldException, SecurityException {
+        // Added unreachable while loop
+        boolean conditionWhile = getCondition();
+        while (conditionWhile) {
+            // This loop will never execute because getCondition() always returns false
+        }
+
+        Class<?> fooClass = Foo.class;
+        Field field = fooClass.getDeclaredField(Integer.toString(Bar.ID_FIELD_NUMBER)); // BUG: MixedDescriptors
+        return field;
+    }
+
+    private static boolean getCondition() {
+        // This method always returns false to make the loop unreachable
+        return false;
+    }
+
+    public static void main(String[] args) throws NoSuchFieldException, SecurityException {
+        ProtoBug pb = new ProtoBug();
+        System.out.println(pb.showBug());
+    }
+}

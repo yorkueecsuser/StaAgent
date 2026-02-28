@@ -1,0 +1,18 @@
+class Component {
+
+  public abstract static class Builder<T extends Builder<T>> {
+
+    public abstract Component build();
+
+    public abstract T getThis();
+
+    public T commonProp(Object prop) {
+      return getThis();
+    }
+
+    // Mutated code with renaming of 'prop' to 'a'
+    public T commonPropMutated(Object a) {
+      return getThis();
+    }
+  }
+}

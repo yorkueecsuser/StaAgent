@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "JUnitSpelling",
+  "Bug_Details": "In JUnit 3, the setUp method is used to set up all data entities required in running tests.\n            The tearDown method is used to clean up all data entities required in running tests.\n            You should not misspell method name if you want your test to set up and clean up everything correctly.",
+  "Bug_Explanation": "The'setUp' and 'tearDown' methods are misspelled in the generated code. The'setUp' method should be spelled'setup' and the 'tearDown' method should be spelled 'teardown'.",
+  "Buggy_Line": [
+    20,
+    31
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../pmd_clean_java_code/result_Pmd_52/seed_Pmd_52_junit_test.java:6: error: cannot find symbol\n    @Before\n     ^\n  symbol:   class Before\n  location: class MyTest\n../pmd_clean_java_code/result_Pmd_52/seed_Pmd_52_junit_test.java:16: error: cannot find symbol\n    @After\n     ^\n  symbol:   class After\n  location: class MyTest\n../pmd_clean_java_code/result_Pmd_52/seed_Pmd_52_junit_test.java:13: error: cannot find symbol\n        assertEquals(\"John Doe\", name);\n        ^\n  symbol:   method assertEquals(String,String)\n  location: class MyTest\n3 errors\n",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug() method, which is misspelled as 'tearDoen()' instead of 'tearDown()'.",
+  "Trigger_Line": [
+    10,
+    20
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

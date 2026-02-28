@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "Expressions used in \"assert\" should not produce side effects",
+  "Bug_Details": "Since assert statements aren\u2019t executed by default (they must be enabled with JVM flags) developers should never rely on their\nexecution the evaluation of any logic required for correct program function.\nNoncompliant code example\nassert myList.remove(myList.get(0));  // Noncompliant\nCompliant solution\nboolean removed = myList.remove(myList.get(0));\nassert removed;",
+  "Bug_Explanation": "The assert statement in the main method uses the remove method to remove the first element in the list, which produces a side effect by modifying the list. This is not allowed in an assert statement.",
+  "Buggy_Line": [
+    11
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The assert statement in the test method uses the remove method to remove the first element in the list, which produces a side effect by modifying the list. This is not allowed in an assert statement.",
+  "Trigger_Line": [
+    11
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

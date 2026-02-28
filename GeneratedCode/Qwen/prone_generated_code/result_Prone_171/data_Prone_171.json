@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "UnsafeWildcard",
+  "Bug_Details": "Certain wildcard types can confuse the compiler.",
+  "Bug_Explanation": "The bug is embedded in the generated code by attempting to add a String to a List<?> which is a wildcard type. This will cause a compile-time error due to type safety constraints in Java generics.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_171/seed_Prone_171.java:9: error: incompatible types: String cannot be converted to CAP#1\n        list.add(\"This will cause a runtime error\"); // BUG: UnsafeWildcard\n                 ^\n  where CAP#1 is a fresh type-variable:\n    CAP#1 extends Object from capture of ?\nNote: Some messages have been simplified; recompile with -Xdiags:verbose to get full output\n1 error\n",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method with a List<String>. Inside the showBug method, an attempt is made to add a String to a List<?>, which causes a runtime error due to the unsafe wildcard usage.",
+  "Trigger_Line": [
+    17
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

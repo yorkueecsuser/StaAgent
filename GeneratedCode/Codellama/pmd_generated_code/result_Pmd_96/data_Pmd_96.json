@@ -1,0 +1,13 @@
+{
+  "Bug_Title": "UnsynchronizedStaticFormatter",
+  "Bug_Details": "Instances of `java.text.Format` are generally not synchronized.\nSun recommends using separate format instances for each thread.\nIf multiple threads must access a static formatter, the formatter must be\nsynchronized on block level.",
+  "Bug_Explanation": "The bug was embedded in the code by using a static formatter, which is not synchronized. This was done to demonstrate the bug of using a static formatter in a multi-threaded environment.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the format method on the static formatter instance from multiple threads without proper synchronization.",
+  "Trigger_Line": [
+    33
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

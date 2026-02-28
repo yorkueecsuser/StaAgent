@@ -1,0 +1,96 @@
+import edu.umd.cs.findbugs.annotations.NoWarning;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
+public abstract class Ideas_2009_05_20 {
+  @NoWarning("NP_")
+  public static void falsePositive_ifnonull(List lst) {
+    final ArrayList sections = new ArrayList();
+    Iterator<Object> it = lst.iterator();
+    do {
+      if (it.hasNext()) {
+        Object o = it.next();
+        if (sections!= null) sections.add(o);
+      }
+    } while (it.hasNext());
+    sections.clear();
+  }
+
+  @NoWarning("NP_")
+  public static void falsePositive_ifnonnull(Object o) {
+    final ArrayList sections = new ArrayList();
+    if (sections!= null) sections.add(o);
+
+    sections.clear();
+  }
+
+  @NoWarning("NP_")
+  public static void falsePositive(List lst) {
+    final ArrayList sections = new ArrayList();
+    Iterator<Object> it = lst.iterator();
+    do {
+      if (it.hasNext()) {
+        Object o = it.next();
+        if (null!= sections) sections.add(o);
+      }
+    } while (it.hasNext());
+    sections.clear();
+  }
+
+  @NoWarning("NP_")
+  public static void falsePositive(Object o) {
+    final ArrayList sections = new ArrayList();
+    if (null!= sections) sections.add(o);
+
+    sections.clear();
+  }
+
+  /**
+   * From Ant 1.5.2, org.apache.tools.ant.taskdefs.optional.extension.Specification
+   *
+   * <p>Reported as a FindBugs false positive in "Accurate Interprocedural Null-Dereference Analysis
+   * for Java", Mangala Gowri Nanda and Saurabh Sinha, ICSE 2009
+   */
+  @NoWarning("NP_")
+  static ArrayList<Ideas_2009_05_20> removeDuplicates_FalsePositive(
+      final ArrayList<Ideas_2009_05_20> list) {
+    final ArrayList<Ideas_2009_05_20> results = new ArrayList<Ideas_2009_05_20>();
+    final ArrayList<String> sections = new ArrayList<String>();
+    do {
+      if (list.size() > 0) {
+        final Ideas_2009_05_20 specification = list.remove(0);
+        final Iterator<Ideas_2009_05_20> iterator = list.iterator();
+        do {
+          if (iterator.hasNext()) {
+            final Ideas_2009_05_20 other = iterator.next();
+            if (specification.equals(other)) {
+              final String[] otherSections = other.getSections();
+              if (null!= sections) {
+                sections.addAll(Arrays.asList(otherSections));
+              }
+              iterator.remove();
+            }
+          }
+        } while (iterator.hasNext());
+
+        final Ideas_2009_05_20 merged = mergeInSections(specification, sections);
+        results.add(merged);
+        // Reset list of sections
+        sections.clear();
+      }
+    } while (list.size() > 0);
+
+    return results;
+  }
+
+  private static Ideas_2009_05_20 mergeInSections(
+      Ideas_2009_05_20 specification, ArrayList<String> sections) {
+    return specification;
+  }
+
+  private String[] getSections() {
+    return new String[] {"a"};
+  }
+}

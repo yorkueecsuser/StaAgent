@@ -1,0 +1,20 @@
+{
+  "Bug_Title": "Unnecessary boxing and unboxing should be avoided",
+  "Bug_Details": "Boxing is the process of putting a primitive value into a wrapper object, such as creating an Integer to hold an int value. Unboxing is the process of retrieving the primitive value from such an object. Since the original value is unchanged during boxing and\nunboxing, there is no point in doing either when not needed.\nInstead, you should rely on Java\u2019s implicit boxing/unboxing to convert from the primitive type to the wrapper type and vice versa, for better\nreadability.\nNoncompliant code example\npublic void examinePrimitiveInt(int a) {\n  //...\n}\n\npublic void examineBoxedInteger(Integer a) {\n  // ...\n}\n\npublic void func() {\n  int primitiveInt = 0;\n  Integer boxedInt = Integer.valueOf(0);\n  double d = 1.0;\n\n  int dIntValue = Double.valueOf(d).intValue(); // Noncompliant; should be replaced with a simple cast\n\n  examinePrimitiveInt(boxedInt.intValue()); // Noncompliant; unnecessary unboxing\n  examinePrimitiveInt(Integer.valueOf(primitiveInt));  // Noncompliant; boxed int will be auto-unboxed\n\n  examineBoxedInteger(Integer.valueOf(primitiveInt)); // Noncompliant; unnecessary boxing\n  examineBoxedInteger(boxedInt.intValue()); // Noncompliant; unboxed int will be autoboxed\n}\nCompliant solution\npublic void examinePrimitiveInt(int a) {\n  //...\n}\n\npublic void examineBoxedInteger(Integer a) {\n  // ...\n}\n\npublic void func() {\n  int primitiveInt = 0;\n  Integer boxedInt = Integer.valueOf(0);\n  double d = 1.0;\n\n  int dIntValue = (int) d;\n\n  examinePrimitiveInt(primitiveInt);\n  examinePrimitiveInt(boxedInt);\n\n  examineBoxedInteger(primitiveInt);\n  examineBoxedInteger(boxedInt);\n}",
+  "Bug_Explanation": "The code demonstrates unnecessary boxing and unboxing. For instance, primitive int values are unnecessarily boxed into Integers, and Integer objects are unnecessarily unboxed to int when Java's auto-boxing and auto-unboxing can handle these conversions implicitly, making the code less readable.",
+  "Buggy_Line": [
+    16,
+    18,
+    19,
+    21,
+    22
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case invokes the showBug() method of BoxingUnboxingExample which contains several instances of unnecessary boxing and unboxing. The original method demonstrates the bug by performing redundant conversions and modifications that should fail based on the defined bug rule.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed without any errors, suggesting that the bug was not triggered during the test execution."
+}

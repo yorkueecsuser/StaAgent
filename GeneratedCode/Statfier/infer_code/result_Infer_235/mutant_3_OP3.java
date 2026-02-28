@@ -1,0 +1,104 @@
+import android.os.Binder;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.RemoteException;
+import java.util.concurrent.Executor;
+
+class ImplicitConstructor {
+  static Binder binder;
+
+  private static void doTransact() {
+    try {
+      binder.transact(0, null, null, 0);
+    } catch (RemoteException e) {
+    }
+  }
+
+  @ForUiThread private final Executor mUiThreadExecutor = null;
+
+  Executor mUiExecutor = mUiThreadExecutor;
+  Executor mNonUiExecutor = Executors.getBackgroundExecutor();
+  Handler mUiHandler = new Handler(Looper.getMainLooper());
+  Runnable mBadRunnable =
+      new Runnable() {
+        @Override
+        public void run() {
+          doTransact();
+        }
+      };
+
+  Runnable mOkRunnable =
+      new Runnable() {
+        @Override
+        public void run() {}
+      };
+
+  Runnable mAmbiguous;
+
+  ImplicitConstructor() {
+    mAmbiguous = mBadRunnable;
+    boolean condition = getCondition();
+    if (condition) {
+      // Unreachable if statement
+      System.out.println("This is an unreachable statement");
+    }
+  }
+
+  ImplicitConstructor(int data) {
+    mAmbiguous = mOkRunnable;
+    boolean condition = getCondition();
+    if (condition) {
+      // Unreachable if statement
+      System.out.println("This is another unreachable statement");
+    }
+  }
+
+  public void postBlockingCallToUIExecutorBad() {
+    mUiExecutor.execute(mBadRunnable);
+    boolean condition = getCondition();
+    if (condition) {
+      // Unreachable if statement
+      System.out.println("Unreachable in postBlockingCallToUIExecutorBad");
+    }
+  }
+
+  public void postNoopCallToUIExecutorOk() {
+    mUiExecutor.execute(mOkRunnable);
+    boolean condition = getCondition();
+    if (condition) {
+      // Unreachable if statement
+      System.out.println("Unreachable in postNoopCallToUIExecutorOk");
+    }
+  }
+
+  public void postBlockingCallToNonUIExecutorOk() {
+    mNonUiExecutor.execute(mBadRunnable);
+    boolean condition = getCondition();
+    if (condition) {
+      // Unreachable if statement
+      System.out.println("Unreachable in postBlockingCallToNonUIExecutorOk");
+    }
+  }
+
+  public void postBlockingCallToUIHandlerBad() {
+    mUiHandler.post(mBadRunnable);
+    boolean condition = getCondition();
+    if (condition) {
+      // Unreachable if statement
+      System.out.println("Unreachable in postBlockingCallToUIHandlerBad");
+    }
+  }
+
+  public void postAmbiguousRunnableToUIExecutorOk() {
+    mUiExecutor.execute(mAmbiguous);
+    boolean condition = getCondition();
+    if (condition) {
+      // Unreachable if statement
+      System.out.println("Unreachable in postAmbiguousRunnableToUIExecutorOk");
+    }
+  }
+
+  private boolean getCondition() {
+    return false; // This method ensures the condition is dynamically determined but always false
+  }
+}

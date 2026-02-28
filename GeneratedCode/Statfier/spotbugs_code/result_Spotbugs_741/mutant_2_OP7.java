@@ -1,0 +1,39 @@
+class MismatchedWaitFalsePositive {
+  Object lock;
+
+  boolean ready = false;
+
+  MismatchedWaitFalsePositive(Object x) {
+    lock = x;
+  }
+
+  public void waitOnLock() {
+    synchronized (lock) {
+      while (!ready) {
+        try {
+          lock.wait();
+          return;
+        } catch (InterruptedException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+      }
+    }
+    // Introduced unreachable while loop
+    boolean conditionWhile = getUnreachableCondition();
+    while (conditionWhile) {
+      // This loop is unreachable because conditionWhile is always false
+    }
+  }
+
+  public void notifyAllOnLock() {
+    synchronized (lock) {
+      ready = true;
+      lock.notify();
+    }
+  }
+
+  private boolean getUnreachableCondition() {
+    return false;
+  }
+}

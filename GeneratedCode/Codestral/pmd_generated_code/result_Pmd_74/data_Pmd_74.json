@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "SuspiciousEqualsMethodName",
+  "Bug_Details": "The method name and parameter number are suspiciously close to `Object.equals`, which can denote an\nintention to override it. However, the method does not override `Object.equals`, but overloads it instead.\nOverloading `Object.equals` method is confusing for other programmers, error-prone and hard to maintain,\nespecially when using inheritance, because `@Override` annotations used in subclasses can provide a false\nsense of security. For more information on `Object.equals` method, see Effective Java, 3rd Edition,\nItem 10: Obey the general contract when overriding equals.\nExamples:\npublic class Foo {\n   public int equals(Object o) {\n     // oops, this probably was supposed to be boolean equals\n   }\n   public boolean equals(String s) {\n     // oops, this probably was supposed to be equals(Object)\n   }\n   public boolean equals(Object o1, Object o2) {\n     // oops, this probably was supposed to be equals(Object)\n   }\n}",
+  "Bug_Explanation": "The Java code contains three bugs, all arising from incorrect usage of the equals method. The first bug is that a method named equals that takes an Object as a parameter actually returns an int value rather than a boolean. The second bug is that a method named equals is overloaded to take a String as a parameter, which creates confusion because the equals method in the Object class takes an Object as a parameter. The third bug is that a method named equals is implemented to take two Object parameters, which is incorrect because the equals method in the Object class takes only one Object parameter.",
+  "Buggy_Line": [
+    8,
+    3,
+    13
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "",
+  "Trigger_Explanation": "The bug is triggered in the testShowBug3 method by calling the equals method with two parameters, which does not exist in the Foo class.",
+  "Trigger_Line": [
+    11
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

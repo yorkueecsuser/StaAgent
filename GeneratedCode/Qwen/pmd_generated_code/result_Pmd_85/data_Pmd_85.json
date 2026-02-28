@@ -1,0 +1,20 @@
+{
+  "Bug_Title": "UselessOperationOnImmutable",
+  "Bug_Details": "An operation on an immutable object will not change the object itself since the result of the operation is a new object.\nTherefore, ignoring the result of such an operation is likely a mistake. The operation can probably be removed.\n\nThis rule recognizes the types `String`, `BigDecimal`, `BigInteger` or any type from `java.time.*` as immutable.\nExamples:\nimport java.math.*;\n\nclass Test {\n    void method1() {\n        BigDecimal bd=new BigDecimal(10);\n        bd.add(new BigDecimal(5));      // this will trigger the rule\n    }\n    void method2() {\n        BigDecimal bd=new BigDecimal(10);\n        bd = bd.add(new BigDecimal(5)); // this won't trigger the rule\n    }\n}",
+  "Bug_Explanation": "The bug was embedded in the generated code by performing operations on immutable objects without assigning the result to a variable. In showBug1, String's toUpperCase() method is called but the result is not stored. In showBug2, BigDecimal's add() method is called but the result is not assigned. In showBug3, LocalDate's plusDays() method is called but the result is not assigned.",
+  "Buggy_Line": [
+    17,
+    12,
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test cases call the methods showBug1, showBug2, and showBug3 which contain operations on immutable objects (String, BigDecimal, LocalDate) without using the result of the operation, thus triggering the 'UselessOperationOnImmutable' bug.",
+  "Trigger_Line": [
+    11,
+    18,
+    25
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n...\nTime: 0.015\n\nOK (3 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that all three tests passed successfully. While the third test (testShowBug3) might seem like it should fail due to the bug, the comparison in the assertion uses LocalDate.now() which could potentially match the original date if the test runs within the same day. Therefore, the test results do not confirm that the bugs were triggered."
+}

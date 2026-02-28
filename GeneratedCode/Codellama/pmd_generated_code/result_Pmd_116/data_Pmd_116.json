@@ -1,0 +1,7 @@
+{
+  "Buggy_Line": [],
+  "Trigger_Explanation": "The test case triggered the bug by calling the showBug method which contains the switch statement with only 2 branches.",
+  "Trigger_Line": [
+    10
+  ]
+}

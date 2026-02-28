@@ -1,0 +1,23 @@
+import java.math.BigDecimal;
+import java.util.Random;
+
+class BigDecimalBug {
+    public BigDecimal showBug() {
+        BigDecimal buggyDecimal = new BigDecimal(0.1);  // BUG: "BigDecimal(double)" should not be used
+        int deadStoreVariable = generateRandomInt();  // Added dead store variable
+        return buggyDecimal;
+    }
+
+    private int generateRandomInt() {
+        Random rand = new Random();
+        return rand.nextInt(100);
+    }
+
+    public static void main(String[] args) {
+        BigDecimalBug bug = new BigDecimalBug();
+        BigDecimal buggyDecimal = bug.showBug();
+        System.out.println("Buggy Decimal: " + buggyDecimal);
+        // Notice that the output is still 0.1000000000000000055511151231257827021181583404541015625
+        // instead of exactly 0.1
+    }
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "\"@PathVariable\" annotation should be present if a path variable is used",
+  "Bug_Details": "The @PathVariable annotation in Spring extracts values from the URI path and binds them to method parameters in a Spring MVC\ncontroller. It is commonly used with @GetMapping , @PostMapping , @PutMapping , and @DeleteMapping to\ncapture path variables from the URI. These annotations map HTTP requests to specific handler methods in a controller. They are part of the Spring Web\nmodule and are commonly used to define the routes for different HTTP operations in a RESTful API.\nIf a method has a path template containing a placeholder, like \"/api/resource/{id}\", and there\u2019s no @PathVariable annotation on a\nmethod parameter to capture the id path variable, Spring will disregard the id variable.",
+  "Bug_Explanation": "The bug was embedded in the generated code by omitting the @PathVariable annotation on the method parameter 'id' in the getResourceById method. This causes Spring to disregard the 'id' path variable from the URI.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_11/seed_Sonar_11.java:1: error: package org.springframework.web.bind.annotation does not exist\nimport org.springframework.web.bind.annotation.GetMapping;\n                                              ^\n../sonar_clean_java_code/result_Sonar_11/seed_Sonar_11.java:2: error: package org.springframework.web.bind.annotation does not exist\nimport org.springframework.web.bind.annotation.RestController;\n                                              ^\n../sonar_clean_java_code/result_Sonar_11/seed_Sonar_11.java:4: error: cannot find symbol\n@RestController\n ^\n  symbol: class RestController\n../sonar_clean_java_code/result_Sonar_11/seed_Sonar_11.java:7: error: cannot find symbol\n    @GetMapping(\"/api/resource/{id}\")\n     ^\n  symbol:   class GetMapping\n  location: class BugDemonstrationController\n4 errors\n",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by calling the showBug method which internally calls getResourceById without properly binding the path variable 'id' using the @PathVariable annotation.",
+  "Trigger_Line": [
+    8
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "ForOverride",
+  "Bug_Details": "Method annotated @ForOverride must be protected or package-private and only invoked from declaring class, or from an override of the method A method that overrides a @ForOverride method should not be invoked directly.\nInstead, it should be invoked only from the class in which it was declared. For\nexample, if overriding Converter.doForward, you should invoke it through\nConverter.convert. For testing, factor out the code you want to run to a\nseparate method.",
+  "Bug_Explanation": "The bug is embedded in the generated code by directly invoking the overridden method 'doForward()' from the 'ExtendedConverter' class in the'showBug' method. This violates the rule that a method annotated with @ForOverride should only be invoked from the declaring class or its override within the same class hierarchy.",
+  "Buggy_Line": [
+    32
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method of ForOverrideBugDemo, which directly invokes the doForward method of ExtendedConverter, violating the ForOverride annotation rule.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.002\nThere was 1 failure:\n1) initializationError(org.junit.runner.JUnitCommandLineParseResult)\njava.lang.IllegalArgumentException: Could not find class [ConverterTest]\n\tat org.junit.runner.JUnitCommandLineParseResult.parseParameters(JUnitCommandLineParseResult.java:100)\n\tat org.junit.runner.JUnitCommandLineParseResult.parseArgs(JUnitCommandLineParseResult.java:50)\n\tat org.junit.runner.JUnitCommandLineParseResult.parse(JUnitCommandLineParseResult.java:44)\n\tat org.junit.runner.JUnitCore.runMain(JUnitCore.java:72)\n\tat org.junit.runner.JUnitCore.main(JUnitCore.java:36)\nCaused by: java.lang.ClassNotFoundException: ConverterTest\n\tat java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)\n\tat java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)\n\tat java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)\n\tat java.base/java.lang.Class.forName0(Native Method)\n\tat java.base/java.lang.Class.forName(Class.java:534)\n\tat java.base/java.lang.Class.forName(Class.java:513)\n\tat org.junit.internal.Classes.getClass(Classes.java:42)\n\tat org.junit.internal.Classes.getClass(Classes.java:27)\n\tat org.junit.runner.JUnitCommandLineParseResult.parseParameters(JUnitCommandLineParseResult.java:98)\n\t... 4 more\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate a failure due to a ClassNotFoundException for 'ConverterTest', which is unrelated to the bug rule ForOverride. The test did not execute the expected code path that would trigger the bug."
+}

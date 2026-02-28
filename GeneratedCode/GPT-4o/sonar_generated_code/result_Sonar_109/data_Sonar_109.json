@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "\"Iterator.next()\" methods should throw \"NoSuchElementException\"",
+  "Bug_Details": "The java.util.Iterator.next() method must throw a NoSuchElementException when there are no more elements in the\niteration. Any other behavior is non-compliant with the API contract and may cause unexpected behavior for users.\nNoncompliant code example\npublic class MyIterator implements Iterator<String> {\n  public String next() {\n    if (!hasNext()) {\n      return null;\n    }\n    // ...\n  }\n}\nCompliant solution\npublic class MyIterator implements Iterator<String> {\n  public String next() {\n    if (!hasNext()) {\n      throw new NoSuchElementException();\n    }\n    // ...\n  }\n}",
+  "Bug_Explanation": "The MyIterator class incorrectly implements the next() method by returning null when there are no more elements. According to the Iterator interface contract, it should throw a NoSuchElementException instead.",
+  "Buggy_Line": [
+    23
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBugTriggersException test method calls 'showBug' with an array of strings. The showBug method uses the MyIterator, which has a bug in the next() method. When the iterator is exhausted, it returns null instead of throwing a NoSuchElementException, violating the expected behavior. The assertEquals comparison fails because the actual result is 'one two three null ' instead of the expected 'one two three No more elements.'.",
+  "Trigger_Line": [
+    11
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 3.501\nThere was 1 failure:\n1) testShowBugTriggersException(BuggyIteratorExampleTest)\njava.lang.OutOfMemoryError: Required array length 2147483644 + 4 is too large\n\tat java.base/jdk.internal.util.ArraysSupport.hugeLength(ArraysSupport.java:752)\n\tat java.base/jdk.internal.util.ArraysSupport.newLength(ArraysSupport.java:745)\n\tat java.base/java.lang.AbstractStringBuilder.newCapacity(AbstractStringBuilder.java:263)\n\tat java.base/java.lang.AbstractStringBuilder.ensureCapacityInternal(AbstractStringBuilder.java:243)\n\tat java.base/java.lang.AbstractStringBuilder.appendNull(AbstractStringBuilder.java:635)\n\tat java.base/java.lang.AbstractStringBuilder.append(AbstractStringBuilder.java:584)\n\tat java.base/java.lang.StringBuilder.append(StringBuilder.java:179)\n\tat BuggyIteratorExample.showBug(BuggyIteratorExample.java:39)\n\tat BuggyIteratorExampleTest.testShowBugTriggersException(BuggyIteratorExampleTest.java:14)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not confirm the bug was triggered. Instead of a NoSuchElementException being thrown, the test fails due to an OutOfMemoryError caused by appending null values in an infinite loop, indicating the bug was not effectively triggered as intended."
+}

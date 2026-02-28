@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "All branches in a conditional structure should not have exactly the same implementation",
+  "Bug_Details": "Having all branches of a switch or if chain with the same implementation indicates a problem.\nIn the following code:\nif (b == 0) {  // Noncompliant\n  doOneMoreThing();\n} else {\n  doOneMoreThing();\n}\n\nint b = a > 12 ? 4 : 4;  // Noncompliant\n\nswitch (i) {  // Noncompliant\n  case 1:\n    doSomething();\n    break;\n  case 2:\n    doSomething();\n    break;\n  case 3:\n    doSomething();\n    break;\n  default:\n    doSomething();\n}\nEither there is a copy-paste error that needs fixing or an unnecessary switch or if chain that should be removed.\nExceptions\nThis rule does not apply to if chains without else , nor to switch without a default clause.\nif(b == 0) {    //no issue, this could have been done on purpose to make the code more readable\n  doSomething();\n} else if(b == 1) {\n  doSomething();\n}",
+  "Bug_Explanation": "The bug is that all branches of a conditional structure (if-else and switch-case) have the same implementation, which indicates a possible copy-paste error or an unnecessary conditional structure that should be removed.",
+  "Buggy_Line": [
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered in the testShowBug method when the showBug method of BuggyConditionalStructure class is called. No matter the value of a or i, the same method is called in all branches of the conditional structures which is not acceptable as per the rule.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Doing one more thing...\nDoing something...\n\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that each branch of the conditional structures in the code prints a message to the console, demonstrating that they execute different implementations. This means the bug was not triggered."
+}

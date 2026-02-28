@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "DP: Classloaders should only be created inside doPrivileged block (DP_CREATE_CLASSLOADER_INSIDE_DO_PRIVILEGED)\uf0c1",
+  "Bug_Details": " This code creates a classloader,  which needs permission if a security manage is installed.\nIf this code might be invoked by code that does not\nhave security permissions, then the classloader creation needs to occur inside a doPrivileged block. java.security.AccessController doPrivileged",
+  "Bug_Explanation": "This code creates a classloader, which needs permission if a security manager is installed. If this code might be invoked by code that does not have security permissions, then the classloader creation needs to occur inside a doPrivileged block.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../spotbugs_clean_java_code/result_Spotbugs_172/seed_Spotbugs_172.java:6: error: cannot find symbol\n        ClassLoader classLoader = new URLClassLoader(new URL[] { new URL(\"https://example.com\") });\n                                      ^\n  symbol:   class URLClassLoader\n  location: class ClassLoaderBug\n../spotbugs_clean_java_code/result_Spotbugs_172/seed_Spotbugs_172.java:6: error: cannot find symbol\n        ClassLoader classLoader = new URLClassLoader(new URL[] { new URL(\"https://example.com\") });\n                                                         ^\n  symbol:   class URL\n  location: class ClassLoaderBug\n../spotbugs_clean_java_code/result_Spotbugs_172/seed_Spotbugs_172.java:6: error: cannot find symbol\n        ClassLoader classLoader = new URLClassLoader(new URL[] { new URL(\"https://example.com\") });\n                                                                     ^\n  symbol:   class URL\n  location: class ClassLoaderBug\n3 errors\n",
+  "Trigger_Explanation": "The test case triggers the bug by creating a classloader inside the showBug() method of the ClassLoaderBug class, which is not inside a doPrivileged block.",
+  "Trigger_Line": [
+    6
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

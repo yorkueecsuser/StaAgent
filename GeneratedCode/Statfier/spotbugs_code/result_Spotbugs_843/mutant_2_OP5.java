@@ -1,0 +1,32 @@
+class Issue527 {
+
+  public void errorOnLambda() {
+    Object o = getObject();
+    if (o!= null) {
+      useRunnable(() -> toString());
+    }
+    o.hashCode();
+    // Inserting unreachable switch statement
+    boolean condition = getCondition();
+    switch(condition) {
+      case true:
+        System.out.println("This is unreachable");
+        break;
+    }
+    Object o2 = getObject();
+    if (o2!= null) {
+      useRunnable(() -> toString());
+    }
+    o2.hashCode();
+  }
+
+  public Object getObject() {
+    return null;
+  }
+
+  public void useRunnable(Runnable listener) {}
+
+  private boolean getCondition() {
+    return false; // This method ensures the condition is dynamically determined at runtime but always returns false
+  }
+}

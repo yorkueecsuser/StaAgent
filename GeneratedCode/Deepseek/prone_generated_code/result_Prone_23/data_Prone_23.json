@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "ComparisonOutOfRange",
+  "Bug_Details": "Comparison to value that is out of range for the compared type This checker looks for comparisons to values that are too high or too low for the compared type.  For example, bytes may have a value in the range -128 to 127. Comparing a byte for equality with a value outside that range will always evaluate to false and usually indicates an error in the code.",
+  "Bug_Explanation": "The bug here is a comparison to a value that is out of range for the compared type. The byte 'b' can only have values in the range -128 to 127. Comparing 'b' for equality with a value outside this range will always evaluate to false. Here, 'b' is being compared with 200, which is out of the byte's range. This is likely a mistake because 200 is much larger than 127.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case is designed to trigger the bug by asserting that the showBug() method returns true. However, due to the comparison of a byte (127) with a value (200) that is outside its range, the test case fails because the byte is automatically widened to an int, and the result of the comparison is always false.",
+  "Trigger_Line": [
+    3
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that the test case passed, which indicates that the bug was not triggered based on the test results.",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The comparison in the'showBug' method is out of range for the compared type. The byte 'b' is assigned a value of 127, which is within the range of a byte (-128 to 127). However, the comparison 'b < 200' is checking if 'b' is less than 200, which is outside the range of a byte. This comparison will always evaluate to false, which is likely a bug. The comparison should be 'b < 128' to avoid this bug."
+}

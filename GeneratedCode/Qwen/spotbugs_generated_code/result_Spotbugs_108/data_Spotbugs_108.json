@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "STI: Static Thread.interrupted() method invoked on thread instance (STI_INTERRUPTED_ON_UNKNOWNTHREAD)\uf0c1",
+  "Bug_Details": "\nThis method invokes the Thread.interrupted() method on a Thread object that appears to be a Thread object that is\nnot the current thread. As the interrupted() method is static, the interrupted method will be called on a different\nobject than the one the author intended.\n",
+  "Bug_Explanation": "The bug is embedded in the showBug method where the interrupted() method is called on a Thread object (someThread) that is not the current thread. The interrupted() method is static and will always check the interrupted status of the current thread, not the thread passed as an argument.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method with a different thread (dummyThread). The showBug method incorrectly uses the static Thread.interrupted() method, which checks the interrupted status of the current thread instead of the provided thread object.",
+  "Trigger_Line": [
+    20
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 1.008\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed successfully without any failures. The test checks the behavior of the'showBug' method with a different thread, but the assertion 'assertFalse(result)' did not fail, suggesting that the method did not behave as expected according to the bug description. However, since the test passed, it does not confirm that the bug was triggered as per the provided test results."
+}

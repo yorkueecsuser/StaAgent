@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Invalid \"Date\" values should not be used",
+  "Bug_Details": "Whether the valid value ranges for Date fields start with 0 or 1 varies by field. For instance, month starts at 0, and day of month\nstarts at 1. Enter a date value that goes past the end of the valid range, and the date will roll without error or exception. For instance, enter 12\nfor month, and you\u2019ll get January of the following year.\nThis rule checks for bad values used in conjunction with java.util.Date , java.sql.Date , and java.util.Calendar . Specifically, values outside of the valid ranges:\nmonth\n0-11\ndate (day)\n0-31\nhour\n0-23\nminute\n0-60\nsecond\n0-61\nNote that this rule does not check for invalid leap years, leap seconds (second = 61), or invalid uses of the 31st day of the month.\nNoncompliant code example\nDate d = new Date();\nd.setDate(25);\nd.setYear(2014);\nd.setMonth(12);  // Noncompliant; rolls d into the next year\n\nCalendar c = new GregorianCalendar(2014, 12, 25);  // Noncompliant\nif (c.get(Calendar.MONTH) == 12) {  // Noncompliant; invalid comparison\n  // ...\n}\nCompliant solution\nDate d = new Date();\nd.setDate(25);\nd.setYear(2014);\nd.setMonth(11);\n\nCalendar c = new Gregorian Calendar(2014, 11, 25);\nif (c.get(Calendar.MONTH) == 11) {\n  // ...\n}",
+  "Bug_Explanation": "The bug is present in the'showBug1' and'showBug2' methods. In'showBug1', the month is set to 12 which is invalid, and in'showBug2', the month is compared to 12 which is also invalid. According to Java's Date and Calendar classes, month values range from 0 to 11 and day values range from 1 to 31.",
+  "Buggy_Line": [
+    16,
+    17,
+    11
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test cases use the'showBug1' and'showBug2' methods of the 'InvalidDateValues' class to create test cases that fail when invalid date values are used. This triggers the bug, as indicated by the comments '// TRIGGER BUG: Invalid \"Date\" values should not be used'.",
+  "Trigger_Line": "[11, 17]",
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.021\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the'showBug1' and'showBug2' methods do not return a month value of 12, which is expected as per the correct implementation of the code. Therefore, the tests do not confirm that the bug was triggered."
+}

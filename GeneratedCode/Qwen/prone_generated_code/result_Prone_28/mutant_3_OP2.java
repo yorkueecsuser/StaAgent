@@ -1,0 +1,15 @@
+class ConstantOverflowExample {
+
+    // BUG: ConstantOverflow
+    static final long NANOS_PER_DAY = 24 * 60 * 60 * 1000 * 1000 * 1000;
+    static final long DUPLICATED_NANOS_PER_DAY = 24 * 60 * 60 * 1000 * 1000 * 1000; // Duplicate assignment
+
+    public long showBug() {
+        return NANOS_PER_DAY;
+    }
+
+    public static void main(String[] args) {
+        ConstantOverflowExample example = new ConstantOverflowExample();
+        System.out.println("NANOS_PER_DAY: " + example.showBug());
+    }
+}

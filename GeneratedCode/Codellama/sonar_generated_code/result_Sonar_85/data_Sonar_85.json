@@ -1,0 +1,13 @@
+{
+  "Buggy_Line": [
+    11
+  ],
+  "Trigger_Explanation": "The test cases trigger the bug by passing negative values or values greater than the length of the string as indexes to the String::substring method, causing the StringIndexOutOfBoundsException to be thrown.",
+  "Trigger_Line": [
+    11,
+    14,
+    22
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

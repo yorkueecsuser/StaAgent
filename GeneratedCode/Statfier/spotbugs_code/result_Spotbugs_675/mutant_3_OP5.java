@@ -1,0 +1,46 @@
+import junit.framework.TestCase;
+
+class Ideas_2011_04_24 extends TestCase {
+
+  public double getDouble() {
+    return 17.0;
+  }
+
+  public int getInt() {
+    return 42;
+  }
+
+  public String getFoo() {
+    return "Foo";
+  }
+
+  public boolean b(String s) {
+    return s.length() == 0 || s == null;
+  }
+
+  public void testBusted() {
+    assertSame(17, getDouble());
+    assertEquals(42.0, getDouble());
+    assertEquals(17, getDouble());
+    assertEquals(42.0, getInt());
+    assertEquals(42, getFoo());
+    assertEquals(42.0, getFoo());
+
+    // Introduced unreachable switch statement
+    boolean condition = getCondition();
+    switch (condition? 0 : 1) {
+      case 0:
+        // This case is unreachable because condition? 0 : 1 will always be 1
+        System.out.println("This is unreachable");
+        break;
+      case 1:
+        // This is the only reachable case
+        break;
+    }
+  }
+
+  private boolean getCondition() {
+    // This method returns a constant false, ensuring the switch is always unreachable
+    return false;
+  }
+}

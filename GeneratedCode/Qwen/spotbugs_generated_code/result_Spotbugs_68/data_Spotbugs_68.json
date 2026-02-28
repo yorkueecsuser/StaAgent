@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "DMI: Reversed method arguments (DMI_ARGUMENTS_WRONG_ORDER)\uf0c1",
+  "Bug_Details": " The arguments to this method call seem to be in the wrong order.\nFor example, a call Preconditions.checkNotNull(\"message\", message)\nhas reserved arguments: the value to be checked is the first argument.\n Preconditions.checkNotNull(\"message\", message)",
+  "Bug_Explanation": "The bug was embedded in the generated code by reversing the arguments in the Objects.requireNonNull method call. The first argument should be the value to be checked, but it is incorrectly set to the string'message', while the second argument, which should be the error message, is set to the variable 'value'.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test calls the showBug method with a null value for the second argument. Since the bug in the showBug method reverses the arguments in the Objects.requireNonNull call, it attempts to check if the string'message' is null, which it is not. However, it uses the null value as the error message, leading to a NullPointerException being thrown when the null value is accessed.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed without throwing any exceptions, which does not confirm that the bug was triggered. The bug involves reversed method arguments in the call to Objects.requireNonNull, but the test result does not provide evidence that a NullPointerException was thrown due to this bug. The test simply calls the method with a null value and does not assert or check for any exceptions, so it cannot be concluded that the bug was triggered based solely on these results."
+}

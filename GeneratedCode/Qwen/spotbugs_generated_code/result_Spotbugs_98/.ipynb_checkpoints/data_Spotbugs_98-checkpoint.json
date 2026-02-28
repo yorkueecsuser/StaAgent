@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "IJU: TestCase implements a non-static suite method (IJU_SUITE_NOT_STATIC)\uf0c1",
+  "Bug_Details": " Class is a JUnit TestCase and implements the suite() method.\n The suite method should be declared as being static, but isn't.",
+  "Bug_Explanation": "The bug was embedded in the generated code by implementing the suite() method in the ExampleSuite class as non-static, which violates the JUnit convention that the suite method should be static.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by calling the non-static suite method in the ExampleSuite class.",
+  "Trigger_Line": [
+    16,
+    21
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.008\n\nOK (2 tests)\n\n"
+}

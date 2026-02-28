@@ -1,0 +1,10 @@
+{
+  "Bug_Title": "JUnit4TestsNotRunWithinEnclosed",
+  "Bug_Details": "This test is annotated @Test, but given it's within a class using the Enclosed runner, will not run.",
+  "Bug_Explanation": "The bug is embedded in the generated code by having a test method annotated with @Test inside a class that is part of a suite using the Enclosed runner. According to JUnit 4 rules, tests within such an enclosed class will not run unless the class itself is also annotated with @RunWith(JUnit4.class).",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_93/seed_Prone_93_junit_test.java:4: error: cannot find symbol\nimport org.junit.runners.Enclosed;\n                        ^\n  symbol:   class Enclosed\n  location: package org.junit.runners\n../prone_clean_java_code/result_Prone_93/seed_Prone_93_junit_test.java:7: error: cannot find symbol\n@RunWith(Enclosed.class)\n         ^\n  symbol: class Enclosed\n2 errors\n"
+}

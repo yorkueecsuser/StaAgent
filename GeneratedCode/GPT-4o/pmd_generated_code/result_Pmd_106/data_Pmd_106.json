@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "ConsecutiveAppendsShouldReuse",
+  "Bug_Details": "Consecutive calls to StringBuffer/StringBuilder .append should be chained, reusing the target object. This can improve the performance\nby producing a smaller bytecode, reducing overhead and improving inlining. A complete analysis can be found [here](https://github.com/pmd/pmd/issues/202#issuecomment-274349067)\nExamples:\nString foo = \" \";\n\nStringBuffer buf = new StringBuffer();\nbuf.append(\"Hello\"); // poor\nbuf.append(foo);\nbuf.append(\"World\");\n\nStringBuffer buf = new StringBuffer();\nbuf.append(\"Hello\").append(foo).append(\"World\"); // good",
+  "Bug_Explanation": "The bug is demonstrated by performing consecutive calls to the .append method on a StringBuilder object without chaining them. Each call to append is made separately instead of reusing the target object by chaining the calls.",
+  "Buggy_Line": [
+    5,
+    6,
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by asserting the result of the method showBug against an expected value that includes an extra character, ensuring the assert fails. This demonstrates the performance inefficiency due to unchained append calls in the showBug method.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.005\nThere was 1 failure:\n1) testShowBug(StringBuilderExampleTest)\norg.junit.ComparisonFailure: expected:<Hello World[]> but was:<Hello World[!]>\n\tat org.junit.Assert.assertEquals(Assert.java:117)\n\tat org.junit.Assert.assertEquals(Assert.java:146)\n\tat StringBuilderExampleTest.testShowBug(StringBuilderExampleTest.java:10)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test failure is due to a mismatch in the expected and actual output strings, specifically the presence of an exclamation mark in the actual result. This does not confirm the bug related to consecutive appends not being reused, as the bug description pertains to performance optimization rather than output correctness."
+}

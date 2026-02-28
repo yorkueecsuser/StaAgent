@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Members ignored during record serialization should not be used",
+  "Bug_Details": "In Records, serialization is not done the same way as for ordinary serializable or externalizable classes. The serialized representation of a\nrecord object will be a sequence of values (record components). During the deserialization of records, the stream of components is read and components\nare constructed. Then the record object is recreated by invoking the record\u2019s canonical constructor with the component values serving as arguments (or\ndefault values for absent arguments).\nThis process cannot be customized, so any class-specific writeObject , readObject , readObjectNoData , writeExternal , and readExternal methods or serialPersistentFields fields in record classes are ignored during\nserialization and deserialization.\nHowever, there is a way to substitute serialized/deserialized objects in writeReplace and readResolve .\nThis rule raises an issue when any of writeObject , readObject , readObjectNoData , writeExternal , readExternal or serialPersistentFields are present as members in a Record class.\nNoncompliant code example\nrecord Record() implements Serializable {\n  @Serial\n  private static final ObjectStreamField[] serialPersistentFields = new ObjectStreamField[0]; // Noncompliant\n  @Serial\n  private void writeObject(ObjectOutputStream out) throws IOException { // Noncompliant\n    ...\n  }\n}\nrecord Record() implements Externalizable {\n  @Override\n  public void writeExternal(ObjectOutput out) throws IOException { // Noncompliant\n    ...\n  }\n  @Override\n  public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException { // Noncompliant\n    ...\n  }\n}\nCompliant solution\nrecord Record() implements Serializable {}\n\nrecord Record() implements Serializable {\n  private Object writeReplace() throws ObjectStreamException {\n    ...\n  }\n  private Object readResolve() throws ObjectStreamException {\n    ...\n  }\n}",
+  "Bug_Explanation": "The bug is due to the presence of serialization-specific methods and fields in a record class that implements Serializable. Records automatically serialize their components, and these methods and fields are ignored.",
+  "Buggy_Line": [
+    8,
+    10,
+    14
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls the showBug method on a RecordExample instance which, due to the presence of ignored serialization methods and fields in the RecordExample class, highlights the bug of having noncompliant serialization methods and fields that are ignored during serialization.",
+  "Trigger_Line": [
+    8
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

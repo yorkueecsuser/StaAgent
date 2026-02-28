@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "STI: Unneeded use of currentThread() call, to call interrupted() (STI_INTERRUPTED_ON_CURRENTTHREAD)\uf0c1",
+  "Bug_Details": "\nThis method invokes the Thread.currentThread() call, just to call the\ninterrupted() method. As interrupted() is a static method, it is more\nsimple and clear to use Thread.interrupted().\n Thread.currentThread() interrupted() interrupted() Thread.interrupted()",
+  "Bug_Explanation": "The bug was embedded in the generated code by using Thread.currentThread().isInterrupted() instead of the simpler and more direct Thread.interrupted(). This unnecessarily complicates the code and makes it less readable.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by creating a thread that calls the `showBug` method of `InterruptedExample`. The thread is then interrupted, causing the `showBug` method to return `true` due to the unnecessary use of `Thread.currentThread().isInterrupted()` instead of `Thread.interrupted()`. The test case asserts that the result should be `false`, which causes the test to fail, demonstrating the bug.",
+  "Trigger_Line": [
+    12
+  ],
+  "Test_Run_Result": "Runninng test will fail system because of infinite loop.",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test fails due to an infinite loop, which is not directly related to the bug described. The bug involves the unnecessary use of Thread.currentThread().isInterrupted() instead of Thread.interrupted(). The test does not provide evidence that this specific bug is triggered, as the failure is attributed to a different issue."
+}

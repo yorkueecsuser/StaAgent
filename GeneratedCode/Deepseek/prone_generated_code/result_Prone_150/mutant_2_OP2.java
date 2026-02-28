@@ -1,0 +1,12 @@
+import java.util.Arrays;
+
+class SelfComparison {
+    // BUG: SelfComparison
+    public int showBug(int[] array) {
+        Arrays.sort(array);
+        int index = Arrays.binarySearch(array, array[0]);
+        // Mutation Operator: Duplication
+        int index2 = Arrays.binarySearch(array, array[0]);
+        return index;
+    }
+}

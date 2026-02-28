@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "NonThreadSafeSingleton",
+  "Bug_Details": "Non-thread safe singletons can result in bad state changes. Eliminate\nstatic singletons if possible by instantiating the object directly. Static\nsingletons are usually not needed as only a single instance exists anyway.\nOther possible fixes are to synchronize the entire method or to use an\n[initialize-on-demand holder class](https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom).\n\nRefrain from using the double-checked locking pattern. The Java Memory Model doesn't\nguarantee it to work unless the variable is declared as `volatile`, adding an uneeded\nperformance penalty. [Reference](http://www.cs.umd.edu/~pugh/java/memoryModel/DoubleCheckedLocking.html)\n\nSee Effective Java, item 48.\nExamples:\nprivate static Foo foo = null;\n\n//multiple simultaneous callers may see partially initialized objects\npublic static Foo getFoo() {\n    if (foo==null) {\n        foo = new Foo();\n    }\n    return foo;\n}",
+  "Bug_Explanation": "The bug is a non-thread-safe singleton pattern. When multiple threads try to access the singleton instance simultaneously, each thread checks if the instance is null and creates a new instance if it is. This can lead to multiple instances of the singleton being created, resulting in inconsistent state changes.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case'showBugTest' triggers the bug by creating two threads that simultaneously call the 'getInstance' method of the NonThreadSafeSingleton class. Each thread checks if the instance is null and creates a new instance if it is. This can lead to multiple instances of the singleton being created, resulting in an unintended state change. The test case fails when the final value of the singleton's 'value' field is not equal to 2, which is the expected value if both threads successfully increment the value.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.006\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed without any errors. This indicates that the NonThreadSafeSingleton bug was not triggered during the test run. However, it's important to note that the test only checks for the value of 2, which doesn't guarantee that the bug was not present. The bug could still be present but not triggered in this specific test case."
+}

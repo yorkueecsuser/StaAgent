@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "RestrictedApi",
+  "Bug_Details": "Check for non-allowlisted callers to RestrictedApiChecker. Calls to APIs marked @RestrictedApi are prohibited without a corresponding\nallowlist annotation. The intended use-case for @RestrictedApi is to restrict calls to annotated\nmethods so that each usage of those APIs must be reviewed separately. For\nexample, an API might lead to security bugs unless the programmer uses it\ncorrectly. See the\njavadoc for @RestrictedApi\nfor more details.",
+  "Bug_Explanation": "The method 'sensitiveOperation' is marked with @RestrictedApi, indicating that it should only be called by allowlisted entities. However, the 'showBug' method calls it without being on any allowlist, thus violating the restriction.",
+  "Buggy_Line": [
+    23
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug method of RestrictedApiDemo, which internally calls the sensitiveOperation of SensitiveOperations. This method is annotated with @RestrictedApi and lacks an allowlist annotation, thus triggering the bug.",
+  "Trigger_Line": [
+    7
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

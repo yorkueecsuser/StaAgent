@@ -1,0 +1,19 @@
+{
+  "Bug_Title": "\"Math.abs\" and negation should not be used on numbers that could be \"MIN_VALUE\"",
+  "Bug_Details": "This rule involves the use of Math.abs and negation on numbers that could be MIN_VALUE . It is a problem because it can\nlead to incorrect results and unexpected behavior in the program.\nWhen Math.abs and negation are used on numbers that could be MIN_VALUE , the result can be incorrect due to integer\noverflow. Common methods that can return a MIN_VALUE and raise an issue when used together with Math.abs are:\nRandom.nextInt() and Random.nextLong() hashCode() compareTo()\nRandom.nextInt() and Random.nextLong()\nhashCode()\ncompareTo()\nAlternatively, the absExact() method throws an ArithmeticException for MIN_VALUE .\nNoncompliant code example\npublic void doSomething(String str) {\n  if (Math.abs(str.hashCode()) > 0) { // Noncompliant\n    // ...\n  }\n}\nCompliant solution\npublic void doSomething(String str) {\n  if (str.hashCode() != 0) {\n    // ...\n  }\n}",
+  "Bug_Explanation": "The bug is embedded in the generated code by using Math.abs on values that could potentially be MIN_VALUE. Specifically, showBug method uses Math.abs on the hashcode of a string, which could be Integer.MIN_VALUE. showBug1 and showBug2 directly use Math.abs on Integer.MIN_VALUE and Long.MIN_VALUE respectively, demonstrating the potential for overflow and incorrect results.",
+  "Buggy_Line": [
+    10,
+    6,
+    14
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by calling the methods showBug1 and showBug2 with Integer.MIN_VALUE and Long.MIN_VALUE respectively. The showBug method might trigger the bug depending on the hashcode implementation of the input string.",
+  "Trigger_Line": [
+    27,
+    34
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n...E\nTime: 0.009\nThere was 1 failure:\n1) testShowBugWithMinValue(MathAbsBugDemoTest)\njava.lang.AssertionError: expected:<0> but was:<3556498>\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat org.junit.Assert.failNotEquals(Assert.java:835)\n\tat org.junit.Assert.assertEquals(Assert.java:647)\n\tat org.junit.Assert.assertEquals(Assert.java:633)\n\tat MathAbsBugDemoTest.testShowBugWithMinValue(MathAbsBugDemoTest.java:9)\n\nFAILURES!!!\nTests run: 3,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate a failure in testShowBugWithMinValue where the expected value was 0 but the actual value was 3556498. This failure does not confirm the presence of the described bug related to Math.abs and negation on MIN_VALUE. The bug would be confirmed if the test results showed an incorrect absolute value for Integer.MIN_VALUE or Long.MIN_VALUE, which did not occur in the given test results."
+}

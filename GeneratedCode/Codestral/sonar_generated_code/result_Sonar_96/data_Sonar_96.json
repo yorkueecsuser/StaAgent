@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "\"read\" and \"readLine\" return values should be used",
+  "Bug_Details": "The Reader.read() and the BufferedReader.readLine() are used for reading data from a data source. The return value of\nthese methods is the data read from the data source, or null when the end of the data source is reached. If the return value is ignored,\nthe data read from the source is thrown away and may indicate a bug.\nThis rule raises an issue when the return values of Reader.read() and BufferedReader.readLine() and their subclasses are\nignored or merely null-checked.\nNoncompliant code example\npublic void doSomethingWithFile(String fileName) {\n  try(BufferedReader buffReader = new BufferedReader(new FileReader(fileName))) {\n    while (buffReader.readLine() != null) { // Noncompliant\n      // ...\n    }\n  } catch (IOException e) {\n    // ...\n  }\n}\nCompliant solution\npublic void doSomethingWithFile(String fileName) {\n  try(BufferedReader buffReader = new BufferedReader(new FileReader(fileName))) {\n    String line = null;\n    while ((line = buffReader.readLine()) != null) {\n      // ...\n    }\n  } catch (IOException e) {\n    // ...\n  }\n}",
+  "Bug_Explanation": "The return value of buffReader.readLine() is ignored in the while loop, causing the read lines to be thrown away and may indicate a bug.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case asserts that the result of the showBug method is an empty string, while the showBug method does not append anything to the output StringBuilder, causing the assertion to fail.",
+  "Trigger_Line": [
+    26
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed without any assertion errors. This indicates that the return values of buffReader.readLine() are not being ignored. Therefore, the bug was not triggered."
+}

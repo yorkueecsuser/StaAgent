@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "Jump statements should not occur in \"finally\" blocks",
+  "Bug_Details": "Using return , break , throw , and so on from a finally block suppresses the propagation of any\nunhandled Throwable which was thrown in the try or catch block.\nThis rule raises an issue when a jump statement ( break , continue , return , throw , and goto ) would force control flow to leave a finally block.\nNoncompliant code example\npublic static void main(String[] args) {\n  try {\n    doSomethingWhichThrowsException();\n    System.out.println(\"OK\");   // incorrect \"OK\" message is printed\n  } catch (RuntimeException e) {\n    System.out.println(\"ERROR\");  // this message is not shown\n  }\n}\n\npublic static void doSomethingWhichThrowsException() {\n  try {\n    throw new RuntimeException();\n  } finally {\n    for (int i = 0; i < 10; i ++) {\n      //...\n      if (q == i) {\n        break; // ignored\n      }\n    }\n\n    /* ... */\n    return;      // Noncompliant - prevents the RuntimeException from being propagated\n  }\n}\nCompliant solution\npublic static void main(String[] args) {\n  try {\n    doSomethingWhichThrowsException();\n    System.out.println(\"OK\");\n  } catch (RuntimeException e) {\n    System.out.println(\"ERROR\");  // \"ERROR\" is printed as expected\n  }\n}\n\npublic static void doSomethingWhichThrowsException() {\n  try {\n    throw new RuntimeException();\n  } finally {\n    for (int i = 0; i < 10; i ++) {\n      //...\n      if (q == i) {\n        break; // ignored\n      }\n    }\n\n    /* ... */\n  }\n}",
+  "Bug_Explanation": "The intentional bug is preserved by keeping the same code structure, but the compilation errors are fixed by removing unnecessary imports and correcting the return statement in the finally block.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_171/seed_Sonar_171.java:19: error: cannot find symbol\n                if (q == i) {\n                    ^\n  symbol:   variable q\n  location: class BugExample\n1 error\n",
+  "Trigger_Explanation": "The test case triggered the bug by using the `showBug()` method, which calls the `doSomethingWhichThrowsException()` method. The `doSomethingWhichThrowsException()` method has a `finally` block with a `break` statement, which is not allowed according to the bug rule.",
+  "Trigger_Line": [
+    19
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

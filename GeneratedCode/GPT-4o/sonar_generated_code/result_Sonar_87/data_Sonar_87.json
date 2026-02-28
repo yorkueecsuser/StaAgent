@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "JEE applications should not \"getClassLoader\"",
+  "Bug_Details": "Using the standard getClassLoader() may not return the right class loader in a JEE context. Instead, go through the currentThread .\nNoncompliant code example\nClassLoader cl = this.getClass().getClassLoader();  // Noncompliant\nCompliant solution\nClassLoader cl = Thread.currentThread().getContextClassLoader();",
+  "Bug_Explanation": "The code uses this.getClass().getClassLoader() which is not recommended in JEE applications because it does not guarantee the retrieval of the correct class loader. Instead, Thread.currentThread().getContextClassLoader() should be used to ensure the correct class loader is used.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by invoking the showBug method of ClassLoaderExample which incorrectly uses this.getClass().getClassLoader(). This usage is flagged as a bug in JEE applications because it may not return the correct class loader. The test is designed to fail by asserting null, demonstrating that the bug is triggered and the expected behavior is not met.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.005\nThere was 1 failure:\n1) testShowBug(ClassLoaderExampleTest)\njava.lang.AssertionError: The ClassLoader should be null due to bug triggering expected null, but was:<jdk.internal.loader.ClassLoaders$AppClassLoader@4f2410ac>\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat org.junit.Assert.failNotNull(Assert.java:756)\n\tat org.junit.Assert.assertNull(Assert.java:738)\n\tat ClassLoaderExampleTest.testShowBug(ClassLoaderExampleTest.java:10)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test expected the ClassLoader to be null if the bug was triggered, but the actual result was a non-null ClassLoader (jdk.internal.loader.ClassLoaders$AppClassLoader@4f2410ac), indicating the bug was not triggered as per the test's expectation."
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "FloggerFormatString",
+  "Bug_Details": "Invalid printf-style format string",
+  "Bug_Explanation": "The bug is embedded in the generated code by using an invalid printf-style format string in the String.format method. The format string expects two arguments ('%s' and '%d'), but three arguments are provided.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method with two arguments, which triggers the bug in the String.format method due to an invalid printf-style format string expecting two arguments but receiving three.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.013\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed without any errors or exceptions, which does not confirm that the bug was triggered."
+}

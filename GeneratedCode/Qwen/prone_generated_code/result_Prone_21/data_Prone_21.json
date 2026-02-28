@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "ComparableType",
+  "Bug_Details": "Implementing 'Comparable' where T is not the same as the implementing class is incorrect, since it violates the symmetry contract of compareTo. The type argument of Comparable should always be the type of the current\nclass. For example, do this: class Foo implements Comparable<Foo> {\n  public int compareTo(Foo other) { ... }\n} class Foo implements Comparable<Foo> {\n  public int compareTo(Foo other) { ... }\n} not this: class Foo implements Comparable<Bar> {\n  public int compareTo(Bar other) { ... }\n} class Foo implements Comparable<Bar> {\n  public int compareTo(Bar other) { ... }\n} Implementing Comparable for a different type breaks the API contract, which\nrequires x.compareTo(y) == -y.compareTo(x) for all x and y. If x and y\nare different types, this behaviour can\u2019t be guaranteed.",
+  "Bug_Explanation": "The bug was embedded in the generated code by having the class 'Foo' implement 'Comparable<Bar>' instead of 'Comparable<Foo>'. This violates the symmetry contract of the compareTo method, as 'x.compareTo(y) == -y.compareTo(x)' cannot be guaranteed when x and y are of different types.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method with a Foo and a Bar object, which internally calls the compareTo method of Foo with a Bar object, violating the ComparableType rule.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

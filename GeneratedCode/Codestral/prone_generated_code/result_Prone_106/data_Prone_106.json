@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "MisplacedScopeAnnotations",
+  "Bug_Details": "Scope annotations used as qualifier annotations don't have any effect. Move the scope annotation to the binding location or delete it.",
+  "Bug_Explanation": "The '@Deprecated' annotation is misplaced on the local variable 'deprecatedElements' in the'showBug' method. This annotation should be placed on the 'elements' list in the class level to indicate that the entire list is deprecated, not just the local reference.",
+  "Buggy_Line": [
+    14
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case 'testDeprecatedAnnotation' triggers the bug by calling the'showBug' method. This method contains a misplaced '@Deprecated' annotation on the local variable 'deprecatedElements'. Since this annotation is not at the correct location (i.e., on the 'elements' list in the class level), the test will fail because the annotation has no effect.",
+  "Trigger_Line": [
+    11
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Deprecated Elements: [Example]\n\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that the '@Deprecated' annotation on the local variable 'deprecatedElements' in the'showBug' method has no effect. However, this is not a demonstration of the bug because the '@Deprecated' annotation is correctly placed at the class level on the 'elements' list. The misplacement of the annotation in the test code does not trigger the bug in the original code."
+}

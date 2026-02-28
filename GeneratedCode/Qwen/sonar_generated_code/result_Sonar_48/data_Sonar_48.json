@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "AssertJ assertions \"allMatch\" and \"doesNotContains\" should also test for emptiness",
+  "Bug_Details": "AssertJ assertions allMatch and doesNotContains on an empty list always\u00a0returns true whatever the content of the\npredicate. Despite being correct, you should make explicit if you expect an empty list or not, by adding isEmpty() / isNotEmpty() in addition to calling the assertion, or by testing the list\u2019s content further. It will justify the\nuseless predicate to improve clarity or increase the reliability of the test.\nThis rule raises an issue when any of the methods listed are used without asserting that the list is empty or not and without testing the\ncontent.\nTargetted methods:\nallMatch allSatisfy doesNotContain doesNotContainSequence doesNotContainSubsequence doesNotContainAnyElementsOf\nallMatch\nallSatisfy\ndoesNotContain\ndoesNotContainSequence\ndoesNotContainSubsequence\ndoesNotContainAnyElementsOf\nNoncompliant code example\nList<String> logs = getLogs();\n\nassertThat(logs).allMatch(e -> e.contains(\u201cerror\u201d)); // Noncompliant, this test pass if logs are empty!\nassertThat(logs).doesNotContain(\"error\"); // Noncompliant, do you expect any log?\nCompliant solution\nList<String> logs = getLogs();\n\nassertThat(logs).isNotEmpty().allMatch(e -> e.contains(\u201cerror\u201d));\n// Or\nassertThat(logs).hasSize(5).allMatch(e -> e.contains(\u201cerror\u201d));\n// Or\nassertThat(logs).isEmpty();\n\n// Despite being redundant, this is also acceptable since it explains why you expect an empty list\nassertThat(logs).doesNotContain(\"error\").isEmpty();\n// or test the content of the list further\nassertThat(logs).contains(\"warning\").doesNotContain(\"error\");",
+  "Bug_Explanation": "The bug is embedded in the methods showBug1 and showBug2 where the assertions allMatch and doesNotContain are used without checking for list emptiness. This means that these methods will return true even if the list is empty, which might not be the intended behavior.",
+  "Buggy_Line": [
+    11,
+    7
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_48/seed_Sonar_48.java:7: error: cannot find symbol\n        return assertThat(logs).allMatch(e -> e.contains(\"error\")); // BUG: AssertJ assertions \"allMatch\" and \"doesNotContains\" should also test for emptiness\n                               ^\n  symbol:   method allMatch((e)->e.con[...]ror\"))\n  location: class AbstractAssert<CAP#1,List<String>>\n  where CAP#1 is a fresh type-variable:\n    CAP#1 extends AbstractAssert<CAP#1,List<String>> from capture of ?\n../sonar_clean_java_code/result_Sonar_48/seed_Sonar_48.java:11: error: cannot find symbol\n        return assertThat(logs).doesNotContain(\"error\"); // BUG: AssertJ assertions \"allMatch\" and \"doesNotContains\" should also test for emptiness\n                               ^\n  symbol:   method doesNotContain(String)\n  location: class AbstractAssert<CAP#1,List<String>>\n  where CAP#1 is a fresh type-variable:\n    CAP#1 extends AbstractAssert<CAP#1,List<String>> from capture of ?\n2 errors\n",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by calling the showBug1 and showBug2 methods with an empty list. According to the bug rule, the AssertJ assertions 'allMatch' and 'doesNotContain' should also test for emptiness, which they do not in the original methods.",
+  "Trigger_Line": [
+    9,
+    15
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

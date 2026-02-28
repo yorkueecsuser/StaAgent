@@ -1,0 +1,13 @@
+{
+  "Bug_Title": "Dm: Hardcoded constant database password (DMI_CONSTANT_DB_PASSWORD)\uf0c1",
+  "Bug_Details": "This code creates a database connect using a hardcoded, constant password. Anyone with access to either the source code or the compiled code can\n    easily learn the password.\n",
+  "Bug_Explanation": "The password used to connect to the database is hardcoded and can be easily accessed by anyone with access to the source code or the compiled code.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by using a hardcoded constant database password.",
+  "Trigger_Line": [
+    "12"
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

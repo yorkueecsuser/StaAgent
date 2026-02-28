@@ -1,0 +1,35 @@
+import javax.annotation.Nonnull;
+
+class Bug3587164 {
+  @Nonnull static final String field1 = "yyyyMMdd";
+
+  @Nonnull static final String field2 = field1.toLowerCase();
+
+  // Introduced an unreachable switch statement
+  public static void someMethod() {
+    boolean condition = getCondition();
+    switch (getValue(condition)) {
+      case 1:
+        System.out.println("This will never be printed");
+        break;
+      case 2:
+        System.out.println("This will also never be printed");
+        break;
+      default:
+        System.out.println("Default case, also unreachable");
+        break;
+    }
+  }
+
+  private static boolean getCondition() {
+    return false; // This method always returns false, ensuring the switch is unreachable
+  }
+
+  private static int getValue(boolean condition) {
+    if (condition) {
+      return 1; // This branch is never taken
+    } else {
+      return 0; // This branch is always taken, but the switch is still unreachable due to getCondition()
+    }
+  }
+}

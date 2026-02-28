@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "UnicodeDirectionalityCharacters",
+  "Bug_Details": "Unicode directionality modifiers can be used to conceal code in many editors.",
+  "Bug_Explanation": "The bug is embedded in the code by using the Unicode directionality modifiers to conceal the code in some editors.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by using a string with Unicode directionality modifiers, which are used to conceal code in some editors. The buggy line of code is line 6, where the output string is constructed by concatenating the Unicode directionality modifiers with the original string.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.005\nThere was 1 failure:\n1) testBug(UnicodeDirectionalityBugTest)\norg.junit.ComparisonFailure: expected:<[Hello World!]> but was:<[]>\n\tat org.junit.Assert.assertEquals(Assert.java:117)\n\tat org.junit.Assert.assertEquals(Assert.java:146)\n\tat UnicodeDirectionalityBugTest.testBug(UnicodeDirectionalityBugTest.java:16)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the `UnicodeDirectionalityBug` test failed, but the failure was due to a comparison failure between the expected and actual output. The actual output was an empty string, while the expected output was \"Hello World!\". This suggests that the bug was not triggered, as the code did not produce the expected output."
+}

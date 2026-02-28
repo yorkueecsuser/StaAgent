@@ -1,0 +1,9 @@
+{
+  "Bug_Title": "Assertion methods should not be used within the try block of a try-catch catching an Error",
+  "Bug_Details": "Assertion methods\u00a0are throwing a \" java.lang.AssertionError \". If this call is done within the try block of a try-catch cathing a\nsimilar error, you should make sure to test some properties of the exception. Otherwise, the assertion will never fail.\nNoncompliant code example\n@Test\npublic void should_throw_assertion_error() {\n  try {\n    throwAssertionError();\n    Assert.fail(\"Expected an AssertionError!\"); // Noncompliant, the AssertionError will be caught and the test will never fail.\n  } catch (AssertionError e) {}\n}\n\nprivate void throwAssertionError() {\n  throw new AssertionError(\"My assertion error\");\n}\nCompliant solution\nassertThrows(AssertionError.class, () -> throwAssertionError());\ntry {\n   throwAssertionError();\n   Assert.fail(\"Expected an AssertionError!\"); // Compliant, we made sure to test that the correct error is raised\n } catch (AssertionError e) {\n   Assert.assertThat(e.getMessage(), is(\"My assertion error\"));\n }",
+  "Bug_Explanation": "This code demonstrates a bug where an AssertionError is caught in a try-catch block, but the catch block is empty. This makes the AssertionError unreachable and the test will never fail.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful"
+}

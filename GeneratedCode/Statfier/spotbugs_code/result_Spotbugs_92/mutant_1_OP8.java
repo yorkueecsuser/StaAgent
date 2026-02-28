@@ -1,0 +1,64 @@
+import java.util.HashMap;
+import java.util.HashSet;
+import junit.framework.TestCase;
+import org.junit.Test;
+
+class Ideas_2008_08_11 extends TestCase {
+
+  @Test
+  public void fooBar() throws Exception {
+    assertFalse(Boolean.TRUE.equals(5));
+    HashMap<String, Integer> map = new HashMap<String, Integer>();
+    map.put("a", 1);
+    assertFalse(map.containsKey(1));
+    assertNull(map.get(1));
+  }
+
+  @Test
+  public void fooBar2() throws Exception {
+    assertFalse(Boolean.TRUE.equals(5));
+    HashSet<String> set = new HashSet<String>();
+    set.add("a");
+    assertFalse(set.contains(1));
+    assertFalse(set.remove(1));
+  }
+
+  public void testFoo() throws Exception {
+    assertFalse(Boolean.TRUE.equals(5));
+    HashMap<String, Integer> map = new HashMap<String, Integer>();
+    map.put("a", 1);
+    assertFalse(map.containsKey(1));
+    assertNull(map.get(1));
+    assertNull(map.remove(1));
+  }
+
+  // Mutant 1: Renamed'map' to 'x' in fooBar method
+  @Test
+  public void fooBar_mutant1() throws Exception {
+    assertFalse(Boolean.TRUE.equals(5));
+    HashMap<String, Integer> x = new HashMap<String, Integer>();
+    x.put("a", 1);
+    assertFalse(x.containsKey(1));
+    assertNull(x.get(1));
+  }
+
+  // Mutant 2: Renamed'set' to 'y' in fooBar2 method
+  @Test
+  public void fooBar2_mutant2() throws Exception {
+    assertFalse(Boolean.TRUE.equals(5));
+    HashSet<String> y = new HashSet<String>();
+    y.add("a");
+    assertFalse(y.contains(1));
+    assertFalse(y.remove(1));
+  }
+
+  // Mutant 3: Renamed'map' to 'z' in testFoo method
+  public void testFoo_mutant3() throws Exception {
+    assertFalse(Boolean.TRUE.equals(5));
+    HashMap<String, Integer> z = new HashMap<String, Integer>();
+    z.put("a", 1);
+    assertFalse(z.containsKey(1));
+    assertNull(z.get(1));
+    assertNull(z.remove(1));
+  }
+}

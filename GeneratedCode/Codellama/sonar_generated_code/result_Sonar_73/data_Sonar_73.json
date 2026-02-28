@@ -1,0 +1,13 @@
+{
+  "Bug_Title": "Overrides should match their parent class methods in synchronization",
+  "Bug_Details": "When @Overrides of synchronized methods are not themselves synchronized , the result can be improper\nsynchronization as callers rely on the thread-safety promised by the parent class.\nNoncompliant code example\npublic class Parent {\n\n  synchronized void foo() {\n    //...\n  }\n}\n\npublic class Child extends Parent {\n\n @Override\n  public void foo () {  // Noncompliant\n    // ...\n    super.foo();\n  }\n}\nCompliant solution\npublic class Parent {\n\n  synchronized void foo() {\n    //...\n  }\n}\n\npublic class Child extends Parent {\n\n  @Override\n  synchronized void foo () {\n    // ...\n    super.foo();\n  }\n}",
+  "Bug_Explanation": "The bug was embedded in the generated code by adding the @Override annotation to the child class's foo method without making it synchronized. This means that the child class's foo method is not thread-safe, even though it is called by the parent class's foo method, which is synchronized.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case triggers the bug by calling the synchronized method 'foo()' on the 'Child' class, which overrides the 'foo()' method in the 'Parent' class but does not add the'synchronized' keyword. This causes improper synchronization as callers rely on the thread-safety promised by the 'Parent' class.",
+  "Trigger_Line": [
+    4
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

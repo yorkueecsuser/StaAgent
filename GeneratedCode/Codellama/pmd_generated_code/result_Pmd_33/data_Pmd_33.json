@@ -1,0 +1,11 @@
+{
+  "Buggy_Line": [
+    10,
+    5
+  ],
+  "Trigger_Explanation": "The test case triggers the bug by calling the `showBug()` method, which contains the line `System.gc()` that explicitly calls the garbage collector.",
+  "Trigger_Line": [
+    10,
+    5
+  ]
+}

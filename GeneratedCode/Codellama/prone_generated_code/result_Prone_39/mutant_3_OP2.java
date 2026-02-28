@@ -1,0 +1,31 @@
+import java.util.Map;
+
+class DuplicateMapKeysBug {
+    public static void main(String[] args) {
+        Map<String, String> map = Map.ofEntries(
+                Map.entry("Foo", "Bar"),
+                Map.entry("Ping", "Pong"),
+                Map.entry("Kit", "Kat"),
+                Map.entry("Foo", "Bar")); // BUG: DuplicateMapKeys
+        Map<String, String> map2 = Map.ofEntries(
+                Map.entry("Foo", "Bar"),
+                Map.entry("Ping", "Pong"),
+                Map.entry("Kit", "Kat"),
+                Map.entry("Foo", "Bar")); // Mutation: DuplicateMapKeys
+    }
+
+    public static void showBug() {
+        Map<String, String> map = Map.ofEntries(
+                Map.entry("Foo", "Bar"),
+                Map.entry("Ping", "Pong"),
+                Map.entry("Kit", "Kat"),
+                Map.entry("Foo", "Bar"));
+        System.out.println(map);
+        Map<String, String> map2 = Map.ofEntries(
+                Map.entry("Foo", "Bar"),
+                Map.entry("Ping", "Pong"),
+                Map.entry("Kit", "Kat"),
+                Map.entry("Foo", "Bar"));
+        System.out.println(map2);
+    }
+}

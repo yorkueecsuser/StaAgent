@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Reflection should not be used to increase accessibility of records' fields",
+  "Bug_Details": "In general, altering or bypassing the accessibility of classes, methods, or fields violates the encapsulation principle and could lead to runtime\nerrors. For records the case is even trickier: you cannot change the visibility of records\u2019s fields and trying to update the existing value will lead\nto IllegalAccessException at runtime.\nThis rule raises an issue when reflection is used to change the visibility of a record\u2019s field, and when it is used to directly update a record\u2019s\nfield value.\nNoncompliant code example\nrecord Person(String name, int age) {}\n\nPerson person = new Person(\"A\", 26);\nField field = Person.class.getDeclaredField(\"name\");\nfield.setAccessible(true); // secondary\nfield.set(person, \"B\"); // Noncompliant",
+  "Bug_Explanation": "The bug was embedded in the generated code by using reflection to change the visibility of a record's field and updating the existing value using the set method.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_25/seed_Sonar_25.java:5: error: unnamed classes are a preview feature and are disabled by default.\nPerson person = new Person(\"A\", 26);\n^\n  (use --enable-preview to enable unnamed classes)\n../sonar_clean_java_code/result_Sonar_25/seed_Sonar_25.java:7: error: class, interface, enum, or record expected\nfield.setAccessible(true); // secondary\n^\n../sonar_clean_java_code/result_Sonar_25/seed_Sonar_25.java:8: error: class, interface, enum, or record expected\nfield.set(person, \"B\"); // BUG: Reflection should not be used to increase accessibility of records' fields\n^\n3 errors\n",
+  "Trigger_Explanation": "The test case triggers the bug by calling the `showBug()` method, which updates the `name` field of the `Person` record using reflection.",
+  "Trigger_Line": [
+    8
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

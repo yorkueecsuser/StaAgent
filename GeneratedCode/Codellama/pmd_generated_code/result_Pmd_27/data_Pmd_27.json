@@ -1,0 +1,9 @@
+{
+  "Buggy_Line": [],
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug() method which does not close the resources properly.",
+  "Trigger_Line": [
+    9
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

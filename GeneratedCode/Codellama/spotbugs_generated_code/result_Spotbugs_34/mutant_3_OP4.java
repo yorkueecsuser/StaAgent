@@ -1,0 +1,63 @@
+import java.util.Arrays;
+
+class BugDemo {
+    public static void main(String[] args) {
+        showBug();
+    }
+
+    public static void showBug() {
+        int[] arr = new int[5];
+        arr[0] = 1;
+        arr[1] = 2;
+        arr[2] = 3;
+        arr[3] = 4;
+        arr[4] = 5;
+
+        System.out.println(Arrays.toString(arr));
+
+        int[] arr1 = new int[5];
+        arr1[0] = 6;
+        arr1[1] = 7;
+        arr1[2] = 8;
+        arr1[3] = 9;
+        arr1[4] = 10;
+
+        System.out.println(Arrays.toString(arr1));
+
+        if (getCondition()) {
+            // code to be executed if condition is true
+        } else {
+            // code to be executed if condition is false
+        }
+    }
+
+    public static void showBug1() {
+        int[] arr = new int[5];
+        arr[0] = 1;
+        arr[1] = 2;
+        arr[2] = 3;
+        arr[3] = 4;
+        arr[4] = 5;
+
+        System.out.println(Arrays.toString(arr));
+
+        int[] arr1 = new int[5];
+        arr1[0] = 6;
+        arr1[1] = 7;
+        arr1[2] = 8;
+        arr1[3] = 9;
+        arr1[4] = 10;
+
+        System.out.println(Arrays.toString(arr1));
+
+        if (getCondition()) {
+            // code to be executed if condition is true
+        } else {
+            // code to be executed if condition is false
+        }
+    }
+
+    public static boolean getCondition() {
+        return false;
+    }
+}

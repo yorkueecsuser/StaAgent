@@ -1,0 +1,13 @@
+{
+  "Bug_Title": "Classes should not be compared by name",
+  "Bug_Details": "There is no requirement that class names be unique, only that they be unique within a package. Therefore trying to determine an object\u2019s type based\non its class name is an exercise fraught with danger. One of those dangers is that a malicious user will send objects of the same name as the trusted\nclass and thereby gain trusted access.\nInstead, the instanceof operator or the Class.isAssignableFrom() method should be used to check the object\u2019s underlying\ntype.\nNoncompliant code example\npackage computer;\nclass Pear extends Laptop { ... }\n\npackage food;\nclass Pear extends Fruit { ... }\n\nclass Store {\n\n  public boolean hasSellByDate(Object item) {\n    if (\"Pear\".equals(item.getClass().getSimpleName())) {  // Noncompliant\n      return true;  // Results in throwing away week-old computers\n    }\n    return false;\n  }\n\n  public boolean isList(Class<T> valueClass) {\n    if (List.class.getName().equals(valueClass.getName())) {  // Noncompliant\n      return true;\n    }\n    return false;\n  }\n}\nCompliant solution\nclass Store {\n\n  public boolean hasSellByDate(Object item) {\n    if (item instanceof food.Pear) {\n      return true;\n    }\n    return false;\n  }\n\n  public boolean isList(Class<T> valueClass) {\n    if (valueClass.isAssignableFrom(List.class)) {\n      return true;\n    }\n    return false;\n  }\n}",
+  "Bug_Explanation": "The bug is present in the hasSellByDate method where it compares the class name of the item object to the string \"Pear\" to determine if the item has a sell-by date. This is an intentional bug as it is a dangerous practice to determine an object\u2019s type based on its class name.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by passing a Fruit object to the showBug method. The method hasSellByDate inside showBug compares the class name of the object with 'Pear' which is not compliant with the rule 'Classes should not be compared by name'.",
+  "Trigger_Line": [
+    7
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

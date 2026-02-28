@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "JumbledIncrementer",
+  "Bug_Details": "Avoid jumbled loop incrementers - it's usually a mistake, and is confusing even if intentional.\nExamples:\npublic class JumbledIncrementerRule1 {\n    public void foo() {\n        for (int i = 0; i < 10; i++) {          // only references 'i'\n            for (int k = 0; k < 20; i++) {      // references both 'i' and 'k'\n                System.out.println(\"Hello\");\n            }\n        }\n    }\n}",
+  "Bug_Explanation": "The bug is caused by incrementing the wrong variable in the inner loop. Instead of incrementing 'k', the code inadvertently increments 'i'. This can lead to unexpected behavior and is likely a mistake.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case `testShowBug()` calls the `showBug()` method from the `JumbledIncrementer` class, which contains a bug where the inner loop increments 'i' instead of 'k'. This causes the value of 'i' to be incremented beyond its intended limit, which is detected by the assertion in the test case.",
+  "Trigger_Line": [
+    6
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

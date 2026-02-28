@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "ProperLogger",
+  "Bug_Details": "A logger should normally be defined private static final and be associated with the correct class.\n`private final Log log;` is also allowed for rare cases where loggers need to be passed around,\nwith the restriction that the logger needs to be passed into the constructor.\nExamples:\npublic class Foo {\n\n    private static final Log LOG = LogFactory.getLog(Foo.class);    // proper way\n\n    protected Log LOG = LogFactory.getLog(Testclass.class);         // wrong approach\n}",
+  "Bug_Explanation": "The original code was creating a logger for a class that does not exist. This was corrected to create a logger for Foo. The original code was also using non-standard imports which were causing compilation errors. These imports were replaced with standard Java imports.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method which tries to use a logger that is not properly defined. This should trigger the bug.",
+  "Trigger_Line": [
+    3
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.035\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not indicate that the bug was triggered. The test run was successful, indicating that the logger was used correctly according to the bug rule."
+}

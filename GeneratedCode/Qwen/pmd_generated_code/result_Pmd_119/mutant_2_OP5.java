@@ -1,0 +1,30 @@
+class IndexOfExample {
+
+    public int showBug(String input) {
+        // BUG: UseIndexOfChar
+        return input.indexOf("d"); 
+
+        // Introduced unreachable switch statement
+        boolean condition = getCondition();
+        switch (condition? 0 : 1) {
+            case 0:
+                // This case will never be reached because condition is always false
+                System.out.println("This is an unreachable case.");
+                break;
+            case 1:
+                // This case will always be executed
+                System.out.println("This is the reachable case.");
+                break;
+        }
+    }
+
+    private boolean getCondition() {
+        // This method always returns false, making the switch condition always evaluate to 1
+        return false;
+    }
+
+    public static void main(String[] args) {
+        IndexOfExample example = new IndexOfExample();
+        System.out.println(example.showBug("hello world"));
+    }
+}

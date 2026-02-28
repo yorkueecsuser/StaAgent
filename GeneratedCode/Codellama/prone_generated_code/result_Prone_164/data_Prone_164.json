@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "TreeToString",
+  "Bug_Details": "Tree#toString shouldn't be used for Trees deriving from the code being compiled, as it discards whitespace and comments. Tree#toString shouldn\u2019t be used for Trees deriving from the code being\ncompiled, as it discards whitespace and comments. This check only runs inside Error Prone code. Suggested replacements include: Prefer VisitorState#getConstantExpression for escaping constants in\ngenerated code.\nVisitorState#getSourceForNode : it will give you the original source text.\nNote that for synthetic trees (e.g.: implicit constructors), that source may\nbe null.\nIf the string representation was being used for comparison with keywords\nlike this and super, try tree.getName().contentEquals(\"this\")\nOne can also get the symbol name and use it for comparison :\nASTHelpers.getSymbol(tree).getSimpleName().toString()",
+  "Bug_Explanation": "The bug is embedded in the line that calls the 'Tree.toString()' method, which discards whitespace and comments. The bug is preserved to demonstrate the issue with using this method.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_164/seed_Prone_164.java:5: error: cannot find symbol\n        Name tree = Name.valueOf(\"Tree\");\n                        ^\n  symbol:   method valueOf(String)\n  location: interface Name\n1 error\n",
+  "Trigger_Explanation": "The test case triggered the bug by calling the `toString()` method on a `Tree` object, which is a derived class of `Name`. This caused the bug to occur, as the `toString()` method was not intended to be used for `Tree` objects.",
+  "Trigger_Line": [
+    5
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "MustBeClosedChecker",
+  "Bug_Details": "This method returns a resource which must be managed carefully, not just left for garbage collection. If it is a constant that will persist for the lifetime of your program, move it to a private static final field. Otherwise, you should use it in a try-with-resources. Methods or constructors annotated with @MustBeClosed require that the returned\nresource is closed. This is enforced by checking that invocations occur within\nthe resource variable initializer of a try-with-resources statement: try (AutoCloseable resource = createTheResource()) {\n  doSomething(resource);\n} try (AutoCloseable resource = createTheResource()) {\n  doSomething(resource);\n} or the return statement of another method annotated with @MustBeClosed: @MustBeClosed\nAutoCloseable createMyResource() {\n  return createTheResource();\n} @MustBeClosed\nAutoCloseable createMyResource() {\n  return createTheResource();\n} To support legacy code, the following pattern is also supported: AutoCloseable resource = createTheResource();\ntry {\n  doSomething(resource);\n} finally {\n  resource.close();\n} AutoCloseable resource = createTheResource();\ntry {\n  doSomething(resource);\n} finally {\n  resource.close();\n}",
+  "Bug_Explanation": "The method 'createReader' returns a BufferedReader, which is a resource that must be closed after use. The 'showBug' method invokes 'createReader' but does not manage the BufferedReader with a try-with-resources statement or a try-finally block, leading to a potential resource leak.",
+  "Buggy_Line": [
+    9,
+    14
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case 'testShowBug' invokes the 'showBug' method, which in turn calls 'createReader' without properly managing the BufferedReader resource. This triggers the bug 'MustBeClosedChecker' as the resource is not closed, potentially leading to a resource leak. The execution of 'example.showBug' in the test line is where the bug is triggered.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.005\nThere was 1 failure:\n1) testShowBug(MustBeClosedCheckerExampleTest)\njava.io.FileNotFoundException: test.txt (No such file or directory)\n\tat java.base/java.io.FileInputStream.open0(Native Method)\n\tat java.base/java.io.FileInputStream.open(FileInputStream.java:213)\n\tat java.base/java.io.FileInputStream.<init>(FileInputStream.java:152)\n\tat java.base/java.io.FileInputStream.<init>(FileInputStream.java:106)\n\tat java.base/java.io.FileReader.<init>(FileReader.java:60)\n\tat MustBeClosedCheckerExample.createReader(MustBeClosedCheckerExample.java:9)\n\tat MustBeClosedCheckerExample.showBug(MustBeClosedCheckerExample.java:14)\n\tat MustBeClosedCheckerExampleTest.testShowBug(MustBeClosedCheckerExampleTest.java:10)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show a failure due to a FileNotFoundException, which indicates that the file 'test.txt' could not be found. This exception prevented the test from executing to completion, so it does not confirm the triggering of the MustBeClosedChecker bug."
+}

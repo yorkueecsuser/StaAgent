@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "CloseResource",
+  "Bug_Details": "Ensure that resources (like `java.sql.Connection`, `java.sql.Statement`, and `java.sql.ResultSet` objects\nand any subtype of `java.lang.AutoCloseable`) are always closed after use.\nFailing to do so might result in resource leaks.\n\nNote: It suffices to configure the super type, e.g. `java.lang.AutoCloseable`, so that this rule automatically triggers\non any subtype (e.g. `java.io.FileInputStream`). Additionally specifying `java.sql.Connection` helps in detecting\nthe types, if the type resolution / auxclasspath is not correctly setup.\n\nNote: Since PMD 6.16.0 the default value for the property `types` contains `java.lang.AutoCloseable` and detects\nnow cases where the standard `java.io.*Stream` classes are involved. In order to restore the old behaviour,\njust remove \"AutoCloseable\" from the types.\nExamples:\npublic class Bar {\n    public void withSQL() {\n        Connection c = pool.getConnection();\n        try {\n            // do stuff\n        } catch (SQLException ex) {\n           // handle exception\n        } finally {\n            // oops, should close the connection using 'close'!\n            // c.close();\n        }\n    }\n\n    public void withFile() {\n        InputStream file = new FileInputStream(new File(\"/tmp/foo\"));\n        try {\n            int c = file.in();\n        } catch (IOException e) {\n            // handle exception\n        } finally {\n            // TODO: close file\n        }\n    }\n}",
+  "Bug_Explanation": "The bug is embedded in the showBug() method where a FileInputStream object is not closed in the finally block. This can lead to resource leaks.",
+  "Buggy_Line": [
+    16
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case creates an instance of the buggy class and calls the showBug() method. Since the resource (FileInputStream) is not closed in the finally block of the showBug() method, this test will fail and trigger the CloseResource bug.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that the test passed successfully without any failures. This indicates that the resource was not leaked, as the test would have failed if the resource was not closed in the finally block, which would have triggered the bug."
+}

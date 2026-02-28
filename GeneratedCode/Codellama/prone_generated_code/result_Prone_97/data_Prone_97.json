@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "JodaToSelf",
+  "Bug_Details": "Use of Joda-Time's DateTime.toDateTime(), Duration.toDuration(), Instant.toInstant(), Interval.toInterval(), and Period.toPeriod() are not allowed. Joda-Time\u2019s DateTime.toDateTime(), Duration.toDuration(), Instant.toInstant(), Interval.toInterval(), and Period.toPeriod() are always unnecessary, since they simply \u2018return this\u2019. There is no reason to ever call them.",
+  "Bug_Explanation": "The bug was embedded in the generated code by using the plus() method to add a duration of 1000 milliseconds to the original duration, instant, and period objects. This creates a new object that is equivalent to the original object plus the added duration.",
+  "Buggy_Line": [
+    12,
+    23
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_97/seed_Prone_97.java:12: error: incompatible types: int cannot be converted to Duration\n        Duration newDuration = duration.plus(1000);\n                                             ^\n../prone_clean_java_code/result_Prone_97/seed_Prone_97.java:13: error: incompatible types: int cannot be converted to TemporalAmount\n        Instant newInstant = instant.plus(1000);\n                                          ^\n../prone_clean_java_code/result_Prone_97/seed_Prone_97.java:14: error: incompatible types: int cannot be converted to TemporalAmount\n        Period newPeriod = period.plus(1000);\n                                       ^\n../prone_clean_java_code/result_Prone_97/seed_Prone_97.java:23: error: incompatible types: int cannot be converted to Duration\n        Duration newDuration = duration.plus(1000);\n                                             ^\n../prone_clean_java_code/result_Prone_97/seed_Prone_97.java:24: error: incompatible types: int cannot be converted to TemporalAmount\n        Instant newInstant = instant.plus(1000);\n                                          ^\n../prone_clean_java_code/result_Prone_97/seed_Prone_97.java:25: error: incompatible types: int cannot be converted to TemporalAmount\n        Period newPeriod = period.plus(1000);\n                                       ^\n../prone_clean_java_code/result_Prone_97/seed_Prone_97.java:29: error: cannot find symbol\n        System.out.println(\"Period: \" + newPeriod.toDays());\n                                                 ^\n  symbol:   method toDays()\n  location: variable newPeriod of type Period\nNote: Some messages have been simplified; recompile with -Xdiags:verbose to get full output\n7 errors\n",
+  "Trigger_Explanation": "The JodaToSelf.showBug() method is called, which triggers the bug by using the plus() method to add a duration of 1000 milliseconds to the original duration, instant, and period objects.",
+  "Trigger_Line": [
+    12,
+    23
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

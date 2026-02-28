@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "CheckSkipResult",
+  "Bug_Details": "The skip() method may skip a smaller number of bytes than requested. Check the returned value to find out if it was the case or not.",
+  "Bug_Explanation": "The bug is embedded in the skip() method, which may skip fewer bytes than requested. The returned value is checked to determine if the skip was successful.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../pmd_clean_java_code/result_Pmd_22/seed_Pmd_22.java:11: error: exception IOException is never thrown in body of corresponding try statement\n        } catch (IOException e) {\n          ^\n1 error\n",
+  "Trigger_Explanation": "The test case triggers the bug by calling the skip() method with a larger argument than the available data in the ByteArrayInputStream.",
+  "Trigger_Line": [
+    11
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

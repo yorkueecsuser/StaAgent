@@ -1,0 +1,1 @@
+return buffer[pos++] & 0xFF;

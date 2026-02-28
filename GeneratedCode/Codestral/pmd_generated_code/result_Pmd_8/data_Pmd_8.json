@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "AvoidCatchingThrowable",
+  "Bug_Details": "Catching Throwable errors is not recommended since its scope is very broad. It includes runtime issues such as\nOutOfMemoryError that should be exposed and managed separately.\nExamples:\npublic void bar() {\n    try {\n        // do something\n    } catch (Throwable th) {  // should not catch Throwable\n        th.printStackTrace();\n    }\n}",
+  "Bug_Explanation": "The code catches Throwable which is a very broad exception. This includes runtime issues such as OutOfMemoryError that should be handled separately.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case `testShowBug` calls the `showBug` method which throws a NullPointerException. Since the method catches Throwable, it will handle the NullPointerException and the test case will not fail. This triggers the bug 'AvoidCatchingThrowable'.",
+  "Trigger_Line": "[7]",
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.006\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed without any exceptions being thrown. This indicates that the NullPointerException was caught by the catch block, which is not desirable according to the bug information. Therefore, the bug was not triggered in this test run."
+}

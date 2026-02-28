@@ -1,0 +1,13 @@
+{
+  "Bug_Title": "UseNotifyAllInsteadOfNotify",
+  "Bug_Details": "Thread.notify() awakens a thread monitoring the object. If more than one thread is monitoring, then only\none is chosen.  The thread chosen is arbitrary; thus it's usually safer to call notifyAll() instead.",
+  "Bug_Explanation": "The bug is embedded in the `doSomething` method, where the `lock.notify()` method is used instead of `lock.notifyAll()`. This line is marked with the comment `// BUG: UseNotifyAllInsteadOfNotify`.",
+  "Buggy_Line": [
+    13
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case triggered the bug by calling the `showBug` method with the parameter `true`, which caused the buggy `doSomething` method to be executed. The bug was triggered by the line `lock.notify()`, which should have been `lock.notifyAll()` to ensure all waiting threads are awakened.",
+  "Trigger_Line": [
+    13
+  ]
+}

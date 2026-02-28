@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "AvoidFileStream",
+  "Bug_Details": "The FileInputStream and FileOutputStream classes contains a finalizer method which will cause garbage\ncollection pauses.\nSee [JDK-8080225](https://bugs.openjdk.org/browse/JDK-8080225) for details.\n\nThe FileReader and FileWriter constructors instantiate FileInputStream and FileOutputStream,\nagain causing garbage collection issues while finalizer methods are called.\n\n* Use `Files.newInputStream(Paths.get(fileName))` instead of `new FileInputStream(fileName)`.\n* Use `Files.newOutputStream(Paths.get(fileName))` instead of `new FileOutputStream(fileName)`.\n* Use `Files.newBufferedReader(Paths.get(fileName))` instead of `new FileReader(fileName)`.\n* Use `Files.newBufferedWriter(Paths.get(fileName))` instead of `new FileWriter(fileName)`.\n\nPlease note, that the `java.nio` API does not throw a `FileNotFoundException` anymore, instead\nit throws a `NoSuchFileException`. If your code dealt explicitly with a `FileNotFoundException`,\nthen this needs to be adjusted. Both exceptions are subclasses of `IOException`, so catching\nthat one covers both.",
+  "Bug_Explanation": "The use of FileInputStream and FileOutputStream in the code above causes garbage collection pauses.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../pmd_clean_java_code/result_Pmd_103/seed_Pmd_103.java:7: error: cannot find symbol\n        File file = new File(\"data.txt\");\n        ^\n  symbol:   class File\n  location: class AvoidFileStream\n../pmd_clean_java_code/result_Pmd_103/seed_Pmd_103.java:7: error: cannot find symbol\n        File file = new File(\"data.txt\");\n                        ^\n  symbol:   class File\n  location: class AvoidFileStream\n2 errors\n",
+  "Trigger_Explanation": "The test case triggers the AvoidFileStream bug by creating a FileInputStream and a FileOutputStream for the same file, causing garbage collection issues.",
+  "Trigger_Line": [
+    7,
+    11
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

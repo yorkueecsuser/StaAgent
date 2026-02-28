@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "UnnecessaryCheckNotNull",
+  "Bug_Details": "This null check is unnecessary; the expression can never be null",
+  "Bug_Explanation": "The bug is embedded in the line 9, where the input is checked for nullity, which is unnecessary because the input is never null.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by passing a null argument to the showBug() method, which is then passed to the Objects.nonNull() method and causes it to return false.",
+  "Trigger_Line": [
+    9
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

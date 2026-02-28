@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "Regex boundaries should not be used in a way that can never be matched",
+  "Bug_Details": "In regular expressions the boundaries ^ and \\A can only match at the beginning of the input (or, in case of ^ in combination with the MULTILINE flag, the beginning of the line) and $ , \\Z and \\z only at the end.\nThese patterns can be misused, by accidentally switching ^ and $ for example, to create a pattern that can never\nmatch.\nNoncompliant code example\n// This can never match because $ and ^ have been switched around\nPattern.compile(\"$[a-z]+^\"); // Noncompliant\nCompliant solution\nPattern.compile(\"^[a-z]+$\");",
+  "Bug_Explanation": "The bug was embedded in the code by using the dollar sign ($) and caret (^) in the wrong order. The dollar sign should be used before the caret to match the end of the input, and the caret should be used after the dollar sign to match the beginning of the input.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by providing a string that matches the pattern '$[a-z]+^', which is a regex pattern that can never be matched.",
+  "Trigger_Line": [
+    9
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

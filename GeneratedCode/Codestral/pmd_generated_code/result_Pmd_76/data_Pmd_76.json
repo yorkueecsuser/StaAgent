@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "SuspiciousOctalEscape",
+  "Bug_Details": "A suspicious octal escape sequence was found inside a String literal.\nThe Java language specification (section 3.10.6) says an octal\nescape sequence inside a literal String shall consist of a backslash\nfollowed by:\n\n    OctalDigit | OctalDigit OctalDigit | ZeroToThree OctalDigit OctalDigit\n\nAny octal escape sequence followed by non-octal digits can be confusing,\ne.g. \"\\038\" is interpreted as the octal escape sequence \"\\03\" followed by\nthe literal character \"8\".\nExamples:\npublic void foo() {\n  // interpreted as octal 12, followed by character '8'\n  System.out.println(\"suspicious: \\128\");\n}",
+  "Bug_Explanation": "A suspicious octal escape sequence was found inside a String literal, which can lead to confusion. In this case, '\\128' is interpreted as the octal escape sequence '\\12' followed by the literal character '8'.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "",
+  "Trigger_Explanation": "The test case triggers the bug by comparing the suspicious octal escape sequence in the showBug method with an incorrect expectation. The expected value is'suspicious: \f8', but the actual value is'suspicious: \\128'.",
+  "Trigger_Line": [
+    5
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.005\nThere was 1 failure:\n1) testShowBug(SuspiciousOctalEscapeBugTest)\norg.junit.ComparisonFailure: expected:<suspicious: [\f]8> but was:<suspicious: [\\12]8>\n\tat org.junit.Assert.assertEquals(Assert.java:117)\n\tat org.junit.Assert.assertEquals(Assert.java:146)\n\tat SuspiciousOctalEscapeBugTest.testShowBug(SuspiciousOctalEscapeBugTest.java:9)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n"
+}

@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "EmptyCatchBlock",
+  "Bug_Details": "Empty Catch Block finds instances where an exception is caught, but nothing is done.\nIn most circumstances, this swallows an exception which should either be acted on\nor reported.",
+  "Bug_Explanation": "The bug is embedded in the catch block of the try-catch statement in both the main method and the showBug method. The catch block is empty, and the exception is not handled or reported.",
+  "Buggy_Line": [
+    27,
+    14
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../pmd_clean_java_code/result_Pmd_40/seed_Pmd_40.java:28: error: cannot find symbol\n        return sum;\n               ^\n  symbol:   variable sum\n  location: class EmptyCatchBlockBug\n1 error\n",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug() method, which throws an exception that is caught by the empty catch block.",
+  "Trigger_Line": [
+    28
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}
