@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "UnsafeWildcard",
+  "Bug_Details": "Certain wildcard types can confuse the compiler.",
+  "Bug_Explanation": "The bug is caused by assigning a List<String> to a List<?> and then attempting to set an integer value at index 0. This compiles without error because the compiler doesn't know the type of the List<?> at runtime, but it will throw a ClassCastException at runtime because the List contains Strings.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_171/seed_Prone_171.java:8: error: incompatible types: int cannot be converted to CAP#1\n        wildcardList.set(0, 123); // BUG: UnsafeWildcard - Compiler allows this but it will throw a runtime exception\n                            ^\n  where CAP#1 is a fresh type-variable:\n    CAP#1 extends Object from capture of ?\nNote: Some messages have been simplified; recompile with -Xdiags:verbose to get full output\n1 error\n",
+  "Trigger_Explanation": "The bug is triggered when an integer is assigned to a List<?> which is actually a List<String>. This causes a ClassCastException to be thrown at runtime.",
+  "Trigger_Line": [
+    8
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

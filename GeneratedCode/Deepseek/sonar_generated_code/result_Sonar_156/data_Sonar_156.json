@@ -1,0 +1,20 @@
+{
+  "Bug_Title": "Classes should not be compared by name",
+  "Bug_Details": "There is no requirement that class names be unique, only that they be unique within a package. Therefore trying to determine an object\u2019s type based\non its class name is an exercise fraught with danger. One of those dangers is that a malicious user will send objects of the same name as the trusted\nclass and thereby gain trusted access.\nInstead, the instanceof operator or the Class.isAssignableFrom() method should be used to check the object\u2019s underlying\ntype.\nNoncompliant code example\npackage computer;\nclass Pear extends Laptop { ... }\n\npackage food;\nclass Pear extends Fruit { ... }\n\nclass Store {\n\n  public boolean hasSellByDate(Object item) {\n    if (\"Pear\".equals(item.getClass().getSimpleName())) {  // Noncompliant\n      return true;  // Results in throwing away week-old computers\n    }\n    return false;\n  }\n\n  public boolean isList(Class<T> valueClass) {\n    if (List.class.getName().equals(valueClass.getName())) {  // Noncompliant\n      return true;\n    }\n    return false;\n  }\n}\nCompliant solution\nclass Store {\n\n  public boolean hasSellByDate(Object item) {\n    if (item instanceof food.Pear) {\n      return true;\n    }\n    return false;\n  }\n\n  public boolean isList(Class<T> valueClass) {\n    if (valueClass.isAssignableFrom(List.class)) {\n      return true;\n    }\n    return false;\n  }\n}",
+  "Bug_Explanation": "The bug is embedded in the code by comparing objects by their class name. The bug is also present in the code that checks if a class is assignable from List.class.",
+  "Buggy_Line": [
+    6,
+    18
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_156/seed_Sonar_156.java:6: error: package food does not exist\n    if (item instanceof food.Pear) {\n                            ^\n../sonar_clean_java_code/result_Sonar_156/seed_Sonar_156.java:21: error: package food does not exist\n    Object item = new food.Pear();\n                          ^\n../sonar_clean_java_code/result_Sonar_156/seed_Sonar_156.java:26: error: package food does not exist\n    Class<?> valueClass = food.Pear.class;\n                              ^\n3 errors\n",
+  "Trigger_Explanation": "The existing test codes are calling methods that use class names to determine object types, which is a violation of the bug rule. The test codes should be updated to use the instanceof operator or the Class.isAssignableFrom() method instead.",
+  "Trigger_Line": [
+    12,
+    24
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The described bug is present in the code. The code is comparing classes by name, which can lead to security issues. The noncompliant code example shows that the class name 'Pear' is being compared, which can lead to unexpected behavior if a malicious user sends an object of the same name as the trusted class. The compliant solution uses the instanceof operator or the Class.isAssignableFrom() method to check the object\u2019s underlying type, which prevents this issue."
+}

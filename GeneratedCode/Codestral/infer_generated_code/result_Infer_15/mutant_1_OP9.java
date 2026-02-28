@@ -1,0 +1,47 @@
+import java.util.concurrent.atomic.AtomicInteger;
+
+class Counter {
+    private int count = 0;
+
+    public void increment() {
+        count++;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void showBug() {
+        Thread thread1 = new Thread(() -> {
+            int i = 0;
+            do {
+                increment();
+                i++;
+            } while (i < 10000);
+        });
+
+        Thread thread2 = new Thread(() -> {
+            int i = 0;
+            do {
+                increment();
+                i++;
+            } while (i < 10000);
+        });
+
+        thread1.start();
+        thread2.start();
+
+        try {
+            thread1.join();
+            thread2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Expected count: 20000, Actual count: " + getCount());
+    }
+
+    public static void main(String[] args) {
+        new Counter().showBug();
+    }
+}

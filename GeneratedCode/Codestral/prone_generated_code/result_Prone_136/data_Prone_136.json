@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "PrivateSecurityContractProtoAccess",
+  "Bug_Details": "Access to a private protocol buffer field is forbidden. This protocol buffer carries a security contract, and can only be created using an approved library. Direct access to the fields is forbidden.",
+  "Bug_Explanation": "The bug is demonstrated by attempting to directly access a private field of a SecurityContract object. In a real-world scenario, this would be a forbidden operation due to the security restrictions of the protocol buffer.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered by calling the showBug method, which attempts to access a private field of a SecurityContract object.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test method executed successfully without any assertion errors, indicating that the attempt to access a private field of a security contract object did not cause any immediate issues during the test run."
+}

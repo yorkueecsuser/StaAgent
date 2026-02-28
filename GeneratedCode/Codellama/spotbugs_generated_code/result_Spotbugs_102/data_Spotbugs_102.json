@@ -1,0 +1,9 @@
+{
+  "Buggy_Line": [
+    10
+  ],
+  "Trigger_Explanation": "The method showBug() is called, which triggers the bug by attempting to access a prepared statement parameter with index 0.",
+  "Trigger_Line": "[9]",
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,9 @@
+{
+  "Bug_Title": "JUnit4ClassAnnotationNonStatic",
+  "Bug_Details": "This method should be static JUnit4 provides two annotations (@BeforeClass and\n@AfterClass) that are applied to methods that are run once per\ntest class. These complement the more-often used @Before and @After\nwhich are applied to methods that are run once per test method. JUnit4 runs @BeforeClass and @AfterClass methods without making an instance\nof the test class, meaning that the methods must be static. JUnit4 will fail\nto run any @BeforeClass or @AfterClass method that isn\u2019t also static.",
+  "Bug_Explanation": "The '@BeforeClass' annotation is used for a method that is run once per test class. However, in this code, the 'initialize()' method is not static. This will cause JUnit4 to fail to run the method as it is expected to be static.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful"
+}

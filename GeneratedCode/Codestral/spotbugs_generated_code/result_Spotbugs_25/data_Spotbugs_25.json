@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "Eq: equals method overrides equals in superclass and may not be symmetric (EQ_OVERRIDING_EQUALS_NOT_SYMMETRIC)\uf0c1",
+  "Bug_Details": " This class defines an equals method that overrides an equals method in a superclass. Both equals methods\nuse instanceof in the determination of whether two objects are equal. This is fraught with peril,\nsince it is important that the equals method is symmetrical (in other words, a.equals(b) == b.equals(a)).\nIf B is a subtype of A, and A's equals method checks that the argument is an instanceof A, and B's equals method\nchecks that the argument is an instanceof B, it is quite likely that the equivalence relation defined by these\nmethods is not symmetric.\n instanceof a.equals(b) == b.equals(a)",
+  "Bug_Explanation": "The bug is embedded in the equals method of class B, where it checks if the object is an instance of B before comparing it with an instance of A. This results in the equals method not being symmetrical, as demonstrated in the showBug method.",
+  "Buggy_Line": [
+    17
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when comparing an instance of B with an instance of A, where B's equals method checks if the object is an instance of B before comparing it with an instance of A.",
+  "Trigger_Line": [
+    8
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

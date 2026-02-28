@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "MC: An overridable method is called from the readObject method. (MC_OVERRIDABLE_METHOD_CALL_IN_READ_OBJECT)\uf0c1",
+  "Bug_Details": "\nThe readObject() method must not call any overridable methods. Invoking overridable methods from the readObject()\nmethod can provide the overriding method with access to the object's state before it is fully initialized. This\npremature access is possible because, in deserialization, readObject plays the role of object constructor and\ntherefore object initialization is not complete until readObject exits. \n\nSee SEI CERT rule \nSER09-J. Do not invoke overridable methods from the readObject() method.\n",
+  "Bug_Explanation": "The bug is embedded in the Base class's readObject method where the overridable method initialize() is called. This can lead to premature access to the object's state before it is fully initialized during deserialization.",
+  "Buggy_Line": [
+    11
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method of SerializationExample, which internally calls deserialize. During deserialization, the readObject method of the Base class is invoked, which calls the overridable initialize method.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "DoubleBraceInitialization",
+  "Bug_Details": "Prefer collection factory methods or builders to the double-brace initialization pattern. The double-brace initialization pattern should be avoided\u2014especially in\nnon-static contexts. The double-brace pattern uses an instance-initializer in an anonymous inner\nclass to express the initialization of a class (often a collection) in a single\nstep. Inner classes in a non-static context are terrific sources of memory leaks! If\nyou pass the collection somewhere that retains it, the entire instance you\ncreated it from can no longer be garbage collected. Even if it is completely\nunreachable. And if someone serializes the map? Yep, the entire creating\ninstance goes along for the ride (or if that fails, serializing the map fails,\nwhich is also awfully strange). All this is completely nonobvious. Luckily, there are more readable and more performant alternatives in the factory\nmethods and builders for ImmutableList, ImmutableSet, and ImmutableMap. The List.of, Set.of, and Map.of static factories\nadded in Java 9 are also a good choice. That is, prefer this: ImmutableList.of(\"Denmark\", \"Norway\", \"Sweden\"); ImmutableList.of(\"Denmark\", \"Norway\", \"Sweden\"); Not this: new ArrayList<>() {\n  {\n    add(\"Denmark\");\n    add(\"Norway\");\n    add(\"Sweden\");\n  }\n}; new ArrayList<>() {\n  {\n    add(\"Denmark\");\n    add(\"Norway\");\n    add(\"Sweden\");\n  }\n}; TIP: Neither the guava immutable collections nor the static factory methods\nadded in a JDK 9 support null elements. The double-brace pattern is still best\navoided for collections that contain null. Consider using Arrays.asList to\ninitialize Lists and Sets with null values, and refactoring Map\ninitializers into a helper method.",
+  "Bug_Explanation": "The bug was embedded in the generated code by using the double-brace initialization pattern to initialize the ArrayList. This pattern creates an anonymous inner class, which can lead to memory leaks and other issues as described in the bug rule.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method of DoubleBraceInitializationExample, which uses double brace initialization to create a List.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.009\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that the test passed successfully without any failures. This indicates that the bug, while present in the code, did not cause the test to fail, thus not confirming that the bug triggered any issues during the test execution."
+}

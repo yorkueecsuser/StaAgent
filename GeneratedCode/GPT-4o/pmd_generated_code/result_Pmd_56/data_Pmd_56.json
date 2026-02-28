@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "MissingSerialVersionUID",
+  "Bug_Details": "Serializable classes should provide a serialVersionUID field.\nThe serialVersionUID field is also needed for abstract base classes. Each individual class in the inheritance\nchain needs an own serialVersionUID field. See also [Should an abstract class have a serialVersionUID](https://stackoverflow.com/questions/893259/should-an-abstract-class-have-a-serialversionuid).\nExamples:\npublic class Foo implements java.io.Serializable {\n    String name;\n    // Define serialization id to avoid serialization related bugs\n    // i.e., public static final long serialVersionUID = 4328743;\n}",
+  "Bug_Explanation": "The class ExampleSerializable implements Serializable but does not declare a serialVersionUID field, which is essential for ensuring consistent serialization and deserialization across different versions of the class.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method, which creates an instance of ExampleSerializable. Since the ExampleSerializable class implements Serializable but lacks a serialVersionUID, this triggers a MissingSerialVersionUID warning. Although this might not directly raise an exception during runtime in this test, it highlights the potential serialization issue which is considered a bug according to the specified rule.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Created ExampleSerializable object with name: Alice and age: 30\n\nTime: 0.009\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test executed successfully without any errors or exceptions, suggesting that the absence of the serialVersionUID did not cause a serialization-related issue during this test run."
+}

@@ -1,0 +1,40 @@
+class SwitchFallthroughExample {
+
+    public int showBug(int value) {
+        int result = 0;
+
+        switch (value) {
+            case 1:
+                result = 100;
+                // Missing break statement causes fall through
+            case 2:
+                result = 200;
+                throw new IllegalArgumentException("Value cannot be 2");
+            case 3:
+                result = 300;
+                break;
+            default:
+                result = -1;
+        }
+
+        // Unreachable if-else statement mutation
+        boolean condition = Math.random() < 0; // This will always be false
+        if (condition) {
+            System.out.println("This block will never be executed");
+        } else {
+            System.out.println("This block will always be executed");
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        SwitchFallthroughExample example = new SwitchFallthroughExample();
+        try {
+            int result = example.showBug(1);
+            System.out.println("Result: " + result);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Caught Exception: " + e.getMessage());
+        }
+    }
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "UnusedNullCheckInEquals",
+  "Bug_Details": "After checking an object reference for null, you should invoke equals() on that object rather than passing\nit to another object's equals() method.\nExamples:\npublic class Test {\n\n    public String method1() { return \"ok\";}\n    public String method2() { return null;}\n\n    public void method(String a) {\n        String b;\n        // I don't know it method1() can be \"null\"\n        // but I know \"a\" is not null..\n        // I'd better write a.equals(method1())\n\n        if (a!=null && method1().equals(a)) { // will trigger the rule\n            //whatever\n        }\n\n        if (method1().equals(a) && a != null) { // won't trigger the rule\n            //whatever\n        }\n\n        if (a!=null && method1().equals(b)) { // won't trigger the rule\n            //whatever\n        }\n\n        if (a!=null && \"LITERAL\".equals(a)) { // won't trigger the rule\n            //whatever\n        }\n\n        if (a!=null && !a.equals(\"go\")) { // won't trigger the rule\n            a=method2();\n            if (method1().equals(a)) {\n                //whatever\n            }\n        }\n    }\n}",
+  "Bug_Explanation": "The bug occurs because the null check on 'a' is unnecessary if we are directly calling equals on 'method1()'. The safe practice is to use 'a.equals(method1())' which will only be called if 'a' is not null.",
+  "Buggy_Line": [
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case with 'null' as an argument to 'showBug' triggers the bug because it expects 'false' but due to the improper null check, the code attempts to call 'equals' on a null reference, resulting in a NullPointerException.",
+  "Trigger_Line": [
+    11
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that all tests passed successfully, as shown by 'OK (1 test)'. This suggests that the expected failure for the test case designed to trigger the bug did not occur, indicating the bug was not triggered."
+}

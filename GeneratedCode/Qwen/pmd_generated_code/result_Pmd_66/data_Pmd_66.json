@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "ProperLogger",
+  "Bug_Details": "A logger should normally be defined private static final and be associated with the correct class.\n`private final Log log;` is also allowed for rare cases where loggers need to be passed around,\nwith the restriction that the logger needs to be passed into the constructor.\nExamples:\npublic class Foo {\n\n    private static final Log LOG = LogFactory.getLog(Foo.class);    // proper way\n\n    protected Log LOG = LogFactory.getLog(Testclass.class);         // wrong approach\n}",
+  "Bug_Explanation": "The bug was embedded in the generated code by declaring the logger as 'protected static Logger LOG' instead of 'private static final Logger LOG'. This violates the rule that a logger should be private static final and associated with the correct class.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by calling the'showBug' method of the LoggerExample class. Although the method itself does not throw an exception, the bug lies in the incorrect declaration of the logger as 'protected static Logger LOG' instead of 'private static final Logger LOG'. This violation of the logging rule is what the test aims to highlight.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.032\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed successfully without any errors or failures. This does not provide evidence that the bug related to the improper logger declaration was triggered."
+}

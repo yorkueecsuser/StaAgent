@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "VarTypeName",
+  "Bug_Details": "`var` should not be used as a type name. As of JDK 10 var is a restricted local variable type and cannot be used for\ntype declarations (see JEP 286).",
+  "Bug_Explanation": "The bug is embedded in the generated code by using 'var' as a class name, which is a restricted type name in Java 10 and later versions. This violates the VarTypeName rule.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_174/seed_Prone_174.java:4: error: 'var' not allowed here\n    class var {\n          ^\n  as of release 10, 'var' is a restricted type name and cannot be used for type declarations\n../prone_clean_java_code/result_Prone_174/seed_Prone_174.java:7: error: 'var' is not allowed here\n        public var(int value) {\n               ^\n../prone_clean_java_code/result_Prone_174/seed_Prone_174.java:16: error: 'var' is not allowed here\n    public var showBug() {\n           ^\n3 errors\n",
+  "Trigger_Explanation": "The test case triggers the bug by using the inner class 'var' which is named after the restricted keyword 'var' introduced in JDK 10.",
+  "Trigger_Line": [
+    7
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

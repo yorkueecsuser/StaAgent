@@ -1,0 +1,55 @@
+import edu.umd.cs.findbugs.annotations.DesireNoWarning;
+import edu.umd.cs.findbugs.annotations.NoWarning;
+import java.util.List;
+
+class Bug3126724 {
+  @DesireNoWarning("IM_BAD_CHECK_FOR_ODD")
+  public static void main(String args[]) {
+    for (int i = 1; i < args.length; i++) {
+      if (i % 2 == 1) {
+        System.out.print("");
+      }
+    }
+    // Mutant: Renamed 'args' to 'b'
+    for (int c = 1; c < b.length; c++) {
+      if (c % 2 == 1) {
+        System.out.print("");
+      }
+    }
+  }
+
+  @NoWarning("IM_BAD_CHECK_FOR_ODD")
+  public static void f(int i) {
+    if (i >= 0 && i % 2 == 1) System.out.println("odd");
+    // Mutant: Renamed 'i' to 'j'
+    if (j >= 0 && j % 2 == 1) System.out.println("odd");
+  }
+
+  @NoWarning("IM_BAD_CHECK_FOR_ODD")
+  public static void f2(int i) {
+    if (i > 0 && i % 2 == 1) System.out.println("odd");
+    // Mutant: Renamed 'i' to 'k'
+    if (k > 0 && k % 2 == 1) System.out.println("odd");
+  }
+
+  @NoWarning("IM_BAD_CHECK_FOR_ODD")
+  public static void f3(int i) {
+    if (Math.abs(i) % 2 == 1) System.out.println("odd");
+    // Mutant: Renamed 'i' to 'l'
+    if (Math.abs(l) % 2 == 1) System.out.println("odd");
+  }
+
+  @NoWarning("IM_BAD_CHECK_FOR_ODD")
+  public static void f4(int[] a) {
+    if (a.length % 2 == 1) System.out.println("odd");
+    // Mutant: Renamed 'a' to'm'
+    if (m.length % 2 == 1) System.out.println("odd");
+  }
+
+  @NoWarning("IM_BAD_CHECK_FOR_ODD")
+  public static void f5(List<Integer> lst) {
+    if (lst.size() % 2 == 1) System.out.println("odd");
+    // Mutant: Renamed 'lst' to 'n'
+    if (n.size() % 2 == 1) System.out.println("odd");
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "IncompatibleModifiers",
+  "Bug_Details": "This annotation has incompatible modifiers as specified by its @IncompatibleModifiers annotation The @IncompatibleModifiers annotation declares that the target annotation is\nincompatible with a set of provided modifiers. This check ensures that all\nannotations respect their @IncompatibleModifiers specifications.",
+  "Bug_Explanation": "The bug is simulated by creating a custom annotation @MyAnnotation that is incompatible with static methods, as indicated by the @IncompatibleModifiers annotation. The showBug method is annotated with @MyAnnotation but is declared as static, which violates the intended usage of @MyAnnotation.",
+  "Buggy_Line": [
+    22
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by calling the static method'showBug' which is annotated with '@MyAnnotation'. According to the bug rule, '@MyAnnotation' is incompatible with static methods, so this call should fail the test.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.This method is annotated with MyAnnotation but is static.\n\nTime: 0.008\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results do not indicate any error or exception related to the incompatible modifiers issue. The test simply calls the static method annotated with @MyAnnotation, and the program runs without any issues, printing the expected message. Therefore, based solely on the test results, there is no confirmation that the bug was triggered."
+}

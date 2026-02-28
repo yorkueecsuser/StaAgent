@@ -1,0 +1,27 @@
+import java.util.HashMap;
+import java.util.Map;
+
+class Ideas_2011_11_18 {
+
+  Map<String, String> foo() {
+    return new HashMap<String, String>() {
+      int count;
+
+      public String get(String arg) {
+        count++;
+        // Inserting an unreachable if statement
+        boolean condition = getUnreachableCondition();
+        if (condition) {
+          // This block is unreachable
+          count = 0;
+        }
+        return "foo";
+      }
+
+      private boolean getUnreachableCondition() {
+        // This method always returns false, making the if block unreachable
+        return false;
+      }
+    };
+  }
+}

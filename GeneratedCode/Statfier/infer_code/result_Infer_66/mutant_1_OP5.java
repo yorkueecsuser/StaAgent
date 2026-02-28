@@ -1,0 +1,94 @@
+class GlobalTest {
+  public static int s = 0;
+  public static Foo foo;
+
+  class Foo {
+
+    int x = 0;
+    // modifies global var's' hence impure
+    void set_impure() {
+      s = 10;
+      boolean condition = getCondition();
+      switch(condition) {
+        case true:
+          // This case is reachable but does nothing
+          break;
+        case false:
+          // This case is unreachable because getCondition() never returns false
+          System.out.println("This is an unreachable switch case");
+          break;
+      }
+    }
+  }
+
+  void incr(Foo foo, int i) {
+    foo.x += i;
+    boolean condition = getCondition();
+    switch(condition) {
+      case true:
+        // This case is reachable but does nothing
+        break;
+      case false:
+        // This case is unreachable because getCondition() never returns false
+        System.out.println("This is an unreachable switch case");
+        break;
+    }
+  }
+
+  // calls foo which modifies global var
+  void call_set_impure() {
+    Foo f = new Foo();
+    f.set_impure();
+    boolean condition = getCondition();
+    switch(condition) {
+      case true:
+        // This case is reachable but does nothing
+        break;
+      case false:
+        // This case is unreachable because getCondition() never returns false
+        System.out.println("This is an unreachable switch case");
+        break;
+    }
+  }
+
+  // foo is global which is modified by incr.
+  void global_mod_via_argument_passing_impure(int size, Foo f) {
+    for (int i = 0; i < size; i++) {
+      incr(foo, i);
+    }
+    boolean condition = getCondition();
+    switch(condition) {
+      case true:
+        // This case is reachable but does nothing
+        break;
+      case false:
+        // This case is unreachable because getCondition() never returns false
+        System.out.println("This is an unreachable switch case");
+        break;
+    }
+  }
+
+  // aliased_foo is aliasing a global and then is modified by incr.
+  void global_mod_via_argument_passing_impure_aliased(int size, Foo f) {
+    Foo aliased_foo = foo; // Inferbo can't recognize aliasing here
+    // and assumes aliased_foo is in [-oo,+oo] not in foo
+    for (int i = 0; i < size; i++) {
+      incr(aliased_foo, i);
+    }
+    boolean condition = getCondition();
+    switch(condition) {
+      case true:
+        // This case is reachable but does nothing
+        break;
+      case false:
+        // This case is unreachable because getCondition() never returns false
+        System.out.println("This is an unreachable switch case");
+        break;
+    }
+  }
+
+  // Helper method to provide a dynamic condition
+  private boolean getCondition() {
+    return true; // This method always returns true, making the false case unreachable
+  }
+}

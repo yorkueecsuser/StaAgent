@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "MS: Field should be moved out of an interface and made package protected (MS_OOI_PKGPROTECT)\uf0c1",
+  "Bug_Details": "\n A final static field that is\ndefined in an interface references a mutable\n   object such as an array or hashtable.\n   This mutable object could\n   be changed by malicious code or\n        by accident from another package.\n   To solve this, the field needs to be moved to a class\n   and made package protected\n   to avoid\n        this vulnerability.",
+  "Bug_Explanation": "The final static field NAMES in the interface BuggyInterface references a mutable object and is not package protected, which makes it vulnerable to changes by malicious code or accidental changes from another package.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../spotbugs_clean_java_code/result_Spotbugs_182/seed_Spotbugs_182.java:3: error: interface MyInterface is public, should be declared in a file named MyInterface.java\npublic interface MyInterface {\n       ^\n1 error\n",
+  "Trigger_Explanation": "The JUnit test case triggered the bug by adding two elements to the MY_ARRAY list and then asserting that the size of the list is equal to 2, which should fail because the MY_ARRAY list is not package protected and can be modified by other classes in the same package.",
+  "Trigger_Line": [
+    15,
+    16,
+    17,
+    18
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

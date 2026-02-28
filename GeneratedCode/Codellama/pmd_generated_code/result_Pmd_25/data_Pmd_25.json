@@ -1,0 +1,11 @@
+{
+  "Buggy_Line": [
+    13
+  ],
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug() method on the cloned object, which is the correct implementation of the CloneMethodMustImplementCloneable class.",
+  "Trigger_Line": [
+    15
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

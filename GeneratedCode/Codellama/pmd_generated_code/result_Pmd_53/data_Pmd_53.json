@@ -1,0 +1,9 @@
+{
+  "Bug_Title": "JUnitStaticSuite",
+  "Bug_Details": "The suite() method in a JUnit test needs to be both public and static.",
+  "Bug_Explanation": "The suite() method in a JUnit test needs to be both public and static. In this generated code, the suite() method is not static, which is a violation of the JUnit convention.",
+  "Buggy_Line": [
+    2
+  ],
+  "Seed_Compilation_Status": "Successful"
+}

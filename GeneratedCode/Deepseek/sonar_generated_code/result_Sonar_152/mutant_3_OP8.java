@@ -1,0 +1,48 @@
+import java.io.*;
+
+class Main {
+
+    static class StaticInnerClass implements Serializable {
+        String name;
+        static int data = 10;
+
+        public StaticInnerClass(String name) {
+            this.name = name;
+        }
+
+        public String toString() {
+            return "StaticInnerClass [name=" + name + ", data=" + data + "]";
+        }
+    }
+
+    public static class OuterClass {
+        StaticInnerClass inner;
+
+        public OuterClass(StaticInnerClass inner) {
+            this.inner = inner;
+        }
+
+        public String toString() {
+            return "OuterClass [inner=" + inner + "]";
+        }
+    }
+
+    // BUG: "Serializable" inner classes of non-serializable outer classes should be "static"
+    public static void showBug() throws IOException, ClassNotFoundException {
+        StaticInnerClass inner = new StaticInnerClass("StaticInnerName");
+        OuterClass outer = new OuterClass(inner);
+
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("file.txt"))) {
+            out.writeObject(outer); // This line contains the bug
+        }
+
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("file.txt"))) {
+            OuterClass deserializedOuter = (OuterClass) in.readObject();
+            System.out.println(deserializedOuter);
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        showBug();
+    }
+}

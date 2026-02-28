@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "ICAST: int value cast to float and then passed to Math.round (ICAST_INT_CAST_TO_FLOAT_PASSED_TO_ROUND)\uf0c1",
+  "Bug_Details": "\nThis code converts an int value to a float precision\nfloating point number and then\npassing the result to the Math.round() function, which returns the int/long closest\nto the argument. This operation should always be a no-op,\nsince converting an integer to a float should give a number with no fractional part.\nIt is likely that the operation that generated the value to be passed\nto Math.round was intended to be performed using\nfloating point arithmetic.\n",
+  "Bug_Explanation": "The code demonstrates the bug by casting an int value to a float and then passing it to Math.round, which is unnecessary as the input is already an integer and the float conversion adds no fractional part. This operation is effectively a no-op.",
+  "Buggy_Line": [
+    6,
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug method with an integer input, causing unnecessary casting from int to float and then rounding. The assertEquals checks the result against the original integer, expecting the same value, but the test will fail due to the float casting and rounding process.",
+  "Trigger_Line": [
+    8,
+    14
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.005\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that both tests passed successfully, as shown by the 'OK (2 tests)' result. This confirms that the bug was not triggered, as the assertions did not fail."
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "BOA: Class overrides a method implemented in super class Adapter wrongly (BOA_BADLY_OVERRIDDEN_ADAPTER)\uf0c1",
+  "Bug_Details": " This method overrides a method found in a parent class, where that class is an Adapter that implements\na listener defined in the java.awt.event or javax.swing.event package. As a result, this method will not\nget called when the event occurs.",
+  "Bug_Explanation": "The bug is embedded in the generated code by having the MyActionListener class extend MouseAdapter but override the actionPerformed method. Since MouseAdapter does not have an actionPerformed method, this override does nothing, and the button click event will not trigger the expected behavior.",
+  "Buggy_Line": [
+    22
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method of the BuggyAdapter class, which simulates a button click. However, since the actionPerformed method in MyActionListener is incorrectly overridden (MyActionListener extends MouseAdapter instead of implementing ActionListener), the expected output 'Button clicked!' is never printed to the console, causing the test to fail.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.029\nThere was 1 failure:\n1) testActionListenerOverride(BuggyAdapterTest)\njava.awt.HeadlessException: \nNo X11 DISPLAY variable was set,\nor no headful library support was found,\nbut this program performed an operation which requires it,\n\n\tat java.desktop/java.awt.GraphicsEnvironment.checkHeadless(GraphicsEnvironment.java:164)\n\tat java.desktop/java.awt.Window.<init>(Window.java:553)\n\tat java.desktop/java.awt.Frame.<init>(Frame.java:428)\n\tat java.desktop/java.awt.Frame.<init>(Frame.java:393)\n\tat java.desktop/javax.swing.JFrame.<init>(JFrame.java:180)\n\tat BuggyAdapter.<init>(BuggyAdapter.java:10)\n\tat BuggyAdapterTest.testActionListenerOverride(BuggyAdapterTest.java:8)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate a failure due to a HeadlessException, which is unrelated to the bug described. The HeadlessException suggests that the test environment does not support GUI operations, but it does not provide evidence that the actionPerformed method was not called due to the bug in the code. Therefore, the test results do not confirm the presence of the described bug."
+}

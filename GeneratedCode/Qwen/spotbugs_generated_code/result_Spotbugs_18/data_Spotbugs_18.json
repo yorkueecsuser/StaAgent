@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "RV: Bad attempt to compute absolute value of signed random integer (RV_ABSOLUTE_VALUE_OF_RANDOM_INT)\uf0c1",
+  "Bug_Details": " This code generates a random signed integer and then computes\nthe absolute value of that random integer.  If the number returned by the random number\ngenerator is Integer.MIN_VALUE, then the result will be negative as well (since\nMath.abs(Integer.MIN_VALUE) == Integer.MIN_VALUE). (Same problem arises for long values as well).\n Integer.MIN_VALUE Math.abs(Integer.MIN_VALUE) == Integer.MIN_VALUE",
+  "Bug_Explanation": "The bug is embedded in the generated code by using Math.abs() on a randomly generated integer. If the random integer happens to be Integer.MIN_VALUE, Math.abs(Integer.MIN_VALUE) will still return Integer.MIN_VALUE, which is incorrect since the absolute value should be positive.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by calling the showBug method multiple times. Since the random number generator can produce Integer.MIN_VALUE, the Math.abs() function will return Integer.MIN_VALUE, which is negative. The assertions in the test cases check if the absolute value is non-negative, causing the test to fail when Integer.MIN_VALUE is encountered.",
+  "Trigger_Line": [
+    10,
+    16
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.008\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that both tests passed without any failures. Since the bug would cause the assertion to fail when the random integer generated is Integer.MIN_VALUE, and the tests did not fail, it suggests that Integer.MIN_VALUE was not generated during the test runs. Therefore, the test results do not confirm the presence of the bug."
+}

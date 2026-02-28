@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "GetClassOnClass",
+  "Bug_Details": "Calling getClass() on an object of type Class returns the Class object for java.lang.Class; you probably meant to operate on the object directly Calling getClass() on an object of type Class returns the Class object for\njava.lang.Class. Usually this is a mistake, and people intend to operate on the\nobject itself (for example, to print an error message). If you really did intend\nto operate on the Class object for java.lang.Class, please use Class.class\ninstead for clarity.",
+  "Bug_Explanation": "The bug is present in the showBug method where cls.getClass() is called. This will return the Class object for java.lang.Class, but the user likely intended to operate on the object cls directly.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered by asserting that cls is not equal to cls.getClass() in the testShowBug() method. This is because cls.getClass() returns the Class object for java.lang.Class, but the user likely intended to compare cls directly.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed without any assertion errors. This indicates that the expression 'cls.getClass()' is not equal to 'cls', which is the expected behavior and not the bug described. Therefore, the bug was not triggered in this test run."
+}

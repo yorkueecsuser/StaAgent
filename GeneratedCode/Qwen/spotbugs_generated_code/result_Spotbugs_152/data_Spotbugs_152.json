@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "SING: Class using singleton design pattern indirectly implements Cloneable interface. (SING_SINGLETON_INDIRECTLY_IMPLEMENTS_CLONEABLE)\uf0c1",
+  "Bug_Details": "\nIf a class using singleton design pattern indirectly implements the Cloneable interface, it is possible to create a copy of the object, thus violating the singleton pattern.\nTherefore, implementing the Cloneable interface should be avoided. If that's not possible because of an extended super-class, the solution would be overriding the clone method to unconditionally throw CloneNotSupportedException.\n\nFor more information, see: SEI CERT MSC07-J.\n",
+  "Bug_Explanation": "The Singleton class indirectly implements the Cloneable interface through its superclass SuperClass. This allows the creation of a cloned instance of the Singleton, violating the singleton pattern.",
+  "Buggy_Line": [
+    25
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug method on the Singleton instance, which attempts to clone the Singleton object despite it indirectly implementing the Cloneable interface.",
+  "Trigger_Line": [
+    28
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

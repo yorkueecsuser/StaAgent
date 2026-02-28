@@ -1,0 +1,9 @@
+{
+  "Bug_Title": "JUnit4TearDownNotRun",
+  "Bug_Details": "tearDown() method will not be run; please add JUnit's @After annotation JUnit 3 provides the overridable method tearDown(), to be overridden by\nsubclasses when the test needs to perform some post-test de-initialization. In\nJUnit 4, this is accomplished by annotating such a method with @After. The\nmethod that triggered this error matches the definition of tearDown() from\nJUnit3, but was not annotated with @After and thus won\u2019t be run by the JUnit4\nrunner. If you intend for this tearDown() method not to be run by the JUnit4 runner, but\nperhaps be manually invoked after certain test methods, please rename the method\nor mark it private. If the method is part of an abstract test class hierarchy where this class\u2019s\ntearDown() is invoked by a superclass method that is annotated with @After, then\nplease rename the abstract method or add @After to the superclass\u2019s definition\nof tearDown().",
+  "Bug_Explanation": "The tearDown() method is defined in the style of JUnit 3 but lacks the @After annotation required by JUnit 4. As a result, the tearDown() method will not be executed after the tests, leading to potential resource leaks or incorrect state.",
+  "Buggy_Line": [
+    16
+  ],
+  "Seed_Compilation_Status": "Successful"
+}

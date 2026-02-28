@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Assertions should not be used in production code",
+  "Bug_Details": "Assertions are intended to be used in test code, but not in production code. It is confusing, and might lead to ClassNotFoundException when the build tools only provide the required dependency in test scope.\nIn addition, assertions will throw a sub-class of Error : AssertionError , which should be avoided in production code.\nThis rule raises an issue when any assertion intended to be used in test is used in production code.\nSupported frameworks:\nJUnit FestAssert AssertJ\nJUnit\nFestAssert\nAssertJ\nNote: this does not apply for assert from Java itself or if the source code package name is related to tests (contains: test or assert or junit ).",
+  "Bug_Explanation": "The bug was embedded in the generated code by using an assertion statement within the showBug method. This assertion checks if the input value is positive and throws an AssertionError if it is not, which is not suitable for production code.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by calling the showBug method with a negative value (-5). This causes the assertion in the production code to fail, throwing an AssertionError.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that all tests passed without any errors, including the test with a negative value. This suggests that the assertion in the production code did not cause the test to fail, meaning the bug was not triggered during the test execution."
+}

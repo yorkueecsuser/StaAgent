@@ -1,0 +1,10 @@
+{
+  "Bug_Title": "UnnecessaryBooleanAssertion",
+  "Bug_Details": "A JUnit test assertion with a boolean literal is unnecessary since it always will evaluate to the same thing.\nConsider using flow control (in case of `assertTrue(false)` or similar) or simply removing\nstatements like `assertTrue(true)` and `assertFalse(false)`. If you just want a test to halt after finding\nan error, use the `fail()` method and provide an indication message of why it did.\nExamples:\npublic class SimpleTest extends TestCase {\n    public void testX() {\n        assertTrue(true);            // serves no real purpose - remove it\n    }\n}",
+  "Bug_Explanation": "The code contains assertions with boolean literals that are unnecessary, as they will always evaluate to true or false respectively. Specifically, 'assertTrue(true)' and 'assertFalse(false)' serve no purpose and can be removed.",
+  "Buggy_Line": [
+    7,
+    8
+  ],
+  "Seed_Compilation_Status": "Successful"
+}

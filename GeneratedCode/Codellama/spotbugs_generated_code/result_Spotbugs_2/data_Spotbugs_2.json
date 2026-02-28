@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "NP: Method with Optional return type returns explicit null (NP_OPTIONAL_RETURN_NULL)\uf0c1",
+  "Bug_Details": "\nThe usage of Optional return type (java.util.Optional or com.google.common.base.Optional)\nalways means that explicit null returns were not desired by design.\nReturning a null value in such case is a contract violation and will most likely break client code.\n   ",
+  "Bug_Explanation": "The getOptional() method in this code returns null explicitly, which violates the contract of the Optional return type. This code will throw a NullPointerException when the orElse() method is called on the returned Optional value.",
+  "Buggy_Line": [
+    11
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the `getOptional()` method, which returns `null`, violating the contract of the Optional return type.",
+  "Trigger_Line": [
+    11
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

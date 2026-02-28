@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "FinalizeShouldBeProtected",
+  "Bug_Details": "When overriding the finalize(), the new method should be set as protected.  If made public,\nother classes may invoke it at inappropriate times.\n\nNote that Oracle has declared Object.finalize() as deprecated since JDK 9.\nExamples:\npublic void finalize() {\n    // do something\n}",
+  "Bug_Explanation": "The finalize() method is overridden but not protected. This can cause issues as other classes can invoke finalize() at inappropriate times.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the `showBug` method in the `BuggyCode` class that in turn calls the `finalize` method. This is not a correct way to invoke the `finalize` method as `finalize` is not meant to be invoked directly by the programmer. The correct way to invoke the `finalize` method is when the garbage collector decides to collect the object.",
+  "Trigger_Line": [
+    3
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not demonstrate the bug being triggered. The test run was successful, indicating that the bug was not triggered. The test case did not encounter any errors or exceptions, which suggests that the bug was not triggered."
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "DontImportSun",
+  "Bug_Details": "Avoid importing anything from the 'sun.*' packages. These packages are not portable\nand are likely to change.\n\nIf you find yourself having to depend on Sun APIs, confine this dependency to as\nsmall a scope as possible, for instance by writing a stable wrapper class around\nthe unstable API. You can then suppress this rule in the implementation of the wrapper.\nExamples:\nimport sun.misc.foo;\npublic class Foo {}",
+  "Bug_Explanation": "The import statement for sun.misc.Unsafe is not standard and not portable. The JVM does not guarantee that sun.* packages are stable, and may change or be removed in future versions.",
+  "Buggy_Line": [
+    11
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case is triggering the bug as it is directly accessing the sun.misc.Unsafe class which is not a standard API",
+  "Trigger_Line": [
+    3
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.006\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results do not indicate that the bug was triggered. The test run was successful, indicating that the code was executed without any errors. This suggests that the bug was not triggered."
+}

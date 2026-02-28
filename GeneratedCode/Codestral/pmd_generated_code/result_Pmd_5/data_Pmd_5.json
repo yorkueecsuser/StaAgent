@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "AvoidBranchingStatementAsLastInLoop",
+  "Bug_Details": "Using a branching statement as the last part of a loop may be a bug, and/or is confusing.\nEnsure that the usage is not a bug, or consider using another approach.\nExamples:\n// unusual use of branching statement in a loop\nfor (int i = 0; i < 10; i++) {\n    if (i*i <= 25) {\n        continue;\n    }\n    break;\n}\n\n// this makes more sense...\nfor (int i = 0; i < 10; i++) {\n    if (i*i > 25) {\n        break;\n    }\n}",
+  "Bug_Explanation": "The 'break' statement is used as the last statement inside the loop, which may lead to confusion as to what the loop is supposed to do.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case calls the `showBug` method with an argument of 10, causing the loop to break when `i*i > 25`. This triggers the bug 'AvoidBranchingStatementAsLastInLoop' because the 'break' statement is used as the last statement inside the loop, which may lead to confusion.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed successfully without any failures. This indicates that the 'break' statement in the loop did not cause any issues during the test run. Therefore, the bug was not triggered in this case."
+}

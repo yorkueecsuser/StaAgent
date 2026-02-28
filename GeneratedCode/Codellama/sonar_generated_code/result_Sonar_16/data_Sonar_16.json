@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "Nullable injected fields and parameters should provide a default value",
+  "Bug_Details": "The @Value annotation does not guarantee that the property is defined. Particularly if a field or parameter is annotated as nullable,\nit indicates that the developer assumes that the property may be undefined.\nAn undefined property may lead to runtime exceptions when the Spring framework tries to inject the autowired dependency during bean creation.\nThis rule raises an issue when a nullable field or parameter is annotated with @Value and no default value is provided.",
+  "Bug_Explanation": "The @Value annotation does not guarantee that the property is defined. Particularly if a field or parameter is annotated as nullable, it indicates that the developer assumes that the property may be undefined. An undefined property may lead to runtime exceptions when the Spring framework tries to inject the autowired dependency during bean creation. This rule raises an issue when a nullable field or parameter is annotated with @Value and no default value is provided.",
+  "Buggy_Line": [
+    11
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug() method, which attempts to print the nullableProperty as uppercase, leading to a NullPointerException.",
+  "Trigger_Line": [
+    11
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

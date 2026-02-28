@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "Dm: Cannot use reflection to check for presence of annotation without runtime retention (DMI_ANNOTATION_IS_NOT_VISIBLE_TO_REFLECTION)\uf0c1",
+  "Bug_Details": " Unless an annotation has itself been annotated with  @Retention(RetentionPolicy.RUNTIME), the annotation cannot be observed using reflection\n(e.g., by using the isAnnotationPresent method).\n   .",
+  "Bug_Explanation": "The bug is caused by attempting to check if an annotation is present using the isAnnotationPresent method, but the annotation is not annotated with @Retention(RetentionPolicy.RUNTIME). The annotation is only visible at compile-time, and cannot be accessed using reflection at runtime.",
+  "Buggy_Line": [
+    17
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case triggered the bug by calling the showBug method on an instance of the AnnotationBug class, which in turn calls the isAnnotationPresent method on the class object of the MyAnnotatedClass class, which is annotated with the MyAnnotation annotation. This triggers the bug because the MyAnnotation annotation is not annotated with @Retention(RetentionPolicy.RUNTIME), and therefore cannot be observed using reflection.",
+  "Trigger_Line": [
+    17
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

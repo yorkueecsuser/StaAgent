@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Custom resources should be closed",
+  "Bug_Details": "Leaking resources in an application is never a good idea, as it can lead to memory issues, and even the crash of the application. This rule\ntemplate allows you to specify which constructions open a resource and how it is closed in order to raise issue within a method scope when custom\nresources are leaked.",
+  "Bug_Explanation": "The bug is embedded in the generated code by opening a BufferedReader but not closing it in the finally block or try-with-resources statement. This leads to a resource leak.",
+  "Buggy_Line": [
+    17
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method with a non-existent file path. This will cause an IOException to be thrown, which is caught and printed. However, the BufferedReader is not closed, leading to a resource leak.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.009\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed without any exceptions, suggesting that the absence of an IOException did not reveal the resource leak. Since the test does not provide evidence of the BufferedReader not being closed, it cannot be confirmed that the bug was triggered based solely on these results."
+}

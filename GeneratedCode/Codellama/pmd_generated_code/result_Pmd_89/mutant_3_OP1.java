@@ -1,0 +1,16 @@
+import java.util.concurrent.locks.ReentrantLock;
+
+class SynchronizedBugExample {
+    private final ReentrantLock lock = new ReentrantLock();
+
+    public void showBug() {
+        // BUG: AvoidSynchronizedStatement
+        synchronized (lock) {
+            System.out.println("Buggy code executed");
+        }
+    }
+    public void DeadStore() {
+        int deadStore = 0;
+        deadStore = 10;
+    }
+}

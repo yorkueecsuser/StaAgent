@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Files opened in append mode should not be used with \"ObjectOutputStream\"",
+  "Bug_Details": "An ObjectOutputStream writes primitive data types and graphs of Java objects to an OutputStream . The objects can be read\n(reconstituted) using an ObjectInputStream .\nWhen ObjectOutputStream is used with files opened in append mode, it can cause data corruption and unexpected behavior. This is\nbecause when ObjectOutputStream is created, it writes metadata to the output stream, which can conflict with the existing metadata when\nthe file is opened in append mode. This can lead to errors and data loss.\nWhen used with serialization, an ObjectOutputStream first writes the serialization stream header. This header should appear once per\nfile at the beginning. When you\u2019re trying to read your object(s) back from the file, only the first one will be read successfully, and a StreamCorruptedException will be thrown after that.",
+  "Bug_Explanation": "The bug is caused by using ObjectOutputStream in conjunction with a FileOutputStream that is opened in append mode. This leads to corruption because ObjectOutputStream writes a stream header each time it is created, which causes conflicts when appending to a file.",
+  "Buggy_Line": [
+    20,
+    21
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug method, which uses ObjectOutputStream with a FileOutputStream opened in append mode. This causes a StreamCorruptedException when attempting to read the objects back, as the stream header is written multiple times, corrupting the stream.",
+  "Trigger_Line": [
+    12
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.013\nThere was 1 failure:\n1) testShowBug(AppendModeObjectOutputStreamBugTest)\njava.lang.AssertionError: Expected StreamCorruptedException was not thrown\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat AppendModeObjectOutputStreamBugTest.testShowBug(AppendModeObjectOutputStreamBugTest.java:28)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show an AssertionError indicating that the expected StreamCorruptedException was not thrown, suggesting the bug was not triggered."
+}

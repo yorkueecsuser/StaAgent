@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "ImpossibleNullComparison",
+  "Bug_Details": "This value cannot be null, and comparing it to null may be misleading. This checker looks for comparisons of protocol buffer fields with null. If a\nproto field is not specified, its field accessor will return a non-null default\nvalue. Thus, the result of calling one of these accessors can never be null, and\ncomparisons like these often indicate a nearby error. If you need to distinguish between an unset optional value and a default value,\nyou have two options. In most cases, you can simply use the hasField() method.\nproto3 however does not generate hasField() methods for primitive types\n(including string and bytes). In those cases you will need to wrap your\nfield in google.protobuf.StringValue or similar. NOTE: This check applies to normal (server) protos and Lite protos. The\ndeprecated nano runtime does produce objects which use null values to indicate\nfield absence. void test(MyProto proto) {\n  if (proto.getField() == null) {\n    ...\n  }\n  if (proto.getRepeatedFieldList() != null) {\n    ...\n  }\n  if (proto.getRepeatedField(1) != null) {\n    ...\n  }\n} void test(MyProto proto) {\n  if (proto.getField() == null) {\n    ...\n  }\n  if (proto.getRepeatedFieldList() != null) {\n    ...\n  }\n  if (proto.getRepeatedField(1) != null) {\n    ...\n  }\n} void test(MyProto proto) {\n  if (!proto.hasField()) {\n    ...\n  }\n  if (!proto.getRepeatedFieldList().isEmpty()) {\n    ...\n  }\n  if (proto.getRepeatedFieldCount() > 1) {\n    ...\n  }\n} void test(MyProto proto) {\n  if (!proto.hasField()) {\n    ...\n  }\n  if (!proto.getRepeatedFieldList().isEmpty()) {\n    ...\n  }\n  if (proto.getRepeatedFieldCount() > 1) {\n    ...\n  }\n} If the presence of a field is required information in proto3, the field can be\nwrapped. For example, message MyMessage {\n  google.protobuf.StringValue my_string = 1;\n} message MyMessage {\n  google.protobuf.StringValue my_string = 1;\n} Presence can then be tested using myMessage.hasMyString(), and the value\nretrieved using myMessage.getMyString().getValue().",
+  "Bug_Explanation": "The bug is embedded in the test method where it checks if proto.getField(), proto.getRepeatedFieldList() and proto.getRepeatedField(1) are null. These checks are unnecessary and misleading because these methods can never return null.",
+  "Buggy_Line": [
+    8,
+    11,
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when the showBug method of MyClass is called with an instance of MyProto. This method in turn calls the test method which contains the incorrect null checks, causing the test to fail.",
+  "Trigger_Line": [
+    4
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test ran successfully without any failures or errors. Since there were no issues during the test execution, we cannot confirm the presence of the bug in the Java code."
+}

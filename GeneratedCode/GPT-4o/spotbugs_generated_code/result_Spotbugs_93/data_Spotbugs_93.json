@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "UMAC: Uncallable method defined in anonymous class (UMAC_UNCALLABLE_METHOD_OF_ANONYMOUS_CLASS)\uf0c1",
+  "Bug_Details": " This anonymous class defines a method that is not directly invoked and does not override\na method in a superclass. Since methods in other classes cannot directly invoke methods\ndeclared in an anonymous class, it seems that this method is uncallable. The method\nmight simply be dead code, but it is also possible that the method is intended to\noverride a method declared in a superclass, and due to a typo or other error the method does not,\nin fact, override the method it is intended to.\n",
+  "Bug_Explanation": "The anonymous class implementing the Greeting interface contains a method 'uncallableMethod' that is neither called nor overrides any method in the superclass. As methods in anonymous classes cannot be accessed directly from outside, this method is effectively dead code.",
+  "Buggy_Line": [
+    13
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls the showBug method of the AnonymousClassBug class. This indirectly triggers the demonstration of the bug where the uncallableMethod defined in the anonymous class is not invoked, leading to a logical flaw in the code. The test is marked to fail explicitly to highlight this bug.",
+  "Trigger_Line": [
+    8,
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Hello!\nE\nTime: 0.004\nThere was 1 failure:\n1) testShowBug(AnonymousClassBugTest)\njava.lang.AssertionError: This test is expected to fail due to the presence of an uncallable method.\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat AnonymousClassBugTest.testShowBug(AnonymousClassBugTest.java:10)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show a failure due to an assertion error, but this is because the test is designed to fail with a call to fail(). The uncallable method is not directly tested or shown to cause the failure, so the test results do not confirm the bug was triggered."
+}

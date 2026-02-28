@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "VarTypeName",
+  "Bug_Details": "`var` should not be used as a type name. As of JDK 10 var is a restricted local variable type and cannot be used for\ntype declarations (see JEP 286).",
+  "Bug_Explanation": "The bug is that 'VarType' is being used as a type name, which is not allowed as of JDK 10. This bug could lead to compilation errors or unexpected behavior.",
+  "Buggy_Line": [
+    9,
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug() method in the VarTypeNameBugTest class calls the showBug() method of the VarTypeNameBug class, which returns a new instance of the VarType class. However, 'VarType' is used as a type name in the VarTypeNameBug class, which is not allowed as of JDK 10. This triggers a compilation error, causing the test to fail.",
+  "Trigger_Line": [
+    5
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that no errors occurred during the test run. This suggests that the 'VarType' used in the Java code does not cause a compilation error, contrary to the bug description. However, it's important to note that the test may not have been designed to demonstrate the bug accurately. Further investigation might be needed."
+}

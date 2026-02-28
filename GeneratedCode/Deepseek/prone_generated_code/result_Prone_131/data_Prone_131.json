@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "ParcelableCreator",
+  "Bug_Details": "Detects classes which implement Parcelable but don't have CREATOR",
+  "id": "Prone_131",
+  "name": "ParcelableCreator",
+  "category": "Code Smell",
+  "description": "Detects classes which implement Parcelable but don't have CREATOR",
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_131/seed_Prone_131.java:3: error: package java.lang.lang.reflect does not exist\nimport java.lang.lang.reflect.Modifier;\n                             ^\n1 error\n",
+  "Buggy_Line": [
+    20
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The provided Java code contains a bug. The code is trying to access a private constructor of a class which is not allowed in Java. The code is trying to access the private constructor of the class that is returned by f.getType().getDeclaredConstructor(). This will throw an IllegalAccessException at runtime."
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "UseStringBufferForStringAppends",
+  "Bug_Details": "The use of the '+=' operator for appending strings causes the JVM to create and use an internal StringBuffer.\nIf a non-trivial number of these concatenations are being used then the explicit use of a StringBuilder or\nthreadsafe StringBuffer is recommended to avoid this.\nExamples:\npublic class Foo {\n    String inefficientConcatenation() {\n        String result = \"\";\n        for (int i = 0; i < 10; i++) {\n            // warning: this concatenation will create one new StringBuilder per iteration\n            result += getStringFromSomeWhere(i);\n        }\n        return result;\n    }\n\n    String efficientConcatenation() {\n        // better would be to use one StringBuilder for the entire loop\n        StringBuilder result = new StringBuilder();\n        for (int i = 0; i < 10; i++) {\n            result.append(getStringFromSomeWhere(i));\n        }\n        return result.toString();\n    }\n}",
+  "Bug_Explanation": "The method inefficientConcatenation uses the '+=' operator inside a loop to append strings, which causes the JVM to create a new StringBuilder instance in each iteration, leading to inefficient performance.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls the showBug method, which internally calls inefficientConcatenation. The inefficiency in using '+=' for string concatenation is triggered by executing this method with a large input size, causing the JVM to create many temporary StringBuilder objects.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.01\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any errors or failures. The inefficiency described by the bug rule is not something that can be directly confirmed or detected through the test results, as it does not cause a test failure or exception. Therefore, the test results do not confirm the bug was triggered."
+}

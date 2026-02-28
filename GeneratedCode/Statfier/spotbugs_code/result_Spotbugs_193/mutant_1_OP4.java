@@ -1,0 +1,49 @@
+import edu.umd.cs.findbugs.annotations.CheckForNull;
+
+class InsideCatchBlock {
+  public int doNotReportCatchNullPointerException(@CheckForNull Object x) {
+    try {
+      return x.hashCode();
+    } catch (NullPointerException e) {
+      boolean shouldRun = getCondition();
+      if (shouldRun) {
+        // This block is intentionally left empty to be unreachable
+      } else {
+        // This block is also intentionally left empty to be unreachable
+      }
+      return 42;
+    }
+  }
+
+  public int doNotReportCatchRuntimeException(@CheckForNull Object x) {
+    try {
+      return x.hashCode();
+    } catch (RuntimeException e) {
+      boolean shouldRun = getCondition();
+      if (shouldRun) {
+        // This block is intentionally left empty to be unreachable
+      } else {
+        // This block is also intentionally left empty to be unreachable
+      }
+      return 42;
+    }
+  }
+
+  public int doNotReportCatchException(@CheckForNull Object x) {
+    try {
+      return x.hashCode();
+    } catch (Exception e) {
+      boolean shouldRun = getCondition();
+      if (shouldRun) {
+        // This block is intentionally left empty to be unreachable
+      } else {
+        // This block is also intentionally left empty to be unreachable
+      }
+      return 42;
+    }
+  }
+
+  private boolean getCondition() {
+    return false; // This method always returns false, ensuring the if-else branches are unreachable
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Exceptions should not be created without being thrown",
+  "Bug_Details": "Creating a new Throwable without actually throwing it is useless and is probably due to a mistake.\nNoncompliant code example\nif (x < 0)\n  new IllegalArgumentException(\"x must be nonnegative\");\nCompliant solution\nif (x < 0)\n  throw new IllegalArgumentException(\"x must be nonnegative\");",
+  "Bug_Explanation": "The code creates a new IllegalArgumentException but does not throw it, making the creation of the exception object useless.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test cases call the showBug method with a negative value, which triggers the creation of an IllegalArgumentException without throwing it, leading to a logical error as per the given bug description.",
+  "Trigger_Line": [
+    9,
+    15
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.005\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that both tests passed successfully (OK), indicating that the exceptions were never thrown. This confirms that the bug described as 'Exceptions should not be created without being thrown' was not triggered during the test run."
+}

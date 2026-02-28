@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "UnnecessaryTypeArgument",
+  "Bug_Details": "Non-generic methods should not be invoked with type arguments JLS \u00a715.12.2.1 allows non-generic methods to be invoked with type arguments: a non-generic method may be potentially applicable to an invocation that\nsupplies explicit type arguments. Indeed, it may turn out to be applicable. In\nsuch a case, the type arguments will simply be ignored. This rule stems from issues of compatibility and principles of\nsubstitutability. Since interfaces or superclasses may be generified\nindependently of their subtypes, we may override a generic method with a\nnon-generic one. However, the overriding (non-generic) method must be\napplicable to calls to the generic method, including calls that explicitly\npass type arguments. Otherwise the subtype would not be substitutable for its\ngenerified supertype. There is no reason to do this in cases where the method being called is not an\noverride of a generic method.",
+  "Bug_Explanation": "The bug is that nonGenericMethod is being invoked with unnecessary type arguments, which are removed in the fix.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered by invoking the nonGenericMethod() with unnecessary type arguments. The test case asserts that the expected result matches the actual result of the method invocation, but the unnecessary type argument causes the actual result to be different from the expected result, causing the test case to fail.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed successfully without any errors. The test invokes the non-generic method with type arguments, but the code execution was successful. According to the bug information, this should not cause any problems as the type arguments will be ignored. Therefore, the test results do not confirm the presence of the described bug in the Java code."
+}

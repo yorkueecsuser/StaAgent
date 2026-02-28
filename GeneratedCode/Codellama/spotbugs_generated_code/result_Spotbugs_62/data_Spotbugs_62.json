@@ -1,0 +1,10 @@
+{
+  "Bug_Title": "NP: Non-virtual method call passes null for non-null parameter (NP_NULL_PARAM_DEREF_NONVIRTUAL)\uf0c1",
+  "Bug_Details": "\n  A possibly-null value is passed to a non-null method parameter.\nEither the parameter is annotated as a parameter that should\nalways be non-null, or analysis has shown that it will always be\ndereferenced.\n  ",
+  "Bug_Explanation": "The bug is caused by passing null to the non-null parameter 'list' of the 'doSomething' method.",
+  "Buggy_Line": [
+    16
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.005\nThere was 1 failure:\n1) testMain(NonNullDerefTest)\njava.lang.NullPointerException: Cannot invoke \"NonNullDeref.printName()\" because \"<local1>\" is null\n\tat NonNullDerefTest.testMain(NonNullDerefTest.java:9)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n"
+}

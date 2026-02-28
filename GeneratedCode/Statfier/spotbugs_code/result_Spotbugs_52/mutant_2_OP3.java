@@ -1,0 +1,56 @@
+/**
+ * Submitted By: Heiko W.Rupp - pilhuhn Summary: (?) NPE and NFE concerning types like Integer not
+ * found
+ *
+ * <p>The attache file contains three Exception throwing locations that all are not detected.
+ *
+ * <p>The first one is from autounboxing NULL as Integer into an int. The second one is the explicit
+ * version of the previous one. The third is not a NPE, but a guaranteed NumberFormatException.
+ */
+class Bug1795838 {
+  public static void main(String arg[]) {
+    Bug1795838 fb = new Bug1795838();
+    fb.foo();
+  }
+
+  public void foo() {
+    int x;
+    // Guaranteed NullPointerException
+    x = bar(); // NPE due to implicit Integer.intValue()
+    System.out.println("X is " + x);
+
+    // Unreachable if statement mutation
+    boolean condition = getCondition();
+    if (condition) {
+      System.out.println("This is an unreachable statement due to condition always being false.");
+    }
+
+    Integer tmp;
+    tmp = bar();
+    // Guaranteed NullPointerException
+    int i = tmp.intValue(); // NPE
+    System.out.println("I is " + i);
+
+    // Guaranteed NumberFormatException
+    i = Integer.parseInt(null); // NFE : null
+    System.out.println("I is now" + i);
+
+    // Another unreachable if statement mutation
+    boolean anotherCondition = getAnotherCondition();
+    if (anotherCondition) {
+      System.out.println("This is another unreachable statement due to condition always being false.");
+    }
+  }
+
+  public Integer bar() {
+    return null;
+  }
+
+  private boolean getCondition() {
+    return false;
+  }
+
+  private boolean getAnotherCondition() {
+    return false;
+  }
+}

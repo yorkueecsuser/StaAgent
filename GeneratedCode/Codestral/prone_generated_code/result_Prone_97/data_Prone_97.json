@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "JodaToSelf",
+  "Bug_Details": "Use of Joda-Time's DateTime.toDateTime(), Duration.toDuration(), Instant.toInstant(), Interval.toInterval(), and Period.toPeriod() are not allowed. Joda-Time\u2019s DateTime.toDateTime(), Duration.toDuration(), Instant.toInstant(), Interval.toInterval(), and Period.toPeriod() are always unnecessary, since they simply \u2018return this\u2019. There is no reason to ever call them.",
+  "Bug_Explanation": "The bug has been embedded by using the LocalDateTime object itself instead of calling any conversion method. This is similar to the JodaToSelf bug where Joda-Time's DateTime.toDateTime(), which returns the same object, is not allowed.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case fails because the showBug method simply returns the same object that was passed into it, which violates the bug rule.",
+  "Trigger_Line": "[7]",
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.018\nThere was 1 failure:\n1) testShowBug(JodaToSelfBugTest)\njava.lang.AssertionError: Values should be different. Actual: 2025-03-05T02:46:04.458257035\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat org.junit.Assert.failEquals(Assert.java:187)\n\tat org.junit.Assert.assertNotEquals(Assert.java:163)\n\tat org.junit.Assert.assertNotEquals(Assert.java:177)\n\tat JodaToSelfBugTest.testShowBug(JodaToSelfBugTest.java:11)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the assertion failed, indicating that the input and output of the function were not equal. However, the Java code does not contain any usage of Joda-Time's DateTime.toDateTime(), Duration.toDuration(), Instant.toInstant(), Interval.toInterval(), or Period.toPeriod() methods, which are the methods mentioned in the bug description. Therefore, the test results do not confirm the presence of the described bug in the Java code."
+}

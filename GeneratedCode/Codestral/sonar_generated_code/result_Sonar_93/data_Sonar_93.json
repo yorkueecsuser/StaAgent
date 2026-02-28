@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Non-existent operators like \"=+\" should not be used",
+  "Bug_Details": "Using operator pairs ( =+ , =- , or =! ) that look like reversed single operators ( += , -= or != ) is confusing. They compile and run but do not produce the same result as their mirrored counterpart.\nint target = -5;\nint num = 3;\n\ntarget =- num;  // Noncompliant: target = -3. Is that the intended behavior?\ntarget =+ num; // Noncompliant: target = 3\nThis rule raises an issue when =+ , =- , or =! are used without any space between the operators and when there\nis at least one whitespace after.\nReplace the operators with a single one if that is the intention\nint target = -5;\nint num = 3;\n\ntarget -= num;  // target = -8\nOr fix the spacing to avoid confusion\nint target = -5;\nint num = 3;\n\ntarget = -num;  // target = -3",
+  "Bug_Explanation": "The bug is embedded in the `showBug` method on line 5. The incorrect operator `=-` is used instead of `-=`. This compiles and runs, but it does not produce the same result as `-=`, causing confusion.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered in the testShowBug method when the showBug method of BugExample class is called. The incorrect operator '=-' used in the showBug method causes a different result than intended, which is not equal to -8. The assertNotEquals statement in the test case fails because the actual result is -3, not -8.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the expected output is not equal to the actual output, but the actual output is -3 which is the result of the non-compliant operation 'target =- num'. This indicates that the bug was not triggered as expected in the test."
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "DoubleCheckedLocking",
+  "Bug_Details": "Partially created objects can be returned by the Double Checked Locking pattern when used in Java.\nAn optimizing JRE may assign a reference to the baz variable before it calls the constructor of the object the\nreference points to.\n\nNote: With Java 5, you can make Double checked locking work, if you declare the variable to be `volatile`.\n\nFor more details refer to: <http://www.javaworld.com/javaworld/jw-02-2001/jw-0209-double.html>\nor <http://www.cs.umd.edu/~pugh/java/memoryModel/DoubleCheckedLocking.html>\nExamples:\npublic class Foo {\n    /*volatile */ Object baz = null; // fix for Java5 and later: volatile\n    Object bar() {\n        if (baz == null) { // baz may be non-null yet not fully created\n            synchronized(this) {\n                if (baz == null) {\n                    baz = new Object();\n                }\n              }\n        }\n        return baz;\n    }\n}",
+  "Bug_Explanation": "The bug was embedded in the generated code by declaring the 'baz' variable without the 'volatile' keyword. This allows the JRE to potentially return a reference to 'baz' before its constructor has completed, leading to partially constructed objects being returned.",
+  "Buggy_Line": [
+    2
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug method of the DoubleCheckedLockingExample class. Due to the lack of the 'volatile' keyword on the 'baz' variable, the JRE might return a reference to 'baz' before its constructor has completed, leading to a partially constructed object being returned. The test will fail because the assertion does not account for the potential partial construction of the object, but the underlying issue is the Double Checked Locking pattern without 'volatile'.",
+  "Trigger_Line": [
+    11
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results only indicate that the method'showBug()' did not return a null value, which does not confirm the presence of the DoubleCheckedLocking bug. The bug would manifest in more complex scenarios involving concurrent access and partial object creation, which are not evident from the provided test execution results."
+}

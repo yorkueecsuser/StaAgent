@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "TypeParameterQualifier",
+  "Bug_Details": "Type parameter used as type qualifier Using a type parameter as a qualifier in the name of a type or expression is\nequivalent to referencing the type parameter\u2019s upper bound directly. For example, this signature: static <T extends Message> T populate(T.Builder builder) {} static <T extends Message> T populate(T.Builder builder) {} Is identical to the following: static <T extends Message> T populate(Message.Builder builder) {} static <T extends Message> T populate(Message.Builder builder) {} The use of T.Builder is unnecessary and misleading. Always refer to the type\nby its canonical name Message.Builder instead.",
+  "Bug_Explanation": "The method 'populate' uses a type parameter 'T' as a qualifier for 'T.Builder'. This is unnecessary and misleading because the type parameter 'T' is bounded by 'Message'. It should use 'Message.Builder' directly.",
+  "Buggy_Line": [
+    27
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls TypeParameterBugDemo.showBug(), which in turn calls the buggy populate method. The bug is triggered because the populate method incorrectly uses the type parameter T as a qualifier for T.Builder, leading to a cast exception during runtime.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without errors, which means the bug was not triggered. The expected output matched the actual output."
+}

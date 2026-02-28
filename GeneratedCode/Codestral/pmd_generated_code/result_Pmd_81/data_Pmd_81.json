@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "UnnecessaryConversionTemporary",
+  "Bug_Details": "Avoid the use temporary objects when converting primitives to Strings. Use the static conversion methods\non the wrapper classes instead.\nExamples:\npublic String convert(int x) {\n    String foo = new Integer(x).toString(); // this wastes an object\n\n    return Integer.toString(x);             // preferred approach\n}",
+  "Bug_Explanation": "The bug UnnecessaryConversionTemporary is demonstrated by creating a new Integer object instead of using Integer.toString static method to convert integer to string.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered in the testShowBug method when the showBug method of the UnnecessaryConversionBug class is called. This is because the showBug method internally calls the convert method which contains the bug UnnecessaryConversionTemporary, creating a new Integer object instead of using the Integer.toString static method to convert integer to string.",
+  "Trigger_Line": [
+    5,
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test cases passed successfully without any errors. This indicates that the bug was not triggered during the test run. However, the presence of the bug in the code is not confirmed by the test results."
+}

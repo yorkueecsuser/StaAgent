@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Dm: Futile attempt to change max pool size of ScheduledThreadPoolExecutor (DMI_FUTILE_ATTEMPT_TO_CHANGE_MAXPOOL_SIZE_OF_SCHEDULED_THREAD_POOL_EXECUTOR)\uf0c1",
+  "Bug_Details": "(Javadoc)\nWhile ScheduledThreadPoolExecutor inherits from ThreadPoolExecutor, a few of the inherited tuning methods are not useful for it. In particular, because it acts as a fixed-sized pool using corePoolSize threads and an unbounded queue, adjustments to maximumPoolSize have no useful effect.\n    ",
+  "Bug_Explanation": "The bug is present in the line where the maximum pool size is set to 10. Although the setter method is used, the value is not changed because the ScheduledThreadPoolExecutor acts as a fixed-sized pool using corePoolSize threads and an unbounded queue. Therefore, any adjustments to the maximum pool size have no effect.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by attempting to change the maximum pool size of a ScheduledThreadPoolExecutor, which is futile since the pool size is fixed at 5 threads.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.The maximum pool size is: 10\n\nTime: 0.008\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not demonstrate the bug was triggered. The maximum pool size is correctly set to 10 and the test passes."
+}

@@ -1,0 +1,135 @@
+import android.os.Binder;
+import android.os.RemoteException;
+import java.util.concurrent.Executor;
+
+class AttributeFlows {
+  static Binder binder;
+
+  private static void doTransact() {
+    try {
+      binder.transact(0, null, null, 0);
+    } catch (RemoteException e) {
+    }
+  }
+
+  private Executor getBackgroundExecutor() {
+    boolean condition = getCondition();
+    if (condition) {
+      // Some code that will never be executed due to condition always being false
+      System.out.println("This is an unreachable code block.");
+    } else {
+      // Some alternative code that will also never be executed due to condition always being false
+      System.out.println("This is another unreachable code block.");
+    }
+    return Executors.getBackgroundExecutor();
+  }
+
+  private Executor indirectlyGetBackgroundExecutor() {
+    return getBackgroundExecutor();
+  }
+
+  private Executor getForegroundExecutor() {
+    return Executors.getForegroundExecutor();
+  }
+
+  private Executor indirectlyGetForegroundExecutor() {
+    return getForegroundExecutor();
+  }
+
+  // executors are all on background threads, no report
+  public void postBlockingCallToForegroundExecutorOk() {
+    indirectlyGetForegroundExecutor()
+       .execute(
+            new Runnable() {
+              @Override
+              public void run() {
+                doTransact();
+              }
+            });
+  }
+
+  // no report here
+  public void postBlockingCallToBackgroundExecutorOk() {
+    indirectlyGetBackgroundExecutor()
+       .execute(
+            new Runnable() {
+              @Override
+              public void run() {
+                doTransact();
+              }
+            });
+  }
+
+  @ForUiThread private final Executor mUiThreadExecutor = null;
+  @ForNonUiThread private final Executor mNonUiThreadExecutor = null;
+
+  private Executor getAnnotatedBackgroundExecutor() {
+    return mNonUiThreadExecutor;
+  }
+
+  private Executor indirectlyGetAnnotatedBackgroundExecutor() {
+    return getAnnotatedBackgroundExecutor();
+  }
+
+  private Executor getAnnotatedForegroundExecutor() {
+    return mUiThreadExecutor;
+  }
+
+  private Executor indirectlyGetAnnotatedForegroundExecutor() {
+    return getAnnotatedForegroundExecutor();
+  }
+
+  // starvation via scheduling a transaction on UI thread
+  public void postBlockingCallToAnnnotatedUIThreadBad() {
+    indirectlyGetAnnotatedForegroundExecutor()
+       .execute(
+            new Runnable() {
+              @Override
+              public void run() {
+                doTransact();
+              }
+            });
+  }
+
+  // no report here
+  public void postBlockingCallToAnnotatedNonUIThreadOk() {
+    indirectlyGetAnnotatedBackgroundExecutor()
+       .execute(
+            new Runnable() {
+              @Override
+              public void run() {
+                doTransact();
+              }
+            });
+  }
+
+  Runnable getBadRunnable() {
+    return new Runnable() {
+      @Override
+      public void run() {
+        doTransact();
+      }
+    };
+  }
+
+  public void postRunnableIndirectlyToUIThreadBad() {
+    mUiThreadExecutor.execute(getBadRunnable());
+  }
+
+  Runnable runnableField =
+      new Runnable() {
+        @Override
+        public void run() {
+          doTransact();
+        }
+      };
+
+  public void postRunnableFieldToUIThreadBad() {
+    mUiThreadExecutor.execute(runnableField);
+  }
+
+  // Method to provide a dynamic condition that is always false
+  private boolean getCondition() {
+    return false;
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "IO: Doomed attempt to append to an object output stream (IO_APPENDING_TO_OBJECT_OUTPUT_STREAM)\uf0c1",
+  "Bug_Details": "\nThis code opens a file in append mode and then wraps the result in an object output stream like as follows:\n  \nThis won't allow you to append to an existing object output stream stored in a file. If you want to be\nable to append to an object output stream, you need to keep the object output stream open.\n  The only situation in which opening a file in append mode and the writing an object output stream\n could work is if on reading the file you plan to open it in random access mode and seek to the byte offset\n where the append started.\n  OutputStream out = new FileOutputStream(anyFile, true);\nnew ObjectOutputStream(out);",
+  "Bug_Explanation": "The bug is embedded in the code by attempting to append to an object output stream by opening the file in append mode. This will not work as expected because ObjectOutputStream does not support appending to an existing stream.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method, which attempts to append to an object output stream by opening the file in append mode. This triggers the bug because ObjectOutputStream does not support appending to an existing stream.",
+  "Trigger_Line": [
+    11
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.013\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed without any exceptions being thrown. This does not confirm that the bug was triggered, as the bug would typically manifest with issues when attempting to read the appended data or with file corruption. Since no errors were reported, we cannot conclusively say that the bug was triggered based solely on the provided test results."
+}

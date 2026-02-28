@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "Mockito argument matchers should be used on all parameters",
+  "Bug_Details": "Mockito provides argument matchers and argument captors for flexibly stubbing or verifying method calls.\nMockito.verify() , Mockito.when() , Stubber.when() and BDDMockito.given() each have overloads\nwith and without argument matchers.\nHowever, if argument matchers or captors are used only on some of the parameters, all the parameters need to have matchers as well, otherwise an InvalidUseOfMatchersException will be thrown.\nThis rule consequently raises an issue every time matchers are not used on all the parameters of a stubbed/verified method.",
+  "Bug_Explanation": "The original code is trying to mock a List using Mockito. However, it is not using Mockito argument matchers on all parameters in the get method, which triggers a compilation error. The bug is trying to demonstrate that Mockito argument matchers should be used on all parameters.",
+  "Buggy_Line": [
+    7,
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "Mockito argument matchers are not used on all parameters of the'showBug' method",
+  "Trigger_Line": [
+    18
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "No",
+  "Model_Explanation": "The code does not contain the described bug. The Mockito argument matchers are not used on all parameters of the method'showBug'. The Mockito argument matchers are used on the 'inputList.get(0)' method call, but not on the 'inputList.isEmpty()' method call. This does not violate the rule of using argument matchers on all parameters."
+}

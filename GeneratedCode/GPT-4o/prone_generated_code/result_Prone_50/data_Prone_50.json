@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "FloggerLogString",
+  "Bug_Details": "Arguments to log(String) must be compile-time constants or parameters annotated with @CompileTimeConstant. If possible, use Flogger's formatting log methods instead.",
+  "Bug_Explanation": "The bug is that the logger.info method is called with a dynamic string argument, which is not a compile-time constant or a parameter annotated with @CompileTimeConstant. This goes against the FloggerLogString rule.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test cases in the generated JUnit test code trigger the FloggerLogString bug by passing dynamic strings to the log method, which violates the rule that log arguments must be compile-time constants or annotated with @CompileTimeConstant.",
+  "Trigger_Line": [
+    12,
+    21
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.037\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that both tests passed successfully without any indication of an error or exception being thrown. This suggests that the presence of the bug was not confirmed by the test execution, as the tests were designed to pass regardless of the logger usage issue described by the bug rule."
+}

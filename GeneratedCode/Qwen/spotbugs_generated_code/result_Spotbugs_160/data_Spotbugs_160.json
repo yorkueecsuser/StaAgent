@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "XSS: JSP reflected cross site scripting vulnerability (XSS_REQUEST_PARAMETER_TO_JSP_WRITER)\uf0c1",
+  "Bug_Details": "This code directly writes an HTTP parameter to JSP output, which allows for a cross site scripting\nvulnerability. See http://en.wikipedia.org/wiki/Cross-site_scripting\nfor more information. SpotBugs looks only for the most blatant, obvious cases of cross site scripting.\nIf SpotBugs found any, you almost certainly have more cross site scripting\nvulnerabilities that SpotBugs doesn't report. If you are concerned about cross site scripting, you should seriously\nconsider using a commercial static analysis or pen-testing tool.\n",
+  "Bug_Explanation": "The bug is embedded in the generated code by directly writing user input from an HTTP request to the JSP output without any sanitization or encoding. This allows for a cross-site scripting (XSS) vulnerability.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "spotbugs_clean_java_code/result_Spotbugs_160/seed_Spotbugs_160.java:1: error: package javax.servlet.http does not exist\nimport javax.servlet.http.HttpServletRequest;\n                         ^\nspotbugs_clean_java_code/result_Spotbugs_160/seed_Spotbugs_160.java:2: error: package javax.servlet.jsp does not exist\nimport javax.servlet.jsp.JspWriter;\n                        ^\nspotbugs_clean_java_code/result_Spotbugs_160/seed_Spotbugs_160.java:6: error: cannot find symbol\n    public void showBug(HttpServletRequest request, JspWriter out) throws Exception {\n                        ^\n  symbol:   class HttpServletRequest\n  location: class XssExample\nspotbugs_clean_java_code/result_Spotbugs_160/seed_Spotbugs_160.java:6: error: cannot find symbol\n    public void showBug(HttpServletRequest request, JspWriter out) throws Exception {\n                                                    ^\n  symbol:   class JspWriter\n  location: class XssExample\n4 errors\n",
+  "Trigger_Explanation": "The test case triggers the bug by passing a malicious script as a request parameter to the showBug method, which then writes this script directly to the JspWriter without any sanitization, leading to an XSS vulnerability.",
+  "Trigger_Line": [
+    26
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

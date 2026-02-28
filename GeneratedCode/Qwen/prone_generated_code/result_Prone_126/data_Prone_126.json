@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "OptionalOfRedundantMethod",
+  "Bug_Details": "Optional.of() always returns a non-empty optional. Using ifPresent/isPresent/orElse/orElseGet/orElseThrow/isPresent/or/orNull method on it is unnecessary and most probably a bug.",
+  "Bug_Explanation": "The bug is embedded in the generated code by using the isPresent() method on an Optional object that is guaranteed to be non-empty due to the use of Optional.of(). This check is redundant and can be considered a bug.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by calling the showBug method with a non-null input. The showBug method uses isPresent() on an Optional object that is guaranteed to be non-empty due to the use of Optional.of(), which is redundant and can be considered a bug.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E.\nTime: 0.008\nThere was 1 failure:\n1) testShowBugWithNullInput(OptionalBugExampleTest)\njava.lang.NullPointerException\n\tat java.base/java.util.Objects.requireNonNull(Objects.java:233)\n\tat java.base/java.util.Optional.of(Optional.java:113)\n\tat OptionalBugExample.showBug(OptionalBugExample.java:6)\n\tat OptionalBugExampleTest.testShowBugWithNullInput(OptionalBugExampleTest.java:17)\n\nFAILURES!!!\nTests run: 2,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate a NullPointerException in the testShowBugWithNullInput test case, which suggests that the code does not handle null inputs correctly. However, this does not directly confirm the presence of the OptionalOfRedundantMethod bug, which is about using isPresent() on an Optional created with Optional.of(). The testShowBugWithNonNullInput passed without any issues, indicating that the redundant isPresent() call did not cause a failure in that scenario."
+}

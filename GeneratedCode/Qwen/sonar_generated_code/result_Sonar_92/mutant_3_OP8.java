@@ -1,0 +1,61 @@
+class UnaryOperatorBug {
+
+    public int showBug1(int i) {
+        int j = - - -i;  // BUG: Unary prefix operators should not be repeated
+        int a = - - -i;  // Mutant: Renamed variable j to a
+        return j;
+    }
+
+    public int showBug2(int i) {
+        int k = ~~~i;    // BUG: Unary prefix operators should not be repeated
+        int b = ~~~i;    // Mutant: Renamed variable k to b
+        return k;
+    }
+
+    public int showBug3(int i) {
+        int m = + +i;    // BUG: Unary prefix operators should not be repeated
+        int c = + +i;    // Mutant: Renamed variable m to c
+        return m;
+    }
+
+    public boolean showBug4(boolean b) {
+        boolean c =!!!b;   // BUG: Unary prefix operators should not be repeated
+        boolean d =!!!b;   // Mutant: Renamed variable c to d
+        return c;
+    }
+
+    public int showBug5(int i) {
+        int j = i++;     // Modified to compile, but retains the intended bug concept
+        j = i++;         // BUG: Unary prefix operators should not be repeated
+        int e = i++;     // Mutant: Renamed variable j to e
+        return j;
+    }
+
+    public int showBug6(int i) {
+        int k = i--;     // Modified to compile, but retains the intended bug concept
+        k = i--;         // BUG: Unary prefix operators should not be repeated
+        int f = i--;     // Mutant: Renamed variable k to f
+        return k;
+    }
+
+    public int showBug(int i) {
+        int result1 = showBug1(i);
+        int result2 = showBug2(i);
+        int result3 = showBug3(i);
+        boolean result4 = showBug4(false);
+        int result5 = showBug5(i);
+        int result6 = showBug6(i);
+        System.out.println("showBug1: " + result1);
+        System.out.println("showBug2: " + result2);
+        System.out.println("showBug3: " + result3);
+        System.out.println("showBug4: " + result4);
+        System.out.println("showBug5: " + result5);
+        System.out.println("showBug6: " + result6);
+        return result1 + result2 + result3 + (result4? 1 : 0) + result5 + result6;
+    }
+
+    public static void main(String[] args) {
+        UnaryOperatorBug bugDemo = new UnaryOperatorBug();
+        bugDemo.showBug(1);
+    }
+}

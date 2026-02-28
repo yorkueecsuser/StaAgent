@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Eq: equals() method defined that doesn\u2019t override Object.equals(Object) (EQ_OTHER_USE_OBJECT)\uf0c1",
+  "Bug_Details": " This class defines an equals()\nmethod, that doesn't override the normal equals(Object) method\ndefined in the base java.lang.Object class.\u00a0\nThe class should probably define a boolean equals(Object) method.\n equals() equals(Object) java.lang.Object boolean equals(Object)",
+  "Bug_Explanation": "The bug is embedded in the generated code by defining a method named 'equals(ExampleClass other)' instead of overriding the 'equals(Object obj)' method from the Object class. This can lead to issues when comparing objects using the standard equals method, which expects an Object parameter.",
+  "Buggy_Line": [
+    11
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test cases call the'showBug' method of the 'ExampleClass'. Since the 'equals' method is incorrectly defined to take 'ExampleClass' instead of 'Object', the test cases will pass but they do not trigger the bug directly. However, the bug is in the definition of the 'equals' method itself, which does not override 'Object.equals(Object)'. The test cases demonstrate the incorrect behavior by calling'showBug', which internally uses the incorrectly defined 'equals' method.",
+  "Trigger_Line": [
+    9,
+    13
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.008\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that both tests passed successfully without any assertion errors. However, the bug rule specifies that the equals() method should override the Object.equals(Object) method, which it does not in the provided Java code. Despite the tests passing, they do not confirm the presence of the bug because they are using the incorrectly defined equals(ExampleClass other) method instead of the correct equals(Object obj) method. Therefore, while the bug exists in the code, the test results do not confirm its triggering."
+}

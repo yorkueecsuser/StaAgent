@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "\"PreparedStatement\" and \"ResultSet\" methods should be called with valid indices",
+  "Bug_Details": "PreparedStatement is an object that represents a precompiled SQL statement, that can be used to execute the statement multiple times\nefficiently.\nResultSet is the Java representation of the result set of a database query obtained from a Statement object. A default ResultSet object is not updatable and has a cursor that moves forward only.\nThe parameters in PreparedStatement and ResultSet are indexed beginning at 1, not 0. When an invalid index is passed to\nthe PreparedStatement or ResultSet methods, an IndexOutOfBoundsException is thrown. This can cause the program\nto crash or behave unexpectedly, leading to a poor user experience.\nThis rule raises an issue for the get methods in PreparedStatement and the set methods in ResultSet .",
+  "Bug_Explanation": "PreparedStatement methods and ResultSet methods are called with invalid indices. The valid index for these methods starts at 1, but the code uses 0, which can lead to an IndexOutOfBoundsException.",
+  "Buggy_Line": [
+    41,
+    27
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method, which internally attempts to use invalid indices for PreparedStatement and ResultSet. This leads to an IndexOutOfBoundsException, which causes the test to fail, thereby triggering the bug.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.011\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test ran successfully without errors, as noted by 'OK (1 test)', which suggests that the bug was not triggered during the test execution."
+}

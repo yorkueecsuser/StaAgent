@@ -1,0 +1,18 @@
+class SkippedSourceFile {
+
+  static Object createdBySkippedFile() {
+    return null;
+  }
+
+  // Inserting an unreachable for loop
+  static boolean getCondition() {
+    return false;
+  }
+
+  static void someMethod() {
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // This loop is unreachable because conditionFor is always false
+    }
+  }
+}

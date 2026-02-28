@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "Set appropriate Status Codes on HTTP responses",
+  "Bug_Details": "The request handler function in a Controller should set the appropriate HTTP status code based on the operation\u2019s success or failure.\nThis is done by returning a Response object with the appropriate status code.\nIf an exception is thrown during the execution of the handler, the status code should be in the range of 4xx or 5xx. Examples of such codes are BAD_REQUEST , UNAUTHORIZED , FORBIDDEN , NOT_FOUND , INTERNAL_SERVER_ERROR , BAD_GATEWAY , SERVICE_UNAVAILABLE , etc.\nThe status code should be 1xx, 2xx, or 3xx if no exception is thrown and the operation is considered successful. Such codes include OK , CREATED , MOVED_PERMANENTLY , FOUND , etc.",
+  "Bug_Explanation": "The bug is embedded in the generated code by setting the HTTP status code to SC_OK (200) when an exception is thrown, which is incorrect as per the bug rule. The correct status code should be in the 4xx or 5xx range.",
+  "Buggy_Line": [
+    26
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by calling the showBug method, which throws a RuntimeException wrapped in an IOException. The test expects this exception to be thrown and checks the message of the cause exception.",
+  "Trigger_Line": [
+    9
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

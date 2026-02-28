@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "EC: Invocation of equals() on an array, which is equivalent to == (EC_BAD_ARRAY_COMPARE)\uf0c1",
+  "Bug_Details": "\nThis method invokes the .equals(Object o) method on an array. Since arrays do not override the equals\nmethod of Object, calling equals on an array is the same as comparing their addresses. To compare the\ncontents of the arrays, use java.util.Arrays.equals(Object[], Object[]).\nTo compare the addresses of the arrays, it would be\nless confusing to explicitly check pointer equality using ==.\n java.util.Arrays.equals(Object[], Object[]) ==",
+  "Bug_Explanation": "The bug is caused when the equals() method is invoked on an array. This is equivalent to comparing their addresses, not the contents of the arrays. To compare the contents, use java.util.Arrays.equals(Object[], Object[]).",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case 'testCompareArrays' in the class 'ArrayComparisonBugTest' triggers the bug because it asserts that 'bug.showBug(array1, array2)' returns false. However, the bug in the code is that the equals() method is invoked on arrays, which is equivalent to checking their addresses, not the contents of the arrays. Therefore, the assertion fails if the arrays have the same contents but are not the same object, which is the intended behavior.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed (OK (1 test)) which means the bug was not triggered. The test compared two arrays with the same elements, and the assertFalse() method did not throw an exception, indicating that the arrays were not equal. This is consistent with the expected behavior of comparing arrays with the equals() method, which compares their addresses, not their contents."
+}

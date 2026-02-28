@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "SuppressWarningsDeprecated",
+  "Bug_Details": "Suppressing \"deprecated\" is probably a typo for \"deprecation\" To suppress warnings to deprecated methods, you should add the annotation\n@SuppressWarnings(\"deprecation\") and not @SuppressWarnings(\"deprecated\")",
+  "Bug_Explanation": "The bug was embedded in the generated code by incorrectly using @SuppressWarnings(\"deprecated\") instead of @SuppressWarnings(\"deprecation\"). This annotation is intended to suppress warnings related to deprecated methods, but the incorrect spelling will not achieve the desired effect.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method of DeprecatedExample, which uses the deprecated getYear method on a Date object despite having a SuppressWarnings annotation with the incorrect value 'deprecated'.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.011\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed successfully without any errors or warnings. There is no evidence in the test results to suggest that the bug related to the incorrect use of the @SuppressWarnings annotation was triggered."
+}

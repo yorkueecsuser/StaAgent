@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "CallSuperLast",
+  "Bug_Details": "Super should be called at the end of the method\nExamples:\nimport android.app.Activity;\n\npublic class DummyActivity extends Activity {\n    public void onPause() {\n        foo();\n        // missing call to super.onPause()\n    }\n}",
+  "Bug_Explanation": "The bug is embedded in the someMethod of ExampleClass where the call to super.someMethod() is intentionally omitted and should be placed at the end of the method.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method on an instance of ExampleClass. The bug is in the someMethod of ExampleClass where super.someMethod() is not called at the end.",
+  "Trigger_Line": [
+    27
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

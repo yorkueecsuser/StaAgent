@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "UseNotifyAllInsteadOfNotify",
+  "Bug_Details": "Thread.notify() awakens a thread monitoring the object. If more than one thread is monitoring, then only\none is chosen.  The thread chosen is arbitrary; thus it's usually safer to call notifyAll() instead.\nExamples:\nvoid bar() {\n    x.notify();\n    // If many threads are monitoring x, only one (and you won't know which) will be notified.\n    // use instead:\n    x.notifyAll();\n  }",
+  "Bug_Explanation": "The method changeCondition() uses notify() instead of notifyAll(). This can result in only one of multiple waiting threads being notified, leaving the others potentially blocked indefinitely. Using notifyAll() would ensure that all waiting threads are notified.",
+  "Buggy_Line": [
+    21
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls the showBug method in NotifyDemo. This method starts two threads that wait for a condition to be met and then calls changeCondition. Since changeCondition uses notify() instead of notifyAll(), only one of the threads is notified. The other thread remains blocked indefinitely, causing the test to fail.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Condition met, proceeding...\nCondition met, proceeding...\n\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that both threads printed 'Condition met, proceeding...', indicating that both threads were notified and proceeded as expected. This suggests that the use of notify() did not prevent both threads from being awakened, thus not confirming the presence of the bug in this test run."
+}

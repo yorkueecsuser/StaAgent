@@ -1,0 +1,9 @@
+{
+  "Bug_Title": "ParametersButNotParameterized",
+  "Bug_Details": "This test has @Parameters but is using the default JUnit4 runner. The parameters will have no effect.",
+  "Bug_Explanation": "The test has @Parameters but is using the default JUnit4 runner. The parameters will have no effect as the test is not parameterized.",
+  "Buggy_Line": [
+    12
+  ],
+  "Seed_Compilation_Status": "Successful"
+}

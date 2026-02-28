@@ -1,0 +1,10 @@
+{
+  "Buggy_Line": [],
+  "Trigger_Explanation": "The test cases in this JUnit test trigger the bug by calling the `getRandomNumber` and `showBug` methods, which create a new `Random` object each time they are invoked, resulting in inconsistent and non-random output.",
+  "Trigger_Line": [
+    20,
+    24
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

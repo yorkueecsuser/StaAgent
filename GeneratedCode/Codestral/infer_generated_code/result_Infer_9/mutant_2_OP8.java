@@ -1,0 +1,21 @@
+import java.util.HashMap;
+import java.util.Map;
+
+class InefficientKeysetIteratorMutant {
+    public void inefficientLoopBad(HashMap<String, Integer> testMap) {
+        for (String key : testMap.keySet()) {
+            Integer value = testMap.get(key); // extra look-up cost
+            String r = key; // Renaming mutation
+            Integer v = value; // Renaming mutation
+            process(r, v);
+        }
+    }
+
+    public void showBug(HashMap<String, Integer> testMap) {
+        inefficientLoopBad(testMap);
+    }
+
+    private void process(String key, Integer value) {
+        // Placeholder for actual processing code
+    }
+}

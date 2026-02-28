@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "MS: Field is a mutable collection (MS_MUTABLE_COLLECTION)\uf0c1",
+  "Bug_Details": "A mutable collection instance is assigned to a final static field,\n  thus can be changed by malicious code or by accident from another package.\n  Consider wrapping this field into Collections.unmodifiableSet/List/Map/etc.\n  to avoid this vulnerability.",
+  "Bug_Explanation": "The bug is embedded in the code by assigning a mutable collection instance to a final static field. The field is then modified by the `addElement` method, which can be called by malicious code or by accident from another package.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by adding two elements to the list and then retrieving the list using the getList() method. The list is then asserted to have a size of 2, which triggers the bug.",
+  "Trigger_Line": [
+    15
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.002\nThere was 1 failure:\n1) initializationError(BuggyClassTest)\norg.junit.runners.model.InvalidTestClassError: Invalid test class 'BuggyClassTest':\n  1. The class BuggyClassTest is not public.\n  2. Test class should have exactly one public constructor\n\tat org.junit.runners.ParentRunner.validate(ParentRunner.java:525)\n\tat org.junit.runners.ParentRunner.<init>(ParentRunner.java:102)\n\tat org.junit.runners.BlockJUnit4ClassRunner.<init>(BlockJUnit4ClassRunner.java:84)\n\tat org.junit.runners.JUnit4.<init>(JUnit4.java:23)\n\tat org.junit.internal.builders.JUnit4Builder.runnerForClass(JUnit4Builder.java:10)\n\tat org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:70)\n\tat org.junit.internal.builders.AllDefaultPossibilitiesBuilder.runnerForClass(AllDefaultPossibilitiesBuilder.java:37)\n\tat org.junit.runner.Computer.getRunner(Computer.java:50)\n\tat org.junit.runner.Computer$1.runnerForClass(Computer.java:31)\n\tat org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:70)\n\tat org.junit.runners.model.RunnerBuilder.runners(RunnerBuilder.java:125)\n\tat org.junit.runners.model.RunnerBuilder.runners(RunnerBuilder.java:111)\n\tat org.junit.runners.Suite.<init>(Suite.java:81)\n\tat org.junit.runner.Computer$2.<init>(Computer.java:33)\n\tat org.junit.runner.Computer.getSuite(Computer.java:28)\n\tat org.junit.runner.Request.classes(Request.java:77)\n\tat org.junit.runner.JUnitCommandLineParseResult.createRequest(JUnitCommandLineParseResult.java:116)\n\tat org.junit.runner.JUnitCore.runMain(JUnitCore.java:77)\n\tat org.junit.runner.JUnitCore.main(JUnitCore.java:36)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test class is not public, and has only one public constructor. This does not trigger the bug, as the bug is related to a mutable collection being assigned to a final static field."
+}

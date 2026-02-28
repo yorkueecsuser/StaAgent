@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "IJU: TestCase defines tearDown that doesn\u2019t call super.tearDown() (IJU_TEARDOWN_NO_SUPER)\uf0c1",
+  "Bug_Details": " Class is a JUnit TestCase and implements the tearDown method. The tearDown method should call\nsuper.tearDown(), but doesn't.",
+  "Bug_Explanation": "The bug is embedded in the generated code by overriding the tearDown method in the ExampleBug class without calling super.tearDown(). This violates the requirement that tearDown should always call super.tearDown().",
+  "Buggy_Line": [
+    16
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method triggers the bug by creating an instance of ExampleBug and calling the showBug method multiple times. Since the tearDown method in ExampleBug does not call super.tearDown(), the state of the counter is not reset between test runs, causing the second assertion to fail.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.008\n\nOK (1 test)\n\n"
+}

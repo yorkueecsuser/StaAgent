@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "UseIOStreamsWithApacheCommonsFileItem",
+  "Bug_Details": "Problem: Use of [FileItem.get()](https://javadoc.io/static/commons-fileupload/commons-fileupload/1.5/org/apache/commons/fileupload/FileItem.html#get--)\nand [FileItem.getString()](https://javadoc.io/static/commons-fileupload/commons-fileupload/1.5/org/apache/commons/fileupload/FileItem.html#getString--)\ncould exhaust memory since they load the entire file into memory.\n\nSolution: Use [FileItem.getInputStream()](https://javadoc.io/static/commons-fileupload/commons-fileupload/1.5/org/apache/commons/fileupload/FileItem.html#getInputStream--)\nand buffering.\nExamples:\nimport org.apache.commons.fileupload.FileItem;\n\npublic class FileStuff {\n   private String bad(FileItem fileItem) {\n        return fileItem.getString();\n   }\n\n   private InputStream good(FileItem fileItem) {\n        return fileItem.getInputStream();\n   }\n}",
+  "Bug_Explanation": "The bug is embedded in the 'bad' method where 'fileItem.getString()' is used, which loads the entire file content into memory. This is demonstrated using a simulated 'FileItemSimulator' class.",
+  "Buggy_Line": [
+    40,
+    14,
+    30
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by calling the `showBug` method of the `FileStuff` class with a list containing a `FileItemSimulator` object. Inside the `showBug` method, the `bad` method is called on the `FileItemSimulator` object, which uses the `getString()` method that loads the entire file content into memory, thus triggering the bug.",
+  "Trigger_Line": [
+    "17"
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

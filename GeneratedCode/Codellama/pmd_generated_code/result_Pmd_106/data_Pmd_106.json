@@ -1,0 +1,10 @@
+{
+  "Bug_Title": "ConsecutiveAppendsShouldReuse",
+  "Bug_Details": "Consecutive calls to StringBuffer/StringBuilder .append should be chained, reusing the target object. This can improve the performance\nby producing a smaller bytecode, reducing overhead and improving inlining. A complete analysis can be found [here](https://github.com/pmd/pmd/issues/202#issuecomment-274349067)",
+  "Bug_Explanation": "Consecutive calls to StringBuffer.append should be chained, reusing the target object. This can improve the performance by producing a smaller bytecode, reducing overhead and improving inlining. A complete analysis can be found here.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Test_Run_Result": "JUnit version 4.13.2\n..Hello World!\n\nTime: 0.005\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not demonstrate the bug was triggered. The test cases passed successfully, and the output was as expected."
+}

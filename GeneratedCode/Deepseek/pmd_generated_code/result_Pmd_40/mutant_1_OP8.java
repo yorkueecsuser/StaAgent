@@ -1,0 +1,16 @@
+import java.io.FileInputStream;
+import java.io.IOException;
+
+class EmptyCatchBlockExample {
+    public void doSomething() {
+        try {
+            FileInputStream fis = new FileInputStream("/tmp/bugger");
+        } catch (IOException a) {
+            // BUG: EmptyCatchBlock
+        }
+    }
+
+    public void showBug() {
+        doSomething();
+    }
+}

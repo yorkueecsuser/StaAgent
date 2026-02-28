@@ -1,0 +1,20 @@
+{
+  "Bug_Title": "ZoneIdOfZ",
+  "Bug_Details": "Use ZoneOffset.UTC instead of ZoneId.of(\"Z\"). Avoid the magic constant (ZoneId.of(\u201cZ\u201d)) in favor of a more descriptive API:  ZoneOffset.UTC",
+  "Bug_Explanation": "The ZoneId.of(\"Z\") method is not recommended for creating time zones. Instead, use the ZoneOffset.UTC constant. This bug is demonstrated in the showBug() method where it is used to create a ZoneId from the literal \"Z\". ZoneOffset.UTC should be used instead.",
+  "Buggy_Line": [
+    8,
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by comparing the output of the showBug() method with the expected ZoneOffset.UTC. The test case should fail because the ZoneId.of(\"Z\") is used instead of ZoneOffset.UTC in the showBug() method.",
+  "Trigger_Line": [
+    8,
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.015\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not demonstrate the bug being triggered. The test case correctly uses the ZoneOffset.UTC instead of ZoneId.of(\"Z\"). The assertion correctly checks if the offset is UTC as expected, which confirms that the fix for the bug is correctly implemented.",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The bug is present in the code. The ZoneId.of(\"Z\") method is used to get the time-zone offset. However, this method is not recommended because it uses a magic string \"Z\". Instead, the ZoneOffset.UTC constant should be used, which is more descriptive and less error-prone."
+}

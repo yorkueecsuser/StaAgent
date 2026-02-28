@@ -1,0 +1,49 @@
+import java.util.*;
+
+class BuggyIterable implements Iterable<Integer>, Iterator<Integer> {
+
+    private List<Integer> list = Arrays.asList(1, 2, 3);
+    private int index = 0;
+
+    @Override
+    public Iterator<Integer> iterator() {
+        // Mutation: "iterator" should not return "this"
+        return this;
+    }
+
+    @Override
+    public boolean hasNext() {
+        return this.index < this.list.size();
+    }
+
+    @Override
+    public Integer next() {
+        return this.list.get(this.index++);
+    }
+
+    public List<Integer> showBug1() {
+        List<Integer> result = new ArrayList<>();
+        for (Integer i : this) { // Mutation: The first loop should iterate
+            result.add(i);
+        }
+        return result;
+    }
+
+    public List<Integer> showBug2() {
+        boolean unreachable = false;
+        List<Integer> result = new ArrayList<>();
+        for (Integer i : this) { // Mutation: The second loop should not iterate
+            // Mutation: Unreachable loop condition
+            if (unreachable) {
+                result.add(i);
+            }
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        BuggyIterable buggy = new BuggyIterable();
+        System.out.println(buggy.showBug1()); // Expected: [1, 2, 3], Actual: [1, 2, 3]
+        System.out.println(buggy.showBug2()); // Expected: [], Actual: []
+    }
+}

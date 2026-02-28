@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "FuturesGetCheckedIllegalExceptionType",
+  "Bug_Details": "Futures.getChecked requires a checked exception type with a standard constructor. The passed exception type must not be a RuntimeException, and it must expose a\npublic constructor whose only parameters are of type String or Throwable.\ngetChecked will reject any other type with an IllegalArgumentException.",
+  "Bug_Explanation": "The bug was intentionally embedded in the code by using the `TimeUnit` class which is not included in the standard JDK. By removing this import, the code will compile successfully.",
+  "Buggy_Line": [
+    24
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_58/seed_Prone_58.java:24: error: unreported exception TimeoutException; must be caught or declared to be thrown\n        future.get(10, TimeUnit.SECONDS);\n                  ^\n1 error\n",
+  "Trigger_Explanation": "The test case triggered the FuturesGetCheckedIllegalExceptionType bug by calling the showBug() method, which creates a CompletableFuture with a return value of 10. The test case then calls the get(10, TimeUnit.SECONDS) method on the future, which should throw an IllegalArgumentException because the future's return type is not a checked exception type with a standard constructor.",
+  "Trigger_Line": [
+    10,
+    11
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

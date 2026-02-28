@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "NP: Method call passes null for non-null parameter (NP_NULL_PARAM_DEREF)\uf0c1",
+  "Bug_Details": "\n  This method call passes a null value for a non-null method parameter.\nEither the parameter is annotated as a parameter that should\nalways be non-null, or analysis has shown that it will always be\ndereferenced.\n  ",
+  "Bug_Explanation": "The method 'printMessage' is called with a null value for the 'message' parameter, which is expected to be non-null. This demonstrates a null pointer dereference bug since 'printMessage' will attempt to use the passed 'message' value, potentially leading to a NullPointerException.",
+  "Buggy_Line": [
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the method showBug from the NullParameterExample class, which in turn calls printMessage with a null parameter. This triggers the bug by causing a NullPointerException due to the method printMessage expecting a non-null argument.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.null\n\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully with 'OK (1 test)', which means the bug was not triggered during the test execution."
+}

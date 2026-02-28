@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "IP: A parameter is dead upon entry to a method but overwritten (IP_PARAMETER_IS_DEAD_BUT_OVERWRITTEN)\uf0c1",
+  "Bug_Details": "\nThe initial value of this parameter is ignored, and the parameter\nis overwritten here. This often indicates a mistaken belief that\nthe write to the parameter will be conveyed back to\nthe caller.\n",
+  "Bug_Explanation": "The `sum` variable is initialized to 0, and then the `arr` array is iterated over using a for loop. Inside the loop, the `sum` variable is overwritten with the value of `arr[i]` instead of being incremented. This results in the `sum` variable being equal to the last element of the `arr` array, which is 5.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by overwriting the `sum` variable with the value of `arr[i]` instead of incrementing it.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.002\nThere was 1 failure:\n1) initializationError(BuggyProgramTest)\norg.junit.runners.model.InvalidTestClassError: Invalid test class 'BuggyProgramTest':\n  1. The class BuggyProgramTest is not public.\n  2. Test class should have exactly one public constructor\n\tat org.junit.runners.ParentRunner.validate(ParentRunner.java:525)\n\tat org.junit.runners.ParentRunner.<init>(ParentRunner.java:102)\n\tat org.junit.runners.BlockJUnit4ClassRunner.<init>(BlockJUnit4ClassRunner.java:84)\n\tat org.junit.runners.JUnit4.<init>(JUnit4.java:23)\n\tat org.junit.internal.builders.JUnit4Builder.runnerForClass(JUnit4Builder.java:10)\n\tat org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:70)\n\tat org.junit.internal.builders.AllDefaultPossibilitiesBuilder.runnerForClass(AllDefaultPossibilitiesBuilder.java:37)\n\tat org.junit.runner.Computer.getRunner(Computer.java:50)\n\tat org.junit.runner.Computer$1.runnerForClass(Computer.java:31)\n\tat org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:70)\n\tat org.junit.runners.model.RunnerBuilder.runners(RunnerBuilder.java:125)\n\tat org.junit.runners.model.RunnerBuilder.runners(RunnerBuilder.java:111)\n\tat org.junit.runners.Suite.<init>(Suite.java:81)\n\tat org.junit.runner.Computer$2.<init>(Computer.java:33)\n\tat org.junit.runner.Computer.getSuite(Computer.java:28)\n\tat org.junit.runner.Request.classes(Request.java:77)\n\tat org.junit.runner.JUnitCommandLineParseResult.createRequest(JUnitCommandLineParseResult.java:116)\n\tat org.junit.runner.JUnitCore.runMain(JUnitCore.java:77)\n\tat org.junit.runner.JUnitCore.main(JUnitCore.java:36)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test class 'BuggyProgramTest' is not public, and it has more than one public constructor, which are violations of the JUnit test class requirements. Therefore, the test results do not confirm the bug triggering."
+}

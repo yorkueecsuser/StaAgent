@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "HSM: Method hiding should be avoided. (HSM_HIDING_METHOD)\uf0c1",
+  "Bug_Details": "\nSee SEI CERT rule MET07-J. Never declare a class method that hides a method declared in a superclass or superinterface.\n",
+  "Bug_Explanation": "The bug is embedded in the generated code by declaring a method 'display()' in the SubClass that hides the 'display()' method declared in the SuperClass. This violates the rule of avoiding method hiding.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method of SubClass, which internally calls the hidden display method of SubClass instead of SuperClass.",
+  "Trigger_Line": [
+    9
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "UseArraysAsList",
+  "Bug_Details": "The `java.util.Arrays` class has a `asList()` method that should be used when you want to create a new List from\nan array of objects. It is faster than executing a loop to copy all the elements of the array one by one.\n\nNote that the result of `Arrays.asList()` is backed by the specified array,\nchanges in the returned list will result in the array to be modified.\nFor that reason, it is not possible to add new elements to the returned list of `Arrays.asList()`\n(UnsupportedOperationException).\nYou must use `new ArrayList<>(Arrays.asList(...))` if that is inconvenient for you (e.g. because of concurrent access).",
+  "Bug_Explanation": "The `java.util.Arrays` class has a `asList()` method that should be used when you want to create a new List from an array of objects. It is faster than executing a loop to copy all the elements of the array one by one. Note that the result of `Arrays.asList()` is backed by the specified array, changes in the returned list will result in the array to be modified. For that reason, it is not possible to add new elements to the returned list of `Arrays.asList()` (UnsupportedOperationException). You must use `new ArrayList<>(Arrays.asList(...))` if that is inconvenient for you (e.g. because of concurrent access).",
+  "Buggy_Line": [
+    12
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../pmd_clean_java_code/result_Pmd_118/seed_Pmd_118.java:18: error: incompatible types: unexpected return value\n        return list;\n               ^\n1 error\n",
+  "Trigger_Explanation": "The `showBug()` method returns a list that is backed by the specified array, and changes to the returned list will result in the array to be modified. Adding an element to the returned list results in an UnsupportedOperationException.",
+  "Trigger_Line": [
+    16
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

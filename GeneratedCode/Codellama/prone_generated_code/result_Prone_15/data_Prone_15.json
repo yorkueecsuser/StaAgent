@@ -1,0 +1,11 @@
+{
+  "Buggy_Line": [
+    7
+  ],
+  "Trigger_Explanation": "The JUnit test case triggers the bug by attempting to cast a serialized object to a Date object, which is not possible because the object has been flattened to a base type.",
+  "Trigger_Line": [
+    7
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

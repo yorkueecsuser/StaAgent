@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "CallSuperFirst",
+  "Bug_Details": "Super should be called at the start of the method\nExamples:\nimport android.app.Activity;\nimport android.os.Bundle;\n\npublic class DummyActivity extends Activity {\n    public void onCreate(Bundle bundle) {\n        // missing call to super.onCreate(bundle)\n        foo();\n    }\n}",
+  "Bug_Explanation": "In the 'initialize' method, 'foo()' is called after'super.onCreate(bundle)' which is missing in the provided code. This will lead to NullPointerExceptions if the 'foo' method tries to access any methods or variables of the superclass.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered by calling the'showBug' method which is supposed to trigger the bug. This bug is caused by the superclass method not being called at the start of the 'initialize' method.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Initializing\nInitializing\n\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not demonstrate the bug being triggered. The test case 'testInitialize' does not fail, indicating that the bug was not triggered."
+}

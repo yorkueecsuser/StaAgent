@@ -1,0 +1,23 @@
+{
+  "Bug_Title": "Assertions comparing incompatible types should not be made",
+  "Bug_Details": "Assertions comparing incompatible types always fail, and negative assertions always pass. At best, negative assertions are useless. At worst, the\ndeveloper loses time trying to fix his code logic before noticing wrong assertions.\nDissimilar types are:\ncomparing a primitive with null comparing an object with an unrelated primitive (E.G. a string with an int) comparing unrelated classes comparing an array to a non-array comparing two arrays of dissimilar types\ncomparing a primitive with null\ncomparing an object with an unrelated primitive (E.G. a string with an int)\ncomparing unrelated classes\ncomparing an array to a non-array\ncomparing two arrays of dissimilar types\nThis rule also raises issues for unrelated class and interface or unrelated interface types in negative\nassertions. Because except in some corner cases, those types are more likely to be dissimilar. And inside a negative assertion, there is no test\nfailure to inform the developer about this unusual comparison.\nSupported test frameworks:\nJUnit4 JUnit5 AssertJ\nJUnit4\nJUnit5\nAssertJ\nNoncompliant code example\ninterface KitchenTool {}\ninterface Plant {}\nclass Spatula implements KitchenTool {}\nclass Tree implements Plant {}\n\nvoid assertValues(int size,\n                  Spatula spatula, KitchenTool tool,  KitchenTool[] tools,\n                  Tree    tree,    Plant       plant, Tree[]        trees) {\n\n  // Whatever the given values, those negative assertions will always pass due to dissimilar types:\n  assertThat(size).isNotNull();           // Noncompliant; primitives can not be null\n  assertThat(spatula).isNotEqualTo(tree); // Noncompliant; unrelated classes\n  assertThat(tool).isNotSameAs(tools);    // Noncompliant; array & non-array\n  assertThat(trees).isNotEqualTo(tools);  // Noncompliant; incompatible arrays\n\n  // Those assertions will always fail\n  assertThat(size).isNull();                       // Noncompliant\n  assertThat(spatula).isEqualTo(tree);             // Noncompliant\n\n  // Those negative assertions are more likely to always pass\n  assertThat(spatula).isNotEqualTo(plant); // Noncompliant; unrelated class and interface\n  assertThat(tool).isNotEqualTo(plant);    // Noncompliant; unrelated interfaces\n}",
+  "Bug_Explanation": "The bug is embedded in the code by using assertions that compare incompatible types. These assertions will always fail, but they are intentionally left in the code to demonstrate the bug.",
+  "Buggy_Line": [
+    12,
+    15,
+    18,
+    21,
+    24
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "Each test case is expected to throw an AssertionError as it tries to make comparisons that are not allowed in Java, such as comparing a primitive with null, comparing unrelated classes, comparing an object with an unrelated primitive, comparing an object to an array, and comparing two arrays of dissimilar types.",
+  "Trigger_Line": [
+    10,
+    19,
+    28,
+    37,
+    46
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

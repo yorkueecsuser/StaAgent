@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Equals method should be overridden in records containing array fields",
+  "Bug_Details": "In records, the default behavior of the equals() method is to check the equality by field values. This works well for primitive fields\nor fields, whose type overrides equals() , but this behavior doesn\u2019t work as expected for array fields.\nBy default, array fields are compared by their reference, and overriding equals() is highly appreciated to achieve the deep equality\ncheck. The same strategy applies to hashCode() and toString() methods.\nThis rule reports an issue if a record class has an array field and is not overriding equals() , hashCode() or toString() methods.\nNoncompliant code example\nrecord Person(String[] names, int age) {} // Noncompliant\nCompliant solution\nrecord Person(String[] names, int age) {\n    @Override\n    public boolean equals(Object o) {\n        if (this == o) return true;\n        if (o == null || getClass() != o.getClass()) return false;\n        Person person = (Person) o;\n        return age == person.age && Arrays.equals(names, person.names);\n    }\n\n    @Override\n    public int hashCode() {\n        int result = Objects.hash(age);\n        result = 31 * result + Arrays.hashCode(names);\n        return result;\n    }\n\n    @Override\n    public String toString() {\n        return \"Person{\" +\n                \"names=\" + Arrays.toString(names) +\n                \", age=\" + age +\n                '}';\n    }\n}",
+  "Bug_Explanation": "The bug is embedded in the record 'Person' which contains an array field 'names'. The default equals method compares array fields by reference, not by content, leading to incorrect equality checks.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by using the'showBug' method of the 'Person' class, which relies on the default equals method provided by the record. Since the 'names' field is an array, the default equals method compares the references of the arrays instead of their contents, causing the test cases to fail.",
+  "Trigger_Line": [
+    9,
+    13,
+    17
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

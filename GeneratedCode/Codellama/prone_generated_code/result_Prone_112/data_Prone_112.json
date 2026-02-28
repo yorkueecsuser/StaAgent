@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "MockitoUsage",
+  "Bug_Details": "Missing method call for verify(mock) here Calls to Mockito.when should always be accompanied by a call to a method like\nthenReturn. when(mock.get()).thenReturn(answer); // correct\nwhen(mock.get())                     // oops! when(mock.get()).thenReturn(answer); // correct\nwhen(mock.get())                     // oops! Similarly, calls to Mockito.verify should call the verified method outside\nthe call to verify. verify(mock).execute(); // correct\nverify(mock.execute()); // oops! verify(mock).execute(); // correct\nverify(mock.execute()); // oops! For more information, see the Mockito documentation.",
+  "Bug_Explanation": "In this example, we created a mock object of the List class using the Mockito framework. We then used the when method to specify the behavior of the mock object's get method. However, we forgot to call the verify method to check if the get method was actually called. As a result, the bug is that the mock object's get method is not being verified.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_112/seed_Prone_112.java:1: error: package org.mockito does not exist\nimport static org.mockito.Mockito.*;\n                         ^\n../prone_clean_java_code/result_Prone_112/seed_Prone_112.java:7: error: cannot find symbol\n        MyInterface mock = mock(MyInterface.class);\n        ^\n  symbol:   class MyInterface\n  location: class MockitoUsageBug\n../prone_clean_java_code/result_Prone_112/seed_Prone_112.java:7: error: cannot find symbol\n        MyInterface mock = mock(MyInterface.class);\n                                ^\n  symbol:   class MyInterface\n  location: class MockitoUsageBug\n3 errors\n",
+  "Trigger_Explanation": "The test case triggers the bug by calling the verify method outside of the call to when.",
+  "Trigger_Line": [
+    5,
+    9
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

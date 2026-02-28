@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "LockOnBoxedPrimitive",
+  "Bug_Details": "It is dangerous to use a boxed primitive as a lock as it can unintentionally lead to sharing a lock with another piece of code. Instances of boxed primitive types may be cached by the standard library\nvalueOf method. This method is used for autoboxing. This means that using a\nboxed primitive as a lock can result in unintentionally sharing a lock with\nanother piece of code. Consider using an explicit lock Object instead of locking on a boxed\nprimitive. That is, prefer this: private final Object lock = new Object();\n\nvoid doSomething() {\n  synchronized (lock) {\n    // ...\n  }\n} private final Object lock = new Object();\n\nvoid doSomething() {\n  synchronized (lock) {\n    // ...\n  }\n} instead of this: private final Integer lock = 42;\n\nvoid doSomething() {\n  synchronized (lock) {\n    // ...\n  }\n} private final Integer lock = 42;\n\nvoid doSomething() {\n  synchronized (lock) {\n    // ...\n  }\n}",
+  "Bug_Explanation": "This code demonstrates the 'LockOnBoxedPrimitive' bug by using a boxed primitive (Integer) as a lock. This can lead to unintentionally sharing a lock with another piece of code.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "This test triggers the bug by simply calling the `showBug` method",
+  "Trigger_Line": [
+    5
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not show the bug being triggered. The test run was successful without any failures or errors, indicating that the bug was not triggered.",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The described bug is present in the provided Java code. The use of a boxed primitive (Integer) as a lock can lead to unintentionally sharing a lock with another piece of code. This is because instances of boxed primitive types may be cached by the standard library valueOf method. This method is used for autoboxing. In this case, the lock is an Integer object with the value 42. This means that multiple instances of the Integer object with the value 42 may be created, and each of these instances will be considered as a different lock by the synchronized block. This can lead to unexpected behavior and potential bugs."
+}

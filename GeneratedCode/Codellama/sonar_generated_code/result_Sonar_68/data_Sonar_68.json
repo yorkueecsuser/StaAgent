@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "All branches in a conditional structure should not have exactly the same implementation",
+  "Bug_Details": "Having all branches of a switch or if chain with the same implementation indicates a problem.\nIn the following code:\nif (b == 0) {  // Noncompliant\n  doOneMoreThing();\n} else {\n  doOneMoreThing();\n}\n\nint b = a > 12 ? 4 : 4;  // Noncompliant\n\nswitch (i) {  // Noncompliant\n  case 1:\n    doSomething();\n    break;\n  case 2:\n    doSomething();\n    break;\n  case 3:\n    doSomething();\n    break;\n  default:\n    doSomething();\n}\nEither there is a copy-paste error that needs fixing or an unnecessary switch or if chain that should be removed.\nExceptions\nThis rule does not apply to if chains without else , nor to switch without a default clause.\nif(b == 0) {    //no issue, this could have been done on purpose to make the code more readable\n  doSomething();\n} else if(b == 1) {\n  doSomething();\n}",
+  "Bug_Explanation": "The bug is embedded in the code by using the same implementation for all branches of the conditional structure.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggered the bug by calling the `getBuggyValue()` method and asserting that the returned value is zero (0) in the first test case, and one (1) in the second test case. This triggered the bug because both test cases were expecting the same implementation for the if-else statement, which is not allowed by the rule.",
+  "Trigger_Line": [
+    8,
+    16
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

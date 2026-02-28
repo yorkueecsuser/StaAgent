@@ -1,0 +1,25 @@
+class Bug1723940 {
+
+  Bug1723940 child;
+
+  Bug1723940 getChild() {
+    return child;
+  }
+
+  public static void doX(Bug1723940 o) {
+    o.hashCode();
+    while (o!= null) {
+      o = o.getChild();
+    }
+
+    // Inserting an unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // This loop is unreachable because conditionFor will always be false
+    }
+  }
+
+  private static boolean getCondition() {
+    return false;
+  }
+}

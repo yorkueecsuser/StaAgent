@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "UseIndexOfChar",
+  "Bug_Details": "Use String.indexOf(char) when checking for the index of a single character; it executes faster.\nExamples:\nString s = \"hello world\";\n// avoid this\nif (s.indexOf(\"d\") {}\n// instead do this\nif (s.indexOf('d') {}",
+  "Bug_Explanation": "The code uses String.indexOf(String) with a single character instead of using String.indexOf(char), which is more efficient for checking the index of a single character.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test cases in the generated test code call the showBug method with a single character string, which triggers the BUG: UseIndexOfChar because the method uses String.indexOf(String) instead of String.indexOf(char). This inefficiency is highlighted by the test cases expecting specific integer index returns, but due to the inefficient method call, the performance is not optimized.",
+  "Trigger_Line": [
+    9,
+    16
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.005\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that both tests passed successfully, indicating that the current implementation of using String.indexOf(String) with a single character did not cause any failures. Therefore, the test results do not confirm the bug was triggered."
+}

@@ -1,0 +1,153 @@
+import android.content.Context;
+import android.media.AudioManager;
+import android.net.ConnectivityManager;
+import android.net.wifi.WifiManager;
+import android.os.Binder;
+import android.os.RemoteException;
+import android.support.annotation.UiThread;
+import android.view.Display;
+
+class Binders {
+  Binder b;
+
+  void doTransact() throws RemoteException {
+    b.transact(0, null, null, 0);
+    boolean unreachableCondition = getUnreachableCondition();
+    switch (unreachableCondition) {
+      case true:
+        // This case is unreachable because getUnreachableCondition() always returns false
+        System.out.println("This is an unreachable case");
+        break;
+    }
+  }
+
+  void doOneWayTransact() throws RemoteException {
+    b.transact(0, null, null, 1);
+  }
+
+  // assert happens after bad call so thread status is still unknown
+  void FN_interBad() throws RemoteException {
+    b.transact(0, null, null, 0);
+    forceMainThread();
+  }
+
+  void interBad() throws RemoteException {
+    forceMainThread();
+    b.transact(0, null, null, 0);
+  }
+
+  void intraBad() throws RemoteException {
+    OurThreadUtils.assertMainThread();
+    doTransact();
+  }
+
+  @UiThread
+  void annotationBad() throws RemoteException {
+    doTransact();
+  }
+
+  void intraOk() throws RemoteException {
+    b.transact(0, null, null, 0);
+  }
+
+  void interOk() throws RemoteException {
+    doTransact();
+  }
+
+  void oneWayOk() throws RemoteException {
+    OurThreadUtils.assertMainThread();
+    doOneWayTransact();
+  }
+
+  void forceMainThread() {
+    OurThreadUtils.assertMainThread();
+  }
+
+  @UiThread
+  void getActiveNetworkInfoBad(ConnectivityManager c) {
+    c.getActiveNetworkInfo();
+    boolean unreachableCondition = getUnreachableCondition();
+    switch (unreachableCondition) {
+      case true:
+        // This case is unreachable because getUnreachableCondition() always returns false
+        System.out.println("This is an unreachable case");
+        break;
+    }
+  }
+
+  @UiThread
+  int doGetStreamVolumeBad(AudioManager a) {
+    return a.getStreamVolume(0);
+    boolean unreachableCondition = getUnreachableCondition();
+    switch (unreachableCondition) {
+      case true:
+        // This case is unreachable because getUnreachableCondition() always returns false
+        System.out.println("This is an unreachable case");
+        break;
+    }
+  }
+
+  @UiThread
+  int doGetRingerModeBad(AudioManager a) {
+    return a.getRingerMode();
+    boolean unreachableCondition = getUnreachableCondition();
+    switch (unreachableCondition) {
+      case true:
+        // This case is unreachable because getUnreachableCondition() always returns false
+        System.out.println("This is an unreachable case");
+        break;
+    }
+  }
+
+  @UiThread
+  int doCheckPermissionBad(Context c) {
+    return c.checkPermission("", 0, 0);
+    boolean unreachableCondition = getUnreachableCondition();
+    switch (unreachableCondition) {
+      case true:
+        // This case is unreachable because getUnreachableCondition() always returns false
+        System.out.println("This is an unreachable case");
+        break;
+    }
+  }
+
+  @UiThread
+  int doCheckSelfPermissionBad(Context c) {
+    return c.checkSelfPermission("");
+    boolean unreachableCondition = getUnreachableCondition();
+    switch (unreachableCondition) {
+      case true:
+        // This case is unreachable because getUnreachableCondition() always returns false
+        System.out.println("This is an unreachable case");
+        break;
+    }
+  }
+
+  @UiThread
+  void doGetConnectionInfoBad(WifiManager w) {
+    w.getConnectionInfo();
+    boolean unreachableCondition = getUnreachableCondition();
+    switch (unreachableCondition) {
+      case true:
+        // This case is unreachable because getUnreachableCondition() always returns false
+        System.out.println("This is an unreachable case");
+        break;
+    }
+  }
+
+  @UiThread
+  void doGetRealSizeBad(Display d) {
+    d.getRealSize(null);
+    boolean unreachableCondition = getUnreachableCondition();
+    switch (unreachableCondition) {
+      case true:
+        // This case is unreachable because getUnreachableCondition() always returns false
+        System.out.println("This is an unreachable case");
+        break;
+    }
+  }
+
+  private boolean getUnreachableCondition() {
+    return false;
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Use of the \"@Async\" annotation on methods declared within a \"@Configuration\" class in Spring Boot",
+  "Bug_Details": "@Configuration is a class-level annotation indicating that an object is a source of bean definitions. @Configuration classes declare beans through @Bean -annotated methods. Calls to @Bean methods on @Configuration classes can\nalso be used to define inter-bean dependencies. The @Bean annotation indicates that a method instantiates, configures, and initializes a\nnew object to be managed by the Spring IoC container.\nAnnotating a method of a bean with @Async will make it execute in a separate thread. In other words, the caller will not wait for the\ncompletion of the called method.\nThe @Async annotation is not supported on methods declared within a @Configuration class. This is because @Async methods are typically used for asynchronous processing, and they require certain infrastructure to be set up, which may not be\navailable or appropriate in a @Configuration class.",
+  "Bug_Explanation": "The @Async annotation is not supported on methods declared within a @Configuration class. This is because @Async methods are typically used for asynchronous processing, and they require certain infrastructure to be set up, which may not be available or appropriate in a @Configuration class.",
+  "Buggy_Line": [
+    19
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the method'showBug' which triggers the bug as it's a @Async method declared within a @Configuration class. The'showBug' method tries to access the bean 'context' from the ApplicationContext, which is not available in the context of the Configuration class, therefore it throws a NullPointerException.",
+  "Trigger_Line": [
+    28
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The @Async annotation is used on the'showBug' method, which is a method within a @Configuration class. This is not allowed as per the Spring documentation. The @Async annotation is used to indicate that a method should be executed in a separate thread. However, @Configuration classes are typically used to declare beans, and they are not designed to support asynchronous execution. Therefore, using the @Async annotation on a method within a @Configuration class can lead to unexpected behavior or errors."
+}

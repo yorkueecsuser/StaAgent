@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "SQL: A prepared statement is generated from a nonconstant String (SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING)\uf0c1",
+  "Bug_Details": "The code creates an SQL prepared statement from a nonconstant String.\nIf unchecked, tainted data from a user is used in building this String, SQL injection could\nbe used to make the prepared statement do something unexpected and undesirable.\n",
+  "Bug_Explanation": "The SQL query is built using a non-constant String 'input'. If a malicious user manipulates the 'input' parameter, they could exploit SQL injection vulnerabilities.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by passing a SQL injection string as the input to the showBug method. The input string is designed to make the SQL query return all records in the users table, which is an undesirable and potentially harmful action.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.015\nThere was 1 failure:\n1) testShowBug(SQLInjectionBugTest)\njava.lang.NullPointerException: Cannot invoke \"java.sql.Connection.createStatement()\" because \"SQLInjectionBug.conn\" is null\n\tat SQLInjectionBug.showBug(SQLInjectionBug.java:8)\n\tat SQLInjectionBugTest.testShowBug(SQLInjectionBugTest.java:10)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate a NullPointerException at line 8 of SQLInjectionBug.java, which is due to the 'conn' object being null. This is not related to the SQL injection bug, as the bug is about generating an SQL prepared statement from a nonconstant String, which is not executed in the test code due to the NullPointerException."
+}

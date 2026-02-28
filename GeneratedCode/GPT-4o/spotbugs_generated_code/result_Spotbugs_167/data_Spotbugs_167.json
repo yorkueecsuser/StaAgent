@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "SQL: Nonconstant string passed to execute or addBatch method on an SQL statement (SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE)\uf0c1",
+  "Bug_Details": "The method invokes the execute or addBatch method on an SQL statement with a String that seems\nto be dynamically generated. Consider using\na prepared statement instead. It is more efficient and less vulnerable to\nSQL injection attacks.\n",
+  "Bug_Explanation": "The code dynamically constructs an SQL query using string concatenation with user inputs, which is then passed to the execute method of an SQL statement. This is vulnerable to SQL injection attacks and should use a prepared statement instead.",
+  "Buggy_Line": [
+    21,
+    26
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the 'showBug' method with dynamically constructed SQL query strings using user inputs. This leads to a SQL injection vulnerability, and the test fails as a result of this bug.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.011\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any errors or failures, suggesting that the bug was not triggered during the test execution."
+}

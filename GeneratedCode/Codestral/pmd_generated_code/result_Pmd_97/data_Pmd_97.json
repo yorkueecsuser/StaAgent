@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "UseConcurrentHashMap",
+  "Bug_Details": "Since Java5 brought a new implementation of the Map designed for multi-threaded access, you can\nperform efficient map reads without blocking other threads.\nExamples:\npublic class ConcurrentApp {\n  public void getMyInstance() {\n    Map map1 = new HashMap();           // fine for single-threaded access\n    Map map2 = new ConcurrentHashMap(); // preferred for use with multiple threads\n\n    // the following case will be ignored by this rule\n    Map map3 = someModule.methodThatReturnMap(); // might be OK, if the returned map is already thread-safe\n  }\n}",
+  "Bug_Explanation": "The bug is using HashMap which is not thread-safe for concurrent access. When multiple threads try to modify the map at the same time, it may lead to unpredictable results or ConcurrentModificationException.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method in ConcurrentHashMapBugTest class calls the showBug method of ConcurrentHashMapBug class, which simulates multi-threaded access without proper synchronization. This triggers the bug where a ConcurrentModificationException might be thrown if access occurs while modification is happening concurrently.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.null\n\nTime: 0.006\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results did not demonstrate the bug being triggered. The test ran successfully without throwing any exceptions, which would have been the case if the ConcurrentModificationException was thrown due to the bug. Therefore, the test results do not confirm the presence of the described bug in the Java code."
+}

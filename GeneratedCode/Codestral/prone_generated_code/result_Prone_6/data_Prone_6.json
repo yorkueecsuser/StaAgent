@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "ArraysAsListPrimitiveArray",
+  "Bug_Details": "Arrays.asList does not autobox primitive arrays, as one might expect. Arrays.asList does not autobox primitive arrays, as one might expect. If you\nintended to autobox the primitive array, use an asList method from Guava that\ndoes autobox. If you intended to create a singleton list containing the\nprimitive array, use Collections.singletonList to make your intent clearer.",
+  "Bug_Explanation": "Arrays.asList does not autobox primitive arrays. Instead, it treats the primitive array as a single element in the list.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when Arrays.asList(array) is used on a primitive array. It returns a list containing the array itself instead of individual autoboxed elements of the array.",
+  "Trigger_Line": [
+    13
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.List: [[I@7a7b0070]\n\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not demonstrate that the bug was triggered. The test successfully creates a singleton list containing the primitive array, which is the intended behavior."
+}

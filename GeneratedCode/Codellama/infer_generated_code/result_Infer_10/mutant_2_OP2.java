@@ -1,0 +1,80 @@
+// Original Code
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+@ThreadSafe
+interface I {
+  void bar();
+}
+
+@ThreadSafe
+class C {
+  void foo(I i) {
+    i.bar(); // BUG: INTERFACE_NOT_THREAD_SAFE
+  }
+}
+
+class Main {
+  public static void main(String[] args) {
+    C c = new C();
+    I i = new I() {
+      @Override
+      public void bar() {
+        System.out.println("Hello, world!");
+      }
+    };
+    c.foo(i);
+  }
+
+  public void showBug() {
+    C c = new C();
+    I i = new I() {
+      @Override
+      public void bar() {
+        System.out.println("Hello, world!");
+      }
+    };
+    c.foo(i);
+  }
+}
+
+// Mutated Code
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+@ThreadSafe
+interface I {
+  void bar();
+}
+
+@ThreadSafe
+class C {
+  void foo(I i) {
+    i.bar(); // BUG: INTERFACE_NOT_THREAD_SAFE
+    i.bar(); // Duplicated code
+  }
+}
+
+class Main {
+  public static void main(String[] args) {
+    C c = new C();
+    I i = new I() {
+      @Override
+      public void bar() {
+        System.out.println("Hello, world!");
+      }
+    };
+    c.foo(i);
+  }
+
+  public void showBug() {
+    C c = new C();
+    I i = new I() {
+      @Override
+      public void bar() {
+        System.out.println("Hello, world!");
+      }
+    };
+    c.foo(i);
+  }
+}

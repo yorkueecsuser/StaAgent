@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "DLS: Dead store of class literal (DLS_DEAD_STORE_OF_CLASS_LITERAL)\uf0c1",
+  "Bug_Details": "\nThis instruction assigns a class literal to a variable and then never uses it.\nThe behavior of this differs in Java 1.4 and in Java 5.\nIn Java 1.4 and earlier, a reference to Foo.class would force the static initializer\nfor Foo to be executed, if it has not been executed already.\nIn Java 5 and later, it does not.\n See Oracle's article on Java SE compatibility\nfor more details and examples, and suggestions on how to force class initialization in Java 5+.\n Foo.class Foo",
+  "Bug_Explanation": "The code assigns the class literal 'Foo.class' to a variable 'clazz' which is never used. This is a dead store, meaning the value is computed and assigned but never utilized. In Java 1.4, this would execute the static initializer of Foo, but in Java 5 and later, it does not, making the assignment redundant.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by invoking the showBug method of the DeadStoreExample class, which contains a dead store of a class literal. The test case calls the method causing the dead store, and subsequently fails the test to highlight the presence of the bug.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.005\nThere was 1 failure:\n1) testShowBug(DeadStoreExampleTest)\njava.lang.AssertionError: The bug should have been triggered, but it was not.\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat DeadStoreExampleTest.testShowBug(DeadStoreExampleTest.java:10)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate a failure due to an assertion error stating 'The bug should have been triggered, but it was not.' This suggests that the expected behavior of the bug being triggered did not occur during the test execution."
+}

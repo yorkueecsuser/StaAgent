@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "SQL: Method attempts to access a prepared statement parameter with index 0 (SQL_BAD_PREPARED_STATEMENT_ACCESS)\uf0c1",
+  "Bug_Details": " A call to a setXXX method of a prepared statement was made where the\nparameter index is 0. As parameter indexes start at index 1, this is always a mistake.",
+  "Bug_Explanation": "The bug is caused by attempting to access a PreparedStatement parameter using an index of 0. In JDBC, parameter indices are 1-based, so the correct indices should be 1 and 2 in the provided code.",
+  "Buggy_Line": [
+    22
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case 'testShowBug' calls the 'showBug' method, which attempts to set a prepared statement parameter using index 0. This triggers the bug because JDBC parameter indices are 1-based, resulting in an SQL exception.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "Runninng test will fail system because of infinite loop.",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate a failure due to an infinite loop, which does not confirm the specific bug of accessing a prepared statement parameter with index 0."
+}

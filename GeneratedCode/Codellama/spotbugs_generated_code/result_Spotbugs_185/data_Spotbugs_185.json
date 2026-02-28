@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "MS: Field isn\u2019t final but should be refactored to be so (MS_SHOULD_BE_REFACTORED_TO_BE_FINAL)\uf0c1",
+  "Bug_Details": "\nThis public static or protected static field is not final, and\ncould be changed by malicious code or\nby accident from another package.\nThe field could be made final to avoid\nthis vulnerability. However, the static initializer contains more than one write\nto the field, so doing so will require some refactoring.\n public static protected static",
+  "Bug_Explanation": "The field `list` is public and non-final, and it is being modified by the `addToList` method, which means that the field can be changed by malicious code or by accident from another package.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../spotbugs_clean_java_code/result_Spotbugs_185/seed_Spotbugs_185.java:4: error: cannot find symbol\n    private static List<String> list = new ArrayList<>();\n                                           ^\n  symbol:   class ArrayList\n  location: class MS_SHOULD_BE_REFACTORED_TO_BE_FINAL\n1 error\n",
+  "Trigger_Explanation": "The test case triggers the bug by calling the'showBug' method, which adds an element to the 'list' field, which is not final, and could be changed by malicious code or accident from another package.",
+  "Trigger_Line": [
+    4
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "AssertJ configuration should be applied",
+  "Bug_Details": "A org.assertj.core.configuration.Configuration will be effective only once you call Configuration.apply() or Configuration.applyAndDisplay() .\nThis rule raises an issue when configurations are set without the appropriate call to apply them.\nNoncompliant code example\nConfiguration configuration = new Configuration(); // Noncompliant, this configuration will not be applied.\nconfiguration.setComparingPrivateFields(true);\nCompliant solution\nConfiguration configuration = new Configuration();\nconfiguration.setComparingPrivateFields(true);\nconfiguration.applyAndDisplay();\n// Alternatively: configuration.apply();",
+  "Bug_Explanation": "The bug was embedded in the generated code by not calling Configuration.apply() or Configuration.applyAndDisplay() after setting the configuration.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_50/seed_Sonar_50.java:6: error: cannot find symbol\n        Configuration configuration = new Configuration();\n        ^\n  symbol:   class Configuration\n  location: class AssertJConfigurationBug\n../sonar_clean_java_code/result_Sonar_50/seed_Sonar_50.java:6: error: cannot find symbol\n        Configuration configuration = new Configuration();\n                                          ^\n  symbol:   class Configuration\n  location: class AssertJConfigurationBug\n2 errors\n",
+  "Trigger_Explanation": "The test case triggers the bug by not applying the configuration using `configuration.applyAndDisplay()` method.",
+  "Trigger_Line": [
+    6,
+    16
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,15 @@
+import java.util.List;
+
+class Example {
+    public static void main(String[] args) {
+        List<String> list = null;
+        showBug(list);
+    }
+
+    public static void showBug(List<String> list) {
+        String deadStore = "randomString"; // Dead Store Mutation Operator
+        for (String item : list) {
+            System.out.println(item);
+        }
+    }
+}

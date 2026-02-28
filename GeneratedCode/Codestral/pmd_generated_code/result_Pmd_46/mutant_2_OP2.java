@@ -1,0 +1,19 @@
+class FinalizeBug {
+    private String message;
+
+    public FinalizeBug(String message) {
+        this.message = message;
+    }
+
+    // BUG: FinalizeShouldBeProtected - This method should be protected to prevent it from being explicitly called by other classes
+    public void finalize() {
+        System.out.println("Finalize method called - " + message);
+    }
+
+    public void showBug() {
+        this.message = "Bug demonstration";
+        // Mutant code added:
+        this.message = "Bug demonstration"; // Duplicating the assignment statement
+        System.gc(); // Request the Java garbage collector to run
+    }
+}

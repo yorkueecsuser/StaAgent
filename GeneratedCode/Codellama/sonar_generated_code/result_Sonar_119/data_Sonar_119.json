@@ -1,0 +1,7 @@
+{
+  "Bug_Title": "\".equals()\" should not be used to test the values of \"Atomic\" classes",
+  "Bug_Details": "The equals method in AtomicInteger and AtomicLong returns true only if two instances are\nidentical, not if they represent the same number value.\nThis is because equals is not part of the API contract of these classes, and they do not override the method inherited from java.lang.Object . Although both classes implement the Number interface, assertions about equals comparing\nnumber values are not part of that interface either. Only the API contract of implementing classes like Integer , Long , Float , BigInteger , etc., provides such assertions.",
+  "Bug_Explanation": "The code demonstrates the bug by creating two AtomicInteger objects with the same initial value, and then using the.equals() method to check if they are equal. The.equals() method is not part of the API contract of AtomicInteger, and it does not override the method inherited from java.lang.Object, therefore it will not compare the values of the objects but only if they are identical. The code then modifies one of the objects and uses the.equals() method again to check if they are still equal, which should return false.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful"
+}

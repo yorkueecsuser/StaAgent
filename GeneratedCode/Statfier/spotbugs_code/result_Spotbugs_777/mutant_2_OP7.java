@@ -1,0 +1,26 @@
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
+class CloseStream {
+  public static void writeFile(File f, Object o) throws IOException {
+
+    OutputStream out = new FileOutputStream(f);
+    int i = o.hashCode();
+    
+    // Inserting an unreachable while loop
+    boolean conditionWhile = getCondition();
+    while (conditionWhile) {
+        // This loop is unreachable because getCondition() always returns false
+        System.out.println("This is an unreachable loop");
+    }
+
+    out.close();
+  }
+
+  // Method to provide a dynamic condition that is always false
+  private static boolean getCondition() {
+      return false;
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "Buggy_Line": [
+    10
+  ],
+  "Trigger_Explanation": "The test case triggers the bug by calling the orElseThrow method, which throws an AssertionError if the value is not present.",
+  "Trigger_Line": [
+    9,
+    10,
+    11
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

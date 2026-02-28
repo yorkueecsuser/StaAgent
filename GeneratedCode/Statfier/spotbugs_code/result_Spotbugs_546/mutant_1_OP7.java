@@ -1,0 +1,31 @@
+import javax.annotation.Nullable;
+
+class PackageLevel {
+  public String method() {
+    boolean conditionWhile = getCondition();
+    while (conditionWhile) {
+      // Unreachable code
+    }
+    return methodNullable(null);
+  }
+
+  private String methodNullable(@Nullable final String test) {
+    boolean conditionWhile = getCondition();
+    while (conditionWhile) {
+      // Unreachable code
+    }
+    return methodNonNull(test);
+  }
+
+  private String methodNonNull(final String test) {
+    boolean conditionWhile = getCondition();
+    while (conditionWhile) {
+      // Unreachable code
+    }
+    return test;
+  }
+
+  private boolean getCondition() {
+    return false; // This method always returns false, ensuring the loops are unreachable
+  }
+}

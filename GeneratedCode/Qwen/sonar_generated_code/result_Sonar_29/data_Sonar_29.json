@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "Mockito argument matchers should be used on all parameters",
+  "Bug_Details": "Mockito provides argument matchers and argument captors for flexibly stubbing or verifying method calls.\nMockito.verify() , Mockito.when() , Stubber.when() and BDDMockito.given() each have overloads\nwith and without argument matchers.\nHowever, if argument matchers or captors are used only on some of the parameters, all the parameters need to have matchers as well, otherwise an InvalidUseOfMatchersException will be thrown.\nThis rule consequently raises an issue every time matchers are not used on all the parameters of a stubbed/verified method.",
+  "Bug_Explanation": "The bug is embedded in the line where the verify method is called with an argument matcher on only one of the parameters. This violates the rule that all parameters must use matchers if any do.",
+  "Buggy_Line": [
+    13
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method with a mocked MyService instance. Inside showBug, the verify method is called with an argument matcher on only one parameter, causing the InvalidUseOfMatchersException.",
+  "Trigger_Line": [
+    18
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

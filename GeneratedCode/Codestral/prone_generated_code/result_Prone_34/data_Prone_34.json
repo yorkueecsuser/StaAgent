@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "DiscardedPostfixExpression",
+  "Bug_Details": "The result of this unary operation on a lambda parameter is discarded",
+  "Bug_Explanation": "The result of the unary operation `s.length()` on a lambda parameter is discarded, as it is not used or assigned to any variable.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug method with a test string. Since the result of the unary operation s.length() in the showBug method is discarded, the test case expects an UnsupportedOperationException to be thrown.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.005\nThere was 1 failure:\n1) testDiscardedPostfixExpression(DiscardedPostfixExpressionBugTest)\njava.lang.AssertionError: Expected an UnsupportedOperationException to be thrown\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat DiscardedPostfixExpressionBugTest.testDiscardedPostfixExpression(DiscardedPostfixExpressionBugTest.java:11)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test did not throw an UnsupportedOperationException, as expected if the bug was present. Therefore, the test results do not confirm the presence of the described bug."
+}

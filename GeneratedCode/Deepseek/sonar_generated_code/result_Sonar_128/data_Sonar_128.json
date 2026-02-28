@@ -1,0 +1,19 @@
+{
+  "Bug_Title": "Double-checked locking should not be used",
+  "Bug_Details": "Double-checked locking is the practice of checking a lazy-initialized object\u2019s state both before and after a synchronized block is\nentered to determine whether to initialize the object. In early JVM versions, synchronizing entire methods was not performant, which sometimes caused\nthis practice to be used in its place.\nApart from float and int types, this practice does not work reliably in a platform-independent manner without additional\nsynchronization of mutable instances. Using double-checked locking for the lazy initialization of any other type of primitive or mutable object risks\na second thread using an uninitialized or partially initialized member while the first thread is still creating it. The results can be unexpected,\npotentially even causing the application to crash.",
+  "Bug_Explanation": "The double-checked locking is not reliable and can lead to unexpected behavior. In the provided code, a singleton instance is lazily initialized with double-checked locking. If the instance is not initialized by the first thread before the second thread enters the synchronized block, it will then create a new instance, which can cause unexpected results.",
+  "Buggy_Line": [
+    5,
+    7,
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case is using the'showBug()' method to trigger the double-checked locking bug in the 'getInstance()' method.",
+  "Trigger_Line": [
+    12
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The provided Java code contains a double-checked locking bug. Double-checked locking is a practice where the synchronization occurs twice: once when the instance is null and once when the instance is not null. This can lead to unexpected results, as the second thread can see an uninitialized or partially initialized instance while the first thread is still creating it. This can cause the application to crash or behave unexpectedly."
+}

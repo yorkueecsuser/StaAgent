@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "AssertJ configuration should be applied",
+  "Bug_Details": "A org.assertj.core.configuration.Configuration will be effective only once you call Configuration.apply() or Configuration.applyAndDisplay() .\nThis rule raises an issue when configurations are set without the appropriate call to apply them.\nNoncompliant code example\nConfiguration configuration = new Configuration(); // Noncompliant, this configuration will not be applied.\nconfiguration.setComparingPrivateFields(true);\nCompliant solution\nConfiguration configuration = new Configuration();\nconfiguration.setComparingPrivateFields(true);\nconfiguration.applyAndDisplay();\n// Alternatively: configuration.apply();",
+  "Bug_Explanation": "The bug is embedded in the generated code by simulating the non-existent Configuration class and its methods from AssertJ. The intentional bug is that the configuration is set but not applied.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by calling the showBug method, which does not apply the configuration. The test checks the private field directly, which is allowed due to the accessor method added, but the bug remains as the configuration is not applied.",
+  "Trigger_Line": [
+    9,
+    12
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

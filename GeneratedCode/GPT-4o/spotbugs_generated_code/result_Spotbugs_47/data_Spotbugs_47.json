@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "SIC: Deadly embrace of non-static inner class and thread local (SIC_THREADLOCAL_DEADLY_EMBRACE)\uf0c1",
+  "Bug_Details": " This class is an inner class, but should probably be a static inner class.\n  As it is, there is a serious danger of a deadly embrace between the inner class\n  and the thread local in the outer class. Because the inner class isn't static,\n  it retains a reference to the outer class.\n  If the thread local contains a reference to an instance of the inner\n  class, the inner and outer instance will both be reachable\n  and not eligible for garbage collection.\n",
+  "Bug_Explanation": "The bug is caused by the InnerClass being a non-static inner class which retains a reference to the OuterClass instance. When a ThreadLocal contains an instance of InnerClass, it creates a situation where both InnerClass and OuterClass instances are mutually referential, preventing them from being garbage collected.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug method, which accesses the InnerClass instance via a ThreadLocal. This setup creates a memory leak due to the non-static nature of InnerClass, which maintains a reference to the OuterClass instance, causing the mutual reference problem described by the bug.",
+  "Trigger_Line": [
+    8,
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any errors or failures, suggesting that the bug was not triggered during the test execution."
+}

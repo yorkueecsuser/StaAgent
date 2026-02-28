@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "InjectMoreThanOneScopeAnnotationOnClass",
+  "Bug_Details": "A class can be annotated with at most one scope annotation. Annotating a class with more than one scope annotation is invalid according to\nthe JSR-330 specification.",
+  "Bug_Explanation": "The bug was embedded in the generated code by annotating the class with two scope annotations, which is invalid according to the JSR-330 specification.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_77/seed_Prone_77.java:1: error: package javax.inject does not exist\nimport javax.inject.Singleton;\n                   ^\n../prone_clean_java_code/result_Prone_77/seed_Prone_77.java:3: error: cannot find symbol\n@Singleton\n ^\n  symbol: class Singleton\n2 errors\n",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug() method of the InjectMoreThanOneScopeAnnotationOnClass class, which is annotated with two scope annotations (Singleton and AnotherScope). This violates the JSR-330 specification, which states that a class can only be annotated with a single scope annotation.",
+  "Trigger_Line": [
+    7,
+    8,
+    9
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

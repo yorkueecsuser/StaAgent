@@ -1,0 +1,3 @@
+for (int i = 0; false; i++) { 
+    /* unreachable code */ 
+}

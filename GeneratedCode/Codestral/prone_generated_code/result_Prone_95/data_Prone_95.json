@@ -1,0 +1,10 @@
+{
+  "Bug_Title": "JUnitParameterMethodNotFound",
+  "Bug_Details": "The method for providing parameters was not found.",
+  "Bug_Explanation": "The bug occurs because there is no method annotated with @Parameterized.Parameters. This method is required to provide the parameters for the parameterized test.",
+  "Buggy_Line": [
+    11
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_95/seed_Prone_95_junit_test.java:31: error: cannot find symbol\n        assertEquals(expected, square(input));\n        ^\n  symbol:   method assertEquals(int,int)\n  location: class ParameterizedTest\n1 error\n"
+}

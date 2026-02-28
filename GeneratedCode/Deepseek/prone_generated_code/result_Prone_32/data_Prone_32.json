@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "DeadThread",
+  "Bug_Details": "Thread created but not started The Thread is created with new, but is never started and is not otherwise\ncaptured. Threads must be started with start() to actually execute.",
+  "Bug_Explanation": "The thread is created but it is never started. The start() method must be called on the thread to make it run.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The Thread is created but not started. No exception is thrown because JVM doesn't enforce the rule of starting a thread before calling its join() method. To trigger the bug, we just need to call showBug method.",
+  "Trigger_Line": [
+    12
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.01\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not demonstrate the triggering of the bug. The Thread is created but not started in the showBug() method. However, since the JVM doesn't enforce the rule of starting a thread before calling its join() method, no exception is thrown and the program continues its execution without any issues. Therefore, the bug is not triggered in the provided test case.",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The code contains a bug. The Thread is created but not started. Threads must be started with start() to actually execute. In the provided code, the thread is created but not started. This is a dead thread bug."
+}

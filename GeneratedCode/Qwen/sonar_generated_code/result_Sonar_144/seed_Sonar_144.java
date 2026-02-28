@@ -1,0 +1,37 @@
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
+class SerializationBugExample {
+
+    // A class that does not implement Serializable
+    static class NonSerializableClass {
+        private String data;
+
+        public NonSerializableClass(String data) {
+            this.data = data;
+        }
+
+        @Override
+        public String toString() {
+            return "NonSerializableClass{" +
+                    "data='" + data + '\'' +
+                    '}';
+        }
+    }
+
+    public void showBug() {
+        NonSerializableClass obj = new NonSerializableClass("Sample Data");
+        try (FileOutputStream fileOut = new FileOutputStream("data.ser");
+             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+            out.writeObject(obj); // BUG: "writeObject" argument must implement "Serializable"
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        SerializationBugExample example = new SerializationBugExample();
+        example.showBug();
+    }
+}

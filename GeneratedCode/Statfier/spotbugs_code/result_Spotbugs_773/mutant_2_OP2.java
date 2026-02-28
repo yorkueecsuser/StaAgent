@@ -1,0 +1,44 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.util.HashSet;
+
+class Bug1926397 {
+  public static HashSet getWordSet(File wordfile) throws IOException {
+    HashSet result = new HashSet();
+    FileReader reader = null;
+    try {
+      reader = new FileReader(wordfile);
+      result = getWordSet(reader);
+    } finally {
+      if (reader!= null) reader.close();
+      if (reader!= null) reader.close(); // Mutant: duplicated assignment statement
+    }
+    return result;
+  }
+
+  public static HashSet getWordSet(Reader reader) throws IOException {
+    HashSet result = new HashSet();
+    BufferedReader br = null;
+    try {
+      if (reader instanceof BufferedReader) {
+        br = (BufferedReader) reader;
+        br = (BufferedReader) reader; // Mutant: duplicated assignment statement
+      } else {
+        br = new BufferedReader(reader);
+        br = new BufferedReader(reader); // Mutant: duplicated assignment statement
+      }
+      String word;
+      while ((word = br.readLine())!= null) {
+        result.add(word.trim());
+        result.add(word.trim()); // Mutant: duplicated assignment statement
+      }
+    } finally {
+      if (br!= null) br.close();
+      if (br!= null) br.close(); // Mutant: duplicated assignment statement
+    }
+    return result;
+  }
+}

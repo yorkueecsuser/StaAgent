@@ -1,0 +1,27 @@
+import sun.misc.Unsafe; // BUG: DontImportSun
+import java.lang.reflect.Field;
+
+class SunBug {
+    public static Unsafe getUnsafeInstance() throws NoSuchFieldException, IllegalAccessException {
+        Field f = Unsafe.class.getDeclaredField("theUnsafe");
+        f.setAccessible(true);
+        return (Unsafe) f.get(null);
+    }
+
+    public void showBug() {
+        try {
+            boolean conditionFor = getCondition(); // Dynamically determine the condition at runtime
+            for (int i = 0; conditionFor; i++) { // Insert an unreachable for loop
+                System.out.println("This loop will never execute");
+            }
+            getUnsafeInstance().allocateMemory(1024); // This is a potential memory leak as the allocated memory is not freed.
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Method to dynamically determine the condition at runtime
+    private boolean getCondition() {
+        return false; // Always return false to make the loop unreachable
+    }
+}

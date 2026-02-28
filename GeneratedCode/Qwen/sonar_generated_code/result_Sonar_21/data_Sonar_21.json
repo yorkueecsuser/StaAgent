@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Calls to methods should not trigger an exception",
+  "Bug_Details": "It is common for methods to check the value of their parameters or the state of their associated object and throw an exception when one of them\ndoes not match a given condition. Those conditions are usually mentioned in the javadoc of the method.\nThis rule raises an issue when it detects that a method call will trigger one of the following exceptions:\njava.lang.IllegalArgumentException java.lang.IllegalStateException\njava.lang.IllegalArgumentException\njava.lang.IllegalStateException\nWhat is the potential impact?\nIssues of this type interrupt the normal execution of a program, causing it to crash or putting it into an inconsistent state. Therefore, this\nissue might impact the availability and reliability of your application, or even result in data loss.",
+  "Bug_Explanation": "The bug is embedded in the getElementAtIndex method, which throws an IllegalArgumentException if the provided index is out of bounds. The showBug method demonstrates this by calling getElementAtIndex with an invalid index.",
+  "Buggy_Line": [
+    17
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method with an invalid index (2) which is out of bounds for the list containing only two elements. This triggers an IllegalArgumentException as expected.",
+  "Trigger_Line": [
+    16
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed without any errors, which means the IllegalArgumentException was expected and caught as part of the test setup. This does not confirm that the bug was triggered in a way that impacts the application negatively outside of the test environment."
+}

@@ -1,0 +1,20 @@
+{
+  "Bug_Title": "Non-primitive fields should not be \"volatile\"",
+  "Bug_Details": "Marking an array volatile means that the array itself will always be read fresh and never thread cached, but the items in the\narray will not be. Similarly, marking a mutable object field volatile means the object reference is volatile but\nthe object itself is not, and other threads may not see updates to the object state.\nThis can be salvaged with arrays by using the relevant AtomicArray class, such as AtomicIntegerArray , instead. For mutable objects,\nthe volatile should be removed, and some other method should be used to ensure thread-safety, such as synchronization, or ThreadLocal\nstorage.\nNoncompliant code example\nprivate volatile int [] vInts;  // Noncompliant\nprivate volatile MyObj myObj;  // Noncompliant\nCompliant solution\nprivate AtomicIntegerArray vInts;\nprivate MyObj myObj;",
+  "Bug_Explanation": "The code contains non-primitive volatile fields which can lead to unexpected behavior. In Java, the 'volatile' keyword ensures that changes to the variable are always visible to other threads. However, 'volatile' does not ensure atomicity when it comes to compound types, such as arrays or objects. The 'AtomicIntegerArray' and 'AtomicReference' classes are used instead.",
+  "Buggy_Line": [
+    4,
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The code contains non-primitive volatile fields which can lead to unexpected behavior. In Java, the 'volatile' keyword ensures that changes to the variable are always visible to other threads. However, 'volatile' does not ensure atomicity when it comes to compound types, such as arrays or objects.",
+  "Trigger_Line": [
+    5,
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.007\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not indicate the bug was triggered. All tests passed without any failure or error.",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The described bug is present in the provided Java code. The 'volatile' keyword is used with non-primitive fields, which is not recommended. The 'volatile' keyword guarantees that all threads will see the most updated value of the variable. However, it does not guarantee atomicity of operations on the variable. In this case, the 'volatile' keyword is used with an array of integers and a custom object. This means that the reference to the array and the object itself are volatile, but the individual elements of the array and the state of the object are not. This can lead to inconsistencies and unexpected behavior."
+}

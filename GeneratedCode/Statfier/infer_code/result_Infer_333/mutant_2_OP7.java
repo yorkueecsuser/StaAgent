@@ -1,0 +1,57 @@
+import codetoanalyze.java.InferBuiltins;
+
+class Builtins {
+
+  void blockErrorOk() {
+    Object x = null;
+    InferBuiltins.assume(x!= null);
+    x.toString();
+
+    // Mutant: Unreachable while loop
+    boolean conditionWhile = getCondition();
+    while (conditionWhile) {
+      // Unreachable code
+    }
+  }
+
+  void doNotBlockErrorBad(Object x) {
+    Object y = null;
+    InferBuiltins.assume(x!= null);
+    y.toString();
+
+    // Mutant: Unreachable while loop
+    boolean conditionWhile = getCondition();
+    while (conditionWhile) {
+      // Unreachable code
+    }
+  }
+
+  void blockErrorIntAssumeOk(Object x) {
+    Object y = null;
+    int i = 0;
+    InferBuiltins.assume(i!= 0);
+    y.toString();
+
+    // Mutant: Unreachable while loop
+    boolean conditionWhile = getCondition();
+    while (conditionWhile) {
+      // Unreachable code
+    }
+  }
+
+  void causeErrorBad(Object x) {
+    InferBuiltins.assume(x == null);
+    x.toString();
+
+    // Mutant: Unreachable while loop
+    boolean conditionWhile = getCondition();
+    while (conditionWhile) {
+      // Unreachable code
+    }
+  }
+
+  // Helper method to provide a dynamic condition
+  private boolean getCondition() {
+    return false;
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "Related \"if/else if\" statements should not have the same condition",
+  "Bug_Details": "A chain of if / else if statements is evaluated from top to bottom. At most, only one branch will be executed: the first\none with a condition that evaluates to true .\nTherefore, duplicating a condition automatically leads to dead code. Usually, this is due to a copy/paste error. At best, it\u2019s simply dead code and\nat worst, it\u2019s a bug that is likely to induce further bugs as the code is maintained, and obviously it could lead to unexpected behavior.\nNoncompliant code example\nif (param == 1)\n  openWindow();\nelse if (param == 2)\n  closeWindow();\nelse if (param == 1)  // Noncompliant\n  moveWindowToTheBackground();\n}\nCompliant solution\nif (param == 1)\n  openWindow();\nelse if (param == 2)\n  closeWindow();\nelse if (param == 3)\n  moveWindowToTheBackground();\n}",
+  "Bug_Explanation": "The bug was embedded by having the same condition (param == 1) in two separate 'if/else if' statements. As a result, the second 'if' statement with the condition param == 1 is dead code and will never be executed.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case with input parameter as 1 triggers the bug as it should return 'Open window' but due to the bug in the code it returns 'Move window to the background' which makes the test case fail.",
+  "Trigger_Line": "[4]",
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.004\nThere was 1 failure:\n1) testShowBug(BuggyCodeTest)\norg.junit.ComparisonFailure: expected:<[Move window to the background]> but was:<[Open window]>\n\tat org.junit.Assert.assertEquals(Assert.java:117)\n\tat org.junit.Assert.assertEquals(Assert.java:146)\n\tat BuggyCodeTest.testShowBug(BuggyCodeTest.java:10)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test result shows an assertion error. It expected the output 'Move window to the background' but received 'Open window'. This indicates that the bug was not triggered as the test case intended to trigger the bug, but it did not due to the incorrect condition in the else if statement."
+}

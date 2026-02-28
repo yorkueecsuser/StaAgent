@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "FB: Missing expected or desired warning from SpotBugs (FB_MISSING_EXPECTED_WARNING)\uf0c1",
+  "Bug_Details": "SpotBugs didn't generate a warning that, according to an @ExpectedWarning annotation,\n  is expected or desired. @ExpectedWarning",
+  "Bug_Explanation": "The bug is embedded in the'showBug' method where a division by 'number' is performed without checking if 'number' is zero. According to the SpotBugs rule, this should have generated a warning for potential division by zero.",
+  "Buggy_Line": [
+    11
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when the showBug method is called with zero as an argument, resulting in a division by zero. SpotBugs should have generated a warning for this, but it didn't, which is the bug.",
+  "Trigger_Line": [
+    5
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed successfully without any errors or warnings. This indicates that SpotBugs did not generate a warning for the potential division by zero in the BuggyCode class, which is the expected behavior according to the bug information. Therefore, the bug was not triggered in this test run."
+}

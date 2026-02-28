@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "Classes should not be compared by name",
+  "Bug_Details": "There is no requirement that class names be unique, only that they be unique within a package. Therefore trying to determine an object\u2019s type based\non its class name is an exercise fraught with danger. One of those dangers is that a malicious user will send objects of the same name as the trusted\nclass and thereby gain trusted access.\nInstead, the instanceof operator or the Class.isAssignableFrom() method should be used to check the object\u2019s underlying\ntype.\nNoncompliant code example\npackage computer;\nclass Pear extends Laptop { ... }\n\npackage food;\nclass Pear extends Fruit { ... }\n\nclass Store {\n\n  public boolean hasSellByDate(Object item) {\n    if (\"Pear\".equals(item.getClass().getSimpleName())) {  // Noncompliant\n      return true;  // Results in throwing away week-old computers\n    }\n    return false;\n  }\n\n  public boolean isList(Class<T> valueClass) {\n    if (List.class.getName().equals(valueClass.getName())) {  // Noncompliant\n      return true;\n    }\n    return false;\n  }\n}\nCompliant solution\nclass Store {\n\n  public boolean hasSellByDate(Object item) {\n    if (item instanceof food.Pear) {\n      return true;\n    }\n    return false;\n  }\n\n  public boolean isList(Class<T> valueClass) {\n    if (valueClass.isAssignableFrom(List.class)) {\n      return true;\n    }\n    return false;\n  }\n}",
+  "Bug_Explanation": "The bug was embedded in the `hasSellByDate` method by comparing the class name of the `item` parameter with the string \"Pear\" instead of using the `instanceof` operator to check if the object is an instance of the `Pear` class. Similarly, in the `isList` method, the bug was embedded by comparing the class name of the `valueClass` parameter with the string \"List\" instead of using the `isAssignableFrom` method to check if the class is a subclass of `List`.",
+  "Buggy_Line": [
+    13,
+    6
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_156/seed_Sonar_156.java:1: error: illegal start of type\nclass Pear extends Fruit {... }\n                          ^\n../sonar_clean_java_code/result_Sonar_156/seed_Sonar_156.java:20: error: unnamed classes are a preview feature and are disabled by default.\npublic void showBug() {\n       ^\n  (use --enable-preview to enable unnamed classes)\n2 errors\n",
+  "Trigger_Explanation": "The test case triggered the bug by calling the `hasSellByDate` method with an instance of `Fruit` and the `isList` method with a class object of `List<T>`, which caused the buggy code to compare the class name of the `item` parameter and the string \"Pear\" instead of using the `instanceof` operator to check if the object is an instance of the `Pear` class.",
+  "Trigger_Line": [
+    13,
+    6
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

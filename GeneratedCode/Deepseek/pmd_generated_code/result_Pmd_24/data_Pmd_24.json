@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "CloneMethodMustBePublic",
+  "Bug_Details": "The java manual says \"By convention, classes that implement this interface should override\nObject.clone (which is protected) with a public method.\"\nExamples:\npublic class Foo implements Cloneable {\n    @Override\n    protected Object clone() throws CloneNotSupportedException { // Violation, must be public\n    }\n}\n\npublic class Foo implements Cloneable {\n    @Override\n    protected Foo clone() { // Violation, must be public\n    }\n}\n\npublic class Foo implements Cloneable {\n    @Override\n    public Object clone() // Ok\n}",
+  "Bug_Explanation": "The class 'Foo' implements the Cloneable interface and has a clone method with protected access. The CloneMethodMustBePublic bug rule states that this method should be public. The bug is embedded in the 'clone' method.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the method `showBug` in the class Foo. This method calls the `clone` method which is protected in this class. The CloneMethodMustBePublic bug rule states that the `clone` method should be public. Therefore, the bug is triggered in this line.",
+  "Trigger_Line": [
+    5
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run was successful, which means the bug was not triggered."
+}

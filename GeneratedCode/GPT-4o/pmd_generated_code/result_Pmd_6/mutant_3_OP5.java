@@ -1,0 +1,38 @@
+class FinalizeBugExample {
+
+    static class Bar {
+        @Override
+        protected void finalize() throws Throwable {
+            System.out.println("Bar's finalize method called.");
+        }
+    }
+
+    public void showBug() {
+        Bar b = new Bar();
+        try {
+            b.finalize(); // BUG: AvoidCallingFinalize
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+
+        // Mutation: Inserting unreachable switch statement
+        int unreachableSwitch = getUnreachableValue();
+        switch (unreachableSwitch) {
+            case 1:
+                System.out.println("This will never be printed.");
+                break;
+            default:
+                break;
+        }
+    }
+
+    // Helper method to ensure the switch statement is unreachable
+    private int getUnreachableValue() {
+        return 2; // Always returns a value not matching any case
+    }
+
+    public static void main(String[] args) {
+        FinalizeBugExample example = new FinalizeBugExample();
+        example.showBug();
+    }
+}

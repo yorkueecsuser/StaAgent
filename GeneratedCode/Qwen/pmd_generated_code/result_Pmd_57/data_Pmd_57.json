@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "MissingStaticMethodInNonInstantiatableClass",
+  "Bug_Details": "A class that has private constructors and does not have any static methods or fields cannot be used.\n\nWhen one of the private constructors is annotated with one of the annotations, then the class is not considered\nnon-instantiatable anymore and no violation will be reported.\nSee the property `annotations`.\nExamples:\n// This class is unusable, since it cannot be\n// instantiated (private constructor),\n// and no static method can be called.\n\npublic class Foo {\n  private Foo() {}\n  void foo() {}\n}",
+  "Bug_Explanation": "The class 'UnusableClass' has a private constructor and no static methods or fields, making it non-instantiatable and unusable. The'showBug' method attempts to instantiate the class, which will cause a compile-time error.",
+  "Buggy_Line": [
+    2
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test attempts to instantiate UnusableClass using reflection, which triggers the IllegalAccessException due to the private constructor.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed without throwing an IllegalAccessException, which means the bug was not triggered as expected."
+}

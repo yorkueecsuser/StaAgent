@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "BundleDeserializationCast",
+  "Bug_Details": "Object serialized in Bundle may have been flattened to base type.",
+  "Bug_Explanation": "The code demonstrates a scenario where an object of a derived type is serialized into a container. When deserialized, it is cast to a base type, which may cause issues when attempting to cast it back to the derived type. This can lead to a ClassCastException if the object is not correctly handled, simulating a common mistake in deserialization operations.",
+  "Buggy_Line": [
+    43,
+    47
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug_TriggerBug method calls the showBug method from the BundleDeserializationExample class, which attempts to cast a BaseType back to a DerivedType after deserialization. This triggers a ClassCastException because the object was serialized and deserialized through the base class, causing the JUnit test to fail.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully (OK), which means the ClassCastException was not thrown during the test execution. Therefore, the bug was not triggered."
+}

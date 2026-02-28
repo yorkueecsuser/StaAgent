@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "AutoValueBuilderDefaultsInConstructor",
+  "Bug_Details": "Defaults for AutoValue Builders should be set in the factory method returning Builder instances, not the constructor",
+  "Bug_Explanation": "The bug is embedded in the Builder constructor of the Product class within UserCreator. The constructor sets default values, which violates the rule that defaults should be set in the factory method returning Builder instances.",
+  "Buggy_Line": [
+    26
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_9/seed_Prone_9.java:12: error: Builder is abstract; cannot be instantiated\n        return new User.Builder().name(\"Unknown\").age(0); // Correct way to set defaults\n               ^\n../prone_clean_java_code/result_Prone_9/seed_Prone_9.java:33: error: Builder is abstract; cannot be instantiated\n            return new UserCreator.Product.Builder();\n                   ^\n2 errors\n",
+  "Trigger_Explanation": "The test triggers the bug by calling userCreator.showBug(), which uses the Product.Builder constructor that incorrectly sets default values.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

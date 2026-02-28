@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "\"@Autowired\" should only be used on a single constructor",
+  "Bug_Details": "@Autowired is an annotation in the Spring Framework for automatic dependency injection. It tells Spring to automatically provide the\nrequired dependencies (such as other beans or components) to a class\u2019s fields, methods, or constructors, allowing for easier and more flexible\nmanagement of dependencies in a Spring application. In other words, it\u2019s a way to wire up and inject dependencies into Spring components\nautomatically, reducing the need for manual configuration and enhancing modularity and maintainability.\nIn any bean class, only one constructor is permitted to declare @Autowired with the required attribute set to true. This\nsignifies the constructor to be automatically wired when used as a Spring bean. Consequently, when the required attribute remains at its default value\n(true), only a singular constructor can bear the @Autowired annotation. In cases where multiple constructors have this annotation, they\nmust all specify required=false to be eligible as candidates for auto-wiring.",
+  "Bug_Explanation": "@Autowired is used on multiple constructors which is not allowed in Spring Framework. However, without the Spring framework, we can't demonstrate the bug directly.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_14/seed_Sonar_14.java:9: error: constructor BuggyBean(Object) is already defined in class BuggyBean\n    public BuggyBean(Object dependencyB) {\n           ^\n1 error\n",
+  "Trigger_Explanation": "The bug is triggered when an object of BuggyBean is created with a parameter in the test case. This is because the BuggyBean class has multiple constructors, and without specifying which one to use, the test will fail due to ambiguity.",
+  "Trigger_Line": [
+    8
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,11 @@
+{
+  "Buggy_Line": [
+    8
+  ],
+  "Trigger_Explanation": "The test code triggers the bug by calling the Thread.interrupted() method on the STIExample instance, which is not the current thread.",
+  "Trigger_Line": [
+    9
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

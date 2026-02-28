@@ -1,0 +1,47 @@
+import java.io.Serializable;
+
+// TODO understand why is this important to use internal classes here
+// import sun.util.calendar.ZoneInfo;
+
+class Ideas_2010_02_17 implements Serializable {
+
+  //    ZoneInfo zone;
+  //
+  //    private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException
+  // {
+  //        final ObjectInputStream input = stream;
+  //        input.defaultReadObject();
+  //
+  //        // If there's a ZoneInfo object, use it for zone.
+  //        try {
+  //            ZoneInfo zi = AccessController.doPrivileged(new
+  // PrivilegedExceptionAction<ZoneInfo>() {
+  //                @Override
+  //                public ZoneInfo run() throws Exception {
+  //                    return (ZoneInfo) input.readObject();
+  //                }
+  //            });
+  //            if (zi!= null) {
+  //                zone = zi;
+  //            }
+  //        } catch (Exception e) {
+  //        }
+  //
+  //    }
+
+    // Mutated code starts here
+    private boolean getCondition() {
+        return false; // This method will always return false, but it's not a compile-time constant
+    }
+
+    public void someMethod() {
+        boolean shouldRun = getCondition();
+        if (shouldRun) {
+            // This block will never execute because getCondition() always returns false
+            System.out.println("This is an unreachable if block.");
+        } else {
+            // This block will always execute
+            System.out.println("This is the reachable else block.");
+        }
+    }
+}

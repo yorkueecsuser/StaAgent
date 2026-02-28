@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "SuspiciousHashcodeMethodName",
+  "Bug_Details": "The method name and return type are suspiciously close to hashCode(), which may denote an intention\nto override the hashCode() method.\nExamples:\npublic class Foo {\n    public int hashcode() { // oops, this probably was supposed to be 'hashCode'\n    }\n}",
+  "Bug_Explanation": "The method hashcode() is intended to be named hashCode() as per Java conventions. This might lead to unexpected behavior as it does not override the built-in Object's hashCode() method.",
+  "Buggy_Line": [
+    2,
+    4
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "",
+  "Trigger_Explanation": "The test case'showBugTest' calls the'showBug' method which in turn calls the 'hashcode' method, which is suspiciously named and does not override the built-in Object's hashCode() method.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the'showBug' method returned the expected value of 1, which is the value returned by the 'hashcode' method. However, the bug is not triggered because the 'hashcode' method is not intended to override the 'hashCode' method. Therefore, the test results do not confirm the presence of the described bug."
+}

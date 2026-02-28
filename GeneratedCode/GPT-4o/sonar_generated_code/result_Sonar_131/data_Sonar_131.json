@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "\"equals\" methods should be symmetric and work for subclasses",
+  "Bug_Details": "A key facet of the equals contract is that if a.equals(b) then b.equals(a) , i.e. that the relationship is\nsymmetric.\nUsing instanceof breaks the contract when there are subclasses, because while the child is an instanceof the parent, the\nparent is not an instanceof the child. For instance, assume that Raspberry extends Fruit and adds some fields (requiring a\nnew implementation of equals ):\nFruit fruit = new Fruit();\nRaspberry raspberry = new Raspberry();\n\nif (raspberry instanceof Fruit) { ... } // true\nif (fruit instanceof Raspberry) { ... } // false\nIf similar instanceof checks were used in the classes' equals methods, the symmetry principle would be broken:\nraspberry.equals(fruit); // false\nfruit.equals(raspberry); //true\nAdditionally, non final classes shouldn\u2019t use a hardcoded class name in the equals method because doing so breaks the\nmethod for subclasses. Instead, make the comparison dynamic.\nFurther, comparing to an unrelated class type breaks the contract for that unrelated type, because while thisClass.equals(unrelatedClass) can return true, unrelatedClass.equals(thisClass) will not.\nNoncompliant code example\npublic class Fruit extends Food {\n  private Season ripe;\n\n  public boolean equals(Object obj) {\n    if (obj == this) {\n      return true;\n    }\n    if (obj == null) {\n      return false;\n    }\n    if (Fruit.class == obj.getClass()) { // Noncompliant; broken for child classes\n      return ripe.equals(((Fruit)obj).getRipe());\n    }\n    if (obj instanceof Fruit ) {  // Noncompliant; broken for child classes\n      return ripe.equals(((Fruit)obj).getRipe());\n    }\n    else if (obj instanceof Season) { // Noncompliant; symmetry broken for Season class\n      // ...\n    }\n    //...\nCompliant solution\npublic class Fruit extends Food {\n  private Season ripe;\n\n  public boolean equals(Object obj) {\n    if (obj == this) {\n      return true;\n    }\n    if (obj == null) {\n      return false;\n    }\n    if (this.getClass() == obj.getClass()) {\n      return ripe.equals(((Fruit)obj).getRipe());\n    }\n    return false;\n}",
+  "Bug_Explanation": "The equals method in the Fruit class uses instanceof checks and a direct class comparison using Fruit.class, which breaks the symmetry of the equals method. This occurs because a subclass like Raspberry might be equal to a Fruit instance, but the reverse may not work due to the instanceof logic. Additionally, the method breaks symmetry for unrelated Season objects.",
+  "Buggy_Line": [
+    42,
+    36,
+    39
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by creating instances of Fruit and its subclass Raspberry, then checking the equality operations between them. The equals method in the Fruit class is non-symmetric due to the usage of instanceof checks, which breaks the equality contract when a subclass is involved.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

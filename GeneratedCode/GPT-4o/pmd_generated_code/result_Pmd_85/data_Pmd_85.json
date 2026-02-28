@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "UselessOperationOnImmutable",
+  "Bug_Details": "An operation on an immutable object will not change the object itself since the result of the operation is a new object.\nTherefore, ignoring the result of such an operation is likely a mistake. The operation can probably be removed.\n\nThis rule recognizes the types `String`, `BigDecimal`, `BigInteger` or any type from `java.time.*` as immutable.\nExamples:\nimport java.math.*;\n\nclass Test {\n    void method1() {\n        BigDecimal bd=new BigDecimal(10);\n        bd.add(new BigDecimal(5));      // this will trigger the rule\n    }\n    void method2() {\n        BigDecimal bd=new BigDecimal(10);\n        bd = bd.add(new BigDecimal(5)); // this won't trigger the rule\n    }\n}",
+  "Bug_Explanation": "The method `add` is called on a BigDecimal object, which is immutable. The result of the operation is a new BigDecimal object, but it is not assigned to any variable, making the operation useless since the original object `bd` remains unchanged.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method and checks if the result is as expected when the bug is present. The bug occurs because the add operation on a BigDecimal is not assigned to a variable, hence the original value remains unchanged. The test checks if the result remains equal to the initial value, due to the bug, instead of changing.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully, which means the expected behavior (the result being the same as the initial value) was observed. This suggests that the bug was not triggered during the test execution."
+}

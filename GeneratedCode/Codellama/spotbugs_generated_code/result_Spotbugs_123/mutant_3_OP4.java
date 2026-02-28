@@ -1,0 +1,32 @@
+import java.util.Arrays;
+
+class BC_IMPOSSIBLE_INSTANCEOF {
+  public static void main(String[] args) {
+    String[] arr = {"Hello", "World"};
+    showBug(arr);
+  }
+
+  public static void showBug(String[] arr) {
+    if (arr instanceof Object[]) {
+      System.out.println("The array is an instance of Object[]");
+    } else {
+      System.out.println("The array is not an instance of Object[]");
+    }
+  }
+}
+
+// Unreachable if-else statement
+class BC_IMPOSSIBLE_INSTANCEOF_MUTANT {
+  public static void main(String[] args) {
+    String[] arr = {"Hello", "World"};
+    showBug(arr);
+  }
+
+  public static void showBug(String[] arr) {
+    if (arr instanceof Object[]) {
+      System.out.println("The array is an instance of Object[]");
+    } else if (false) {
+      System.out.println("The array is not an instance of Object[]");
+    }
+  }
+}

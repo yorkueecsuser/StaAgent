@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "MoreThanOneInjectableConstructor",
+  "Bug_Details": "This class has more than one @Inject-annotated constructor. Please remove the @Inject annotation from all but one of them. Injection frameworks may use @Inject to determine how to construct an object\nin the absence of other instructions. Annotating @Inject on a constructor\ntells the injection framework to use that constructor. However, if multiple\n@Inject constructors exist, injection frameworks can\u2019t reliably choose between\nthem.",
+  "Bug_Explanation": "This class has more than one constructor. In the absence of any other instructions, an external framework or library attempting to instantiate an object of this class will not be able to determine which constructor to use, leading to an ambiguity error.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when trying to create an object of the BuggyClass using the parameterized constructor. This is because the BuggyClass has multiple constructors and an external framework or library attempting to instantiate an object of this class would be unsure which constructor to use, leading to an ambiguity error.",
+  "Trigger_Line": [
+    13
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.005\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that both the default constructor and the parameterized constructor of the BuggyClass are functioning correctly. Since there are no @Inject annotations in the code, the presence of multiple constructors does not violate the MoreThanOneInjectableConstructor rule. Therefore, the bug was not triggered."
+}

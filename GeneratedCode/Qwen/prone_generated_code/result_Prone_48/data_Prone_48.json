@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "EqualsWrongThing",
+  "Bug_Details": "Comparing different pairs of fields/getters in an equals implementation is probably a mistake. An equals method compares non-corresponding fields from itself and the other\ninstance: class Frobnicator {\n  private int a;\n  private int b;\n\n  @Override\n  public boolean equals(@Nullable Object other) {\n    if (!(other instanceof Frobnicator)) {\n      return false;\n    }\n    Frobnicator that = (Frobnicator) other;\n    return a == that.a && b == that.a; // BUG: should be b == that.b\n  }\n} class Frobnicator {\n  private int a;\n  private int b;\n\n  @Override\n  public boolean equals(@Nullable Object other) {\n    if (!(other instanceof Frobnicator)) {\n      return false;\n    }\n    Frobnicator that = (Frobnicator) other;\n    return a == that.a && b == that.a; // BUG: should be b == that.b\n  }\n}",
+  "Bug_Explanation": "The bug was embedded in the equals method of the Frobnicator class by comparing field 'b' with 'that.a' instead of 'that.b'. This results in incorrect equality checks.",
+  "Buggy_Line": [
+    18
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test cases triggered the bug by creating instances of Frobnicator with the same value for 'a' but different values for 'b'. According to the buggy equals method, these instances should not be equal because 'b' is incorrectly compared with 'that.a'. However, due to the bug, the equals method returns true, causing the test cases to fail.",
+  "Trigger_Line": [
+    10,
+    15
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.007\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that both tests passed successfully, which means the method did not behave as expected if the bug were present. The tests should have failed because the equals method incorrectly compares 'b' with 'a', making objects equal when they should not be."
+}

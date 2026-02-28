@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "\"PreparedStatement\" and \"ResultSet\" methods should be called with valid indices",
+  "Bug_Details": "PreparedStatement is an object that represents a precompiled SQL statement, that can be used to execute the statement multiple times\nefficiently.\nResultSet is the Java representation of the result set of a database query obtained from a Statement object. A default ResultSet object is not updatable and has a cursor that moves forward only.\nThe parameters in PreparedStatement and ResultSet are indexed beginning at 1, not 0. When an invalid index is passed to\nthe PreparedStatement or ResultSet methods, an IndexOutOfBoundsException is thrown. This can cause the program\nto crash or behave unexpectedly, leading to a poor user experience.\nThis rule raises an issue for the get methods in PreparedStatement and the set methods in ResultSet .",
+  "Bug_Explanation": "The bug is embedded in the'showBug' method where 0 is used as an index for the'setString' method of PreparedStatement and 'getString' method of ResultSet. These methods expect indices starting from 1, not 0.",
+  "Buggy_Line": [
+    17,
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls the showBug method of InvalidIndexBug class passing 'testUser' as an argument. This results in an IndexOutOfBoundsException being thrown because the methods setString and getString are being called with an invalid index (0 instead of 1), triggering the bug as explained in the problem statement.",
+  "Trigger_Line": [
+    4
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.011\nThere was 1 failure:\n1) testShowBug(InvalidIndexBugTest)\njava.sql.SQLException: No suitable driver found for jdbc:mysql://localhost/test\n\tat java.sql/java.sql.DriverManager.getConnection(DriverManager.java:708)\n\tat java.sql/java.sql.DriverManager.getConnection(DriverManager.java:230)\n\tat InvalidIndexBug.showBug(InvalidIndexBug.java:10)\n\tat InvalidIndexBugTest.testShowBug(InvalidIndexBugTest.java:11)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that a SQLException was thrown due to no suitable driver being found for the specified database connection, not due to any invalid indices in the PreparedStatement or ResultSet methods. Therefore, the bug was not triggered during this test run."
+}

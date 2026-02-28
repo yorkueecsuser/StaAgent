@@ -1,0 +1,20 @@
+{
+  "Bug_Title": "AssignmentToNonFinalStatic",
+  "Bug_Details": "Identifies a possible unsafe usage of a static field.\nExamples:\npublic class StaticField {\n   static int x;\n   public FinalFields(int y) {\n    x = y; // unsafe\n   }\n}",
+  "Bug_Explanation": "The bug is embedded in the generated code by assigning a value to a non-final static field'sharedValue' within the constructor and the'showBug' method. This can lead to unexpected behavior as the static field is shared across all instances of the class.",
+  "Buggy_Line": [
+    9,
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by creating multiple instances of StaticFieldExample and calling the showBug method on each instance. The static field sharedValue is modified by each instance, leading to unexpected behavior when checking the value in the assertions.",
+  "Trigger_Line": [
+    8,
+    10,
+    13,
+    16
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that all assertions passed successfully, which means the test did not encounter any unexpected behavior that would confirm the presence of the bug. Specifically, the final assertion in the test, which checks if the value of sharedValue remains 10 after it has been set to 20, did not fail. This suggests that the bug did not manifest as expected during the test execution."
+}

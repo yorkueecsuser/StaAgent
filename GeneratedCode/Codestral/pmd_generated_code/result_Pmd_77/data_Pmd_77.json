@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "TestClassWithoutTestCases",
+  "Bug_Details": "Test classes typically end with the suffix \"Test\", \"Tests\" or \"TestCase\". Having a non-test class with that name\nis not a good practice, since most people will assume it is a test case. Test classes have test methods\nnamed \"testXXX\" (JUnit3) or use annotations (e.g. `@Test`).\n\nThe suffix can be configured using the property `testClassPattern`. To disable the detection of possible test classes\nby name, set this property to an empty string.\nExamples:\n//Consider changing the name of the class if it is not a test\n//Consider adding test methods if it is a test\npublic class CarTest {\n   public static void main(String[] args) {\n    // do something\n   }\n   // code\n}",
+  "Bug_Explanation": "A non-test class is named with a suffix that implies it might be a test class. A method that is not a test method is not named 'testXXX' or annotated with '@Test'. This can lead others to assume it's a test case.",
+  "Buggy_Line": [
+    2
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case testShowBug calls the method showBug() from the Car class, which in turn calls the method displayCarDetails(). Since the Car class doesn't have any test methods and the displayCarDetails() method is not named 'testXXX' or annotated with '@Test', this triggers the bug 'TestClassWithoutTestCases'.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.This is a car class but doesn't have any test methods.\n\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the 'Car' class's 'displayCarDetails' method was called during the test run, but this does not violate the bug rule. The bug rule is about test classes not having the correct naming or test methods, but the 'Car' class is not a test class. Therefore, the test results do not confirm the presence of the described bug."
+}

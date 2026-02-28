@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "Locks should be released on all paths",
+  "Bug_Details": "If a lock is acquired and released within a method, then it must be released along all execution paths of that method.\nFailing to do so will expose the conditional locking logic to the method\u2019s callers and hence be deadlock-prone.\nNoncompliant code example\npublic class MyClass {\n  public void doSomething() {\n    Lock lock = new Lock();\n    lock.lock(); // Noncompliant\n    if (isInitialized()) {\n      // ...\n      lock.unlock();\n    }\n  }\n}\nCompliant solution\npublic class MyClass {\n  public void doSomething() {\n    Lock lock = new Lock();\n    if (isInitialized()) {\n      lock.lock();\n      // ...\n      lock.unlock();\n    }\n  }\n}",
+  "Bug_Explanation": "In the 'doSomething' method, a lock is acquired but not released if 'isInitialized' is false. This can cause a deadlock if another thread tries to acquire the same lock.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when the lock is acquired but not released if 'isInitialized' is false. This can cause a deadlock if another thread tries to acquire the same lock.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show 'OK (1 test)', indicating the test passed without any failures. This suggests that the bug was not present in the code under test, and the test did not encounter any conditions that triggered the bug.",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The bug is present in the provided Java code. The lock is acquired and released within the 'doSomething' method. However, if the 'isInitialized' condition is not met, the lock is not released. This can lead to a deadlock situation if another thread tries to acquire the lock while it is held by the current thread. The lock should be released along all execution paths of the method."
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "\"ThreadLocal\" variables should be cleaned up when no longer used",
+  "Bug_Details": "ThreadLocal variables are supposed to be garbage collected once the holding thread is no longer alive. Memory leaks can occur when\nholding threads are re-used which is the case on application servers using pool of threads.\nTo avoid such problems, it is recommended to always clean up ThreadLocal variables using the remove() method to remove\nthe current thread\u2019s value for the ThreadLocal variable.\nIn addition, calling set(null) to remove the value might keep the reference to this pointer in the map, which can cause\nmemory leak in some scenarios. Using remove is safer to avoid this issue.\nNoncompliant code example\npublic class ThreadLocalUserSession implements UserSession {\n\n  private static final ThreadLocal<UserSession> DELEGATE = new ThreadLocal<>();\n\n  public UserSession get() {\n    UserSession session = DELEGATE.get();\n    if (session != null) {\n      return session;\n    }\n    throw new UnauthorizedException(\"User is not authenticated\");\n  }\n\n  public void set(UserSession session) {\n    DELEGATE.set(session);\n  }\n\n   public void incorrectCleanup() {\n     DELEGATE.set(null); // Noncompliant\n   }\n\n  // some other methods without a call to DELEGATE.remove()\n}\nCompliant solution\npublic class ThreadLocalUserSession implements UserSession {\n\n  private static final ThreadLocal<UserSession> DELEGATE = new ThreadLocal<>();\n\n  public UserSession get() {\n    UserSession session = DELEGATE.get();\n    if (session != null) {\n      return session;\n    }\n    throw new UnauthorizedException(\"User is not authenticated\");\n  }\n\n  public void set(UserSession session) {\n    DELEGATE.set(session);\n  }\n\n  public void unload() {\n    DELEGATE.remove(); // Compliant\n  }\n\n  // ...\n}\nExceptions\nRule will not detect non-private ThreadLocal variables, because remove() can be called from another class.",
+  "Bug_Explanation": "The bug is embedded in the method 'incorrectCleanup' where 'DELEGATE.set(null)' is used instead of 'DELEGATE.remove()' to clean up the ThreadLocal variable. This can lead to memory leaks when threads are reused in a thread pool.",
+  "Buggy_Line": [
+    21
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test calls the'showBug' method of the ThreadLocalUserSession class, which sets a UserSession in a ThreadLocal variable and then incorrectly cleans it up using'set(null)' instead of'remove()'. This triggers the bug related to improper cleanup of ThreadLocal variables, which can lead to memory leaks.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nSession set: user123\nTime: 0.013\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results do not provide any evidence of a memory leak or any failure related to the improper cleanup of the ThreadLocal variable. The test simply prints 'Session set: user123' and passes without any assertion failures or exceptions, indicating that the bug was not confirmed through the test results."
+}

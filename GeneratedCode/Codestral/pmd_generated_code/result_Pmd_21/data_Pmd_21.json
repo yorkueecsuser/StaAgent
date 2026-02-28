@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "CallSuperLast",
+  "Bug_Details": "Super should be called at the end of the method\nExamples:\nimport android.app.Activity;\n\npublic class DummyActivity extends Activity {\n    public void onPause() {\n        foo();\n        // missing call to super.onPause()\n    }\n}",
+  "Bug_Explanation": "The bug 'CallSuperLast' is embedded in the generated code by not calling the super.addNotify() method at the beginning of the addNotify() method in the DummyFrame class.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug 'CallSuperLast' is triggered when the showBug() method is called in the test case. This method, in turn, calls the addNotify() method of the DummyFrame class. However, addNotify() does not call super.addNotify() at the beginning of the method, which is the bug.",
+  "Trigger_Line": [
+    5
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Custom method executed\n\nTime: 1.114\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the 'Custom method executed' message was printed, indicating that the addNotify() method was executed. However, the test did not fail or produce any error, which suggests that the bug was not triggered. This is because the bug is not being called directly in the test code, but rather through the showBug() method, which in turn calls addNotify(). Since the customMethod() is executed without any issues, it can be inferred that super.addNotify() was not called, but this does not necessarily mean that the bug was triggered, as the absence of super.addNotify() does not cause any immediate issues in this context."
+}

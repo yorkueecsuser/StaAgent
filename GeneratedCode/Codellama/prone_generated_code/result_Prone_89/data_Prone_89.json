@@ -1,0 +1,11 @@
+{
+  "Bug_Title": "JUnit4ClassAnnotationNonStatic",
+  "Bug_Details": "This method should be static JUnit4 provides two annotations (@BeforeClass and\n@AfterClass) that are applied to methods that are run once per\ntest class. These complement the more-often used @Before and @After\nwhich are applied to methods that are run once per test method. JUnit4 runs @BeforeClass and @AfterClass methods without making an instance\nof the test class, meaning that the methods must be static. JUnit4 will fail\nto run any @BeforeClass or @AfterClass method that isn\u2019t also static.",
+  "Bug_Explanation": "The @BeforeClass and @AfterClass methods are not static, which is a violation of the JUnit4 standard. JUnit4 requires these methods to be static so that they can be run without creating an instance of the test class.",
+  "Buggy_Line": [
+    4,
+    9
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_89/seed_Prone_89_junit_test.java:25: error: non-static method setup() cannot be referenced from a static context\n        setup();\n        ^\n../prone_clean_java_code/result_Prone_89/seed_Prone_89_junit_test.java:26: error: non-static method teardown() cannot be referenced from a static context\n        teardown();\n        ^\n2 errors\n"
+}

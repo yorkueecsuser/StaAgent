@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "\"BigDecimal(double)\" should not be used",
+  "Bug_Details": "The BigDecimal is used to represents immutable, arbitrary-precision signed decimal numbers.\nDifferently from the BigDecimal , the double primitive type and the Double type have limited precision due to\nthe use of double-precision 64-bit IEEE 754 floating point. Because of floating point imprecision, the BigDecimal(double) constructor can\nbe somewhat unpredictable.\nFor example writing new BigDecimal(0.1) doesn\u2019t create a BigDecimal which is exactly equal to 0.1, but it is equal to\n0.1000000000000000055511151231257827021181583404541015625. This is because 0.1 cannot be represented exactly as a double (or, for that matter, as a\nbinary fraction of any finite length).",
+  "Bug_Explanation": "The bug is caused by the use of the BigDecimal(double) constructor, which can be unpredictable due to floating point imprecision.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by creating a BigDecimal object with a double value, which leads to floating point imprecision.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.001\nThere was 1 failure:\n1) initializationError(org.junit.runner.JUnitCommandLineParseResult)\njava.lang.IllegalArgumentException: Could not find class [BigDecimalBugTest]\n\tat org.junit.runner.JUnitCommandLineParseResult.parseParameters(JUnitCommandLineParseResult.java:100)\n\tat org.junit.runner.JUnitCommandLineParseResult.parseArgs(JUnitCommandLineParseResult.java:50)\n\tat org.junit.runner.JUnitCommandLineParseResult.parse(JUnitCommandLineParseResult.java:44)\n\tat org.junit.runner.JUnitCore.runMain(JUnitCore.java:72)\n\tat org.junit.runner.JUnitCore.main(JUnitCore.java:36)\nCaused by: java.lang.ClassNotFoundException: BigDecimalBugTest\n\tat java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)\n\tat java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)\n\tat java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)\n\tat java.base/java.lang.Class.forName0(Native Method)\n\tat java.base/java.lang.Class.forName(Class.java:534)\n\tat java.base/java.lang.Class.forName(Class.java:513)\n\tat org.junit.internal.Classes.getClass(Classes.java:42)\n\tat org.junit.internal.Classes.getClass(Classes.java:27)\n\tat org.junit.runner.JUnitCommandLineParseResult.parseParameters(JUnitCommandLineParseResult.java:98)\n\t... 4 more\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the BigDecimal constructor was used with a double argument, but the test did not fail. Therefore, the bug was not triggered."
+}

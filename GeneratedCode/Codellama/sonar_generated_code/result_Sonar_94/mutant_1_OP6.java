@@ -1,0 +1,47 @@
+import java.sql.*;
+
+class BuggyPreparedStatement {
+    public static void main(String[] args) {
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "");
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM users WHERE id =?");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                // BUG: "PreparedStatement" and "ResultSet" methods should be called with valid indices
+                System.out.println(rs.getString(1));
+            }
+            rs.close();
+            ps.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+// Unreachable for loop mutant
+class BuggyPreparedStatement {
+    public static void main(String[] args) {
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "");
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM users WHERE id =?");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                // BUG: "PreparedStatement" and "ResultSet" methods should be called with valid indices
+                System.out.println(rs.getString(1));
+            }
+
+            // Unreachable for loop mutant
+            for (int i = 0; false; i++) {
+                // This code is unreachable and will never be executed
+                System.out.println("Unreachable code");
+            }
+
+            rs.close();
+            ps.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}

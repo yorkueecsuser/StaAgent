@@ -1,0 +1,36 @@
+import com.google.common.collect.ImmutableList;
+import java.util.ArrayList;
+import java.util.List;
+
+class ImmutableCast {
+
+  ImmutableList<String> immutableList = ImmutableList.of("a", "b", "c");
+
+  List<String> badCastFromField() {
+    boolean conditionWhile = getCondition();
+    while (conditionWhile) {
+      // Unreachable while loop
+    }
+    return immutableList;
+  }
+
+  List<String> badCast(ImmutableList<String> list) {
+    boolean conditionWhile = getCondition();
+    while (conditionWhile) {
+      // Unreachable while loop
+    }
+    return list;
+  }
+
+  List<String> goodCast(ImmutableList<String> list) {
+    boolean conditionWhile = getCondition();
+    while (conditionWhile) {
+      // Unreachable while loop
+    }
+    return new ArrayList<String>(list);
+  }
+
+  private boolean getCondition() {
+    return false; // This method ensures the condition is dynamically determined but always returns false
+  }
+}

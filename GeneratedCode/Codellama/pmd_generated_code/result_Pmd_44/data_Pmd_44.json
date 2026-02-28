@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "FinalizeOnlyCallsSuperFinalize",
+  "Bug_Details": "If the finalize() is implemented, it should do something besides just calling super.finalize(). Note that Oracle has declared Object.finalize() as deprecated since JDK 9.",
+  "Bug_Explanation": "The finalize() method is implemented, but it only calls the super.finalize() method without doing anything else. This violates the bug rule 'FinalizeOnlyCallsSuperFinalize' which states that if the finalize() method is implemented, it should do something besides just calling super.finalize().",
+  "Buggy_Line": [
+    14
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../pmd_clean_java_code/result_Pmd_44/seed_Pmd_44.java:13: warning: [removal] finalize() in Object has been deprecated and marked for removal\n    protected void finalize() {\n                   ^\n../pmd_clean_java_code/result_Pmd_44/seed_Pmd_44.java:14: warning: [removal] finalize() in Object has been deprecated and marked for removal\n        super.finalize(); // BUG: FinalizeOnlyCallsSuperFinalize\n             ^\n../pmd_clean_java_code/result_Pmd_44/seed_Pmd_44.java:14: error: unreported exception Throwable; must be caught or declared to be thrown\n        super.finalize(); // BUG: FinalizeOnlyCallsSuperFinalize\n                      ^\n1 error\n2 warnings\n",
+  "Trigger_Explanation": "Both test cases trigger the bug by calling the showBug() method, which calls the finalize() method that only calls super.finalize() without doing anything else.",
+  "Trigger_Line": [
+    27,
+    38
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "DeadException",
+  "Bug_Details": "Exception created but not thrown The exception is created with new, but is not thrown, and the reference is\nlost. Creating an exception without using it is unlikely to be correct, so we assume\nthat you wanted to throw the exception.",
+  "Bug_Explanation": "The bug is embedded in the generated code by creating an instance of IllegalArgumentException with a message but not throwing it. The reference to the exception is lost immediately after creation.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method of the DeadExceptionExample class, which creates an IllegalArgumentException but does not throw it. Since the exception is not thrown, the test case does not pass, effectively triggering the bug.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed without any exceptions being thrown. Since the bug involves creating an exception that is not thrown, and the test does not indicate any issues, the test results do not confirm that the bug was triggered."
+}

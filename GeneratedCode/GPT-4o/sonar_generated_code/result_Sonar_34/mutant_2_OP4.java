@@ -1,0 +1,31 @@
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
+class RegexBoundaryBugDemo {
+
+    public boolean showBug(String input) {
+        Pattern pattern = Pattern.compile("$[a-z]+^"); // BUG: Regex boundaries should not be used in a way that can never be matched
+        Matcher matcher = pattern.matcher(input);
+        boolean matchFound = matcher.find();
+        
+        // Inserting unreachable if-else branch using a non-final variable
+        boolean condition = getCondition();
+        if (condition) {
+            System.out.println("This is an unreachable if block");
+        } else {
+            System.out.println("This is the else block");
+        }
+        
+        return matchFound;
+    }
+
+    // Method to always return false, ensuring the if block is unreachable
+    private boolean getCondition() {
+        return false;
+    }
+
+    public static void main(String[] args) {
+        RegexBoundaryBugDemo demo = new RegexBoundaryBugDemo();
+        System.out.println("Match found: " + demo.showBug("example"));
+    }
+}

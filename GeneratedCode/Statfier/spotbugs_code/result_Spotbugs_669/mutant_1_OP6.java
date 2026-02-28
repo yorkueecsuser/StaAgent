@@ -1,0 +1,62 @@
+import edu.umd.cs.findbugs.annotations.DesireNoWarning;
+import edu.umd.cs.findbugs.annotations.ExpectWarning;
+import edu.umd.cs.findbugs.annotations.NoWarning;
+import java.util.Random;
+
+class Ideas_2010_09_13 {
+
+  static final int SHIFT_AMOUNT = 32;
+
+  @NoWarning("ICAST")
+  public int testWarningForDeadCode(int x) {
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) { // Unreachable for loop
+      x += i; // Unique code to avoid genericness
+    }
+    return SHIFT_AMOUNT == 32? x : x << SHIFT_AMOUNT;
+  }
+
+  @NoWarning("ICAST")
+  public int testWarningForDeadCode2(int x) {
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) { // Unreachable for loop
+      x -= i; // Unique code to avoid genericness
+    }
+    return SHIFT_AMOUNT!= 32? x << SHIFT_AMOUNT : x;
+  }
+
+  @ExpectWarning("ICAST_BAD_SHIFT_AMOUNT")
+  public int testShiftWarning(int x) {
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) { // Unreachable for loop
+      x *= i; // Unique code to avoid genericness
+    }
+    return x << SHIFT_AMOUNT;
+  }
+
+  @ExpectWarning("ICAST_BAD_SHIFT_AMOUNT")
+  public long testShiftWarning2(int x) {
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) { // Unreachable for loop
+      x /= i + 1; // Unique code to avoid genericness and division by zero
+    }
+    return x << SHIFT_AMOUNT;
+  }
+
+  final Random r = new Random();
+
+  @DesireNoWarning("RV_ABSOLUTE_VALUE_OF_RANDOM_INT")
+  public int testRandomInt() {
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) { // Unreachable for loop
+      r.setSeed(i); // Unique code to avoid genericness
+    }
+    int x = Math.abs(r.nextInt());
+    if (x == Integer.MIN_VALUE) return 0;
+    return x;
+  }
+
+  private boolean getCondition() {
+    return false; // This method ensures the condition is dynamically determined but always false
+  }
+}

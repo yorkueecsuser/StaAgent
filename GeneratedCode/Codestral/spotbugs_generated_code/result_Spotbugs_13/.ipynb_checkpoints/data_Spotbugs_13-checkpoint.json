@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Dm: Futile attempt to change max pool size of ScheduledThreadPoolExecutor (DMI_FUTILE_ATTEMPT_TO_CHANGE_MAXPOOL_SIZE_OF_SCHEDULED_THREAD_POOL_EXECUTOR)\uf0c1",
+  "Bug_Details": "(Javadoc)\nWhile ScheduledThreadPoolExecutor inherits from ThreadPoolExecutor, a few of the inherited tuning methods are not useful for it. In particular, because it acts as a fixed-sized pool using corePoolSize threads and an unbounded queue, adjustments to maximumPoolSize have no useful effect.\n    ",
+  "Bug_Explanation": "The code attempts to change the maximum pool size of ScheduledThreadPoolExecutor, but since it acts as a fixed-sized pool using corePoolSize threads and an unbounded queue, adjustments to maximumPoolSize have no useful effect.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by attempting to change the maximum pool size of ScheduledThreadPoolExecutor, which has no useful effect as it acts as a fixed-sized pool using corePoolSize threads and an unbounded queue.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Task running\nTask running\nTask running\nTask running\nTask running\nTask running\nE\nTime: 5.011\nThere was 1 failure:\n1) testShowBug(FutileMaxPoolSizeChangeTest)\njava.lang.AssertionError: expected:<5> but was:<10>\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat org.junit.Assert.failNotEquals(Assert.java:835)\n\tat org.junit.Assert.assertEquals(Assert.java:647)\n\tat org.junit.Assert.assertEquals(Assert.java:633)\n\tat FutileMaxPoolSizeChangeTest.testShowBug(FutileMaxPoolSizeChangeTest.java:15)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "Yes",
+  "Bug_Trigger_Explanation": "The test results show that the maximum pool size was expected to remain unchanged at 5, but it was changed to 10. This indicates that the bug was triggered, as the maximum pool size of ScheduledThreadPoolExecutor should not be changed."
+}

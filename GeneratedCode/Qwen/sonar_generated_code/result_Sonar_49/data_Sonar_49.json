@@ -1,0 +1,23 @@
+{
+  "Bug_Title": "AssertJ methods setting the assertion context should come before an assertion",
+  "Bug_Details": "Describing, setting error message or adding a comparator in AssertJ must be done before calling the\nassertion, otherwise, settings will not be taken into account.\nThis rule raises an issue when one of the method (with all similar methods):\nas describedAs withFailMessage overridingErrorMessage usingComparator usingElementComparator extracting filteredOn\nas\ndescribedAs\nwithFailMessage\noverridingErrorMessage\nusingComparator\nusingElementComparator\nextracting\nfilteredOn\nis called without calling an AssertJ assertion afterward.\nNoncompliant code example\nassertThat(actual).isEqualTo(expected).as(\"Description\"); // Noncompliant\nassertThat(actual).isEqualTo(expected).withFailMessage(\"Fail message\"); // Noncompliant\nassertThat(actual).isEqualTo(expected).usingComparator(new CustomComparator()); // Noncompliant\nCompliant solution\nassertThat(actual).as(\"Description\").isEqualTo(expected);\nassertThat(actual).withFailMessage(\"Fail message\").isEqualTo(expected);\nassertThat(actual).usingComparator(new CustomComparator()).isEqualTo(expected);",
+  "Bug_Explanation": "The bug is embedded in the commented-out lines where AssertJ methods are incorrectly used after the assertion. The intentional bug is preserved by keeping the comments intact.",
+  "Buggy_Line": [
+    18,
+    12,
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by calling the methods showBug, showBug1, and showBug2 with parameters that would normally trigger the AssertJ assertion failure. However, since the actual bug is commented out in the original code, the tests will pass. To properly trigger the bug, the commented-out lines in the original code should be uncommented, which would cause the tests to fail due to the incorrect usage of AssertJ methods.",
+  "Trigger_Line": [
+    7,
+    9,
+    14,
+    16,
+    21,
+    23
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n...\nTime: 0.008\n\nOK (3 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that all tests passed successfully without any failures or errors. This suggests that the AssertJ methods setting the assertion context were not triggered in a way that caused the bug to manifest, as the incorrect usage would typically result in failed assertions or runtime exceptions."
+}

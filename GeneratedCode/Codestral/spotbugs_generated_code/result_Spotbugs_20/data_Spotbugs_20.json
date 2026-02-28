@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "RV: Random value from 0 to 1 is coerced to the integer 0 (RV_01_TO_INT)\uf0c1",
+  "Bug_Details": "A random value from 0 to 1 is being coerced to the integer value 0. You probably\nwant to multiply the random value by something else before coercing it to an integer, or use the Random.nextInt(n) method.\n Random.nextInt(n)",
+  "Bug_Explanation": "A random value from 0 to 1 is being coerced to the integer value 0 without any multiplication or usage of Random.nextInt(n) method.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case 'testShowBug' triggers the bug by calling the'showBug' method in the 'BuggyCode' class and asserting that the result is not equal to 1. Since the bug is that a random value from 0 to 1 is being coerced to the integer value 0, the test case will fail when the'showBug' method returns 0, demonstrating the bug.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed without any assertion errors. This means that the coerced integer value was not equal to 1, which is the expected behavior according to the test. Therefore, the test results do not confirm the presence of the described bug in the Java code."
+}

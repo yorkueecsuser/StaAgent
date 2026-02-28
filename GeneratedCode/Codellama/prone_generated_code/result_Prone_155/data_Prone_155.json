@@ -1,0 +1,12 @@
+{
+  "Buggy_Line": [
+    6
+  ],
+  "Trigger_Explanation": "The test case triggers the bug by calling the `showBug()` method, which returns a string representation of the stream that is not useful for debugging.",
+  "Trigger_Line": [
+    7,
+    15
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "ConstructorCallsOverridableMethod",
+  "Bug_Details": "Reports calls to overridable methods on `this` during object initialization. These\nare invoked on an incompletely constructed object and can be difficult to debug if overridden.\nThis is because the subclass usually assumes that the superclass is completely initialized\nin all methods. If that is not the case, bugs can appear in the constructor, for instance,\nsome fields that are still null may cause a NullPointerException or be stored somewhere\nelse to blow up later.\n\nTo avoid this problem, only use methods that are static, private, or final in constructors.\nNote that those methods also must not call overridable methods transitively to be safe.\nExamples:\npublic class SeniorClass {\n  public SeniorClass(){\n      toString(); //may throw NullPointerException if overridden\n  }\n  public String toString(){\n    return \"IAmSeniorClass\";\n  }\n}\npublic class JuniorClass extends SeniorClass {\n  private String name;\n  public JuniorClass(){\n    super(); //Automatic call leads to NullPointerException\n    name = \"JuniorClass\";\n  }\n  public String toString(){\n    return name.toUpperCase();\n  }\n}",
+  "Bug_Explanation": "The bug occurs because the constructor of the SeniorClass calls the overridable method 'toString' on 'this'. When a JuniorClass object is created, the constructor of SeniorClass is called first, leading 'toString' to execute on an incompletely initialized JuniorClass object. As 'name' is not yet initialized, calling 'name.toUpperCase()' results in a NullPointerException.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by creating an instance of JuniorClass, which indirectly calls an overridable method toString() during the construction of its superclass SeniorClass, leading to a NullPointerException.",
+  "Trigger_Line": [
+    7
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

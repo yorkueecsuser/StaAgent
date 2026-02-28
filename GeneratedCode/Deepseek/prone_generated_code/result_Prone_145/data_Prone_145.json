@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "RequiredModifiers",
+  "Bug_Details": "This annotation is missing required modifiers as specified by its @RequiredModifiers annotation This annotation is itself annotated with @RequiredModifiers and can only be used\nwhen the specified modifiers are present. You are attempting to use it on an\nelement that is missing one or more required modifiers.",
+  "Bug_Explanation": "The @RequiredModifiers annotation is used on a method showBug() which does not have any required modifiers. This is an example of a RequiredModifiers bug.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_145/seed_Prone_145.java:3: error: cannot find symbol\n    @RequiredModifiers\n     ^\n  symbol:   class RequiredModifiers\n  location: class BugExample\n1 error\n",
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "No",
+  "Model_Explanation": "The provided Java code does not contain the bug as described. The @RequiredModifiers annotation is not used in the code. The bug is about a missing annotation, but it is not present in the provided code."
+}

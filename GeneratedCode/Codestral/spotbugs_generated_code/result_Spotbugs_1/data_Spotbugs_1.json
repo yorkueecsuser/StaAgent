@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "CN: Super method is annotated with @OverridingMethodsMustInvokeSuper, but the overriding method isn\u2019t calling the super method. (OVERRIDING_METHODS_MUST_INVOKE_SUPER)\uf0c1",
+  "Bug_Details": "Super method is annotated with @OverridingMethodsMustInvokeSuper, but the overriding method isn't calling the super method.",
+  "Bug_Explanation": "The DerivedClass overrides the baseMethod from the BaseClass but doesn't call the super method, which is annotated with @OverridingMethodsMustInvokeSuper.",
+  "Buggy_Line": [
+    14
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The original bug is triggered when the `showBug()` method is called from the `DerivedClass` object in the test method `testBug()`. This causes the overriding method `baseMethod()` in `DerivedClass` to be executed, and since the super method is not called in the overriding method, the bug is triggered.",
+  "Trigger_Line": [
+    7
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

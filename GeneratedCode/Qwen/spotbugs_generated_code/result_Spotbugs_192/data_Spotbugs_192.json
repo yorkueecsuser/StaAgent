@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "REFLC: Public method uses reflection to create a class it gets in its parameter which could increase the accessibility of any class (REFLC_REFLECTION_MAY_INCREASE_ACCESSIBILITY_OF_CLASS)\uf0c1",
+  "Bug_Details": "\nSEI CERT SEC05-J rule forbids the use of reflection to increase accessibility of classes, methods or fields. If\na class in a package provides a public method which takes an instance of java.lang.Class as its parameter and\ncalls its newInstance() method then it increases accessibility of classes in the same package without public\nconstructors. An attacker code may call this method and pass such class to create an instance of it. This should\nbe avoided by either making the method non-public or by checking for package access permission on the package.\nA third possibility is to use the java.beans.Beans.instantiate() method instead of java.lang.Class.newInstance()\nwhich checks whether the Class object being received has any public constructors.\n",
+  "Bug_Explanation": "The bug is embedded in the showBug method, which uses reflection to instantiate a class passed as a parameter. This can increase the accessibility of classes that have non-public constructors.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the public method'showBug' with 'PrivateClass.class' as the argument. This method uses reflection to instantiate a class with a private constructor, which should throw an IllegalAccessException.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

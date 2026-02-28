@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Se: The readResolve method must not be declared as a static method. (SE_READ_RESOLVE_IS_STATIC)\uf0c1",
+  "Bug_Details": " In order for the readResolve method to be recognized by the serialization\nmechanism, it must not be declared as a static method.\n",
+  "Bug_Explanation": "The readResolve method is incorrectly declared as a static method. This prevents the serialization mechanism from recognizing and using the method correctly, as readResolve should be an instance method for serialization to function properly.",
+  "Buggy_Line": [
+    16
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug method, which internally calls the statically declared readResolve method. This static method call fails to function correctly in the context of serialization mechanics, leading to a failure in returning the expected 'resolved' instance. The test expects a null return as a result of this failure, demonstrating the bug in the process.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.005\nThere was 1 failure:\n1) testShowBug(StaticReadResolveExampleTest)\njava.lang.AssertionError: expected null, but was:<Resolved Object>\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat org.junit.Assert.failNotNull(Assert.java:756)\n\tat org.junit.Assert.assertNull(Assert.java:738)\n\tat org.junit.Assert.assertNull(Assert.java:748)\n\tat StaticReadResolveExampleTest.testShowBug(StaticReadResolveExampleTest.java:10)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test expected the result to be null, indicating the bug should prevent proper deserialization. However, the result was 'Resolved Object', showing that the static readResolve method was called and returned a valid object, contrary to the expected bug behavior."
+}

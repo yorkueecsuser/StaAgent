@@ -1,0 +1,24 @@
+class NonsensicalMethodInvocation {
+
+    public String showBug(String input) {
+        // BUG: DMI: D’oh! A nonsensical method invocation (DMI_DOH)
+        return input.toUpperCase().toLowerCase(); // This line is nonsensical because it converts the string to uppercase and immediately to lowercase.
+
+        // Mutant code: Unreachable for loop
+        boolean conditionFor = getCondition();
+        for (int i = 0; conditionFor; i++) {
+            // This loop is unreachable because getCondition() will always return false
+            System.out.println("This will never be printed");
+        }
+    }
+
+    private boolean getCondition() {
+        // Always returns false to ensure the loop is unreachable
+        return false;
+    }
+
+    public static void main(String[] args) {
+        NonsensicalMethodInvocation example = new NonsensicalMethodInvocation();
+        System.out.println(example.showBug("Hello World"));
+    }
+}

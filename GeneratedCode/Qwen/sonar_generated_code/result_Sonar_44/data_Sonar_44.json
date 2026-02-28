@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Regex alternatives should not be redundant",
+  "Bug_Details": "If an alternative in a regular expression only matches things that are already matched by another alternative, that alternative is redundant and\nserves no purpose.\nIn the best case this means that the offending subpattern is merely redundant and should be removed. In the worst case it\u2019s a sign that this regex\ndoes not match what it was intended to match and should be reworked.\nCode examples\n\"[ab]|a\"   // Noncompliant: the \"|a\" is redundant because \"[ab]\" already matches \"a\"\n\".*|a\"     // Noncompliant: .* matches everything, so any other alternative is redundant\n\"[ab]\"\n\".*\"",
+  "Bug_Explanation": "The bug is embedded in the regular expression '[ab]|a'. The alternative '|a' is redundant because '[ab]' already matches 'a'.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by checking the output of the'showBug' method with the input 'abc'. The expected output is 'a b', but due to the redundant alternative '|a' in the regex pattern, the actual output is 'a b a'. This discrepancy causes the test to fail, thus triggering the bug.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.008\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that the test passed without any assertion errors. The expected output 'a b' does not match the actual output 'a b a' from the main method, but the test itself does not fail, indicating that the test condition did not trigger the bug as intended."
+}

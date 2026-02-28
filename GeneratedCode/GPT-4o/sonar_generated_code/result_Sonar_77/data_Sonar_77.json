@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Expressions used in \"assert\" should not produce side effects",
+  "Bug_Details": "Since assert statements aren\u2019t executed by default (they must be enabled with JVM flags) developers should never rely on their\nexecution the evaluation of any logic required for correct program function.\nNoncompliant code example\nassert myList.remove(myList.get(0));  // Noncompliant\nCompliant solution\nboolean removed = myList.remove(myList.get(0));\nassert removed;",
+  "Bug_Explanation": "The code embeds the bug by using an assert statement that causes a side effect. Specifically, the assert statement calls myList.remove(myList.get(0)), which removes the first element of the list. If assertions are not enabled, this side effect will not occur, leading to different program behavior based on whether assertions are enabled.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug method without enabling assertions. Since the assert statement in showBug causes a side effect by removing an element from the list, the side effect does not occur when assertions are disabled, leading to different behavior. The list does not become empty, causing the test to fail.",
+  "Trigger_Line": [
+    15
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test passed successfully, indicating that the assertion was not executed. Since assertions must be enabled explicitly in the JVM and the test did not fail, it confirms that the side effect in the assert statement did not occur, and thus the bug was not triggered."
+}

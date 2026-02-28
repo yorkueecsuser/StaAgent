@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Methods with Spring proxying annotations should be public",
+  "Bug_Details": "Marking a non-public method @Async or @Transactional is misleading because Spring does not recognize non-public methods,\nand so makes no provision for their proper invocation. Nor does Spring make provision for the methods invoked by the method it called.\nTherefore marking a private method, for instance, @Transactional can only result in a runtime error or exception if the method is annotated as\n@Transactional.",
+  "Bug_Explanation": "The method 'transactionalMethod' is annotated with '@Transactional' but it is private. In Spring Framework, methods annotated with '@Transactional' should be public to allow Spring's dynamic proxies to intercept the method calls and apply the transactional behavior. This bug can lead to unexpected results at runtime as the transaction management will not be applied.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testTransactionalMethod() method in the SpringBugExampleTest class attempts to call the showBug() method in the SpringBugExample class. This, in turn, calls the transactionalMethod() method which is private. Since the transactionalMethod() method is annotated with '@Transactional', the test should fail because Spring does not recognize non-public methods and cannot apply the transactional behavior.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed without any errors or exceptions. This indicates that the private method annotated with @Transactional did not cause any runtime errors or exceptions during the showBug() method execution. Therefore, the test results do not confirm the presence of the described bug in the Java code."
+}

@@ -1,0 +1,36 @@
+import edu.umd.cs.findbugs.annotations.ExpectWarning;
+import java.util.Calendar;
+
+/* From "More Programming Puzzlers" */
+
+class Elvis {
+  @ExpectWarning("SI_INSTANCE_BEFORE_FINALS_ASSIGNED")
+  public static final Elvis INSTANCE = new Elvis();
+
+  private final int beltSize;
+
+  private static final int CURRENT_YEAR = Calendar.getInstance().get(Calendar.YEAR);
+
+  private Elvis() {
+    beltSize = CURRENT_YEAR - 1930;
+    // Inserting an unreachable if statement
+    boolean condition = getCondition();
+    if (condition) {
+      // This block is unreachable because getCondition() always returns false
+      beltSize = 0;
+    }
+  }
+
+  private boolean getCondition() {
+    // This method always returns false, making the if block unreachable
+    return false;
+  }
+
+  public int beltSize() {
+    return beltSize;
+  }
+
+  public static void main(String args[]) {
+    System.out.println("Elvis wears size " + INSTANCE.beltSize() + " belt.");
+  }
+}

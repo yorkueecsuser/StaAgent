@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "ReturnEmptyCollectionRatherThanNull",
+  "Bug_Details": "For any method that returns an collection (such as an array, Collection or Map), it is better to return\nan empty one rather than a null reference. This removes the need for null checking all results and avoids\ninadvertent NullPointerExceptions.\n\nSee Effective Java, 3rd Edition, Item 54: Return empty collections or arrays instead of null\nExamples:\npublic class Example {\n    // Not a good idea...\n    public int[] badBehavior() {\n        // ...\n        return null;\n    }\n\n    // Good behavior\n    public String[] bonnePratique() {\n        //...\n        return new String[0];\n    }\n}",
+  "Bug_Explanation": "The method getNames() returns null instead of an empty List, which leads to a NullPointerException when trying to access the size of the list.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by calling the showBug method, which internally calls getNames and returns null. When trying to access the size of the returned list, a NullPointerException is thrown.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.008\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed without throwing a NullPointerException, which contradicts the expectation set in the test code that a NullPointerException would be thrown. Therefore, the test results do not confirm that the bug was triggered."
+}

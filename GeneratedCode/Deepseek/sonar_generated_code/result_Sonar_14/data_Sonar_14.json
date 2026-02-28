@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "\"@Autowired\" should only be used on a single constructor",
+  "Bug_Details": "@Autowired is an annotation in the Spring Framework for automatic dependency injection. It tells Spring to automatically provide the\nrequired dependencies (such as other beans or components) to a class\u2019s fields, methods, or constructors, allowing for easier and more flexible\nmanagement of dependencies in a Spring application. In other words, it\u2019s a way to wire up and inject dependencies into Spring components\nautomatically, reducing the need for manual configuration and enhancing modularity and maintainability.\nIn any bean class, only one constructor is permitted to declare @Autowired with the required attribute set to true. This\nsignifies the constructor to be automatically wired when used as a Spring bean. Consequently, when the required attribute remains at its default value\n(true), only a singular constructor can bear the @Autowired annotation. In cases where multiple constructors have this annotation, they\nmust all specify required=false to be eligible as candidates for auto-wiring.",
+  "Bug_Explanation": "In the given example, two constructors have been annotated with @Autowired, which contradicts the rule that only one constructor can be annotated with @Autowired. This is a bug.",
+  "Buggy_Line": [
+    5,
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case is triggering the bug because it is trying to create an instance of BuggyClass using the default constructor. However, the class has two constructors annotated with @Autowired which contradicts the rule that only one constructor can be annotated with @Autowired. This is a bug.",
+  "Trigger_Line": [
+    3
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The described bug is present in the provided Java code. The @Autowired annotation is used on multiple constructors, which is against the rule that states '@Autowired' should only be used on a single constructor. This can lead to confusion and unexpected behavior, as Spring will not know which constructor to use for dependency injection."
+}

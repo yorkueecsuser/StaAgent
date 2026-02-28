@@ -1,0 +1,20 @@
+{
+  "Bug_Title": "ComparisonWithNaN",
+  "Bug_Details": "Reports comparisons with double and float `NaN` (Not-a-Number) values.\n            These are [specified](https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.21.1)\n            to have unintuitive behavior: NaN is considered unequal to itself.\n            This means a check like `someDouble == Double.NaN` will always return\n            false, even if `someDouble` is really the NaN value. To test whether a\n            value is the NaN value, one should instead use `Double.isNaN(someDouble)`\n            (or `Float.isNaN`). The `!=` operator should be treated similarly.\n            Finally, comparisons like `someDouble <= Double.NaN` are nonsensical\n            and will always evaluate to false.\n            \n            This rule has been renamed from \"BadComparison\" in PMD 6.36.0.\nExamples:\nboolean x = (y == Double.NaN);",
+  "Bug_Explanation": "The bug was embedded in the generated code by using direct comparisons with Double.NaN using the '==', '!=', and '<=' operators. These comparisons are known to behave unintuitively as NaN is not equal to itself.",
+  "Buggy_Line": [
+    8,
+    4,
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test cases trigger the bug by calling the methods `showBug`, `showBug2`, and `showBug3` with `Double.NaN` as the argument. These methods contain comparisons with `Double.NaN` using the '==', '!=', and '<=' operators, which are known to behave unintuitively.",
+  "Trigger_Line": [
+    11,
+    16,
+    21
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n...\nTime: 0.004\n\nOK (3 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that all three tests passed successfully. This suggests that the methods did not behave as expected when comparing with NaN, but it does not confirm that the bug was triggered because the expected outcomes for the buggy code were not met. The test results do not provide evidence that the comparisons with NaN were performed incorrectly according to the bug description."
+}

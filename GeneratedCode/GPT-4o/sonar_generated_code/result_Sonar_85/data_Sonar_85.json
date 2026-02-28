@@ -1,0 +1,22 @@
+{
+  "Bug_Title": "Indexes to passed to \"String\" operations should be within the string's bounds",
+  "Bug_Details": "There are various String operations that take one or more character indexes as arguments and return a portion of the original string.\nIndexing in this context is zero-based, meaning that the first character\u2019s index is 0 . As a result, given a string myString ,\nits last character is at index myString.length() - 1 .\nThe String operation methods throw a StringIndexOutOfBoundsException when one of their index argument is smaller than 0\n(E.G.: -1). String::substring also throws this exception when the beginIndex or endIndex argument is larger\nthan myString.length() , and String::charAt when the index argument is larger than myString.length() -\n1 For instance, it is not possible to use String::charAt to retrieve a value before the start or after the end of a string.\nFurthermore, it is not possible to use String::substring with beginIndex > endIndex to reverse the order of characters in\na string.\nThis rule raises an issue when a negative literal or an index that is too large is passed as an argument to the String::substring , String::charAt , and related methods. It also raises an issue when the start index passed to String::substring is larger than\nthe end index.",
+  "Bug_Explanation": "The code demonstrates several incorrect usages of String methods involving index bounds. The charAt method is called with both a negative index and an index equal to the string's length, which are invalid. The substring method is called with a beginIndex greater than the endIndex, and with an endIndex beyond the string's length, both of which are invalid operations.",
+  "Buggy_Line": [
+    28,
+    21,
+    14,
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test cases trigger bugs in the showBug method by passing strings that cause StringIndexOutOfBoundsException due to invalid string index operations. Each test case corresponds to a specific type of index error: negative index, index equal to string length, begin index greater than end index, and end index beyond string length.",
+  "Trigger_Line": [
+    9,
+    12,
+    15,
+    18
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.012\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any exceptions, as denoted by 'OK (1 test)'. This suggests that the test did not trigger the bug, as a StringIndexOutOfBoundsException would have caused the test to fail."
+}

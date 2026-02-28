@@ -1,0 +1,51 @@
+public abstract class GuaranteedDerefInterproc {
+  interface I {
+    int f(Object o);
+  }
+
+  static class A implements I {
+    @Override
+    public int f(Object o) {
+      return o.hashCode();
+    }
+  }
+
+  static class B implements I {
+    @Override
+    public int f(Object o) {
+      return o.hashCode();
+    }
+  }
+
+  int count;
+
+  abstract I create();
+
+  void report1(boolean b, boolean c) {
+    I x = create();
+    Object o = null;
+
+    if (b) {
+      o = new Object();
+    }
+
+    if (c) {
+      count++;
+    } else {
+      count--;
+    }
+
+    // Inserted unreachable if statement
+    boolean condition = getUnreachableCondition();
+    if (condition) {
+      System.out.println("This is an unreachable statement.");
+    }
+
+    x.f(o);
+  }
+
+  // Method to provide a dynamically determined false condition
+  private boolean getUnreachableCondition() {
+    return false;
+  }
+}

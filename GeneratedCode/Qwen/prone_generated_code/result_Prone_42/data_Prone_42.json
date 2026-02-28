@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "DurationTemporalUnit",
+  "Bug_Details": "Duration APIs only work for DAYS or exact durations. Duration APIs only work for TemporalUnits with exact durations or ChronoUnit.DAYS. E.g., Duration.of(1, ChronoUnit.YEARS) is guaranteed to throw a DateTimeException.",
+  "Bug_Explanation": "The bug is embedded in the line where Duration.of(1, ChronoUnit.YEARS) is called. This will throw a DateTimeException because Duration only supports exact durations like ChronoUnit.DAYS.",
+  "Buggy_Line": [
+    11
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method which internally triggers the bug by calling Duration.of(1, ChronoUnit.YEARS). This call throws a DateTimeException, which is caught and the message is returned. The test case checks for the expected exception message to confirm the bug is triggered.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.008\nThere was 1 failure:\n1) testShowBugTriggersException(DurationBugExampleTest)\norg.junit.ComparisonFailure: expected:<[Duration between date-time values must have the same chronology]> but was:<[Unit must not have an estimated duration]>\n\tat org.junit.Assert.assertEquals(Assert.java:117)\n\tat org.junit.Assert.assertEquals(Assert.java:146)\n\tat DurationBugExampleTest.testShowBugTriggersException(DurationBugExampleTest.java:9)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show a failure due to an unexpected exception message. The expected message was 'Duration between date-time values must have the same chronology', but the actual message was 'Unit must not have an estimated duration'. This indicates that the test did not correctly capture the intended bug behavior."
+}

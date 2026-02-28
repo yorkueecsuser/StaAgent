@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "Consumed Stream pipelines should not be reused",
+  "Bug_Details": "Stream operations are divided into intermediate and terminal operations, and are combined to form stream pipelines. A stream should be operated on\n(invoking an intermediate or terminal stream operation) only once.\nNoncompliant code example\nStream<Widget> pipeline = widgets.stream().filter(b -> b.getColor() == Color.RED);\nvar res1 = pipeline.findAny();\nvar res2 = pipeline.mapToInt(b -> b.getWeight()).sum(); // Noncompliant",
+  "Bug_Explanation": "The bug is embedded in the second `forEach` method, which is called after the first `forEach` method has consumed the stream. The second `forEach` method will not print any elements because the stream has already been consumed.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by reusing the consumed stream pipeline in the `forEach` method.",
+  "Trigger_Line": [
+    6
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

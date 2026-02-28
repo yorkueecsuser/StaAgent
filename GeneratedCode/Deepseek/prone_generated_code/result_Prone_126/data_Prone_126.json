@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "OptionalOfRedundantMethod",
+  "Bug_Details": "Optional.of() always returns a non-empty optional. Using ifPresent/isPresent/orElse/orElseGet/orElseThrow/isPresent/or/orNull method on it is unnecessary and most probably a bug.",
+  "Bug_Explanation": "The 'orElse' method is redundant in this case because 'Optional.of' always returns a non-empty optional. The 'orElse' method is only necessary when the optional may be empty.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case fails because the 'orElse' method is unnecessary and most probably a bug. It is redundant in this case, because 'Optional.of' always returns a non-empty optional.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "Based on the test results, there's no evidence that the Optional.of() method always returns a non-empty optional. Both the test case and the test run results indicate that the showBug() method returns 'Hello' as expected, which means that the Optional.of() method is not triggering the OptionalOfRedundantMethod bug.",
+  "Model_Confirmed_Buggy": "No",
+  "Model_Explanation": "The provided Java code does not contain the bug described. The Optional.of() method always returns a non-empty optional, and the orElse() method is used to provide a default value if the optional is empty. This is not a bug, but a common and valid use of the Optional class in Java."
+}

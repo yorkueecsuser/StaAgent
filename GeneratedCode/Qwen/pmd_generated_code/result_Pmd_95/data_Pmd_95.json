@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "NonThreadSafeSingleton",
+  "Bug_Details": "Non-thread safe singletons can result in bad state changes. Eliminate\nstatic singletons if possible by instantiating the object directly. Static\nsingletons are usually not needed as only a single instance exists anyway.\nOther possible fixes are to synchronize the entire method or to use an\n[initialize-on-demand holder class](https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom).\n\nRefrain from using the double-checked locking pattern. The Java Memory Model doesn't\nguarantee it to work unless the variable is declared as `volatile`, adding an uneeded\nperformance penalty. [Reference](http://www.cs.umd.edu/~pugh/java/memoryModel/DoubleCheckedLocking.html)\n\nSee Effective Java, item 48.\nExamples:\nprivate static Foo foo = null;\n\n//multiple simultaneous callers may see partially initialized objects\npublic static Foo getFoo() {\n    if (foo==null) {\n        foo = new Foo();\n    }\n    return foo;\n}",
+  "Bug_Explanation": "The bug was embedded in the generated code by implementing a non-thread-safe singleton pattern. The 'getInstance' method does not synchronize access to the 'instance' variable, which means that multiple threads can simultaneously check if 'instance' is null and create multiple instances of 'SingletonExample'. This violates the singleton pattern's requirement of having only one instance.",
+  "Buggy_Line": [
+    13,
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the non-thread-safe getInstance method multiple times concurrently through the showBug method, which can lead to multiple instances of SingletonExample being created.",
+  "Trigger_Line": [
+    7,
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.SingletonExample@5a42bbf4\nSingletonExample@5a42bbf4\nSingletonExample@5a42bbf4\nSingletonExample@5a42bbf4\nSingletonExample@5a42bbf4\nSingletonExample@5a42bbf4\nSingletonExample@5a42bbf4\nSingletonExample@5a42bbf4\nSingletonExample@5a42bbf4\nSingletonExample@5a42bbf4\n\nTime: 0.009\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that all threads returned the same instance of SingletonExample ('SingletonExample@5a42bbf4'), indicating that the singleton pattern did not create multiple instances in this particular test run. However, this does not confirm the absence of the bug since the non-thread-safe implementation could still potentially create multiple instances under different conditions or with more threads."
+}

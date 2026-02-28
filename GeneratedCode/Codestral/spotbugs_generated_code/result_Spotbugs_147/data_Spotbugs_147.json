@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "FB: Unexpected/undesired warning from SpotBugs (FB_UNEXPECTED_WARNING)\uf0c1",
+  "Bug_Details": "SpotBugs generated a warning that, according to a @NoWarning annotation,\n  is unexpected or undesired. @NoWarning",
+  "Bug_Explanation": "SpotBugs generated an unexpected warning due to a missing 'put' call for the number 3 in the numberToWordMap. This warning is undesired as per the @NoWarning annotation.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The missing number 3 in the test case triggers a SpotBugs warning due to the missing 'put' call for the number 3 in the numberToWordMap in the BuggyCode class.",
+  "Trigger_Line": [
+    12
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.009\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not confirm the presence of the bug. The test case for the missing number 3 in the map returns null as expected, which does not trigger the SpotBugs warning. Therefore, the bug is not present in the Java code."
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "ComputeIfAbsentAmbiguousReference",
+  "Bug_Details": "computeIfAbsent passes the map key to the provided class's constructor With ambiguous constructor references used in java.util.Map#computeIfAbsent\nfunction parameter, it becomes unclear what the code intends to do. map.computeIfAbsent(someLong, AtomicLong::new).incrementAndGet() map.computeIfAbsent(someLong, AtomicLong::new).incrementAndGet() Code of this form can seemingly look like it\u2019s trying to make a counter,\ncreating the key if absent. Unfortunately the code is surprising, because it\nwill call the wrong AtomicLong constructor. Instead, it will create the\ncounter initialized with the key value, which is probably not desired.",
+  "Bug_Explanation": "The bug is that computeIfAbsent is using the wrong constructor of AtomicLong. It is using the constructor that takes a long as an argument, instead of the no-argument constructor. This will create an AtomicLong initialized with the key value, which is probably not desired.",
+  "Buggy_Line": [
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when the computeIfAbsent method uses the wrong constructor of AtomicLong. It should use the no-argument constructor, but it uses the constructor that takes a long as an argument. This will create an AtomicLong initialized with the key value, which is probably not desired. Here, we assert that the result is not equal to the key, to check if the AtomicLong was initialized correctly. If the bug is present, this assertion will fail.",
+  "Trigger_Line": [
+    16
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the bug was not triggered. The test passed, which means that the result of the showBug method was not equal to the key value. This suggests that the AtomicLong object was created correctly with the no-argument constructor, not with the constructor that takes a long as an argument."
+}

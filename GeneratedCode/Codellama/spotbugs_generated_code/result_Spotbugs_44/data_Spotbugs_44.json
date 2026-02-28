@@ -1,0 +1,10 @@
+{
+  "Buggy_Line": [
+    21
+  ],
+  "Trigger_Explanation": "The JUnit test case triggered the bug by calling the `showBug()` method on the `UnwrittenField` object, which dereferences the `name` field that is never assigned a non-null value.",
+  "Trigger_Line": [
+    21
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.009\n\nOK (1 test)\n\n"
+}

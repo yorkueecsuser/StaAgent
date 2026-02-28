@@ -1,0 +1,10 @@
+{
+  "Bug_Title": "JUnitStaticSuite",
+  "Bug_Details": "The suite() method in a JUnit test needs to be both public and static.\nExamples:\nimport junit.framework.*;\n\npublic class Foo extends TestCase {\n    public void suite() {}         // oops, should be static\n}\n---\nimport junit.framework.*;\n\npublic class Foo extends TestCase {\n    private static void suite() {} // oops, should be public\n}",
+  "Bug_Explanation": "The JUnitStaticSuite bug is demonstrated in this code by having the suite() method as private and static instead of public and static. This will cause JUnit to fail to find the test suite and throw an exception when the showBug() method is called.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../pmd_clean_java_code/result_Pmd_53/seed_Pmd_53_junit_test.java:10: error: cannot find symbol\n        JUnitCore.runClasses(Foo.class); // This will throw an exception due to the bug\n        ^\n  symbol:   variable JUnitCore\n  location: class Foo\n1 error\n"
+}

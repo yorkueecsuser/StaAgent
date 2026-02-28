@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "SubstringOfZero",
+  "Bug_Details": "String.substring(0) returns the original String String.substring(int) gives you the substring from the index to the end, inclusive. Calling that method with an index of 0 will return the same String.",
+  "Bug_Explanation": "The bug 'SubstringOfZero' is embedded in the code by calling str.substring(0) which returns the original string. This is because String.substring(int) gives the substring from the specified index to the end, and with an index of 0, it returns the same string.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug 'SubstringOfZero' is triggered by asserting that the original string is not equal to the result of the `showBug` method. Since `showBug` returns the substring of the input string starting from index 0, which is the original string itself, the assertion fails, triggering the bug.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.005\nThere was 1 failure:\n1) testShowBug(SubstringOfZeroBugTest)\njava.lang.AssertionError: Values should be different. Actual: TestString\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat org.junit.Assert.failEquals(Assert.java:187)\n\tat org.junit.Assert.assertNotEquals(Assert.java:163)\n\tat org.junit.Assert.assertNotEquals(Assert.java:177)\n\tat SubstringOfZeroBugTest.testShowBug(SubstringOfZeroBugTest.java:11)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the'showBug' method returned the same String as the input, which is expected behavior as per the 'SubstringOfZero' bug rule. The assertion 'assertNotEquals(input, result)' failed, indicating that the input and output strings are equal, which is not the buggy behavior."
+}

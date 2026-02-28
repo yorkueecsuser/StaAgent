@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "Return values should not be ignored when they contain the operation status code",
+  "Bug_Details": "When the return value of a function call contains the operation status code, this value should be tested to make sure the operation completed\nsuccessfully.\nThis rule raises an issue when the return values of the following are ignored:\njava.io.File operations that return a status code (except mkdirs ) Iterator.hasNext() Enumeration.hasMoreElements() Lock.tryLock() non-void Condition.await* methods CountDownLatch.await(long, TimeUnit) Semaphore.tryAcquire BlockingQueue : offer , remove\njava.io.File operations that return a status code (except mkdirs )\nIterator.hasNext()\nEnumeration.hasMoreElements()\nLock.tryLock()\nnon-void Condition.await* methods\nCountDownLatch.await(long, TimeUnit)\nSemaphore.tryAcquire\nBlockingQueue : offer , remove\nNoncompliant code example\npublic void doSomething(File file, Lock lock) {\n  file.delete();  // Noncompliant\n  // ...\n  lock.tryLock(); // Noncompliant\n}\nCompliant solution\npublic void doSomething(File file, Lock lock) {\n  if (!lock.tryLock()) {\n    // lock failed; take appropriate action\n  }\n  if (!file.delete()) {\n    // file delete failed; take appropriate action\n  }\n}",
+  "Bug_Explanation": "The code demonstrates ignoring the return values of file.delete() and lock.tryLock() methods. These methods return a status code indicating the success or failure of the operation, which should be checked to ensure correct program behavior.",
+  "Buggy_Line": [
+    17,
+    20
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls the showBug method of StatusCodeBugExample, which contains operations that ignore the return values of file.delete() and lock.tryLock(), both of which should handle their return values to ensure correct operation. The assertions then check the status of the file and lock, but since the original logic ignored the return values, the test will fail when these assertions are checked.",
+  "Trigger_Line": [
+    11,
+    18
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully, meaning the assertions did not fail. This suggests that the file was deleted and the lock was acquired as expected, despite the return values being ignored. Therefore, the presence of the bug is not confirmed by the test results."
+}

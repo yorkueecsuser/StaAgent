@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "Constructor injection should be used instead of field injection",
+  "Bug_Details": "Field injection seems like a tidy way to get your classes what they need to do their jobs, but it\u2019s really a NullPointerException waiting to happen unless all your class constructors are private . That\u2019s because any class instances that are constructed by callers,\nrather than instantiated by a Dependency Injection framework compliant with the JSR-330 (Spring, Guice, \u2026\u200b), won\u2019t have the ability to perform the\nfield injection.\nInstead @Inject should be moved to the constructor and the fields required as constructor parameters.\nThis rule raises an issue when classes with non- private constructors (including the default constructor) use field injection.\nNoncompliant code example\nclass MyComponent {  // Anyone can call the default constructor\n\n  @Inject MyCollaborator collaborator;  // Noncompliant\n\n  public void myBusinessMethod() {\n    collaborator.doSomething();  // this will fail in classes new-ed by a caller\n  }\n}\nCompliant solution\nclass MyComponent {\n\n  private final MyCollaborator collaborator;\n\n  @Inject\n  public MyComponent(MyCollaborator collaborator) {\n    Assert.notNull(collaborator, \"MyCollaborator must not be null!\");\n    this.collaborator = collaborator;\n  }\n\n  public void myBusinessMethod() {\n    collaborator.doSomething();\n  }\n}",
+  "Bug_Explanation": "The code uses field injection instead of constructor injection, which can lead to a NullPointerException when the class is instantiated by a caller. This is because the dependency (MyCollaborator) is not injected into the field, resulting in a null reference when attempting to use it.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls the showBug method of MyComponent, which results in a NullPointerException because the MyCollaborator instance is not injected via constructor injection as required.",
+  "Trigger_Line": [
+    6
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

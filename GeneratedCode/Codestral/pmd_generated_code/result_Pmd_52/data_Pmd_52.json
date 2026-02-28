@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "JUnitSpelling",
+  "Bug_Details": "In JUnit 3, the setUp method is used to set up all data entities required in running tests.\n            The tearDown method is used to clean up all data entities required in running tests.\n            You should not misspell method name if you want your test to set up and clean up everything correctly.\nExamples:\nimport junit.framework.*;\n\npublic class Foo extends TestCase {\n    public void setup() {}    // oops, should be setUp\n    public void TearDown() {} // oops, should be tearDown\n}",
+  "Bug_Explanation": "The methods'setup' and 'TearDown' are incorrectly spelled. In JUnit 3, they should be named'setUp' and 'tearDown' respectively.",
+  "Buggy_Line": [
+    11,
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case 'testShowBug' calls the'showBug' method of 'BuggyJUnitTest' class. The'showBug' method invokes the'setup' and 'TearDown' methods which are misspelled as'setUp' and 'tearDown' respectively as per JUnit 3 naming conventions. This causes the test to fail as it expects the 'dataList' to be empty after 'TearDown' method is called, but it is not due to the misspelling.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed successfully without any errors. This indicates that the methods setUp and TearDown were not misspelled, and therefore the bug was not triggered."
+}

@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "NonSerializableClass",
+  "Bug_Details": "If a class is marked as `Serializable`, then all fields need to be serializable as well. In order to exclude\na field, it can be marked as transient. Static fields are not considered.\n\nThis rule reports all fields, that are not serializable.\n\nIf a class implements the methods to perform manual serialization (`writeObject`, `readObject`) or uses\na replacement object (`writeReplace`, `readResolve`) then this class is ignored.\n\nNote: This rule has been revamped with PMD 6.52.0. It was previously called \"BeanMembersShouldSerialize\".\nThe property `prefix` has been deprecated, since in a serializable class all fields have to be\nserializable regardless of the name.\nExamples:\nclass Buzz implements java.io.Serializable {\n    private static final long serialVersionUID = 1L;\n\n    private transient int someFoo;          // good, it's transient\n    private static int otherFoo;            // also OK, it's static\n    private java.io.FileInputStream stream; // bad - FileInputStream is not serializable\n\n    public void setStream(FileInputStream stream) {\n        this.stream = stream;\n    }\n\n    public int getSomeFoo() {\n          return this.someFoo;\n    }\n}",
+  "Bug_Explanation": "The class NonSerializableExample implements Serializable, but it contains a field 'fileStream' of type FileInputStream, which is not serializable. This violates the rule that all non-static fields in a Serializable class must be serializable, unless marked transient.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by attempting to serialize the NonSerializableExample object, which contains an unserializable field (FileInputStream). This action raises an IOException, demonstrating the bug.",
+  "Trigger_Line": [
+    13,
+    18
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.This method demonstrates the bug in the NonSerializableExample class.\nE\nTime: 0.009\nThere was 1 failure:\n1) testShowBug(NonSerializableExampleTest)\njava.lang.AssertionError: Expected an exception due to non-serializable field\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat NonSerializableExampleTest.testShowBug(NonSerializableExampleTest.java:23)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate a failure because the expected exception due to the non-serializable field was not thrown. This suggests that the bug was not triggered as anticipated."
+}

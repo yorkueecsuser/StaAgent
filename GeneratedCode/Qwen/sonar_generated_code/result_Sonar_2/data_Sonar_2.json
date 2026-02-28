@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Consumed Stream pipelines should not be reused",
+  "Bug_Details": "Stream operations are divided into intermediate and terminal operations, and are combined to form stream pipelines. A stream should be operated on\n(invoking an intermediate or terminal stream operation) only once.\nNoncompliant code example\nStream<Widget> pipeline = widgets.stream().filter(b -> b.getColor() == Color.RED);\nvar res1 = pipeline.findAny();\nvar res2 = pipeline.mapToInt(b -> b.getWeight()).sum(); // Noncompliant",
+  "Bug_Explanation": "The bug is embedded in the generated code by reusing a stream pipeline after it has been consumed. The stream is first consumed by the findAny() method, and then an attempt is made to reuse it with mapToInt() and sum(). This will result in an IllegalStateException.",
+  "Buggy_Line": [
+    28
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method, which reuses a consumed stream pipeline. The first call to findAny consumes the stream, and the subsequent call to mapToInt causes an IllegalStateException.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.011\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that the test passed without throwing an IllegalStateException, which indicates that the bug was not triggered during the test execution."
+}

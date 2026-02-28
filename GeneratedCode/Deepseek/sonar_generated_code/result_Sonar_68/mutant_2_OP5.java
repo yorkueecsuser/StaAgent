@@ -1,0 +1,54 @@
+import java.lang.System;
+
+class DuplicateBranchesBug {
+    public boolean showBug(int b, int i, int a) {
+        boolean condition;
+        if (b == 0) {  // BUG: All branches in a conditional structure should not have exactly the same implementation
+            condition = doOneMoreThing();
+        } else {
+            condition = doOneMoreThing();
+        }
+
+        int bValue = a > 12? 4 : 4;  // BUG: All branches in a conditional structure should not have exactly the same implementation
+
+        boolean switchCondition;
+        switch (i) {  // BUG: All branches in a conditional structure should not have exactly the same implementation
+            case 1:
+                switchCondition = doSomething();
+                break;
+            case 2:
+                switchCondition = doSomething();
+                break;
+            case 3:
+                switchCondition = doSomething();
+                break;
+            default:
+                switchCondition = doSomething();
+        }
+
+        // Unreachable switch statement mutation
+        switch (getUnreachable()) {  // NEVER use compile-time constants like false directly, use a non-final variable or an equivalent method call.
+            case 1:
+                System.out.println("This code is unreachable due to the mutation.");
+                break;
+            default:
+                System.out.println("This code is unreachable due to the mutation.");
+        }
+
+        return true;
+    }
+
+    private boolean doOneMoreThing() {
+        System.out.println("Doing one more thing");
+        return true;
+    }
+
+    private boolean doSomething() {
+        System.out.println("Doing something");
+        return true;
+    }
+
+    private int getUnreachable() {
+        return 0;  // Always ensure that the condition of any control structure (if, while, for, switch) is dynamically determined at runtime.
+    }
+}

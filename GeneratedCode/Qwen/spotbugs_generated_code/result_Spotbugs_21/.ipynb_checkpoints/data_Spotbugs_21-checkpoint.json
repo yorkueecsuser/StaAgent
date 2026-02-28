@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "Dm: Incorrect combination of Math.max and Math.min (DM_INVALID_MIN_MAX)\uf0c1",
+  "Bug_Details": "This code tries to limit the value bounds using the construct like Math.min(0, Math.max(100, value)). However the order of\nthe constants is incorrect: it should be Math.min(100, Math.max(0, value)). As the result this code always produces the same result\n(or NaN if the value is NaN).",
+  "Bug_Explanation": "The bug is embedded in the showBug method where the incorrect order of Math.min and Math.max is used. The expression Math.min(0, Math.max(100, value)) will always return 0 regardless of the input value because Math.max(100, value) will always be greater than or equal to 100, and Math.min(0, any_value >= 100) will always be 0.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggered the bug by calling the showBug method with different values (50, -10, 150). According to the bug description, the method should return 100 for values within the range 0-100, but due to the incorrect combination of Math.min and Math.max, it always returns 0, causing the test cases to fail.",
+  "Trigger_Line": [
+    7,
+    12,
+    17
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E.E.E\nTime: 0.008\nThere were 3 failures:\n1) testShowBugWithPositiveValue(MathMinMaxBugTest)\njava.lang.AssertionError: expected:<100> but was:<0>\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat org.junit.Assert.failNotEquals(Assert.java:835)\n\tat org.junit.Assert.assertEquals(Assert.java:647)\n\tat org.junit.Assert.assertEquals(Assert.java:633)\n\tat MathMinMaxBugTest.testShowBugWithPositiveValue(MathMinMaxBugTest.java:9)\n2) testShowBugWithNegativeValue(MathMinMaxBugTest)\njava.lang.AssertionError: expected:<100> but was:<0>\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat org.junit.Assert.failNotEquals(Assert.java:835)\n\tat org.junit.Assert.assertEquals(Assert.java:647)\n\tat org.junit.Assert.assertEquals(Assert.java:633)\n\tat MathMinMaxBugTest.testShowBugWithNegativeValue(MathMinMaxBugTest.java:15)\n3) testShowBugWithAboveRangeValue(MathMinMaxBugTest)\njava.lang.AssertionError: expected:<100> but was:<0>\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat org.junit.Assert.failNotEquals(Assert.java:835)\n\tat org.junit.Assert.assertEquals(Assert.java:647)\n\tat org.junit.Assert.assertEquals(Assert.java:633)\n\tat MathMinMaxBugTest.testShowBugWithAboveRangeValue(MathMinMaxBugTest.java:21)\n\nFAILURES!!!\nTests run: 3,  Failures: 3\n\n",
+  "Bug_Triggered": "Yes",
+  "Bug_Trigger_Explanation": "The test results confirm that the bug is triggered. All three test cases failed with an AssertionError indicating that the expected value was 100 but the actual value returned by the method was 0. This behavior aligns with the bug description where the incorrect combination of Math.min and Math.max always produces the same result (in this case, 0), regardless of the input value."
+}

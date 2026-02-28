@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "IL: An apparent infinite recursive loop (IL_INFINITE_RECURSIVE_LOOP)\uf0c1",
+  "Bug_Details": "This method unconditionally invokes itself. This would seem to indicate\nan infinite recursive loop that will result in a stack overflow.",
+  "Bug_Explanation": "The bug was embedded in the generated code by creating a method named `recursiveMethod` that calls itself without any termination condition, leading to an infinite recursive loop. This is demonstrated in the `showBug` method which also directly calls `recursiveMethod`.",
+  "Buggy_Line": [
+    10,
+    13
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by calling the `showBug` method of the `InfiniteRecursionExample` class, which in turn calls the `recursiveMethod`. Since `recursiveMethod` calls itself indefinitely without a termination condition, it results in an infinite recursive loop, causing the test to fail.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "Runninng test will fail system because of infinite loop.",
+  "Bug_Triggered": "Yes",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test failed due to an infinite loop, which confirms that the bug described (an apparent infinite recursive loop) was triggered when the'showBug' method was called in the test code."
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "TypeParameterQualifier",
+  "Bug_Details": "Type parameter used as type qualifier Using a type parameter as a qualifier in the name of a type or expression is\nequivalent to referencing the type parameter\u2019s upper bound directly. For example, this signature: static <T extends Message> T populate(T.Builder builder) {} static <T extends Message> T populate(T.Builder builder) {} Is identical to the following: static <T extends Message> T populate(Message.Builder builder) {} static <T extends Message> T populate(Message.Builder builder) {} The use of T.Builder is unnecessary and misleading. Always refer to the type\nby its canonical name Message.Builder instead.",
+  "Bug_Explanation": "The bug is embedded in the method 'populate' where the type parameter 'T' is incorrectly used as a qualifier for 'Builder'. This is equivalent to using 'Message.Builder' but is misleading and causes a compilation error.",
+  "Buggy_Line": [
+    34
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_166/seed_Prone_166.java:35: error: incompatible types: Message cannot be converted to T\n        return builder.build();\n                            ^\n  where T is a type-variable:\n    T extends Message declared in method <T>populate(Builder)\n1 error\n",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by calling the showBug method, which internally calls the populate method with a type parameter qualifier.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

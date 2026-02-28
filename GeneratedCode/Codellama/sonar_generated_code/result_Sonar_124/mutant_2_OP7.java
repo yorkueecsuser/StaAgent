@@ -1,0 +1,19 @@
+import java.util.*;
+
+class BuggyMath {
+    public static void main(String[] args) {
+        int a = 2, b = 3;
+        float c = a / b; // BUG: Math operands should be cast before assignment
+        System.out.println(c);
+
+        // Unreachable while loop mutation
+        boolean conditionWhile = getCondition();
+        while (conditionWhile) {
+            System.out.println("This code is unreachable");
+        }
+    }
+
+    public static boolean getCondition() {
+        return false;
+    }
+}

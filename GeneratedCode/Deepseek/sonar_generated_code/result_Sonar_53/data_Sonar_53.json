@@ -1,0 +1,11 @@
+{
+  "Bug_Title": "Only one method invocation is expected when testing checked exceptions",
+  "Bug_Details": "When verifying that code raises an exception, a good practice is to avoid having multiple method calls inside the tested code, to be explicit about\nwhat is exactly tested.\nWhen two of the methods can raise the same checked exception, not respecting this good practice is a bug, since it is not possible\nto know what is really tested.\nYou should make sure that only one method can raise the expected checked exception in the tested code.\nNoncompliant code example\n@Test\npublic void testG() {\n  // Do you expect g() or f() throwing the exception?\n  assertThrows(IOException.class, () -> g(f(1)) ); // Noncompliant\n}\n\n@Test\npublic void testGTryCatchIdiom() {\n  try { // Noncompliant\n    g(f(1));\n    Assert.fail(\"Expected an IOException to be thrown\");\n  } catch (IOException e) {\n    // Test exception message...\n  }\n}\n\nint f(int x) throws IOException {\n  // ...\n}\n\nint g(int x) throws IOException {\n  // ...\n}\nCompliant solution\n@Test\npublic void testG() {\n  int y = f(1);\n  // It is explicit that we expect an exception from g() and not f()\n  assertThrows(IOException.class, () -> g(y) );\n}\n\n@Test\npublic void testGTryCatchIdiom() {\n  int y = f(1);\n  try {\n    g(y);\n    Assert.fail(\"Expected an IOException to be thrown\");\n  } catch (IOException e) {\n    // Test exception message...\n  }\n}",
+  "Bug_Explanation": "The noncompliant code in the testG and testGTryCatchIdiom methods is calling both f() and g() methods inside the assertThrows function. This is not following the good practice of having only one method invocation when testing checked exceptions.",
+  "Buggy_Line": [
+    13,
+    23,
+    25
+  ],
+  "Seed_Compilation_Status": "Successful"
+}

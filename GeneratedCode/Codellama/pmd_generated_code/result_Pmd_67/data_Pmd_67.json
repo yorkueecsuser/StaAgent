@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "ReturnEmptyCollectionRatherThanNull",
+  "Bug_Details": "For any method that returns an collection (such as an array, Collection or Map), it is better to return\nan empty one rather than a null reference. This removes the need for null checking all results and avoids\ninadvertent NullPointerExceptions.\n\nSee Effective Java, 3rd Edition, Item 54: Return empty collections or arrays instead of null",
+  "Bug_Explanation": "The getNumbers() method is supposed to return a list of integers, but it returns null instead. This causes a NullPointerException when the method is called in the main method.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test cases trigger the bug by asserting that the collection returned by `getNumbers()` and `showBug()` is not null.",
+  "Trigger_Line": [
+    21,
+    31
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

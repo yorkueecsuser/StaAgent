@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "MoreThanOneInjectableConstructor",
+  "Bug_Details": "This class has more than one @Inject-annotated constructor. Please remove the @Inject annotation from all but one of them. Injection frameworks may use @Inject to determine how to construct an object\nin the absence of other instructions. Annotating @Inject on a constructor\ntells the injection framework to use that constructor. However, if multiple\n@Inject constructors exist, injection frameworks can\u2019t reliably choose between\nthem.",
+  "Bug_Explanation": "The bug is embedded in the code by having two constructors annotated with @Inject, which violates the rule of having only one @Inject-annotated constructor. This will cause issues for dependency injection frameworks as they won't know which constructor to use.",
+  "Buggy_Line": [
+    10,
+    5
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_114/seed_Prone_114.java:5: error: cannot find symbol\n    @Inject // BUG: MoreThanOneInjectableConstructor\n     ^\n  symbol:   class Inject\n  location: class InjectableClass\n../prone_clean_java_code/result_Prone_114/seed_Prone_114.java:10: error: cannot find symbol\n    @Inject // BUG: MoreThanOneInjectableConstructor\n     ^\n  symbol:   class Inject\n  location: class InjectableClass\n2 errors\n",
+  "Trigger_Explanation": "The test triggers the bug by attempting to instantiate InjectableClass using both constructors annotated with @Inject. This violates the rule that a class should have only one @Inject-annotated constructor.",
+  "Trigger_Line": [
+    18,
+    23
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

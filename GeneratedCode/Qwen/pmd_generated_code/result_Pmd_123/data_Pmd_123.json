@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "UseStringBufferLength",
+  "Bug_Details": "Use StringBuffer.length() to determine StringBuffer length rather than using StringBuffer.toString().equals(\"\")\nor StringBuffer.toString().length() == ...\nExamples:\nStringBuffer sb = new StringBuffer();\n\nif (sb.toString().equals(\"\")) {}        // inefficient\n\nif (sb.length() == 0) {}                // preferred",
+  "Bug_Explanation": "The bug was embedded in the generated code by using sb.toString().equals(\"\") to check if the StringBuffer is empty, which is inefficient compared to using sb.length() == 0.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by calling the showBug method with both an empty and non-empty StringBuffer. The method uses sb.toString().equals(\"\"), which is inefficient and triggers the bug.",
+  "Trigger_Line": [
+    10,
+    13
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E.\nTime: 0.006\nThere was 1 failure:\n1) testShowBugWithEmptyStringBuffer(StringBufferBugExampleTest)\njava.lang.AssertionError\n\tat org.junit.Assert.fail(Assert.java:87)\n\tat org.junit.Assert.assertTrue(Assert.java:42)\n\tat org.junit.Assert.assertFalse(Assert.java:65)\n\tat org.junit.Assert.assertFalse(Assert.java:75)\n\tat StringBufferBugExampleTest.testShowBugWithEmptyStringBuffer(StringBufferBugExampleTest.java:10)\n\nFAILURES!!!\nTests run: 2,  Failures: 1\n\n"
+}

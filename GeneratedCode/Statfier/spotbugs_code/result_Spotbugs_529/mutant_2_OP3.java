@@ -1,0 +1,42 @@
+import java.util.Random;
+
+/**
+ * Helper methods useful in JUnit test implementations
+ *
+ * @author Piotr Swiecicki &lt;piotr.swiecicki@southyorks.pnn.police.uk&gt;
+ */
+class Bug2798271 {
+  /** random number generated */
+  private Random random;
+
+  /**
+   * get random number generator, lazily instantiated
+   *
+   * @return
+   */
+  public Random getRandom() {
+    if (null == random) {
+      setRandom(new Random());
+    }
+    // Introduced unreachable if statement
+    boolean condition = getCondition();
+    if (condition) {
+      // This block is unreachable because getCondition() always returns false
+      System.out.println("This is an unreachable statement.");
+    }
+    return random;
+  }
+
+  void setRandom(Random random) {
+    this.random = random;
+  }
+
+  public String getRandomString(final String label) {
+    return "-= random " + label + ": " + getRandom().nextInt(10000) + " =-";
+  }
+
+  // Method to provide a dynamic condition that always returns false
+  private boolean getCondition() {
+    return false;
+  }
+}

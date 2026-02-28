@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Loops with at most one iteration should be refactored",
+  "Bug_Details": "A loop with at most one iteration is equivalent to an if statement. This can confuse developers and make the code less readable since\nloops are not meant to replace if statements.\nIf the intention was to conditionally execute the block only once, an if statement should be used instead. Otherwise, the loop should\nbe fixed so the loop block can be executed multiple times.\nA loop statement with at most one iteration can happen when a statement that unconditionally transfers control, such as a jump or throw statement,\nis misplaced inside the loop block.\nThis rule arises when the following statements are misplaced:\nbreak return throw\nbreak\nreturn\nthrow",
+  "Bug_Explanation": "The for loop has a break statement inside that unconditionally transfers control out of the loop after the first iteration, making the loop equivalent to an if statement. This can confuse developers and make the code less readable.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case `testShowBug` passes the value 2 to the `showBug` method which contains a loop that should only iterate once due to the misplaced break statement. However, the loop continues to iterate through the loop which is not expected and causes the test to fail, triggering the bug.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed without any failures. This suggests that the loop in the Java code is not being executed more than once even when the input 'n' is 2. Therefore, the misplaced break statement in the loop does not cause the bug to be triggered in the provided test case."
+}

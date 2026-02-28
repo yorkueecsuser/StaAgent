@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "DoNotUseThreads",
+  "Bug_Details": "The J2EE specification explicitly forbids the use of threads. Threads are resources, that should be managed and monitored by the J2EE server.\nIf the application creates threads on its own or uses own custom thread pools, then these threads are not managed, which could lead to resource exhaustion.\nAlso, EJBs might be moved between machines in a cluster and only managed resources can be moved along.",
+  "Bug_Explanation": "The code creates a fixed thread pool of 5 threads using Executors.newFixedThreadPool(5). Each time the program loops, it creates a new Runnable object and executes it using the executor. The Runnable object prints a message to the console, which demonstrates the thread creation bug.",
+  "Buggy_Line": [
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case triggers the bug by calling the `triggerBug()` method on an instance of the `BuggyExample` class, which creates a new thread and calls the `run()` method of the `Runnable` class.",
+  "Trigger_Line": [
+    8,
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

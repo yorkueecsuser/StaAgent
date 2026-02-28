@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "SuspiciousEqualsMethodName",
+  "Bug_Details": "The method name and parameter number are suspiciously close to `Object.equals`, which can denote an\nintention to override it. However, the method does not override `Object.equals`, but overloads it instead.\nOverloading `Object.equals` method is confusing for other programmers, error-prone and hard to maintain,\nespecially when using inheritance, because `@Override` annotations used in subclasses can provide a false\nsense of security. For more information on `Object.equals` method, see Effective Java, 3rd Edition,\nItem 10: Obey the general contract when overriding equals.\nExamples:\npublic class Foo {\n   public int equals(Object o) {\n     // oops, this probably was supposed to be boolean equals\n   }\n   public boolean equals(String s) {\n     // oops, this probably was supposed to be equals(Object)\n   }\n   public boolean equals(Object o1, Object o2) {\n     // oops, this probably was supposed to be equals(Object)\n   }\n}",
+  "Bug_Explanation": "The methods are named 'equals' but do not follow the contract of Object.equals by overloading it with different parameter lists and return types. This can lead to confusion as they do not override Object.equals as might be expected.",
+  "Buggy_Line": [
+    9,
+    3,
+    14
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../pmd_clean_java_code/result_Pmd_74/seed_Pmd_74.java:3: error: equals(Object) in SuspiciousEqualsExample cannot override equals(Object) in Object\n    public int equals(Object o) { // BUG: SuspiciousEqualsMethodName\n               ^\n  return type int is not compatible with boolean\n1 error\n",
+  "Trigger_Explanation": "The test case triggers the bug by calling the suspiciously named and overloaded 'equals' methods in the 'showBug' method. The test asserts that the output of 'showBug' matches the expected string, which includes the results from the suspicious 'equals' methods.",
+  "Trigger_Line": [
+    21
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

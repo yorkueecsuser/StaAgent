@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "AssertJ assertions with \"Consumer\" arguments should contain assertion inside consumers",
+  "Bug_Details": "AssertJ assertions taking Consumer objects as arguments are expected to contain \"requirements\", which should themselves be expressed\nas assertions. This concerns the following methods: allSatisfy , anySatisfy , hasOnlyOneElementSatisfying , isInstanceOfSatisfying , noneSatisfy , satisfies , satisfiesAnyOf , zipSatisfy .\nThese methods are assuming the Consumer will do the assertions itself. If you do not do any assertion in the Consumer , it probably means that you are inadvertently only partially testing your object.\nThis rule raises an issue when a Consumer argument of any of the above methods does not contain any assertion.\nNoncompliant code example\nassertThat(myObject).isInstanceOfSatisfying(String.class, s -> \"Hello\".equals(s)); // Noncompliant - not testing the string value\nassertThat(myObject).satisfies(\"Hello\"::equals); // Noncompliant - not testing the string value\nCompliant solution\nassertThat(myObject).isInstanceOfSatisfying(String.class, s -> assertThat(s).isEqualTo(\"Hello\"));\nassertThat(myObject).satisfies(obj -> assertThat(obj).isEqualTo(\"Hello\"));",
+  "Bug_Explanation": "The bug is embedded by not performing an assertion inside the Consumer, which is the expected behavior according to the bug rule. Instead, the code merely checks equality without asserting, thus demonstrating the bug.",
+  "Buggy_Line": [
+    13,
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test cases call the methods showBug and showBug2 with an input that should trigger the bug due to the lack of assertions inside the Consumers passed to the AssertJ methods. The bug is triggered because the methods do not perform any assertions within the Consumer blocks, which violates the expected behavior as described in the bug rule.",
+  "Trigger_Line": [
+    10,
+    15
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.006\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that both tests passed successfully without any assertion errors, indicating that the bug described was not triggered."
+}

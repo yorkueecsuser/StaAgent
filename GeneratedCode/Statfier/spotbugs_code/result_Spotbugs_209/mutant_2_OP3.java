@@ -1,0 +1,53 @@
+/** Class to check the issue 1254. */
+class Issue1254 {
+
+  private int outerField = 0;
+
+  private static void println(String string) {
+    System.out.println(string);
+  }
+
+  public void outerMethod() {
+    new Runnable() {
+      @Override
+      public void run() {
+        ++outerField;
+        // Introduced an unreachable if statement
+        boolean condition = getCondition();
+        if (condition) {
+          println("This is an unreachable statement in anonymous class.");
+        }
+        Inner inner = new Inner();
+        ++inner.innerField;
+        inner.innerMethod();
+        println("Anonymous class called, outerField=" + outerField);
+      }
+    }.run();
+  }
+
+  private void uncalledOuterMethod() {
+    println("uncalledOuterMethod() should produce a warning during analysis");
+  }
+
+  private static class Inner {
+    private int innerField = 0;
+
+    private void innerMethod() {
+      println("Inner.innerMethod() called, innerField=" + innerField);
+      // Introduced an unreachable if statement
+      boolean condition = getCondition();
+      if (condition) {
+        println("This is an unreachable statement in innerMethod.");
+      }
+    }
+
+    private void uncalledInnerMethod() {
+      println("uncalledInnerMethod() should produce a warning during analysis");
+    }
+  }
+
+  // Method to provide a dynamic condition that is always false
+  private boolean getCondition() {
+    return false;
+  }
+}

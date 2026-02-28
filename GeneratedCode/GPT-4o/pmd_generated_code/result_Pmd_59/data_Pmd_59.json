@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "NonCaseLabelInSwitchStatement",
+  "Bug_Details": "",
+  "Bug_Explanation": "The line 'one:' is placed within a switch statement without being a case or default label, causing a NonCaseLabelInSwitchStatement bug. It is a non-case label that will never be reached, and thus serves as the intentional bug in the code.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case 'testShowBugWithNonCaseLabel' triggers the bug by calling showBug with an argument (1) that corresponds to the line with the invalid label 'one:' inside the switch statement. This should ideally reach the default case but due to the bug, the test will fail.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n....\nTime: 0.005\n\nOK (4 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that all tests passed successfully, including the test intended to trigger the bug. This suggests that the bug was not triggered during the test execution."
+}

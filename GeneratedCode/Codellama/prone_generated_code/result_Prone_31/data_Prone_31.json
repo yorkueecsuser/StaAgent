@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "DeadException",
+  "Bug_Details": "Exception created but not thrown The exception is created with new, but is not thrown, and the reference is\nlost. Creating an exception without using it is unlikely to be correct, so we assume\nthat you wanted to throw the exception.",
+  "Bug_Explanation": "The exception is created with 'new', but is not thrown, and the reference is lost.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_31/seed_Prone_31.java:13: error: invalid method declaration; return type required\n    public showBug(){\n           ^\n1 error\n",
+  "Trigger_Explanation": "The test case triggers the bug by calling the `showBug()` method, which creates an exception with the message 'DeadExceptionBug', but does not throw it. The `fail()` method is called, which causes the test to fail.",
+  "Trigger_Line": [
+    13,
+    14,
+    15
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,33 @@
+import com.google.common.base.Preconditions;
+
+class UnreachableAtExitTest {
+
+  // cost: 1
+  void unit_cost() {}
+
+  public void infeasible_path_unreachable() {
+    Preconditions.checkState(false); // pruned to bottom
+
+    // Introduced unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // This loop is unreachable because conditionFor will always be false
+    }
+  }
+
+  // we can't handle doubles properly in Inferbo
+  public void double_prune_unreachable_FN(double fpp) {
+    Preconditions.checkArgument(fpp > 0.0 && fpp < 0.0);
+
+    // Introduced unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // This loop is unreachable because conditionFor will always be false
+    }
+  }
+
+  // Helper method to provide a dynamic condition
+  private boolean getCondition() {
+    return false;
+  }
+}

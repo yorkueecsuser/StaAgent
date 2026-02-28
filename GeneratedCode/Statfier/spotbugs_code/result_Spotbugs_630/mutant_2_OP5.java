@@ -1,0 +1,61 @@
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+import java.util.AbstractMap;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+
+class Bug2983950 implements Serializable {
+
+  private static final long serialVersionUID = 0;
+
+  private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    in.defaultReadObject();
+    
+    // Inserting unreachable switch statement
+    boolean condition = getCondition();
+    switch (condition? 0 : 1) {
+      case 0:
+        // This case will never be executed because condition is always false
+        System.out.println("This is an unreachable case");
+        break;
+      case 1:
+        // This case will always be executed
+        System.out.println("This is the reachable case");
+        break;
+    }
+  }
+
+  private final Map<String, String> map1 = new NonSerializableMap(); // = new
+  // LinkedHashMap<String,
+  // String>();
+
+  private final Map<String, String> map2;
+
+  private final Map<String, String> map3 = new LinkedHashMap<String, String>();
+
+  public Bug2983950(Map<String, String> m) {
+    map2 = m;
+  }
+
+  private final X x = new X();
+
+  static class X {
+    int y;
+  }
+
+  static class NonSerializableMap extends AbstractMap {
+
+    @Override
+    public Set entrySet() {
+      return Collections.emptySet();
+    }
+  }
+
+  private boolean getCondition() {
+    // This method always returns false, making the switch statement unreachable
+    return false;
+  }
+}

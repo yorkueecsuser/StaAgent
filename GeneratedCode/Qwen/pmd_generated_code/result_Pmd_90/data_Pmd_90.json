@@ -1,0 +1,22 @@
+{
+  "Bug_Title": "AvoidThreadGroup",
+  "Bug_Details": "Avoid using java.lang.ThreadGroup; although it is intended to be used in a threaded environment\nit contains methods that are not thread-safe.\nExamples:\npublic class Bar {\n    void buz() {\n        ThreadGroup tg = new ThreadGroup(\"My threadgroup\");\n        tg = new ThreadGroup(tg, \"my thread group\");\n        tg = Thread.currentThread().getThreadGroup();\n        tg = System.getSecurityManager().getThreadGroup();\n    }\n}",
+  "Bug_Explanation": "The bug was embedded in the generated code by using the java.lang.ThreadGroup class in four different methods (showBug, showBug1, showBug2, showBug3). Each method contains a line where an instance of ThreadGroup is created or retrieved, which violates the rule of avoiding ThreadGroup due to its non-thread-safe methods.",
+  "Buggy_Line": [
+    16,
+    11,
+    21,
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggered the bug by calling the methods showBug, showBug1, showBug2, and showBug3 on the ThreadGroupExample instance. Each of these methods uses the ThreadGroup class, which is against the rule of avoiding ThreadGroup due to its non-thread-safe methods.",
+  "Trigger_Line": [
+    10,
+    16,
+    22,
+    28
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n...E.\nTime: 0.006\nThere was 1 failure:\n1) testShowBug3(ThreadGroupExampleTest)\njava.lang.NullPointerException: Cannot invoke \"java.lang.SecurityManager.getThreadGroup()\" because the return value of \"java.lang.System.getSecurityManager()\" is null\n\tat ThreadGroupExample.showBug3(ThreadGroupExample.java:21)\n\tat ThreadGroupExampleTest.testShowBug3(ThreadGroupExampleTest.java:31)\n\nFAILURES!!!\nTests run: 4,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate a failure in testShowBug3 due to a NullPointerException, which is not directly related to the use of ThreadGroup. The bug rule 'AvoidThreadGroup' is about avoiding the use of ThreadGroup itself, not about handling potential exceptions from its methods. Since the other tests passed without any failures, there is no evidence from the test results that the bug was triggered."
+}

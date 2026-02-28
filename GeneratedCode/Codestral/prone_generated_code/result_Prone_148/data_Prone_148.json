@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "SelfAssertion",
+  "Bug_Details": "This assertion will always fail or succeed. If a test subject and the argument to isEqualTo are the same instance (e.g.\nassertThat(x).isEqualTo(x)), then the assertion will always pass. Truth\nimplements isEqualTo using [Objects#equal] , which tests its arguments for\nreference equality and returns true without calling equals() if both arguments\nare the same instance. To test the implementation of an equals method, use\nGuava\u2019s EqualsTester.",
+  "Bug_Explanation": "The bug occurs when an object is compared to itself in an assertion. This always results in true, regardless of the implementation of the equals method.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by asserting that the object x is not equal to itself. This assertion will always fail because the showBug method is using reference equality, which will always return true for the same object.",
+  "Trigger_Line": "[4]",
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.005\nThere was 1 failure:\n1) testShowBug(SelfAssertionBugTest)\njava.lang.AssertionError\n\tat org.junit.Assert.fail(Assert.java:87)\n\tat org.junit.Assert.assertTrue(Assert.java:42)\n\tat org.junit.Assert.assertFalse(Assert.java:65)\n\tat org.junit.Assert.assertFalse(Assert.java:75)\n\tat SelfAssertionBugTest.testShowBug(SelfAssertionBugTest.java:12)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that there was a failure in the test case, but this does not confirm that the SelfAssertion bug was triggered. The bug is supposed to always pass when the test subject and the argument to isEqualTo are the same instance, but the test is expecting a false result which leads to a failure."
+}

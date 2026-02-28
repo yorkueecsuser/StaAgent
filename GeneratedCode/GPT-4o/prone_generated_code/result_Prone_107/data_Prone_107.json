@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "MissingSuperCall",
+  "Bug_Details": "Overriding method is missing a call to overridden super method API providers may annotate a method with an annotation like\nandroidx.annotation.CallSuper or\njavax.annotation.OverridingMethodsMustInvokeSuper to require that overriding\nmethods invoke the super method. This check enforces those annotations.",
+  "Bug_Explanation": "The process method in MissingSuperCallExample overrides the method in BaseClass but does not call super.process(). This is intentional to demonstrate the MissingSuperCall bug.",
+  "Buggy_Line": [
+    13
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug() method, which internally calls the process() method of MissingSuperCallExample. Since the process() method in MissingSuperCallExample does not call super.process(), the expected output in the assertion does not match the actual behavior, thus triggering the bug.",
+  "Trigger_Line": [
+    8
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

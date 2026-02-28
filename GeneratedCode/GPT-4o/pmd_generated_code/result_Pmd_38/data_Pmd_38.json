@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "DontImportSun",
+  "Bug_Details": "Avoid importing anything from the 'sun.*' packages. These packages are not portable\nand are likely to change.\n\nIf you find yourself having to depend on Sun APIs, confine this dependency to as\nsmall a scope as possible, for instance by writing a stable wrapper class around\nthe unstable API. You can then suppress this rule in the implementation of the wrapper.\nExamples:\nimport sun.misc.foo;\npublic class Foo {}",
+  "Bug_Explanation": "The original code intended to demonstrate the issue of importing from the sun.misc package, which is not portable. Although the sun.misc BASE64Encoder was replaced with a standard Java Base64 encoder to make the code compilable, the misleading comment and the import statement comment are retained to illustrate the bug's context.",
+  "Buggy_Line": [
+    1
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case calls the showBug method to demonstrate the current implementation. The comment in the original Java code incorrectly suggests an issue with importing sun.misc, but the code uses java.util.Base64 instead. The test assertions will fail if there is a misunderstanding of the bug context, triggering the comment to demonstrate the bug presence.",
+  "Trigger_Line": [
+    8,
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any errors or failures. This suggests that the bug related to importing from 'sun.*' packages was not triggered, as the test execution did not report any issues related to the bug rule 'DontImportSun'."
+}

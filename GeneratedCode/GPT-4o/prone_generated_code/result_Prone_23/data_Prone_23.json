@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "ComparisonOutOfRange",
+  "Bug_Details": "Comparison to value that is out of range for the compared type This checker looks for comparisons to values that are too high or too low for the compared type.  For example, bytes may have a value in the range -128 to 127. Comparing a byte for equality with a value outside that range will always evaluate to false and usually indicates an error in the code.",
+  "Bug_Explanation": "The code compares a byte value with 200, which is out of the valid range for byte (-128 to 127). This causes the comparison to always evaluate to false, indicating a logic error in the code.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method with a byte value (100). The method incorrectly compares this value to 200, which is outside the range of byte (-128 to 127). This causes the method to always return false, thus failing the assertion that expects true. This failure demonstrates the ComparisonOutOfRange bug.",
+  "Trigger_Line": [
+    12
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.004\nThere was 1 failure:\n1) testShowBug(ComparisonOutOfRangeExampleTest)\njava.lang.AssertionError: Expected true for testValue 100, but got false\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat org.junit.Assert.assertTrue(Assert.java:42)\n\tat ComparisonOutOfRangeExampleTest.testShowBug(ComparisonOutOfRangeExampleTest.java:15)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not confirm the bug was triggered. The failure occurred because the test expected 'showBug' to return true for a value of 100, but the method correctly returned false as the comparison to 200 is outside the byte range."
+}

@@ -1,0 +1,24 @@
+{
+  "Bug_Title": "Conditionally executed code should be reachable",
+  "Bug_Details": "Conditional expressions which are always true or false can lead to unreachable code .\nNoncompliant code example\na = false;\nif (a) { // Noncompliant\n  doSomething(); // never executed\n}\n\nif (!a || b) { // Noncompliant; \"!a\" is always \"true\", \"b\" is never evaluated\n  doSomething();\n} else {\n  doSomethingElse(); // never executed\n}\nExceptions\nThis rule will not raise an issue in either of these cases:\nWhen the condition is a single final boolean\nWhen the condition is a single final boolean\nfinal boolean debug = false;\n//...\nif (debug) {\n  // Print something\n}\nWhen the condition is literally true or false .\nWhen the condition is literally true or false .\nif (true) {\n  // do something\n}\nIn these cases it is obvious the code is as intended.",
+  "Bug_Explanation": "The conditional statements in the methods showBug, showBug2, showBug3, and showBug4 contain conditions that are always true or false. Therefore, the code inside the if statement is unreachable.",
+  "Buggy_Line": [
+    6,
+    13,
+    22,
+    31
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The conditional statements in the methods showBug, showBug2, showBug3, and showBug4 contain conditions that are always true or false. Therefore, the code inside the if statement is unreachable.",
+  "Trigger_Line": [
+    6,
+    14,
+    23,
+    32
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Doing something\n.Doing something\n.Doing something\n.\nTime: 0.006\n\nOK (4 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not indicate that the bug was triggered. The test run results indicate that all test cases passed without any exceptions or errors. This suggests that the provided code does not have any instances where the conditions that trigger the bug are met (i.e., the conditions are always false).",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The described bug is present in the provided Java code. The bug rule states that conditionally executed code should be reachable. The code contains four methods where this rule is violated. The first method'showBug' contains an if statement where the condition 'a' is always false. The second method'showBug2' contains an if-else statement where the condition '(!a || b)' is always true. The third method'showBug3' contains an if-else statement where the condition '(!debug)' is always false. The fourth method'showBug4' contains an if-else statement where the condition '(true)' is always true. These conditions are always true or false, leading to unreachable code."
+}

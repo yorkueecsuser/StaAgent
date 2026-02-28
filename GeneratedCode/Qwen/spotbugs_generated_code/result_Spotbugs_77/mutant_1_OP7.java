@@ -1,0 +1,25 @@
+import java.util.List;
+
+class UnrelatedClassAndInterfaceBug {
+
+    public void showBug(List<String> list, String str) {
+        boolean result = list.equals(str); // BUG: EC: Call to equals() comparing unrelated class and interface (EC_UNRELATED_CLASS_AND_INTERFACE)
+        System.out.println("Result of comparison: " + result);
+
+        // Inserting an unreachable while loop
+        boolean conditionWhile = getCondition();
+        while (conditionWhile) {
+            // This loop is unreachable because getCondition() always returns false
+            System.out.println("This loop will never execute.");
+        }
+    }
+
+    private boolean getCondition() {
+        return false;
+    }
+
+    public static void main(String[] args) {
+        UnrelatedClassAndInterfaceBug bugDemo = new UnrelatedClassAndInterfaceBug();
+        bugDemo.showBug(List.of("example"), "example");
+    }
+}

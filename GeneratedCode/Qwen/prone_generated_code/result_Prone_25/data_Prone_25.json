@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "CompileTimeConstant",
+  "Bug_Details": "Non-compile-time constant expression passed to parameter with @CompileTimeConstant type annotation. A method or constructor with one or more parameters whose declaration is\nannotated with the @CompileTimeConstant type annotation must only be invoked\nwith corresponding actual parameters that are computed as compile-time constant\nexpressions, specifically expressions that: the Java compiler can determine a constant value for at compile time (see\nJLS \u00a715.28),\nor\nconsist of the literal {@code null}, or\nconsist of a single identifier, where the identifier is a formal method\nparameter or class field that is effectively final and has the\n@CompileTimeConstant annotation, or\nare ternary expressions with both branches being compile-time constants, or\nare formed from the concatenation of other compile time constant Strings,\nor\nare Guava immutable collection factories with compile-time constant entries. For example, the following are valid compile-time constants: \"some literal string\"\n\"literal string\" + compileTimeConstantParameter\ndebug ? compileTimeConstantParameter : \"foo\"\nImmutableList.of(\"a\", \"b\", \"c\") When applied to fields, this check enforces that the field is final and has an\ninitializer which satisfies the above conditions. Getting Java 8 references to methods with @CompileTimeConstant parameters is\ndisallowed because we couldn\u2019t check if the method reference is later applied to\na compile-time constant. Use the methods directly instead. For the same reason, it\u2019s also disallowed to create lambda expressions with\n@CompileTimeConstant parameters.",
+  "Bug_Explanation": "The bug is embedded in the generated code by passing a non-compile-time constant expression ('input') to the method 'processString' which expects a parameter annotated with @CompileTimeConstant.",
+  "Buggy_Line": [
+    15
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by calling the'showBug' method of 'ExampleClass' with a non-compile-time constant string 'non-compile-time-constant'. This violates the rule that parameters annotated with @CompileTimeConstant must be compile-time constants.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.008\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed without any errors or failures, which means the bug was not triggered based on the provided test results alone."
+}

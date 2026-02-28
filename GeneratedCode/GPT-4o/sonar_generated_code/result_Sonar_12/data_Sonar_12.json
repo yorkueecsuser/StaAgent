@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "\"@Bean\" methods for Singleton should not be invoked in \"@Configuration\" when proxyBeanMethods is false",
+  "Bug_Details": "When setting the proxyBeanMethods attribute to false the @Bean methods are not proxied and this is similar\nto removing the @Configuration stereotype. In this scenario, @Bean methods within the @Configuration annotated\nclass operate in lite\nmode , resulting in a new bean creation each time the method is invoked.\nFor Singleton beans, this could cause unexpected outcomes as the bean is created multiple times instead of being created once and\ncached.\nThe rule raises an issue when the proxyBeanMethods attribute is set to false and the @Bean method of a Singleton bean is directly invoked in the @Configuration annotated class code.",
+  "Bug_Explanation": "In the code, the singletonBean method is directly called within the constructor of the SingletonBeanConfiguration class. This simulates the behavior when @Bean methods are directly invoked inside an @Configuration class with proxyBeanMethods set to false, causing new instances to be created instead of using the singleton instance. This is evident as the showBug method returns false, demonstrating that two different instances are being compared.",
+  "Buggy_Line": [
+    11,
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test triggers the bug by calling the showBug method, which demonstrates the bug by returning false. This indicates that the singletonBean method is creating a new instance each time it is called because the @Bean methods are directly invoked in the @Configuration class with proxyBeanMethods set to false.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Are both instances the same? true\n\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the instances were the same ('Are both instances the same? true'), indicating that the bug was not triggered, as the singletonBean behaved like a Singleton."
+}

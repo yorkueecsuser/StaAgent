@@ -1,0 +1,28 @@
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
+class RegexBug {
+    public static void main(String[] args) {
+        String input = "abc";
+        String pattern = "[ab]|a";
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(input);
+        while (m.find()) {
+            System.out.println(m.group());
+        }
+
+        // Unreachable switch statement
+        int value = 0;
+        switch (value) {
+            case 1:
+                System.out.println("Case 1");
+                break;
+            case 2:
+                System.out.println("Case 2");
+                break;
+            default:
+                System.out.println("Default case");
+                break;
+        }
+    }
+}

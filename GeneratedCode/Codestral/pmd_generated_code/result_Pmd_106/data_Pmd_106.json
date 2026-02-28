@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "ConsecutiveAppendsShouldReuse",
+  "Bug_Details": "Consecutive calls to StringBuffer/StringBuilder .append should be chained, reusing the target object. This can improve the performance\nby producing a smaller bytecode, reducing overhead and improving inlining. A complete analysis can be found [here](https://github.com/pmd/pmd/issues/202#issuecomment-274349067)\nExamples:\nString foo = \" \";\n\nStringBuffer buf = new StringBuffer();\nbuf.append(\"Hello\"); // poor\nbuf.append(foo);\nbuf.append(\"World\");\n\nStringBuffer buf = new StringBuffer();\nbuf.append(\"Hello\").append(foo).append(\"World\"); // good",
+  "Bug_Explanation": "The bug ConsecutiveAppendsShouldReuse is demonstrated by making consecutive calls to StringBuffer's append method without chaining them. This can lead to performance degradation due to increased overhead and reduced inlining.",
+  "Buggy_Line": [
+    5,
+    6,
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case fails to trigger the bug because it is expecting 'Hello World' as the result, but the actual result is 'Hello  World'. This is due to the space character added to the foo variable in the showBug() method. The bug is triggered at lines 5, 6, and 7 of the original code, where consecutive calls to the append method are made without chaining them.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed without any issues. This indicates that the code is functioning as expected and the bug (ConsecutiveAppendsShouldReuse) was not triggered. The expected output 'Hello World' was produced by the code, which suggests that the consecutive append operations are working correctly."
+}

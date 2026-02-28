@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "\"@Qualifier\" should not be used on \"@Bean\" methods",
+  "Bug_Details": "In Spring Framework, the @Qualifier annotation is typically used to disambiguate between multiple beans of the same type when\nauto-wiring dependencies. It is not necessary to use @Qualifier when defining a bean using the @Bean annotation because the\nbean\u2019s name can be explicitly specified using the name attribute or derived from the method name. Using @Qualifier on @Bean methods can lead to confusion and redundancy. Beans should be named appropriately using either the name attribute of\nthe @Bean annotation or the method name itself.\nNoncompliant code example\n@Configuration\npublic class MyConfiguration {\n  @Bean\n  @Qualifier(\"myService\")\n  public MyService myService() {\n    // ...\n    return new MyService();\n  }\n\n  @Bean\n  @Qualifier(\"betterService\")\n  public MyService aBetterService() {\n    // ...\n    return new MyService();\n  }\n\n  @Bean\n  @Qualifier(\"evenBetterService\")\n  public MyService anEvenBetterService() {\n    // ...\n    return new MyService();\n  }\n\n  @Bean\n  @Qualifier(\"differentService\")\n  public MyBean aDifferentService() {\n    // ...\n    return new MyBean();\n  }\n}\nCompliant solution\n@Configuration\npublic class MyConfiguration {\n  @Bean\n  public MyService myService() {\n    // ...\n    return new MyService();\n  }\n\n  @Bean(name=\"betterService\")\n  public MyService aBetterService() {\n    // ...\n    return new MyService();\n  }\n\n  @Bean(name=\"evenBetterService\")\n  public MyService anEvenBetterService() {\n    // ...\n    return new MyService();\n  }\n\n  @Bean(name=\"differentService\")\n  public MyBean aDifferentService() {\n    // ...\n    return new MyBean();\n  }\n}",
+  "Bug_Explanation": "The bug is intentionally embedded by not using '@Qualifier' and '@Bean' annotations while defining the'myService' method. This is against the rule as '@Qualifier' is not necessary when defining a bean using '@Bean' annotation.",
+  "Buggy_Line": [
+    15
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when the'showBug' method is called. This method uses the'myService' method, which does not use the '@Qualifier' and '@Bean' annotations, as per the rule.",
+  "Trigger_Line": [
+    8
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

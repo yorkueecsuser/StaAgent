@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "FL: Do not use floating-point variables as loop counters (FL_FLOATS_AS_LOOP_COUNTERS)\uf0c1",
+  "Bug_Details": "\nUsing floating-point variables should not be used as loop counters, as they are not precise, which may result in incorrect loops. A loop counter is a variable that is changed with each iteration and controls when the loop should terminate. It is decreased or increased by a fixed amount each iteration. See rule NUM09-J.",
+  "Bug_Explanation": "The bug is embedded by using a floating-point variable 'i' as a loop counter in the for loop. Floating-point arithmetic can introduce precision errors, causing the loop to potentially iterate a different number of times than intended.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the 'showBug' method and checking if the result is not equal to an expected value (4.5). Due to the floating-point precision issue in the loop counter, the loop does not iterate as expected, causing the test to fail, thus highlighting the bug.",
+  "Trigger_Line": [
+    8,
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.003\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any assertion errors, suggesting that the bug was not triggered. The test was expected to fail if the bug was present, but it did not."
+}

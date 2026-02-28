@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "Nm: Method doesn\u2019t override method in superclass due to wrong package for parameter (NM_WRONG_PACKAGE)\uf0c1",
+  "Bug_Details": " The method in the subclass doesn't override a similar method in a superclass because the type of a parameter doesn't exactly match\nthe type of the corresponding parameter in the superclass. For example, if you have: The f(Foo) method defined in class B doesn't\noverride the\nf(Foo) method defined in class A, because the argument\ntypes are Foo's from different packages.\n import alpha.Foo;\n\npublic class A {\n    public int f(Foo x) { return 17; }\n}\n----\nimport beta.Foo;\n\npublic class B extends A {\n    public int f(Foo x) { return 42; }\n}\n f(Foo) B f(Foo) A Foo",
+  "Bug_Explanation": "The method f(beta.Foo x) in class B does not override the method f(alpha.Foo x) in class A because the parameter types are from different packages (alpha.Foo vs beta.Foo).",
+  "Buggy_Line": [
+    18
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test calls the showBug method of BugDemonstrator, which internally calls the method f of class B with a beta.Foo object. Due to the NM_WRONG_PACKAGE bug, the method f of class B does not override the method f of class A, resulting in B's method being called instead of A's method.",
+  "Trigger_Line": [
+    10
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

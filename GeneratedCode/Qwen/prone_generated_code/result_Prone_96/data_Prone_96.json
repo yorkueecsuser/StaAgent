@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "JavaxInjectOnAbstractMethod",
+  "Bug_Details": "Abstract and default methods are not injectable with javax.inject.Inject The Inject annotation cannot be applied to abstract methods, per the JSR-330\nspec, since injectors will only inject those methods if the concrete implementer\nof the abstract method has the Inject annotation as well. See\nOverridesJavaxInjectableMethod for more examples of this interaction. Currently, default methods in interfaces are not injected if they have\nInject for similar reasons, although future updates to dependency injection\nframeworks may allow this, since the default methods are not abstract. See the Guice wiki page on JSR-330 for more.",
+  "Bug_Explanation": "The bug is embedded in the generated code by keeping the @Inject annotation on the abstractMethod in the InjectableInterface, which is not compliant with JSR-330 as abstract methods cannot be annotated with @Inject.",
+  "Buggy_Line": [
+    2
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_96/seed_Prone_96.java:2: error: cannot find symbol\n    @Inject // BUG: JavaxInjectOnAbstractMethod\n     ^\n  symbol:   class Inject\n  location: interface InjectableInterface\n1 error\n",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method on an instance of JavaxInjectOnAbstractMethodExample, which internally calls the abstractMethod annotated with @Inject. This violates the JSR-330 specification as abstract methods cannot be annotated with @Inject.",
+  "Trigger_Line": [
+    19
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "\"@Autowired\" should only be used on a single constructor",
+  "Bug_Details": "@Autowired is an annotation in the Spring Framework for automatic dependency injection. It tells Spring to automatically provide the\nrequired dependencies (such as other beans or components) to a class\u2019s fields, methods, or constructors, allowing for easier and more flexible\nmanagement of dependencies in a Spring application. In other words, it\u2019s a way to wire up and inject dependencies into Spring components\nautomatically, reducing the need for manual configuration and enhancing modularity and maintainability.\nIn any bean class, only one constructor is permitted to declare @Autowired with the required attribute set to true. This\nsignifies the constructor to be automatically wired when used as a Spring bean. Consequently, when the required attribute remains at its default value\n(true), only a singular constructor can bear the @Autowired annotation. In cases where multiple constructors have this annotation, they\nmust all specify required=false to be eligible as candidates for auto-wiring.",
+  "Bug_Explanation": "The code contains two constructors, both annotated with @Autowired without specifying required=false. According to Spring Framework rules, only one constructor should be annotated with @Autowired with the required attribute set to true or left as default. Having multiple such constructors leads to ambiguity in dependency injection.",
+  "Buggy_Line": [
+    18,
+    11
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug due to the ambiguity caused by having two constructors annotated with @Autowired in the MultiConstructorAutowiredBug class.",
+  "Trigger_Line": [
+    10,
+    22
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

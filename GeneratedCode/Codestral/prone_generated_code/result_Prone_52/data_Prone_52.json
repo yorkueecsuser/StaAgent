@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "FloggerSplitLogStatement",
+  "Bug_Details": "Splitting log statements and using Api instances directly breaks logging.",
+  "Bug_Explanation": "The bug is caused by splitting the log statement into two parts. When the logger evaluates the expression, it will log the string 'User ID:'and not include the user ID value. This is because the logger.info() method is called before the user ID is appended to the message string.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case calls the `showBug` method which causes the log statement to be split. As described in the bug explanation, this split log statement triggers the bug, causing the wrong value to be logged.",
+  "Trigger_Line": "[11]",
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.03\nThere was 1 failure:\n1) testShowBug(FloggerSplitLogStatementBugTest)\njava.lang.ArrayIndexOutOfBoundsException: Index 0 out of bounds for length 0\n\tat FloggerSplitLogStatementBugTest.testShowBug(FloggerSplitLogStatementBugTest.java:12)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate an ArrayIndexOutOfBoundsException was thrown at line 12 of the test code. This exception is not related to the logging of the user ID, but rather to the attempt to access an element at index 0 in an empty array. Therefore, these test results do not demonstrate that the bug described was triggered."
+}

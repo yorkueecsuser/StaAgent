@@ -1,0 +1,16 @@
+import java.util.Arrays;
+
+class ArrayToStringExample {
+
+    public String showBug(int[] numbers) {
+        int abcdefgh = 42; // Dead Store: unused integer variable
+        return numbers.toString(); // BUG: ArrayToString
+    }
+
+    public static void main(String[] args) {
+        ArrayToStringExample example = new ArrayToStringExample();
+        int[] numbers = {1, 2, 3, 4, 5};
+        String result = example.showBug(numbers);
+        System.out.println("Result: " + result);
+    }
+}

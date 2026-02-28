@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "RedundantSetterCall",
+  "Bug_Details": "A field was set twice in the same chained expression. Proto and AutoValue builders provide a fluent interface for constructing\ninstances. Unlike argument lists, however, they do not prevent the user from\nproviding multiple values for the same field. Setting the same field multiple times in the same chained expression is\npointless (as the intermediate value will be overwritten), and can easily mask a\nbug, especially if the setter is called with different arguments. return MyProto.newBuilder()\n    .setFoo(copy.getFoo())\n    .setFoo(copy.getBar())\n    .build(); return MyProto.newBuilder()\n    .setFoo(copy.getFoo())\n    .setFoo(copy.getBar())\n    .build();",
+  "Bug_Explanation": "The bug is that the `setFoo` method is called twice on the same object in the same chained expression, which is redundant. The first call to `setFoo` sets the value of `foo` to the value of `bar`, then the second call overrides that value with `foo`. This is pointless and can easily mask a bug, especially if the setter is called with different arguments.",
+  "Buggy_Line": [
+    26
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_144/seed_Prone_144.java:29: error: cannot find symbol\n           .build();\n           ^\n  symbol:   method build()\n  location: class MyProto\n1 error\n",
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The bug is present in the code. The setFoo method is called twice in the same chained expression, with different arguments. The second call to setFoo overwrites the value set by the first call, which is redundant and can mask a bug. In this case, the value of copy.getBar() is overwritten by copy.getFoo(), which is not the intended behavior."
+}

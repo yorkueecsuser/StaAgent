@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "EmptyCatchBlock",
+  "Bug_Details": "Empty Catch Block finds instances where an exception is caught, but nothing is done.\nIn most circumstances, this swallows an exception which should either be acted on\nor reported.\nExamples:\npublic void doSomething() {\n    try {\n        FileInputStream fis = new FileInputStream(\"/tmp/bugger\");\n    } catch (IOException ioe) {\n        // not good\n    }\n}",
+  "Bug_Explanation": "The bug was embedded in the generated code by creating a try-catch block where an IOException is caught, but the catch block is empty. This is an instance of an EmptyCatchBlock.",
+  "Buggy_Line": [
+    11
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test method testShowBug calls the showBug method of the EmptyCatchBlockExample class. The showBug method contains a try-catch block where an IOException is caught, but the catch block is empty. This triggers the EmptyCatchBlock bug.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed without any errors or exceptions being thrown. Since the bug rule is about an empty catch block that does not handle the exception, and the test did not fail or produce any output indicating an unhandled exception, it cannot be confirmed that the bug was triggered based solely on these test results."
+}

@@ -1,0 +1,37 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.HashSet;
+
+class Ideas_2011_07_27 {
+
+  HashSet<Integer> bad = new HashSet<Integer>();
+
+  public void test(String f) {
+
+    try {
+      FileInputStream in = new FileInputStream(f);
+      int b = in.read();
+      System.out.println(b);
+    } catch (FileNotFoundException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } finally {
+      if (bad.contains(f)) System.out.println("oops");
+
+      // Inserting an unreachable for loop
+      boolean conditionFor = getCondition();
+      for (int i = 0; conditionFor; i++) {
+        // This loop is unreachable because conditionFor is dynamically determined and set to false
+        System.out.println("This will never be printed");
+      }
+    }
+  }
+
+  private boolean getCondition() {
+    return false;
+  }
+}

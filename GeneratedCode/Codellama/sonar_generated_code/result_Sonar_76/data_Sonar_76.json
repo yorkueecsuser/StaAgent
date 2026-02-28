@@ -1,0 +1,9 @@
+{
+  "Buggy_Line": [],
+  "Trigger_Explanation": "The test case triggered the bug by attempting to lock on an instance of a value-based class, which is prohibited by the Java Language Specification.",
+  "Trigger_Line": [
+    19
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

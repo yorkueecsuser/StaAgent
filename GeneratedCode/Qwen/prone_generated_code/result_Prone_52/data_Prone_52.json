@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "FloggerSplitLogStatement",
+  "Bug_Details": "Splitting log statements and using Api instances directly breaks logging.",
+  "Bug_Explanation": "The bug is embedded in the generated code by splitting the log statement into two parts with a string concatenation. This can lead to issues in logging frameworks that expect a single, complete log statement.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug method with a test message. The bug is located in the showBug method where the log statement is split into two parts with string concatenation.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.036\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that the test passed successfully without any errors or failures. This does not provide evidence that the bug was triggered."
+}

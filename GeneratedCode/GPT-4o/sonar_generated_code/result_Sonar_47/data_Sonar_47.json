@@ -1,0 +1,26 @@
+{
+  "Bug_Title": "Repeated patterns in regular expressions should not match the empty string",
+  "Bug_Details": "A regex should never include a repetitive pattern whose body would match the empty string. This is usually a sign that a part of the regex is\nredundant or does not do what the author intended.\nNoncompliant code example\n\"(?:)*\"      // same as the empty regex, the '*' accomplishes nothing\n\"(?:|x)*\"    // same as the empty regex, the alternative has no effect\n\"(?:x|)*\"    // same as 'x*', the empty alternative has no effect\n\"(?:x*|y*)*\" // same as 'x*', the first alternative would always match, y* is never tried\n\"(?:x?)*\"    // same as 'x*'\n\"(?:x?)+\"    // same as 'x*'\nCompliant solution\n\"x*\"",
+  "Bug_Explanation": "The code contains several repetitive patterns in regular expressions that are constructed to match the empty string, which renders parts of the regex redundant or ineffective.",
+  "Buggy_Line": [
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test cases trigger the bug by using an empty string as input, which causes the regex patterns to match the empty string. This is against the intended use, as the patterns should not match an empty string due to their repetitive nature.",
+  "Trigger_Line": [
+    9,
+    12,
+    15,
+    18,
+    21,
+    24
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed successfully without any assertion errors, suggesting that the test conditions did not confirm the bug described."
+}

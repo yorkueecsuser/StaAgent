@@ -1,0 +1,33 @@
+import edu.umd.cs.findbugs.annotations.ExpectWarning;
+import java.io.FileOutputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
+class BadZipFileCreator {
+
+  @ExpectWarning("AM_CREATES_EMPTY_ZIP_FILE_ENTRY")
+  public static void main(String args[]) throws Exception {
+    ZipOutputStream zipfile = new ZipOutputStream(new FileOutputStream("foo.zip"));
+    for (int i = 0; i < args.length; i++) {
+      ZipEntry e = new ZipEntry(args[i]);
+      zipfile.putNextEntry(e);
+      zipfile.closeEntry();
+
+      // Introduced unreachable switch statement
+      boolean condition = getCondition();
+      switch (condition? 0 : 1) {
+        case 0:
+          System.out.println("This will never be printed");
+          break;
+        case 1:
+          // This is the only reachable case
+          break;
+      }
+    }
+    zipfile.close();
+  }
+
+  private static boolean getCondition() {
+    return false; // This ensures the switch condition is dynamically determined but always evaluates to false
+  }
+}

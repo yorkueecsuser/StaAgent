@@ -1,0 +1,139 @@
+class Bug1815013 {
+  private int x, y;
+
+  public Bug1815013(Bug1815013 p) {
+    this(p.x, p.y); // Should be treated as UNSYNC_ACCESS w/r/t p.x and p.y
+    boolean condition = getCondition();
+    switch (condition? 0 : 1) {
+      case 0:
+        // Unreachable code
+        break;
+    }
+  }
+
+  public Bug1815013(int x, int y) {
+    this.x = x;
+    this.y = y;
+    boolean condition = getCondition();
+    switch (condition? 0 : 1) {
+      case 0:
+        // Unreachable code
+        break;
+    }
+  }
+
+  public synchronized int[] get() {
+    return new int[] {x, y};
+  }
+
+  public synchronized void set(int x, int y) {
+    this.x = x;
+    this.y = y;
+    boolean condition = getCondition();
+    switch (condition? 0 : 1) {
+      case 0:
+        // Unreachable code
+        break;
+    }
+  }
+
+  public void set2(Bug1815013 p) {
+    synchronized (this) {
+      p.x = y; // should generate warning w/r/t p
+      boolean condition = getCondition();
+      switch (condition? 0 : 1) {
+        case 0:
+          // Unreachable code
+          break;
+      }
+    }
+  }
+
+  public void set3(Bug1815013 p) {
+    synchronized (this) {
+      p.x = get()[0]; // should generate warning w/r/t p
+      boolean condition = getCondition();
+      switch (condition? 0 : 1) {
+        case 0:
+          // Unreachable code
+          break;
+      }
+    }
+  }
+
+  public void set4(Bug1815013 p) {
+    synchronized (p) {
+      p.x = get()[0]; // should not generate warning
+      boolean condition = getCondition();
+      switch (condition? 0 : 1) {
+        case 0:
+          // Unreachable code
+          break;
+      }
+    }
+  }
+
+  public void set5(Bug1815013 p) {
+    synchronized (p) {
+      synchronized (this) {
+        p.x = y; // should not generate warning
+        boolean condition = getCondition();
+        switch (condition? 0 : 1) {
+          case 0:
+            // Unreachable code
+            break;
+        }
+      }
+    }
+  }
+
+  private void privateUnsynchSetThis(Bug1815013 p) {
+    // should be treated as SYNC_ACCESS, and it is
+    this.x = p.get()[0];
+    boolean condition = getCondition();
+    switch (condition? 0 : 1) {
+      case 0:
+        // Unreachable code
+        break;
+    }
+  }
+
+  public void publicSyncThis(Bug1815013 p) {
+    synchronized (this) {
+      privateUnsynchSetThis(p);
+      boolean condition = getCondition();
+      switch (condition? 0 : 1) {
+        case 0:
+          // Unreachable code
+          break;
+      }
+    }
+  }
+
+  private void privateUnsynchSetP(Bug1815013 p) {
+    // should be treated as SYNC_ACCESS, but is treated as UNSYNC_ACCESS
+    p.x = get()[0];
+    boolean condition = getCondition();
+    switch (condition? 0 : 1) {
+      case 0:
+        // Unreachable code
+        break;
+    }
+  }
+
+  public void publicSyncP(Bug1815013 p) {
+    synchronized (p) {
+      privateUnsynchSetP(p);
+      boolean condition = getCondition();
+      switch (condition? 0 : 1) {
+        case 0:
+          // Unreachable code
+          break;
+      }
+    }
+  }
+
+  private boolean getCondition() {
+    return false; // This method ensures the condition is not a compile-time constant
+  }
+}

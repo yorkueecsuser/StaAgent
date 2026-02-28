@@ -1,0 +1,13 @@
+{
+  "Bug_Title": "IndexOfChar",
+  "Bug_Details": "The first argument to indexOf is a Unicode code point, and the second is the index to start the search from",
+  "Bug_Explanation": "In this code, the bug is embedded in the usage of the indexOf method in the main method. The indexOf method takes in two arguments: a Unicode code point and an index to start the search from. However, in this code, the second argument, which is the index to start the search from, is not passed in correctly. Instead of passing in an integer, the method is passed a string, which is the input from the user. This causes the method to behave incorrectly and produce incorrect results.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The first test case triggers the bug by passing an invalid Unicode code point to the `indexOf` method",
+  "Trigger_Line": [
+    8
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

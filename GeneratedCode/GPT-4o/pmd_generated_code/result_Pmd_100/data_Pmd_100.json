@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "AppendCharacterWithChar",
+  "Bug_Details": "Avoid concatenating characters as strings in StringBuffer/StringBuilder.append methods.\nExamples:\nStringBuffer sb = new StringBuffer();\nsb.append(\"a\");     // avoid this\n\nStringBuffer sb = new StringBuffer();\nsb.append('a');     // use this instead",
+  "Bug_Explanation": "The bug is demonstrated by using String concatenation in StringBuilder's append method. Instead of appending a single character using sb.append(c), the code concatenates the character with an empty string using c + \"\", which is inefficient.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls the showBug method with the string 'example'. The bug is triggered due to inefficient character concatenation using sb.append(c + \"\"), which is less performant than sb.append(c). The test case fails because the bug does not affect the correctness of the output, but it is designed to highlight inefficient usage.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully, as shown by 'OK (1 test)', which means the assertion did not fail. Therefore, the bug was not triggered during the test execution."
+}

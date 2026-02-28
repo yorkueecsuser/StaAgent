@@ -1,0 +1,14 @@
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+class BuggyProgramTest {
+    @Test
+    public void testBuggyProgram() {
+        int[] arr = {1, 2, 3, 4, 5};
+        int sum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i]; // BUG: IP: A parameter is dead upon entry to a method but overwritten (IP_PARAMETER_IS_DEAD_BUT_OVERWRITTEN)
+        }
+        assertEquals(15, sum); // TRIGGER BUG: IP: A parameter is dead upon entry to a method but overwritten (IP_PARAMETER_IS_DEAD_BUT_OVERWRITTEN)
+    }
+}

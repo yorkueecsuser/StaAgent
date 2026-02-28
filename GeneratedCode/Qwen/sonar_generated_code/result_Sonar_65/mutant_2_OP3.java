@@ -1,0 +1,58 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class CollectionAndArrayBug {
+
+    public boolean showBug1(List<Integer> myList) {
+        if (myList.size() >= 0) { // BUG: Collection sizes and array length comparisons should make sense
+            return true;
+        }
+        return false;
+        
+        // Mutant: Inserting an unreachable if branch
+        boolean condition = getCondition();
+        if (condition) {
+            System.out.println("This is an unreachable if statement.");
+        }
+    }
+
+    public boolean showBug2(int[] myArray) {
+        boolean result = myArray.length >= 0; // BUG: Collection sizes and array length comparisons should make sense
+        return result;
+        
+        // Mutant: Inserting an unreachable if branch
+        boolean condition = getCondition();
+        if (condition) {
+            System.out.println("This is an unreachable if statement.");
+        }
+    }
+
+    public boolean showBug3(List<Integer> myList) {
+        if (myList.size() < 0) { // BUG: Collection sizes and array length comparisons should make sense
+            return true;
+        }
+        return false;
+        
+        // Mutant: Inserting an unreachable if branch
+        boolean condition = getCondition();
+        if (condition) {
+            System.out.println("This is an unreachable if statement.");
+        }
+    }
+
+    public static void main(String[] args) {
+        CollectionAndArrayBug bugDemo = new CollectionAndArrayBug();
+        
+        List<Integer> myList = new ArrayList<>();
+        int[] myArray = new int[5];
+        
+        System.out.println("showBug1 result: " + bugDemo.showBug1(myList));
+        System.out.println("showBug2 result: " + bugDemo.showBug2(myArray));
+        System.out.println("showBug3 result: " + bugDemo.showBug3(myList));
+    }
+
+    // Helper method to provide a dynamic condition
+    private boolean getCondition() {
+        return false; // This will always return false, but it's not a compile-time constant
+    }
+}

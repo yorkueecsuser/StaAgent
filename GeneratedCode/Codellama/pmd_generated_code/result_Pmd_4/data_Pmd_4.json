@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "AvoidAssertAsIdentifier",
+  "Bug_Details": "Use of the term `assert` will conflict with newer versions of Java since it is a reserved word.\n\nSince Java 1.4, the token `assert` became a reserved word and using it as an identifier will\nresult in a compilation failure for Java 1.4 and later. This rule is therefore only useful\nfor old Java code before Java 1.4. It can be used to identify problematic code prior to a Java update.",
+  "Bug_Explanation": "The bug was embedded in the generated code by using the variable name `buggyAssert` as the return value of the `showBug` method, which conflicts with the reserved word `assert` in Java 1.4 and later versions.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../pmd_clean_java_code/result_Pmd_4/seed_Pmd_4.java:3: error: as of release 1.4, 'assert' is a keyword, and may not be used as an identifier\n        int assert = 10; // BUG: AvoidAssertAsIdentifier\n            ^\n../pmd_clean_java_code/result_Pmd_4/seed_Pmd_4.java:4: error: as of release 1.4, 'assert' is a keyword, and may not be used as an identifier\n        System.out.println(assert);\n                           ^\n2 errors\n",
+  "Trigger_Explanation": "The test case triggers the bug by calling the `showBug()` method in the `AvoidAssertAsIdentifier` class, which is defined in the original code snippet. The method assigns the value 10 to a variable named `assert`, which is a reserved word in Java. This causes a compilation error when the code is compiled with Java 1.4 or later versions.",
+  "Trigger_Line": "[3, 4]",
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,19 @@
+{
+  "Bug_Title": "Method parameters, caught exceptions and foreach variables' initial values should not be ignored",
+  "Bug_Details": "While it is technically correct to assign to parameters from within method bodies, doing so before the parameter value is read is likely a bug.\nInstead, initial values of parameters, caught exceptions, and foreach parameters should be, if not treated as final , then at least read\nbefore reassignment.\nNoncompliant code example\npublic void doTheThing(String str, int i, List<String> strings) {\n  str = Integer.toString(i); // Noncompliant\n\n  for (String s : strings) {\n    s = \"hello world\"; // Noncompliant\n  }\n}",
+  "Bug_Explanation": "While it is technically correct to assign to parameters from within method bodies, doing so before the parameter value is read is likely a bug. Instead, initial values of parameters, caught exceptions, and foreach parameters should be, if not treated as final, then at least read before reassignment.",
+  "Buggy_Line": [
+    5,
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case triggers the bug by calling the `showBug` method with a mutable `List` object as a parameter. This causes the bug to be triggered as the bug is about method parameters, caught exceptions and foreach variables. The list is passed as a parameter, thus, the initial value of the parameter is ignored.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The Test Run Results do not demonstrate the bug being triggered. The Test Code is not causing any runtime errors or unexpected behavior.",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The described bug is present in the provided Java code. The code assigns new values to the method parameters and the foreach variables without reading their initial values. This is likely a bug because the initial values of parameters, caught exceptions, and foreach parameters should be, if not treated as final, then at least read before reassignment."
+}

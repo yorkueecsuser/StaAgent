@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "SelfComparison",
+  "Bug_Details": "An object is compared to itself The arguments to compareTo method are the same object, so it always returns 0.\nEither change the arguments to point to different objects or substitute 0.",
+  "Bug_Explanation": "The bug is embedded in the compareTo method. The object is compared to itself, which always returns 0.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testSelfComparisonBug method compares a SelfComparisonBug object to another SelfComparisonBug object with a different value. Since the bug is that comparing an object to itself always returns 0, the test fails when it expects the comparison to not return 0.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.003\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the comparison between buggyObj and otherObj returns a non-zero value, which indicates that the self-comparison bug was not triggered in this test case."
+}

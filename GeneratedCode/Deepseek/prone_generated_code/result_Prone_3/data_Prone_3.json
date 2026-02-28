@@ -1,0 +1,19 @@
+{
+  "Bug_Title": "ArrayFillIncompatibleType",
+  "Bug_Details": "Arrays.fill(Object[], Object) called with incompatible types. Arrays.fill(Object[], Object) is used to copy a reference into every slot of\nan array. For example: String[] foo = new String[42];\nArrays.fill(foo, \"life\");\n// 42 references to the same String instance of \"life\" in the foo array String[] foo = new String[42];\nArrays.fill(foo, \"life\");\n// 42 references to the same String instance of \"life\" in the foo array However, because of Array covariance (e.g.: String[] is assignable to\nObject[]), and the signature of Arrays.fill is Arrays.fill(Object[],\nObject), this also allows you to do the following: String[] foo = new String[42];\nArrays.fill(foo, 42); // ArrayStoreException! Integer can't be put into a String[] String[] foo = new String[42];\nArrays.fill(foo, 42); // ArrayStoreException! Integer can't be put into a String[] This check detects the above circumstances, and won\u2019t let you attempt to put\nIntegers into a String[]. List<T> doesn\u2019t have the same issue, since generic types are not covariant. List<String> foo = new ArrayList<>();\nfoo.add(42); // Compile time error: Integer is not assignable to String List<String> foo = new ArrayList<>();\nfoo.add(42); // Compile time error: Integer is not assignable to String",
+  "Bug_Explanation": "This Java code demonstrates an ArrayStoreException bug, which occurs when you attempt to store an incompatible type into an array using the Arrays.fill() method. In this case, an Integer is being attempted to be stored into a String array, which results in an ArrayStoreException at runtime.",
+  "Buggy_Line": [
+    4,
+    13
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case triggers the bug by calling the `showBug` method in the `Main` class. This method tries to fill a string array with an integer, which is an incompatible type. This should trigger an ArrayStoreException.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the bug was not triggered. The test passed without any exceptions, indicating that the Arrays.fill() method did not encounter an ArrayStoreException.",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The described bug is present in the provided Java code. The method showBug() is attempting to fill a String array with an Integer value, which is incompatible and will result in an ArrayStoreException at runtime. This is because the Arrays.fill() method expects an array of objects and a single object to fill the array with. In this case, the array is of type String[] and the object to fill it with is an Integer (42). This is a violation of the ArrayStoreException rule, which states that an attempt is made to store an object of a type incompatible with the array's component type."
+}

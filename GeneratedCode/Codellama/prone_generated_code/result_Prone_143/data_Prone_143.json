@@ -1,0 +1,13 @@
+{
+  "Bug_Title": "RandomModInteger",
+  "Bug_Details": "Use Random.nextInt(int).  Random.nextInt() % n can have negative results Random.nextInt() % n has a 1/n chance of being 0\na 1/2n chance of being each number from 1 to n-1 inclusive\na 1/2n chance of being each number from -1 to -(n-1) inclusive Many users expect a uniformly distributed random integer between 0 and n-1\ninclusive, but you must use random.nextInt(n) to get that behavior. If the\noriginal behavior is truly desired, use (random.nextBoolean() ? 1 : -1) *\nrandom.nextInt(n).",
+  "Bug_Explanation": "The bug was embedded in the code by using the modulo operator (%) to obtain a random integer between 0 and n-1 inclusive. The modulo operator can produce negative results, which is not what the user expects when using Random.nextInt(n) to generate a random integer between 0 and n-1 inclusive.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by using the `Random.nextInt(int)` method with a modulo operation. This causes the result to be negative with a probability of 1/2n.",
+  "Trigger_Line": [
+    11
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

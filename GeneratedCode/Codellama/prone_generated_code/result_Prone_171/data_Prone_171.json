@@ -1,0 +1,12 @@
+{
+  "Buggy_Line": [
+    7
+  ],
+  "Trigger_Explanation": "The test case triggers the bug by using the wildcard type in the list declaration and then trying to access the first element of the list.",
+  "Trigger_Line": [
+    12,
+    13
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

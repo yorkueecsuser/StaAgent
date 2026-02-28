@@ -1,0 +1,22 @@
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+
+class GeneratedBuggyCode {
+    public static void main(String[] args) {
+        String path = args[0];
+        File file = new File(path);
+        boolean flag = getCondition();
+        if (file.isFile()) {
+            System.out.println("File found: " + file.getName());
+            for (int i = 0; flag; i++) {
+                System.out.println("Unreachable for loop");
+            }
+        } else {
+            System.out.println("File not found: " + file.getName());
+        }
+    }
+    private static boolean getCondition() {
+        return false;
+    }
+}

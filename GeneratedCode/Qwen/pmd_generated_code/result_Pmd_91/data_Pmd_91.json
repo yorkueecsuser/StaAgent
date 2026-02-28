@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "AvoidUsingVolatile",
+  "Bug_Details": "Use of the keyword 'volatile' is generally used to fine tune a Java application, and therefore, requires\na good expertise of the Java Memory Model. Moreover, its range of action is somewhat misknown. Therefore,\nthe volatile keyword should not be used for maintenance purpose and portability.\nExamples:\npublic class ThrDeux {\n  private volatile String var1; // not suggested\n  private          String var2; // preferred\n}",
+  "Bug_Explanation": "The bug is embedded in the generated code by using the 'volatile' keyword for the sharedVariable. This can lead to incorrect results because 'volatile' does not provide atomicity for compound actions like incrementing a variable, which can result in race conditions.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method of the VolatileExample class, which starts two threads to increment a shared variable concurrently. Due to the use of the volatile keyword, the increment operation is not atomic, leading to a race condition and an incorrect final value.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed successfully without any assertion failures, which does not confirm that the bug was triggered."
+}

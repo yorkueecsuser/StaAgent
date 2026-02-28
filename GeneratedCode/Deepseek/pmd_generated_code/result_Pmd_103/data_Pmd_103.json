@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "AvoidFileStream",
+  "Bug_Details": "The FileInputStream and FileOutputStream classes contains a finalizer method which will cause garbage\ncollection pauses.\nSee [JDK-8080225](https://bugs.openjdk.org/browse/JDK-8080225) for details.\n\nThe FileReader and FileWriter constructors instantiate FileInputStream and FileOutputStream,\nagain causing garbage collection issues while finalizer methods are called.\n\n* Use `Files.newInputStream(Paths.get(fileName))` instead of `new FileInputStream(fileName)`.\n* Use `Files.newOutputStream(Paths.get(fileName))` instead of `new FileOutputStream(fileName)`.\n* Use `Files.newBufferedReader(Paths.get(fileName))` instead of `new FileReader(fileName)`.\n* Use `Files.newBufferedWriter(Paths.get(fileName))` instead of `new FileWriter(fileName)`.\n\nPlease note, that the `java.nio` API does not throw a `FileNotFoundException` anymore, instead\nit throws a `NoSuchFileException`. If your code dealt explicitly with a `FileNotFoundException`,\nthen this needs to be adjusted. Both exceptions are subclasses of `IOException`, so catching\nthat one covers both.\nExamples:\n// these instantiations cause garbage collection pauses, even if properly closed\n\n    FileInputStream fis = new FileInputStream(fileName);\n    FileOutputStream fos = new FileOutputStream(fileName);\n    FileReader fr = new FileReader(fileName);\n    FileWriter fw = new FileWriter(fileName);\n\n    // the following instantiations help prevent Garbage Collection pauses, no finalization\n\n    try(InputStream is = Files.newInputStream(Paths.get(fileName))) {\n    }\n    try(OutputStream os = Files.newOutputStream(Paths.get(fileName))) {\n    }\n    try(BufferedReader br = Files.newBufferedReader(Paths.get(fileName), StandardCharsets.UTF_8)) {\n    }\n    try(BufferedWriter wr = Files.newBufferedWriter(Paths.get(fileName), StandardCharsets.UTF_8)) {\n    }",
+  "Bug_Explanation": "The code creates a FileInputStream and FileOutputStream which can cause garbage collection pauses. It is replaced with Files.newInputStream and Files.newOutputStream from java.nio package to fix this issue.",
+  "Buggy_Line": [
+    15
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The original test code was trying to read from and write to a file that doesn't exist. This causes an IOException that the test code is expecting.",
+  "Trigger_Line": [
+    13
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not demonstrate the bug being triggered. The test case is designed to check if the IOException is thrown when the file does not exist. The test case passes successfully, indicating that the bug was not triggered."
+}

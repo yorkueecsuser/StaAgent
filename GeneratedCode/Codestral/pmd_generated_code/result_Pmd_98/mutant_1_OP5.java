@@ -1,0 +1,55 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class NotifyBug {
+    private final List<Thread> waitingThreads = new ArrayList<>();
+
+    public void addWaitingThread(Thread thread) {
+        synchronized (this) {
+            waitingThreads.add(thread);
+            unreachableSwitchStatement();
+        }
+    }
+
+    public void notifyOneThread() {
+        synchronized (this) {
+            if (!waitingThreads.isEmpty()) {
+                waitingThreads.get(0).notifyAll();
+                waitingThreads.remove(0);
+            }
+        }
+    }
+
+    public void showBug() {
+        for (int i = 0; i < 5; i++) {
+            Thread thread = new Thread(() -> {
+                synchronized (this) {
+                    try {
+                        addWaitingThread(Thread.currentThread());
+                        Thread.currentThread().wait();
+                        System.out.println("Thread " + Thread.currentThread().getId() + " is notified.");
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                }
+            });
+            thread.start();
+        }
+
+        notifyOneThread();
+    }
+
+    private void unreachableSwitchStatement() {
+        int value = 0;
+        switch (value) {
+            case 1:
+                System.out.println("This line is unreachable");
+                break;
+        }
+    }
+
+    public static void main(String[] args) {
+        NotifyBug bug = new NotifyBug();
+        bug.showBug();
+    }
+}

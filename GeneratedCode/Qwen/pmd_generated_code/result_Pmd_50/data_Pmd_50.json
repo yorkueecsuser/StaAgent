@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "InvalidLogMessageFormat",
+  "Bug_Details": "Check for messages in slf4j and log4j2 (since 6.19.0) loggers with non matching number of arguments and placeholders.\n\nSince 6.32.0 in addition to parameterized message placeholders (`{}`) also format specifiers of string formatted\nmessages are supported (`%s`).\n\nThis rule has been renamed from \"InvalidSlf4jMessageFormat\" in PMD 6.19.0.\nExamples:\nLOGGER.error(\"forget the arg {}\");\nLOGGER.error(\"forget the arg %s\");\nLOGGER.error(\"too many args {}\", \"arg1\", \"arg2\");\nLOGGER.error(\"param {}\", \"arg1\", new IllegalStateException(\"arg\")); //The exception is shown separately, so is correct.",
+  "Bug_Explanation": "The bugs are embedded in the logger statements where the number of arguments does not match the number of placeholders. Specifically, showBug1, showBug2, and showBug3 contain incorrect log message formats.",
+  "Buggy_Line": [
+    9,
+    19,
+    14
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the'showBug' method of the LogMessageFormatBug class, which internally calls'showBug1','showBug2', and'showBug3'. Each of these methods contains logger statements with mismatched arguments and placeholders, triggering the 'InvalidLogMessageFormat' bug.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.04\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed without any errors or exceptions, which does not confirm that the bug was triggered."
+}

@@ -1,0 +1,19 @@
+{
+  "Bug_Title": "Classes should not be compared by name",
+  "Bug_Details": "There is no requirement that class names be unique, only that they be unique within a package. Therefore trying to determine an object\u2019s type based\non its class name is an exercise fraught with danger. One of those dangers is that a malicious user will send objects of the same name as the trusted\nclass and thereby gain trusted access.\nInstead, the instanceof operator or the Class.isAssignableFrom() method should be used to check the object\u2019s underlying\ntype.\nNoncompliant code example\npackage computer;\nclass Pear extends Laptop { ... }\n\npackage food;\nclass Pear extends Fruit { ... }\n\nclass Store {\n\n  public boolean hasSellByDate(Object item) {\n    if (\"Pear\".equals(item.getClass().getSimpleName())) {  // Noncompliant\n      return true;  // Results in throwing away week-old computers\n    }\n    return false;\n  }\n\n  public boolean isList(Class<T> valueClass) {\n    if (List.class.getName().equals(valueClass.getName())) {  // Noncompliant\n      return true;\n    }\n    return false;\n  }\n}\nCompliant solution\nclass Store {\n\n  public boolean hasSellByDate(Object item) {\n    if (item instanceof food.Pear) {\n      return true;\n    }\n    return false;\n  }\n\n  public boolean isList(Class<T> valueClass) {\n    if (valueClass.isAssignableFrom(List.class)) {\n      return true;\n    }\n    return false;\n  }\n}",
+  "Bug_Explanation": "The bug is embedded in the 'hasSellByDate' and 'isList' methods where classes are compared by their names instead of using 'instanceof' or 'Class.isAssignableFrom()'. This comparison can lead to incorrect results if classes with the same name exist in different packages.",
+  "Buggy_Line": [
+    21,
+    14
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test cases trigger the bug by calling the'showBug' method which internally uses the 'hasSellByDate' and 'isList' methods. These methods compare classes by name, which is the bug we want to keep triggering.",
+  "Trigger_Line": [
+    19,
+    26,
+    33,
+    40
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

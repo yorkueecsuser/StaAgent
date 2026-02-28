@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "CompileTimeConstant",
+  "Bug_Details": "Non-compile-time constant expression passed to parameter with @CompileTimeConstant type annotation. A method or constructor with one or more parameters whose declaration is\nannotated with the @CompileTimeConstant type annotation must only be invoked\nwith corresponding actual parameters that are computed as compile-time constant\nexpressions, specifically expressions that: the Java compiler can determine a constant value for at compile time (see\nJLS \u00a715.28),\nor\nconsist of the literal {@code null}, or\nconsist of a single identifier, where the identifier is a formal method\nparameter or class field that is effectively final and has the\n@CompileTimeConstant annotation, or\nare ternary expressions with both branches being compile-time constants, or\nare formed from the concatenation of other compile time constant Strings,\nor\nare Guava immutable collection factories with compile-time constant entries. For example, the following are valid compile-time constants: \"some literal string\"\n\"literal string\" + compileTimeConstantParameter\ndebug ? compileTimeConstantParameter : \"foo\"\nImmutableList.of(\"a\", \"b\", \"c\") When applied to fields, this check enforces that the field is final and has an\ninitializer which satisfies the above conditions. Getting Java 8 references to methods with @CompileTimeConstant parameters is\ndisallowed because we couldn\u2019t check if the method reference is later applied to\na compile-time constant. Use the methods directly instead. For the same reason, it\u2019s also disallowed to create lambda expressions with\n@CompileTimeConstant parameters.",
+  "Bug_Explanation": "In the method `showBug`, the variable `nonConstantMessage` is created by concatenating a string with a runtime variable `input`. The resulting string is not a compile-time constant, which violates the requirement of the `printMessage` method parameter being annotated with `@CompileTimeConstant`.",
+  "Buggy_Line": [
+    19
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case 'testShowBug' calls the 'showBug' method with a runtime integer input. Inside 'showBug', a non-compile-time constant string is created using this input, which is then passed to 'printMessage', violating the @CompileTimeConstant requirement and triggering the bug.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.This is a non-constant message: 42\n\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the method executed without errors and printed the expected message. There is no indication of a bug being triggered related to @CompileTimeConstant, as the test completed successfully and was marked as OK."
+}

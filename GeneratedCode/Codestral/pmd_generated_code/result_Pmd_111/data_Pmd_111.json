@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "OptimizableToArrayCall",
+  "Bug_Details": "Calls to a collection's `toArray(E[])` method should specify a target array of zero size. This allows the JVM\nto optimize the memory allocation and copying as much as possible.\n\nPrevious versions of this rule (pre PMD 6.0.0) suggested the opposite, but current JVM implementations\nperform always better, when they have full control over the target array. And allocation an array via\nreflection is nowadays as fast as the direct allocation.\n\nSee also [Arrays of Wisdom of the Ancients](https://shipilev.net/blog/2016/arrays-wisdom-ancients/)\n\nNote: If you don't need an array of the correct type, then the simple `toArray()` method without an array\nis faster, but returns only an array of type `Object[]`.\nExamples:\nList<Foo> foos = getFoos();\n\n// much better; this one allows the jvm to allocate an array of the correct size and effectively skip\n// the zeroing, since each array element will be overridden anyways\nFoo[] fooArray = foos.toArray(new Foo[0]);\n\n// inefficient, the array needs to be zeroed out by the jvm before it is handed over to the toArray method\nFoo[] fooArray = foos.toArray(new Foo[foos.size()]);",
+  "Bug_Explanation": "The bug in the code is that the toArray(E[]) method is being called with a target array of the same size as the list. This causes the JVM to allocate an array of the correct size and then zero it out, which is inefficient. Instead, the method should be called with a target array of zero size to allow the JVM to optimize the memory allocation and copying.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by expecting the length of the array returned by the showBug method to be equal to the size of the input list. However, according to the bug description, the showBug method should have returned an array of size zero, which would have caused the assertTrue statement to fail.",
+  "Trigger_Line": [
+    11
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed without any failures. This indicates that the length of the array returned by the toArray(E[]) method is equal to the size of the list, which is the expected behavior according to the bug description. Therefore, the test results do not confirm the presence of the described bug in the Java code."
+}

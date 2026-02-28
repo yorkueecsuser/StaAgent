@@ -1,0 +1,13 @@
+{
+  "Bug_Title": "MS: Field isn\u2019t final and cannot be protected from malicious code (MS_CANNOT_BE_FINAL)\uf0c1",
+  "Bug_Details": "\nA mutable static field could be changed by malicious code or\n       by accident from another package.\n  Unfortunately, the way the field is used doesn't allow\n  any easy fix to this problem.",
+  "Bug_Explanation": "The field 'SECRET_NUMBER' is static and mutable, which means it can be changed by malicious code or accidentally from another package.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case triggers the bug by calling the showBug() method, which changes the value of the static field SECRET_NUMBER from 42 to 13.",
+  "Trigger_Line": [
+    4
+  ]
+}

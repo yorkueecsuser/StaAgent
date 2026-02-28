@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "MissingTestCall",
+  "Bug_Details": "A terminating method call is required for a test helper to have any effect. Some test helpers such as EqualsTester require a terminating method call to be\nof any use. @Test\n  public void string() {\n    new EqualsTester()\n        .addEqualityGroup(\"hello\", new String(\"hello\"))\n        .addEqualityGroup(\"world\", new String(\"world\"))\n        .addEqualityGroup(2, Integer.valueOf(2));\n    // Oops: forgot to call `testEquals()`\n  } @Test\n  public void string() {\n    new EqualsTester()\n        .addEqualityGroup(\"hello\", new String(\"hello\"))\n        .addEqualityGroup(\"world\", new String(\"world\"))\n        .addEqualityGroup(2, Integer.valueOf(2));\n    // Oops: forgot to call `testEquals()`\n  }",
+  "Bug_Explanation": "The class 'EqualsTester' is a helper class for testing equality. The 'testEquals()' method is not called after adding equality groups which leads to no effect in test. This is what is meant by the bug 'MissingTestCall'",
+  "Buggy_Line": [
+    21,
+    13
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_108/seed_Prone_108.java:1: error: package org.apache.commons.lang3.builder does not exist\nimport org.apache.commons.lang3.builder.EqualsBuilder;\n                                       ^\n../prone_clean_java_code/result_Prone_108/seed_Prone_108.java:2: error: package org.apache.commons.lang3.builder does not exist\nimport org.apache.commons.lang3.builder.HashCodeBuilder;\n                                       ^\n../prone_clean_java_code/result_Prone_108/seed_Prone_108.java:3: error: package com.google.common.base does not exist\nimport com.google.common.base.Objects;\n                             ^\n../prone_clean_java_code/result_Prone_108/seed_Prone_108.java:29: error: cannot find symbol\n            new HashCodeBuilder().append(1).append(new Object()).toHashCode();\n                ^\n  symbol:   class HashCodeBuilder\n  location: class MissingTestCall.EqualsTester\n4 errors\n",
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The bug is present in the code. The EqualsTester class is used to test the equality of objects, but the testEquals() method is never called. This means that the EqualsTester object is created and the addEqualityGroup() method is called, but the actual comparison of the objects is never made. This could lead to incorrect results in the tests."
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "\"compareTo\" should not be overloaded",
+  "Bug_Details": "When implementing the Comparable<T>.compareTo method, the parameter\u2019s type has to match the type used in the Comparable declaration. When a different type is used this creates an overload instead of an override, which is unlikely to be the\nintent.\nThis rule raises an issue when the parameter of the compareTo method of a class implementing Comparable<T> is not\nsame as the one used in the Comparable declaration.\nNoncompliant code example\npublic class Foo {\n  static class Bar implements Comparable<Bar> {\n    public int compareTo(Bar rhs) {\n      return -1;\n    }\n  }\n\n  static class FooBar extends Bar {\n    public int compareTo(FooBar rhs) {  // Noncompliant: Parameter should be of type Bar\n      return 0;\n    }\n  }\n}\nCompliant solution\npublic class Foo {\n  static class Bar implements Comparable<Bar> {\n    public int compareTo(Bar rhs) {\n      return -1;\n    }\n  }\n\n  static class FooBar extends Bar {\n    public int compareTo(Bar rhs) {\n      return 0;\n    }\n  }\n}",
+  "Bug_Explanation": "In the FooBar class, the compareTo method is overloaded instead of overridden. The parameter type should match the type used in the Comparable declaration, which is Bar, but it incorrectly uses FooBar.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls the showBug method, which in turn calls the FooBar compareTo method with a FooBar parameter. This call triggers the bug because the compareTo method is overloaded instead of overridden, violating the Comparable contract.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Result1: -1\nResult2: 0\n\nTime: 0.009\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the method executed without any errors, producing expected outputs for both cases of compareTo usage. The test passed with an 'OK' status, indicating that the bug related to overloading was not triggered."
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "BIT: Bitwise OR of signed byte value (BIT_IOR_OF_SIGNED_BYTE)\uf0c1",
+  "Bug_Details": " Loads a byte value (e.g., a value loaded from a byte array or returned by a method\nwith return type byte)  and performs a bitwise OR with\nthat value. Byte values are sign extended to 32 bits\nbefore any bitwise operations are performed on the value.\nThus, if b[0] contains the value 0xff, and\nx is initially 0, then the code\n((x << 8) | b[0])  will sign extend 0xff\nto get 0xffffffff, and thus give the value\n0xffffffff as the result.\n In particular, the following code for packing a byte array into an int is badly wrong:  The following idiom will work instead:  b[0] 0xff x ((x << 8) | b[0]) 0xff 0xffffffff 0xffffffff int result = 0;\nfor (int i = 0; i < 4; i++) {\n    result = ((result << 8) | b[i]);\n}\n int result = 0;\nfor (int i = 0; i < 4; i++) {\n    result = ((result << 8) | (b[i] & 0xff));\n}\n",
+  "Bug_Explanation": "The code performs a bitwise OR on a signed byte value without masking it to ensure no sign extension occurs. This results in unintended sign extension when the byte value is negative (e.g., 0xFF), causing incorrect results.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case calls the showBug method with a byte array containing a negative byte value 0xFF. This triggers the bug when the method performs a bitwise OR without masking, causing unintended sign extension and resulting in the wrong integer value.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.003\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully (OK), which means the actual result matched the expected result. This suggests that the bug was not triggered during the test execution."
+}

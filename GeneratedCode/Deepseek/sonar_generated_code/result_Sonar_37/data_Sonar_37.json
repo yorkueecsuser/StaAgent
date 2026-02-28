@@ -1,0 +1,19 @@
+{
+  "Bug_Title": "Tests method should not be annotated with competing annotations",
+  "Bug_Details": "Annotating unit tests with more than one test-related annotation is not only useless but could also result in unexpected behavior like failing\ntests or unwanted side-effects.\nThis rule reports an issue when a test method is annotated with more than one of the following competing annotation:\n@Test @RepeatedTest @ParameterizedTest @TestFactory @TestTemplate\n@Test\n@RepeatedTest\n@ParameterizedTest\n@TestFactory\n@TestTemplate\nNoncompliant code example\n@Test\n@RepeatedTest(2) // Noncompliant, this test will be repeated 3 times\nvoid test() { }\n\n@ParameterizedTest\n@Test\n@MethodSource(\"methodSource\")\nvoid test2(int argument) { } // Noncompliant, this test will fail with ParameterResolutionException\nCompliant solution\n@RepeatedTest(2)\nvoid test() { }\n\n@ParameterizedTest\n@MethodSource(\"methodSource\")\nvoid test2(int argument) { }",
+  "Bug_Explanation": "A JUnit test method can only be annotated with one test-related annotation. Here, the test method is annotated with @RepeatedTest and @ParameterizedTest, which are competing annotations.",
+  "Buggy_Line": [
+    7,
+    12
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_37/seed_Sonar_37_junit_test.java:1: error: package org.junit.jupiter.api does not exist\nimport org.junit.jupiter.api.RepeatedTest;\n                            ^\n../sonar_clean_java_code/result_Sonar_37/seed_Sonar_37_junit_test.java:2: error: package org.junit.jupiter.params does not exist\nimport org.junit.jupiter.params.ParameterizedTest;\n                               ^\n../sonar_clean_java_code/result_Sonar_37/seed_Sonar_37_junit_test.java:3: error: package org.junit.jupiter.params.provider does not exist\nimport org.junit.jupiter.params.provider.MethodSource;\n                                        ^\n../sonar_clean_java_code/result_Sonar_37/seed_Sonar_37_junit_test.java:10: error: cannot find symbol\n    @RepeatedTest(2) // BUG: Tests method should not be annotated with competing annotations\n     ^\n  symbol:   class RepeatedTest\n  location: class BuggyCode\n../sonar_clean_java_code/result_Sonar_37/seed_Sonar_37_junit_test.java:15: error: cannot find symbol\n    @ParameterizedTest\n     ^\n  symbol:   class ParameterizedTest\n  location: class BuggyCode\n5 errors\n",
+  "Trigger_Explanation": "The bug happens because the @RepeatedTest and @ParameterizedTest annotations are used together on the same method. This causes the test to fail at runtime.",
+  "Trigger_Line": [
+    6
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The described bug is present in the provided Java code. The method 'test' is annotated with @RepeatedTest and @Test annotations, which is not allowed. This results in a compilation error. The method 'test2' is also annotated with @ParameterizedTest and @Test annotations, which is not allowed. This results in a compilation error. The methods'showBug' and'showBug2' are trying to invoke these methods using reflection, which will also fail due to the annotations on these methods."
+}

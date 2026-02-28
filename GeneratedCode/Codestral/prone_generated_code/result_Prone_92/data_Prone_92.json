@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "JUnit4TestNotRun",
+  "Bug_Details": "This looks like a test method but is not run; please add @Test and @Ignore, or, if this is a helper method, reduce its visibility. Unlike in JUnit 3, JUnit 4 tests will not be run unless annotated with @Test.\nThe test method that triggered this error looks like it was meant to be a test,\nbut was not so annotated, so it will not be run. If you intend for this test\nmethod not to run, please add both an @Test and an @Ignore annotation to make it\nclear that you are purposely disabling it. If this is a helper method and not a\ntest, consider reducing its visibility to non-public, if possible.",
+  "Bug_Explanation": "This method is intended to be a test, but the @Test annotation is missing. This causes the method to not be run during the test execution phase.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug JUnit4TestNotRun is triggered when a test method is intended to be run but is not annotated with @Test. In this case, testMethodWithoutAnnotation() is called from showBug() in the test case, but it is not annotated with @Test. Therefore, testMethodWithoutAnnotation() is not executed, causing the bug.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.This is a test method without @Test annotation.\n\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the method 'testMethodWithoutAnnotation()' was not run during the test execution phase. However, the test case 'testShowBug()' does not explicitly check for the execution of 'testMethodWithoutAnnotation()'. Instead, it demonstrates the issue by calling'showBug()', which in turn calls 'testMethodWithoutAnnotation()'. Therefore, the test results do not explicitly confirm the triggering of the JUnit4TestNotRun bug."
+}

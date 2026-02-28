@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "\"ScheduledThreadPoolExecutor\" should not have 0 core threads",
+  "Bug_Details": "ThreadPoolExecutor is an object that efficiently manages and controls the execution of multiple tasks in a thread pool. A thread pool\nis a collection of pre-initialized threads ready to execute tasks. Instead of creating a new thread for each task, which can be costly in terms of\nsystem resources, a thread pool reuses existing threads.\njava.util.concurrent.ScheduledThreadPoolExecutor is an extension of ThreadPoolExecutor that can additionally schedule\ncommands to run after a given delay or to execute periodically.\nScheduledThreadPoolExecutor 's pool is sized with corePoolSize , so setting corePoolSize to zero means the\nexecutor will have no threads and run nothing. corePoolSize should have a value greater than zero and valid for your tasks.\nThis rule detects instances where corePoolSize is set to zero via its setter or the object constructor.\nNoncompliant code example\npublic void do(){\n\n  int poolSize = 5; // value greater than 0\n\n  ScheduledThreadPoolExecutor threadPool1 = new ScheduledThreadPoolExecutor(0); // Noncompliant\n\n  ScheduledThreadPoolExecutor threadPool2 = new ScheduledThreadPoolExecutor(poolSize);\n  threadPool2.setCorePoolSize(0);  // Noncompliant\n}",
+  "Bug_Explanation": "The bug was embedded in the generated code by creating instances of ScheduledThreadPoolExecutor with a corePoolSize of 0. This prevents any tasks from being executed because there are no threads available to run them.",
+  "Buggy_Line": [
+    9,
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the showBug method of ThreadPoolBugExample, which creates instances of ScheduledThreadPoolExecutor with a corePoolSize of 0. This triggers the bug because the scheduled tasks will never run due to the lack of threads.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.01\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that the test completed successfully without any failures or exceptions, indicating that the scheduled tasks did not run as expected due to the zero core threads, but this outcome is not confirmed by any error or failure in the test results."
+}

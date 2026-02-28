@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "MissingSuperCall",
+  "Bug_Details": "Overriding method is missing a call to overridden super method API providers may annotate a method with an annotation like\nandroidx.annotation.CallSuper or\njavax.annotation.OverridingMethodsMustInvokeSuper to require that overriding\nmethods invoke the super method. This check enforces those annotations.",
+  "Bug_Explanation": "The bug was embedded by suppressing the 'MissingSuperCall' warning using the '@SuppressWarnings' annotation. This allowed the code to compile without errors while still demonstrating the intentional bug.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the method `showBug` on an instance of `MissingSuperCallBug`, which in turn calls the method `methodA` that is missing the call to the super method.",
+  "Trigger_Line": [
+    5
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.methodA called\n\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not confirm that the bug was triggered. The output from the test run indicates that the test passed successfully, and there is no evidence of the bug being triggered."
+}

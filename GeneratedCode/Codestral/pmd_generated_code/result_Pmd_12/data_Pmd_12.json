@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "AvoidFieldNameMatchingMethodName",
+  "Bug_Details": "It can be confusing to have a field name with the same name as a method. While this is permitted,\nhaving information (field) and actions (method) is not clear naming. Developers versed in\nSmalltalk often prefer this approach as the methods denote accessor methods.\nExamples:\npublic class Foo {\n    Object bar;\n    // bar is data or an action or both?\n    void bar() {\n    }\n}",
+  "Bug_Explanation": "The bug is demonstrated by having a field named 'bar' and a method named 'bar()'. This creates ambiguity as to whether 'bar' represents data or an action.",
+  "Buggy_Line": [
+    2
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test `testShowBug()` calls the `showBug()` method of the class `Foo`. The `showBug()` method attempts to use the field `bar` and the method `bar()` simultaneously, which is not clear and thus triggers the bug `AvoidFieldNameMatchingMethodName`.",
+  "Trigger_Line": [
+    5
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.null\n\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the method bar() was successfully called and it did not cause any errors. The print statement also successfully printed the value of the field bar. This indicates that the naming of the field and method does not cause any confusion or errors in the code, and therefore, the bug was not triggered."
+}

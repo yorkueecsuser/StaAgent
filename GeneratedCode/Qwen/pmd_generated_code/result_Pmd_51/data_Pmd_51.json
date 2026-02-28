@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "JumbledIncrementer",
+  "Bug_Details": "Avoid jumbled loop incrementers - it's usually a mistake, and is confusing even if intentional.\nExamples:\npublic class JumbledIncrementerRule1 {\n    public void foo() {\n        for (int i = 0; i < 10; i++) {          // only references 'i'\n            for (int k = 0; k < 20; i++) {      // references both 'i' and 'k'\n                System.out.println(\"Hello\");\n            }\n        }\n    }\n}",
+  "Bug_Explanation": "The bug is embedded in the nested for-loop where the outer loop variable 'i' is incremented in the inner loop condition, leading to a jumbled incrementer scenario.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by calling the `showBug` method of `JumbledIncrementerExample`. The method contains a nested loop where the outer loop variable 'i' is incorrectly incremented in the inner loop, causing the loop to behave unexpectedly and not terminate as intended. This results in the `count` variable being incremented more times than expected, leading to a failed assertion.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed without any failures, which means the assertion did not fail as expected. This suggests that the method'showBug' did not produce the incorrect result of 200, indicating that the bug may not have been triggered or the test case might not be correctly set up to catch the bug."
+}

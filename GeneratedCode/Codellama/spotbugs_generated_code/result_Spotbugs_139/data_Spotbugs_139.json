@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "DMI: D\u2019oh! A nonsensical method invocation (DMI_DOH)\uf0c1",
+  "Bug_Details": "\nThis particular method invocation doesn't make sense, for reasons that should be apparent from inspection.\n",
+  "Bug_Explanation": "The bug is caused by the invocation of the `get` method on the `List` interface with an invalid index. In this case, the `size` method is used to retrieve the size of the list, which is a valid method invocation, but the returned value is not a valid index for the `list.get` method.",
+  "Buggy_Line": [
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug was triggered by trying to get the element at index list.size() from the list variable, which is out of bounds. The correct way to get the last element is to use list.get(list.size() - 1).",
+  "Trigger_Line": [
+    8,
+    11
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.001\nThere was 1 failure:\n1) initializationError(org.junit.runner.JUnitCommandLineParseResult)\njava.lang.IllegalArgumentException: Could not find class [DMI_DOHTest]\n\tat org.junit.runner.JUnitCommandLineParseResult.parseParameters(JUnitCommandLineParseResult.java:100)\n\tat org.junit.runner.JUnitCommandLineParseResult.parseArgs(JUnitCommandLineParseResult.java:50)\n\tat org.junit.runner.JUnitCommandLineParseResult.parse(JUnitCommandLineParseResult.java:44)\n\tat org.junit.runner.JUnitCore.runMain(JUnitCore.java:72)\n\tat org.junit.runner.JUnitCore.main(JUnitCore.java:36)\nCaused by: java.lang.ClassNotFoundException: DMI_DOHTest\n\tat java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)\n\tat java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)\n\tat java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)\n\tat java.base/java.lang.Class.forName0(Native Method)\n\tat java.base/java.lang.Class.forName(Class.java:534)\n\tat java.base/java.lang.Class.forName(Class.java:513)\n\tat org.junit.internal.Classes.getClass(Classes.java:42)\n\tat org.junit.internal.Classes.getClass(Classes.java:27)\n\tat org.junit.runner.JUnitCommandLineParseResult.parseParameters(JUnitCommandLineParseResult.java:98)\n\t... 4 more\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test failed to run due to a ClassNotFoundException, indicating that the DMI_DOHTest class was not found. This suggests that the test code is not set up correctly and the bug was not triggered."
+}

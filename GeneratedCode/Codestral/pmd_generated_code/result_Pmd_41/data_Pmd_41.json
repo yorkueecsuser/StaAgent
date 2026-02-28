@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "EmptyFinalizer",
+  "Bug_Details": "Empty finalize methods serve no purpose and should be removed. Note that Oracle has declared Object.finalize() as deprecated since JDK 9.\nExamples:\npublic class Foo {\n   protected void finalize() {}\n}",
+  "Bug_Explanation": "The code contains an empty finalize() method, which serves no purpose and should be removed.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when the garbage collector runs, which may not happen immediately. To guarantee the bug is triggered, we can manually call the garbage collector. However, it's not recommended in a real testing scenario.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Test message\n\nTime: 0.018\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not demonstrate that the empty finalize method in the Java code was triggered. The test created an instance of the Foo class and called the showBug() method, which printed the 'Test message' to the console. However, the test did not explicitly call the finalize() method, and the garbage collector was not manually invoked to trigger the finalize() method. Therefore, the test results do not confirm that the empty finalize method was executed, and thus do not confirm the presence of the EmptyFinalizer bug."
+}

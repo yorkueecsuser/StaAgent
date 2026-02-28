@@ -1,0 +1,20 @@
+{
+  "Bug_Title": "\"Random\" objects should be reused",
+  "Bug_Details": "Creating a new Random object each time a random value is needed is inefficient and may produce numbers that are not random, depending\non the JDK. For better efficiency and randomness, create a single Random , store it, and reuse it.\nThe Random() constructor tries to set the seed with a distinct value every time. However, there is no guarantee that the seed will be\nrandomly or uniformly distributed. Some JDK will use the current time as seed, making the generated numbers not random.\nThis rule finds cases where a new Random is created each time a method is invoked.\nExceptions\nThis rule doesn\u2019t apply to classes that use a Random in their constructors or the static main function and nowhere\nelse.",
+  "Bug_Explanation": "The code creates a new Random object each time the method is called, which may lead to inefficient and non-random number generation, especially if the Random objects are seeded with similar values.",
+  "Buggy_Line": [
+    13,
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test cases call the methods showBug and showBug2 multiple times in succession. By asserting that the results should differ, the bug is triggered because the inefficient creation of new Random objects in each method call, seeded with similar values (e.g., current time), may lead to non-random results that are the same, causing the assertions to fail.",
+  "Trigger_Line": [
+    10,
+    11,
+    17,
+    18
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.004\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that both tests passed successfully, which implies that the output from the methods 'showBug' and 'showBug2' was different on consecutive calls. This suggests that the bug related to the reuse of Random objects was not triggered as described, because the methods produced different results, meeting the test assertions."
+}

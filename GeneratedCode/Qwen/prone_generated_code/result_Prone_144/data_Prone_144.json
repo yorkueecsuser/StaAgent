@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "RedundantSetterCall",
+  "Bug_Details": "A field was set twice in the same chained expression. Proto and AutoValue builders provide a fluent interface for constructing\ninstances. Unlike argument lists, however, they do not prevent the user from\nproviding multiple values for the same field. Setting the same field multiple times in the same chained expression is\npointless (as the intermediate value will be overwritten), and can easily mask a\nbug, especially if the setter is called with different arguments. return MyProto.newBuilder()\n    .setFoo(copy.getFoo())\n    .setFoo(copy.getBar())\n    .build(); return MyProto.newBuilder()\n    .setFoo(copy.getFoo())\n    .setFoo(copy.getBar())\n    .build();",
+  "Bug_Explanation": "The bug is embedded in the showBug method where the setFoo method is called twice in a row with different arguments. The first call to setFoo is redundant because its value is immediately overwritten by the second call.",
+  "Buggy_Line": [
+    55
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method with a Copy object that has different values for foo and bar. The showBug method sets the foo field twice in the same chained expression, which is the redundant setter call bug.",
+  "Trigger_Line": [
+    9
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

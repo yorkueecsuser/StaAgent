@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "\"runFinalizersOnExit\" should not be called",
+  "Bug_Details": "Enabling runFinalizersOnExit is unsafe as it might result in erratic behavior and deadlocks on application exit.\nIndeed, finalizers might be force-called on live objects while other threads are concurrently manipulating them.\nInstead, if you want to execute something when the virtual machine begins its shutdown sequence, you should attach a shutdown hook.\nNoncompliant code example\npublic static void main(String [] args) {\n  System.runFinalizersOnExit(true);  // Noncompliant\n}\n\nprotected void finalize(){\n  doShutdownOperations();\n}\nCompliant solution\npublic static void main(String [] args) {\n  Thread myThread = new Thread( () -> { doShutdownOperations(); });\n  Runtime.getRuntime().addShutdownHook(myThread);\n}",
+  "Bug_Explanation": "The bug was embedded in the code by calling the 'runFinalizersOnExit' method with a 'true' argument. This method is unsafe and can result in erratic behavior and deadlocks on application exit.",
+  "Buggy_Line": [
+    8,
+    19
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_135/seed_Sonar_135.java:8: error: cannot find symbol\n    System.runFinalizersOnExit(true);\n          ^\n  symbol:   method runFinalizersOnExit(boolean)\n  location: class System\n../sonar_clean_java_code/result_Sonar_135/seed_Sonar_135.java:12: warning: [removal] finalize() in Object has been deprecated and marked for removal\n  protected void finalize() {\n                 ^\n../sonar_clean_java_code/result_Sonar_135/seed_Sonar_135.java:19: error: cannot find symbol\n    System.runFinalizersOnExit(true);\n          ^\n  symbol:   method runFinalizersOnExit(boolean)\n  location: class System\n2 errors\n1 warning\n",
+  "Trigger_Explanation": "The JUNIT test case triggers the bug by calling the showBug() method, which in turn calls the runFinalizersOnExit(true) method, which is not allowed.",
+  "Trigger_Line": [
+    8
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

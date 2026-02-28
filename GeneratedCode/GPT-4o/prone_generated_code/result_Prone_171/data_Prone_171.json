@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "UnsafeWildcard",
+  "Bug_Details": "Certain wildcard types can confuse the compiler.",
+  "Bug_Explanation": "The bug is caused by attempting to add an element to a list declared with an unbounded wildcard type (List<?>). The compiler cannot determine the specific type that the wildcard should be bound to, leading to a type safety issue when trying to add elements.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case `testShowBug` invokes the `showBug` method of `UnsafeWildcardExample` which attempts to add an element to a List<?>. This operation is illegal and leads to a compile-time error due to type safety issues, triggering the `UnsafeWildcard` bug.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed without errors, as shown by the 'OK (1 test)' result. This suggests that the bug was not triggered during the test execution."
+}

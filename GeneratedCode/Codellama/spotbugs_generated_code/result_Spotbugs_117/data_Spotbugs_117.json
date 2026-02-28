@@ -1,0 +1,11 @@
+{
+  "Buggy_Line": [
+    7
+  ],
+  "Trigger_Explanation": "The test cases trigger the bug by first generating a random integer value and then casting it to a float value, and then passing the float value to the Math.round() function. This should always result in a no-op, as casting an integer to a float should give a number with no fractional part. However, due to the bug, the integer value is first cast to a float value, and then the float value is passed to the Math.round() function, which results in a value that is different from the original integer value.",
+  "Trigger_Line": [
+    7,
+    11,
+    15
+  ]
+}

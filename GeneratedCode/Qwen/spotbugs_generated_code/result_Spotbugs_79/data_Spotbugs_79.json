@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "INT: Bad comparison of int value with long constant (INT_BAD_COMPARISON_WITH_INT_VALUE)\uf0c1",
+  "Bug_Details": " This code compares an int value with a long constant that is outside\nthe range of values that can be represented as an int value.\nThis comparison is vacuous and possibly incorrect.\n",
+  "Bug_Explanation": "The bug is embedded in the generated code by comparing an int value with a long constant (2147483648L) that is outside the range of values that can be represented as an int. This comparison will always be false for any int value, making it vacuously incorrect.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by calling the showBug method with various int values. Since the comparison in showBug method is always false due to the long constant being outside the range of int, the test cases fail.",
+  "Trigger_Line": [
+    10,
+    14,
+    18
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n...\nTime: 0.007\n\nOK (3 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that all three tests passed without any failures. Since the comparison in the Java code is vacuously false for any int value (as 2147483648L is outside the range of int), the tests correctly assert that the method returns false for various inputs. Therefore, the test results do not indicate that the bug triggered any errors or unexpected behavior."
+}

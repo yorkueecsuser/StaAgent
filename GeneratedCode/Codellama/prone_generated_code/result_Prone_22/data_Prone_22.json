@@ -1,0 +1,10 @@
+{
+  "Bug_Title": "ComparingThisWithNull",
+  "Bug_Details": "this == null is always false, this != null is always true The boolean expression this != null always returns true and similarly this == null always returns false.",
+  "Bug_Explanation": "The bug is embedded in the line 'if (this == null) {... }' in the showBug() method. The bug occurs because the 'this' keyword always refers to the current object, and therefore it can never be null. The condition 'this == null' will always evaluate to false, and the code inside the if-statement will never be executed.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n"
+}

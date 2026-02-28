@@ -1,0 +1,18 @@
+class Main {
+    public static void main(String[] args) {
+        showBug();
+        showBug();
+    }
+
+    public static boolean showBug() {
+        String regex = "(?:)*"; // BUG: Repeated patterns in regular expressions should not match the empty string
+        String str = "";
+        return str.matches(regex);
+    }
+
+    public static boolean showBugDuplicated() {
+        String regex = "(?:)*"; // BUG: Repeated patterns in regular expressions should not match the empty string
+        String str = "";
+        return str.matches(regex);
+    }
+}

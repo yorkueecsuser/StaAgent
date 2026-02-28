@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Consumed Stream pipelines should not be reused",
+  "Bug_Details": "Stream operations are divided into intermediate and terminal operations, and are combined to form stream pipelines. After the terminal operation is\nperformed, the stream pipeline is considered consumed, and cannot be used again. Such a reuse will yield unexpected results.\nNoncompliant code example\nStream<Widget> pipeline = widgets.stream().filter(b -> b.getColor() == RED);\nint sum1 = pipeline.sum();\nint sum2 = pipeline.mapToInt(b -> b.getWeight()).sum(); // Noncompliant",
+  "Bug_Explanation": "The bug is embedded in the code by reusing the consumed Stream pipeline in the line 'int sum2 = pipeline.mapToInt(i -> i * 2).sum();'. The pipeline is consumed by the first sum operation, and reusing it in the second sum operation causes the bug.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../sonar_clean_java_code/result_Sonar_66/seed_Sonar_66.java:6: error: cannot find symbol\n        int sum1 = pipeline.sum();\n                           ^\n  symbol:   method sum()\n  location: variable pipeline of type Stream<Integer>\n1 error\n",
+  "Trigger_Explanation": "The test triggers the bug by reusing the consumed Stream pipeline.",
+  "Trigger_Line": [
+    7,
+    11
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

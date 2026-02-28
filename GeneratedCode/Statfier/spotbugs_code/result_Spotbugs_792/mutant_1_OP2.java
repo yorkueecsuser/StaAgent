@@ -1,0 +1,13 @@
+class Issue516 {
+  static void missingLvtEntry() throws Throwable {
+    try {
+      int var1 = 0;
+      int var2 = var1;
+      var2 = var1; // Mutant: duplicated assignment
+      System.out.println(var2);
+    } catch (Throwable t) {
+      Throwable unused = t.getCause();
+      // throw unused;
+    }
+  }
+}

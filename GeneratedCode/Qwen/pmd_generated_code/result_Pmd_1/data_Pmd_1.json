@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "AssignmentInOperand",
+  "Bug_Details": "Avoid assignments in operands; this can make code more complicated and harder to read.\nExamples:\npublic void bar() {\n    int x = 2;\n    if ((x = getX()) == 3) {\n      System.out.println(\"3!\");\n    }\n}",
+  "Bug_Explanation": "The bug was embedded in the generated code by placing an assignment operation within the condition of an if statement. Specifically, the variable 'x' is being assigned the value returned by 'getX()' while simultaneously checking if it equals 3.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by calling the showBug method with an argument. Inside the showBug method, there is an assignment operation within the if statement operand, which modifies the input parameter. The test then checks if the result is 3, which it should be due to the bug, but the test is written to expect the original input value, causing it to fail.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.3!\n\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed successfully without any assertion failures. The expected behavior according to the test code is that the method should return 3, which it did. Therefore, the test results do not confirm that the bug was triggered."
+}

@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "Optional value should only be accessed after calling isPresent()",
+  "Bug_Details": "Optional value can hold either a value or not. The value held in the Optional can be accessed using the get() method, but it will throw a\nNoSuchElementException if there is no value present. To avoid the exception, calling the isPresent() or !\nisEmpty() method should always be done before any call to get() .\nAlternatively, note that other methods such as orElse(...) , orElseGet(...) or orElseThrow(...) can be used\nto specify what to do with an empty Optional .\nNoncompliant code example\nOptional<String> value = this.getOptionalValue();\n\n// ...\n\nString stringValue = value.get(); // Noncompliant\nif (methodThatReturnsOptional().isEmpty()) {\n  throw new NotFoundException();\n}\nString value = methodThatReturnsOptional().get(); // Noncompliant: indirect access, we consider that two consecutive calls can return different values.\nCompliant solution\nthis.getOptionalValue().ifPresent(stringValue ->\n  // Do something with stringValue\n);\nor\nOptional<String> value = this.getOptionalValue();\n\n// ...\n\nif (value.isPresent()) {\n  String stringValue = value.get();\n}\nor\nOptional<String> value = this.getOptionalValue();\n\n// ...\n\nString stringValue = value.orElse(\"default\");\nOptional<String> optional = methodThatReturnsOptional();\nif (optional.isEmpty()) {\n  throw new NotFoundException();\n}\nString value = optional.get();",
+  "Bug_Explanation": "The bug is embedded in the line `String value = optional.get();`. The `get()` method is called directly on the `Optional` object, which can throw a `NoSuchElementException` if the optional does not contain a value. The `isPresent()` method should be called before the `get()` method to ensure that the optional contains a value. The bug is demonstrated by the `showBug` method, which returns the value of the optional.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by accessing the Optional value without calling isPresent() first.",
+  "Trigger_Line": [
+    8
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

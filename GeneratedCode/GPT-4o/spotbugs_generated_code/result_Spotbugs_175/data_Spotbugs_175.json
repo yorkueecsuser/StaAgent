@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "MS: May expose internal representation by returning a buffer sharing non-public data (MS_EXPOSE_BUF)\uf0c1",
+  "Bug_Details": " A public static method either returns a buffer (java.nio.*Buffer) which wraps an array that is part of the\nstatic state of the class by holding a reference only to this same array or it returns a shallow-copy of a buffer\nthat is part of the static stat of the class which shares its reference with the original buffer.\n Any code that calls this method can freely modify the underlying array.\n One fix is to return a read-only buffer or a new buffer with a copy of the array.",
+  "Bug_Explanation": "The method 'getBuffer' returns a ByteBuffer that wraps the internal static array 'internalArray'. This exposes the internal representation of the class's state because modifications to the returned buffer will affect the original array.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by modifying the first element of the buffer returned by showBug(). This modification affects the internal array of the BufferExposureExample class due to the buffer sharing non-public data.",
+  "Trigger_Line": [
+    9,
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any assertion errors, suggesting that the internal array was not modified as expected if the bug were triggered."
+}

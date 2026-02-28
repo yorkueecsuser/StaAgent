@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "EOS: Data read is converted before comparison to -1 (EOS_BAD_END_OF_STREAM_CHECK)\uf0c1",
+  "Bug_Details": "\nThe method java.io.FileInputStream.read() returns an int. If this int is converted to a byte then -1 (which\nindicates an EOF) and the byte 0xFF become indistinguishable, this comparing the (converted) result to -1\ncauses the read (probably in a loop) to end prematurely if the character 0xFF is met. Similarly, the method\njava.io.FileReader.read() also returns an int. If it is converted to a char then -1 becomes 0xFFFF which is\nCharacter.MAX_VALUE. Comparing the result to -1 is pointless, since characters are unsigned in Java. If the\nchecking for EOF is the condition of a loop then this loop is infinite. \nSee SEI CERT rule FIO08-J. Distinguish between characters or bytes read from a stream and -1.\n",
+  "Bug_Explanation": "The bug is embedded in the generated code by converting the result of FileInputStream.read() to a byte before comparing it to -1. This conversion makes -1 (EOF) and the byte 0xFF indistinguishable, causing the loop to terminate prematurely if 0xFF is encountered.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug method with a file path to a file that contains the byte 0xFF. The conversion of the read int to a byte makes -1 (EOF) and 0xFF indistinguishable, causing the loop to terminate prematurely.",
+  "Trigger_Line": [
+    "9"
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.008\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed without any errors or failures. However, the test does not provide evidence that the bug was triggered because the test does not check the output or behavior of the method when encountering the byte 0xFF. The absence of an error does not confirm that the bug was triggered, as the test does not verify the expected incorrect behavior of ending the loop prematurely upon reading 0xFF."
+}

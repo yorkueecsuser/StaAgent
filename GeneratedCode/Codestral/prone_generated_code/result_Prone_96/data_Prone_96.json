@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "JavaxInjectOnAbstractMethod",
+  "Bug_Details": "Abstract and default methods are not injectable with javax.inject.Inject The Inject annotation cannot be applied to abstract methods, per the JSR-330\nspec, since injectors will only inject those methods if the concrete implementer\nof the abstract method has the Inject annotation as well. See\nOverridesJavaxInjectableMethod for more examples of this interaction. Currently, default methods in interfaces are not injected if they have\nInject for similar reasons, although future updates to dependency injection\nframeworks may allow this, since the default methods are not abstract. See the Guice wiki page on JSR-330 for more.",
+  "Bug_Explanation": "The Inject annotation cannot be applied to abstract methods in an interface as per JSR-330 spec. However, the Inject annotation was erroneously used in the interface's abstract method, which is not allowed.",
+  "Buggy_Line": [
+    2
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug 'JavaxInjectOnAbstractMethod' is triggered by annotating the abstract method'myMethod' in 'MyInterface' with '@Inject'.",
+  "Trigger_Line": [
+    6
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

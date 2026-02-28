@@ -1,0 +1,38 @@
+{
+    "OP1": {
+        "name": "Dead Store",
+        "description": "Inserting unused variable declarations with one primitive type (for example string, int) to a randomly selected basic book in the program. The name of the variable is a string of eight characters randomly generated in the form of [a-z]. Only one dead store is added in each transformation by this operator."
+    },
+    "OP2": {
+        "name": "Duplication",
+        "description": "Duplicating a randomly selected assignment statement and insert immediately after its current location. To avoid side effect, the applicable assignment statement is limited to the ones without using method invocation"
+    },
+    "OP3": {
+        "name": "Unreachable if statement",
+        "description": "Inserting unreachable if branch into a randomly selected basic block in the program. The condition of the inserted branch is always false to make it unreachable."
+    },
+    "OP4": {
+        "name": "Unreachable if-else statement",
+        "description": "Inserting unreachable if-else branch into a randomly selected basic block in the program. The condition of the inserted branch is always false to make it unreachable."
+    },
+    "OP5": {
+        "name": "Unreachable switch statement",
+        "description": "Inserting unreachable switch statement into a randomly selected basic block in the program. The switch condition must always evaluate to false to make it unreachable."
+    },
+    "OP6": {
+        "name": "Unreachable for loop",
+        "description": "Inserting unreachable for loop into a randomly selected basic block in the program. The condition of the inserted loop is always false to make it unreachable."
+    },
+    "OP7": {
+        "name": "Unreachable while loop",
+        "description": "Inserting unreachable while loop into a randomly selected basic block in the program. The condition of the inserted loop is always false to make it unreachable."
+    },
+    "OP8": {
+        "name": "Renaming",
+        "description": "Renaming user-defined variables declared in a program. If there exist multiple variables, we randomly select one for the mutation. The new name of the variable will be in the form of [a-z]."
+    },
+    "OP9": {
+        "name": "Equivalent Loop Replacement",
+        "description": "Replacing a for/while loop with an equivalent do-while loop. The replacement is done by transforming the for/while loop into a do-while loop that has the same functionality. Ensure that the loop's body and conditions remain the same. Do not implement anything new or change anything else. Only replace for/while loops that are already in the code. If the program does not contain any loops, then make no changes and directly return the original code."
+    }
+}

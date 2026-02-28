@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "MisplacedScopeAnnotations",
+  "Bug_Details": "Scope annotations used as qualifier annotations don't have any effect. Move the scope annotation to the binding location or delete it.",
+  "Bug_Explanation": "The @Singleton and @Inject annotations are misplaced and will not have any effect. The @Singleton annotation is placed on a field instead of a class or method that defines a binding. Similarly, @Inject is used without a proper dependency injection framework to resolve dependencies.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_106/seed_Prone_106.java:3: error: cannot find symbol\n    @Singleton // BUG: MisplacedScopeAnnotations\n     ^\n  symbol:   class Singleton\n  location: class MisplacedScopeAnnotationsExample\n../prone_clean_java_code/result_Prone_106/seed_Prone_106.java:6: error: cannot find symbol\n    @Inject\n     ^\n  symbol:   class Inject\n  location: class MisplacedScopeAnnotationsExample\n2 errors\n",
+  "Trigger_Explanation": "The test triggers the bug by creating an instance of MisplacedScopeAnnotationsExample using its constructor, which relies on the incorrectly placed @Singleton annotation on the 'dependency' field. This misuse of the @Singleton annotation does not affect the test outcome directly but indicates a potential issue in the production code.",
+  "Trigger_Line": [
+    19
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

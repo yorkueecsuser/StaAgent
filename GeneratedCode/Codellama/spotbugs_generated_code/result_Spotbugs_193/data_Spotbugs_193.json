@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "REFLF: Public method uses reflection to modify a field it gets in its parameter which could increase the accessibility of any class (REFLF_REFLECTION_MAY_INCREASE_ACCESSIBILITY_OF_FIELD)\uf0c1",
+  "Bug_Details": "\nSEI CERT SEC05-J rule forbids the use of reflection to increase accessibility of classes, methods or fields. If\na class in a package provides a public method which takes an instance of java.lang.reflect.Field as its\nparameter and calls a setter (or setAccessible()) method then it increases accessibility of fields in the same\npackage which are private, protected or package private. An attacker code may call this method and pass such\nfield to change it. This should be avoided by either making the method non-public or by checking for package\naccess permission on the package.\n",
+  "Bug_Explanation": "The'modifyField' method uses reflection to modify the 'protectedField' which is a protected field. An attacker code may call this method and pass a field from another package to change its value. This should be avoided by either making the method non-public or by checking for package access permission on the package.",
+  "Buggy_Line": [],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../spotbugs_clean_java_code/result_Spotbugs_193/seed_Spotbugs_193.java:14: error: unreported exception NoSuchFieldException; must be caught or declared to be thrown\n        Field field = getClass().getDeclaredField(\"protectedField\");\n                                                 ^\n1 error\n",
+  "Trigger_Explanation": "The test case triggers the bug by calling the `modifyField` method with a field that has protected access, which increases the accessibility of the field and allows the method to modify it.",
+  "Trigger_Line": [
+    14,
+    22
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "DLS: Useless increment in return statement (DLS_DEAD_LOCAL_INCREMENT_IN_RETURN)\uf0c1",
+  "Bug_Details": "This statement has a return such as return x++; / return x--;.\nA postfix increment/decrement does not impact the value of the expression,\nso this increment/decrement has no effect.\nPlease verify that this statement does the right thing.\n return x++; return x--;",
+  "Bug_Explanation": "The bug is demonstrated by returning the value of 'x' and then incrementing it. However, the increment has no effect on the returned value as it is a postfix increment.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the `showBug` method with a value of 5. The `showBug` method returns the value of `x` and then increments it. However, because the increment is a postfix increment (`x++`), it doesn't affect the returned value. So, the returned value is equal to the initial value of `x`, not the incremented value. The test case then checks if the returned value is equal to the incremented value of `x`, which it is not, causing the test to fail.",
+  "Trigger_Line": [
+    11
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.008\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed without any assertion errors. This means that the value of 'x' is equal to the returned value from the'showBug' method, which indicates that the increment in the return statement is not useless and does have an effect. Therefore, the bug was not triggered."
+}

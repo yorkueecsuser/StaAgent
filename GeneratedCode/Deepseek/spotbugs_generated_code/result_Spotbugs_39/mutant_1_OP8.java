@@ -1,0 +1,22 @@
+class EqualBugExample {
+    private String name;
+
+    public EqualBugExample(String name) {
+        this.name = name;
+    }
+
+    // Original bug: Nm: Class defines equal(Object); should it be equals(Object)? (NM_BAD_EQUAL)
+    public boolean equal(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || getClass()!= obj.getClass())
+            return false;
+        EqualBugExample t = (EqualBugExample) obj; // Mutated variable name from 'that' to 't'
+        return name!= null? name.equals(t.name) : t.name == null;
+    }
+
+    public void showBug(EqualBugExample other) {
+        System.out.println("Equal method result: " + equal(other));
+        System.out.println("Equals method result: " + equals(other));
+    }
+}

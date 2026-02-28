@@ -1,0 +1,21 @@
+import edu.umd.cs.findbugs.annotations.ExpectWarning;
+
+class ICAST_IDIV_CAST_TO_DOUBLE {
+
+  @ExpectWarning("ICAST_IDIV_CAST_TO_DOUBLE")
+  void bug(int x, int y) {
+    double d = (x / y);
+    System.out.println(d);
+
+    // Inserting an unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // This loop is unreachable because conditionFor will always be false
+      System.out.println("This loop should never execute");
+    }
+  }
+
+  private boolean getCondition() {
+    return false;
+  }
+}

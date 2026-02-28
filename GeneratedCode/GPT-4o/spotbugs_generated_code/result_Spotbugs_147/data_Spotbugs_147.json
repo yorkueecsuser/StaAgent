@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "FB: Unexpected/undesired warning from SpotBugs (FB_UNEXPECTED_WARNING)\uf0c1",
+  "Bug_Details": "SpotBugs generated a warning that, according to a @NoWarning annotation,\n  is unexpected or undesired. @NoWarning",
+  "Bug_Explanation": "The spotBugs tool may unexpectedly flag a warning due to the creation of a new ArrayList from an existing list without apparent reason, even though this is a valid operation. This is marked with @NoWarning annotation in certain cases to specify that the warning should not be raised.",
+  "Buggy_Line": [
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls the showBug method which returns a new ArrayList, potentially triggering an unexpected SpotBugs warning. The test deliberately fails to highlight the presence of the bug by asserting that the result is null even though it is not.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.004\nThere was 1 failure:\n1) testShowBug(SpotBugsWarningExampleTest)\njava.lang.AssertionError: expected null, but was:<[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]>\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat org.junit.Assert.failNotNull(Assert.java:756)\n\tat org.junit.Assert.assertNull(Assert.java:738)\n\tat org.junit.Assert.assertNull(Assert.java:748)\n\tat SpotBugsWarningExampleTest.testShowBug(SpotBugsWarningExampleTest.java:13)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test failure was due to an assertion expecting null, but the method returned a non-null list. This does not confirm the presence of an unexpected SpotBugs warning as described in the bug information."
+}

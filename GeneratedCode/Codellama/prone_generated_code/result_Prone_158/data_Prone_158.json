@@ -1,0 +1,10 @@
+{
+  "Buggy_Line": [],
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug() method, which is annotated with @SuppressWarnings(\"deprecated\"), which is incorrect and should be @SuppressWarnings(\"deprecation\").",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "Runninng test will fail system because of infinite loop.",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate a failure due to an infinite loop, but this does not necessarily mean that the bug has been triggered."
+}

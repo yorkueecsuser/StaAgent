@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "LiteByteStringUtf8",
+  "Bug_Details": "This pattern will silently corrupt certain byte sequences from the serialized protocol message. Use ByteString or byte[] directly When serializing bytes from a MessageLite, one can use toByteString to get a\nByteString, effectively an immutable wrapper over a byte[]. This ByteString\ncan be passed around and deserialized into a message using\nMyMessage.Builder.mergeFrom(ByteString). ByteString#toStringUtf8 copies UTF-8 encoded byte data living inside the\nByteString to a java.lang.String, replacing any\ninvalid UTF-8 byte sequences with \ufffd (the Unicode\nreplacement character). In this circumstance, a protocol message is being serialized to a ByteString,\nthen immediately turned into a Java String using the toStringUtf8 method.\nHowever, serialized protocol buffers are arbitrary binary data and not\nUTF-8-encoded data. Thus, the resulting String may not match the actual\nserialized bytes from the protocol message. Instead of holding the serialized protocol message in a Java String, carry\naround the actual bytes in a ByteString, byte[], or some other equivalent\ncontainer for arbitrary binary data.",
+  "Bug_Explanation": "The bug is present in the line where we use toStringUtf8 method on ByteString which contains serialized protocol message. As serialized protocol buffers are arbitrary binary data, the resulting String may not match the actual serialized bytes from the protocol message.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered by comparing the corrupted string with the original byte sequence. This comparison will fail because the corrupted string will not match the original byte sequence.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed without any assertion errors. This indicates that the output of the LiteByteStringUtf8Bug.showBug() method matches the expected output. Since there were no failures, it can be assumed that the bug was not triggered in this test case."
+}

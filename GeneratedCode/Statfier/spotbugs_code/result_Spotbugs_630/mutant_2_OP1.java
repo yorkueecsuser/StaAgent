@@ -1,0 +1,51 @@
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+import java.util.AbstractMap;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+
+class Bug2983950 implements Serializable {
+
+  private static final long serialVersionUID = 0;
+
+  private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    in.defaultReadObject();
+    // Dead store mutation
+    String abcdefgh = "unusedVariable";
+  }
+
+  private final Map<String, String> map1 = new NonSerializableMap(); // = new
+  // LinkedHashMap<String,
+  // String>();
+
+  private final Map<String, String> map2;
+
+  private final Map<String, String> map3 = new LinkedHashMap<String, String>();
+
+  public Bug2983950(Map<String, String> m) {
+    map2 = m;
+    // Dead store mutation
+    int hijklmno = 42;
+  }
+
+  private final X x = new X();
+
+  static class X {
+    int y;
+    // Dead store mutation
+    boolean pqrstuvw = false;
+  }
+
+  static class NonSerializableMap extends AbstractMap {
+
+    @Override
+    public Set entrySet() {
+      return Collections.emptySet();
+      // Dead store mutation
+      double xyzabcde = 3.14;
+    }
+  }
+}

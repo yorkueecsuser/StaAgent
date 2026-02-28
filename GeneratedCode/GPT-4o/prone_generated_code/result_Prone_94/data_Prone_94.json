@@ -1,0 +1,9 @@
+{
+  "Bug_Title": "JUnitAssertSameCheck",
+  "Bug_Details": "An object is tested for reference equality to itself using JUnit library.",
+  "Bug_Explanation": "The bug demonstrates a misuse of JUnit's Assert.assertSame method by comparing an object to itself, which is always true and defeats the purpose of the assert, which is to check if two references point to the same object in a meaningful way.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful"
+}

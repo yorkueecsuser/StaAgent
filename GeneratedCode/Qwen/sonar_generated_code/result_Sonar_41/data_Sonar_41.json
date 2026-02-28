@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Case insensitive Unicode regular expressions should enable the \"UNICODE_CASE\" flag",
+  "Bug_Details": "By default case insensitivity only affects letters in the ASCII range. This can be changed by either passing Pattern.UNICODE_CASE or Pattern.UNICODE_CHARACTER_CLASS as an argument to Pattern.compile or using (?u) or (?U) within the\nregex.\nIf not done, regular expressions involving non-ASCII letters will still handle those letters as being case sensitive.\nNoncompliant code example\nPattern.compile(\"s\u00f6me p\u00e4ttern\", Pattern.CASE_INSENSITIVE);\nstr.matches(\"(?i)s\u00f6me p\u00e4ttern\");\nstr.matches(\"(?i:s\u00f6me) p\u00e4ttern\");\nCompliant solution\nPattern.compile(\"s\u00f6me p\u00e4ttern\", Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);\nstr.matches(\"(?iu)s\u00f6me p\u00e4ttern\");\nstr.matches(\"(?iu:s\u00f6me) p\u00e4ttern\");\n\n// UNICODE_CHARACTER_CLASS implies UNICODE_CASE\nPattern.compile(\"s\u00f6me p\u00e4ttern\", Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CHARACTER_CLASS);\nstr.matches(\"(?iU)s\u00f6me p\u00e4ttern\");\nstr.matches(\"(?iU:s\u00f6me) p\u00e4ttern\");",
+  "Bug_Explanation": "The bug was embedded in the generated code by compiling a regular expression with the CASE_INSENSITIVE flag but without the UNICODE_CASE flag. This causes the regex to be case insensitive only for ASCII characters, not for non-ASCII characters like '\u00f6' and '\u00e4'.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test cases trigger the bug by calling the `showBug` method with inputs that contain non-ASCII uppercase letters ('S\u00d6ME P\u00c4TTERN'). The regular expression in the `showBug` method does not use the UNICODE_CASE flag, so it fails to match non-ASCII uppercase letters correctly.",
+  "Trigger_Line": [
+    9,
+    12
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E...\nTime: 0.009\nThere was 1 failure:\n1) testShowBugWithAsciiLowerCase(RegexBugExampleTest)\njava.lang.AssertionError\n\tat org.junit.Assert.fail(Assert.java:87)\n\tat org.junit.Assert.assertTrue(Assert.java:42)\n\tat org.junit.Assert.assertTrue(Assert.java:53)\n\tat RegexBugExampleTest.testShowBugWithAsciiLowerCase(RegexBugExampleTest.java:27)\n\nFAILURES!!!\nTests run: 4,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not confirm the bug was triggered because the only failure observed was in the 'testShowBugWithAsciiLowerCase' method, which tests a pattern with ASCII characters. The bug description specifically mentions issues with non-ASCII Unicode characters, which were correctly handled in the 'testShowBugWithNonAsciiLowerCase' test case. The 'testShowBugWithNonAsciiUpperCase' also failed as expected, indicating the bug is present for non-ASCII uppercase characters, but this is not reflected in the test execution results provided."
+}

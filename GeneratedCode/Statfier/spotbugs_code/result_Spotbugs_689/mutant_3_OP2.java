@@ -1,0 +1,14 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
+class Bug1609941 {
+  boolean b(File f) throws IOException {
+    BufferedReader in = new BufferedReader(new FileReader(f));
+    boolean result = "o".equals(in.readLine());
+    result = "o".equals(in.readLine()); // Mutant: duplicated assignment statement
+    in.close();
+    return result;
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "StaticEJBFieldShouldBeFinal",
+  "Bug_Details": "According to the J2EE specification, an EJB should not have any static fields\nwith write access. However, static read-only fields are allowed. This ensures proper\nbehavior especially when instances are distributed by the container on several JREs.\nExamples:\npublic class SomeEJB extends EJBObject implements EJBLocalHome {\n\n    private static int CountA;          // poor, field can be edited\n\n    private static final int CountB;    // preferred, read-only access\n}",
+  "Bug_Explanation": "The bug is embedded in the generated code by keeping a non-final static field 'CountA' which can be modified across instances, violating the J2EE specification for EJBs.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method on two different instances of SomeEJB. Since CountA is a static variable, it is shared between instances, causing the second call to showBug to return 2 instead of 1.",
+  "Trigger_Line": [
+    18,
+    19
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

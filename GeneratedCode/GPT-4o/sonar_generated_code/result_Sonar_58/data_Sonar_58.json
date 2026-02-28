@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "InputSteam.read() implementation should not return a signed byte",
+  "Bug_Details": "According to the Java documentation, any implementation of the InputSteam.read() method is supposed to read the next byte of data from\nthe input stream. The value byte must be an int in the range 0 to 255. If no byte is available because the end of the stream has been\nreached, the value -1 is returned.\nBut in Java, the byte primitive data type is an 8-bit signed two\u2019s complement integer. It has a minimum value of -128 and a maximum\nvalue of 127. So by contract, the implementation of an InputSteam.read() method should never directly return a byte primitive data type. A conversion into an unsigned byte must be done before by applying a bitmask.\nNoncompliant code example\n@Override\npublic int read() throws IOException {\n  if (pos == buffer.length()) {\n    return -1;\n  }\n  return buffer.getByte(pos++); // Noncompliant, a signed byte value is returned\n}\nCompliant solution\n@Override\npublic int read() throws IOException {\n  if (pos == buffer.length()) {\n    return -1;\n  }\n  return buffer.getByte(pos++) & 0xFF; // The 0xFF bitmask is applied\n}",
+  "Bug_Explanation": "The read() method incorrectly returns a signed byte instead of converting it to an unsigned integer in the range of 0 to 255. This violates the contract of InputStream.read() as it may return negative values for bytes greater than 127.",
+  "Buggy_Line": [
+    18
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test cases trigger the bug by using input data with values greater than 127, which when returned as a signed byte, result in negative numbers. This violates the expected behavior of the InputStream.read() method, which should return an unsigned integer between 0 and 255. The test cases will fail because they assert that the result should be between 0 and 255, but will instead receive a negative number due to the bug.",
+  "Trigger_Line": [
+    10,
+    18
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.004\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that both tests passed successfully, which means the assertions expecting the presence of a signed byte were not violated. Therefore, the bug described was not confirmed to be triggered by the tests."
+}

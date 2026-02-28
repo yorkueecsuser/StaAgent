@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Methods \"wait(...)\", \"notify()\" and \"notifyAll()\" should not be called on Thread instances",
+  "Bug_Details": "In Java, the Thread class represents a thread of execution. Synchronization between threads is typically achieved using objects or\nshared resources.\nThe methods wait(\u2026\u200b) , notify() , and notifyAll() are related to the underlying object\u2019s monitor and are\ndesigned to be called on objects that act as locks or monitors for synchronization. These methods are available on Java Object and,\ntherefore, automatically inherited by all objects, including Thread.\nCalling these methods on a Thread may corrupt the behavior of the JVM, which relies on them to change the state of the thread\n( BLOCKED, WAITING, \u2026\u200b).\nNoncompliant code example\nThread myThread = new Thread(new RunnableJob());\n...\nmyThread.wait(); // Noncompliant",
+  "Bug_Explanation": "The bug is embedded in the code by calling the wait() method on a Thread instance 'myThread'. The wait method is meant to be called on objects that synchronize threads, not directly on Thread instances. This usage can lead to unpredictable behavior.",
+  "Buggy_Line": [
+    21
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls the showBug method of the ThreadWaitNotifyBug class, which triggers the bug by calling wait() on a Thread instance. This results in an IllegalMonitorStateException, which the test expects to be thrown, thus making the test fail if the exception is not caught.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Running the job...\n\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test ran successfully without throwing the expected IllegalMonitorStateException, as seen from the 'OK (1 test)' result, confirming the bug was not triggered."
+}

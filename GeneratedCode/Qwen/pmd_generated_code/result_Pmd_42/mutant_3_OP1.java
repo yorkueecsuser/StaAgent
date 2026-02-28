@@ -1,0 +1,17 @@
+class EqualsNullBug {
+
+    public String showBug(String input) {
+        if (input.equals(null)) { // BUG: EqualsNull
+            return "Input is null";
+        }
+        String abcd1234; // Dead Store
+        return "Input is not null";
+    }
+
+    public static void main(String[] args) {
+        EqualsNullBug example = new EqualsNullBug();
+        System.out.println(example.showBug(null));
+        System.out.println(example.showBug("Hello"));
+        int efgh5678; // Dead Store
+    }
+}

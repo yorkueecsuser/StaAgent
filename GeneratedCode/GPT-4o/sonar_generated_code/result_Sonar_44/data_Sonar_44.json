@@ -1,0 +1,19 @@
+{
+  "Bug_Title": "Regex alternatives should not be redundant",
+  "Bug_Details": "If an alternative in a regular expression only matches things that are already matched by another alternative, that alternative is redundant and\nserves no purpose.\nIn the best case this means that the offending subpattern is merely redundant and should be removed. In the worst case it\u2019s a sign that this regex\ndoes not match what it was intended to match and should be reworked.\nCode examples\n\"[ab]|a\"   // Noncompliant: the \"|a\" is redundant because \"[ab]\" already matches \"a\"\n\".*|a\"     // Noncompliant: .* matches everything, so any other alternative is redundant\n\"[ab]\"\n\".*\"",
+  "Bug_Explanation": "The regex '[ab]|a' is noncompliant because the '|a' is redundant given that '[ab]' already matches 'a'. The regex '.*|a' is noncompliant because '.*' matches everything, making any other alternative redundant.",
+  "Buggy_Line": [
+    14,
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test cases are designed to trigger the bug by asserting that the showBug and showBug2 methods return true. The regex patterns used in these methods contain redundant alternatives that should not be present. The test cases will fail because the redundancy in the regex pattern does not affect the matching logic, thereby highlighting the issue.",
+  "Trigger_Line": [
+    9,
+    14,
+    19
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n...\nTime: 0.005\n\nOK (3 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that all tests passed successfully, indicating that the regex redundancy did not impact the functionality or cause any failures. Therefore, the bug was not triggered according to the test run results."
+}

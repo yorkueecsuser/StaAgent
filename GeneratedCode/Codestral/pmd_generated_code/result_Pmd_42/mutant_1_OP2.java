@@ -1,0 +1,23 @@
+class EqualsNullBug {
+
+    private String value;
+
+    public EqualsNullBug(String value) {
+        this.value = value;
+        this.value = value; // Mutation: Duplication of assignment statement
+    }
+
+    // Bug: EqualsNull
+    // using equals() method to test for null which is not recommended
+    public boolean isNull() {
+        return value.equals(null); // BUG: EqualsNull
+    }
+
+    public void showBug() {
+        if (isNull()) {
+            System.out.println("Value is null");
+        } else {
+            System.out.println("Value is not null");
+        }
+    }
+}

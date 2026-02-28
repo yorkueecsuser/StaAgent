@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "Set appropriate Status Codes on HTTP responses",
+  "Bug_Details": "The request handler function in a Controller should set the appropriate HTTP status code based on the operation\u2019s success or failure.\nThis is done by returning a Response object with the appropriate status code.\nIf an exception is thrown during the execution of the handler, the status code should be in the range of 4xx or 5xx. Examples of such codes are BAD_REQUEST , UNAUTHORIZED , FORBIDDEN , NOT_FOUND , INTERNAL_SERVER_ERROR , BAD_GATEWAY , SERVICE_UNAVAILABLE , etc.\nThe status code should be 1xx, 2xx, or 3xx if no exception is thrown and the operation is considered successful. Such codes include OK , CREATED , MOVED_PERMANENTLY , FOUND , etc.",
+  "Bug_Explanation": "The bug is that an appropriate HTTP status code is not set when an exception is thrown in the handleRequest method. This can lead to misleading responses to clients.",
+  "Buggy_Line": [
+    19
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by expecting an exception to be thrown during the `showBug` method execution, but the method doesn't actually throw an exception. As a result, an appropriate status code (not SC_OK) is not set on the HTTP response object.",
+  "Trigger_Line": [
+    17
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,19 @@
+{
+  "Bug_Title": "LockOnBoxedPrimitive",
+  "Bug_Details": "It is dangerous to use a boxed primitive as a lock as it can unintentionally lead to sharing a lock with another piece of code. Instances of boxed primitive types may be cached by the standard library\nvalueOf method. This method is used for autoboxing. This means that using a\nboxed primitive as a lock can result in unintentionally sharing a lock with\nanother piece of code. Consider using an explicit lock Object instead of locking on a boxed\nprimitive. That is, prefer this: private final Object lock = new Object();\n\nvoid doSomething() {\n  synchronized (lock) {\n    // ...\n  }\n} private final Object lock = new Object();\n\nvoid doSomething() {\n  synchronized (lock) {\n    // ...\n  }\n} instead of this: private final Integer lock = 42;\n\nvoid doSomething() {\n  synchronized (lock) {\n    // ...\n  }\n} private final Integer lock = 42;\n\nvoid doSomething() {\n  synchronized (lock) {\n    // ...\n  }\n}",
+  "Bug_Explanation": "The code uses a boxed primitive Integer as a lock object, which is dangerous because boxed primitives can be cached and shared inadvertently, leading to potential synchronization issues.",
+  "Buggy_Line": [
+    3,
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case creates two instances of BoxedPrimitiveLock and runs showBug method concurrently on both in separate threads. Since both instances use the same Integer value as the lock, they end up sharing the lock due to Integer caching. This leads to a potential synchronization issue, and the test case fails by design to demonstrate this problem.",
+  "Trigger_Line": [
+    11,
+    12,
+    18
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.This is a synchronized block using a boxed primitive as a lock.\nThis is a synchronized block using a boxed primitive as a lock.\nE\nTime: 0.006\nThere was 1 failure:\n1) testShowBug(BoxedPrimitiveLockTest)\njava.lang.AssertionError: Expected synchronization issue due to LockOnBoxedPrimitive bug.\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat BoxedPrimitiveLockTest.testShowBug(BoxedPrimitiveLockTest.java:20)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not confirm the bug was triggered. The test failed due to an assertion error expecting a synchronization issue, but no such issue occurred during the test execution."
+}

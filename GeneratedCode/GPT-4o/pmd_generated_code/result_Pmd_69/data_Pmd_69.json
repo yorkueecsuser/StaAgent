@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "SimpleDateFormatNeedsLocale",
+  "Bug_Details": "Be sure to specify a Locale when creating SimpleDateFormat instances to ensure that locale-appropriate\nformatting is used.\nExamples:\npublic class Foo {\n  // Should specify Locale.US (or whatever)\n  private SimpleDateFormat sdf = new SimpleDateFormat(\"pattern\");\n}",
+  "Bug_Explanation": "The SimpleDateFormat instance is created without specifying a Locale, which can lead to unexpected behavior in different locales.",
+  "Buggy_Line": [
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case 'testShowBug' triggers the bug by calling the 'showBug' method of 'DateFormatter', which uses a SimpleDateFormat without specifying a Locale. This can cause unexpected formatting behavior depending on the default Locale set in the JVM, leading to a test failure.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.024\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully (OK (1 test)), which means the assertion did not fail. Therefore, the bug was not triggered during the test execution."
+}

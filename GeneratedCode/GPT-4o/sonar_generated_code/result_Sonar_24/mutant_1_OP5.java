@@ -1,0 +1,55 @@
+import java.util.Arrays;
+
+class RecordBugDemo {
+
+    record Person(String[] names, int age) {
+        // Overriding equals method to handle array comparison
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj == null || getClass() != obj.getClass()) return false;
+            Person person = (Person) obj;
+            return age == person.age && Arrays.equals(names, person.names);
+        }
+
+        @Override
+        public int hashCode() {
+            int result = Arrays.hashCode(names);
+            result = 31 * result + age;
+            return result;
+        }
+    }
+
+    public boolean showBug(String[] names1, int age1, String[] names2, int age2) {
+        Person person1 = new Person(names1, age1);
+        Person person2 = new Person(names2, age2);
+
+        // Unreachable switch statement
+        int unreachableSwitchVariable = getUnreachableValue();
+        switch (unreachableSwitchVariable) {
+            case 1:
+                System.out.println("This case is never reached.");
+                break;
+            default:
+                // No action needed
+                break;
+        }
+
+        return person1.equals(person2);
+    }
+
+    private int getUnreachableValue() {
+        return -1; // This will ensure the switch statement never goes to 'case 1'
+    }
+
+    public static void main(String[] args) {
+        RecordBugDemo demo = new RecordBugDemo();
+
+        // Create two different objects with the same data
+        String[] names = {"Alice", "Bob"};
+        boolean result = demo.showBug(names, 30, names.clone(), 30);
+
+        // This will print 'true' now because the equals method has been overridden correctly
+        System.out.println("Are the two persons equal? " + result);
+    }
+}

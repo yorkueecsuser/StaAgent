@@ -1,0 +1,32 @@
+class InfiniteRecursionExample {
+
+    // Entry point to demonstrate the bug
+    public void showBug() {
+        try {
+            recursiveMethod();
+        } catch (StackOverflowError e) {
+            System.out.println("Caught StackOverflowError: " + e.getMessage());
+        }
+    }
+
+    // Recursive method without a base case, leading to infinite recursion
+    private void recursiveMethod() {
+        // Unreachable for loop with dynamically determined condition
+        boolean conditionFor = getConditionFor();
+        for (int i = 0; conditionFor; i++) {
+            System.out.println("This line will never be printed.");
+        }
+
+        recursiveMethod(); // BUG: Recursion should not be infinite
+    }
+
+    private boolean getConditionFor() {
+        return false; // The condition is always false, making the loop unreachable
+    }
+
+    // Main method to execute the demonstration
+    public static void main(String[] args) {
+        InfiniteRecursionExample example = new InfiniteRecursionExample();
+        example.showBug();
+    }
+}

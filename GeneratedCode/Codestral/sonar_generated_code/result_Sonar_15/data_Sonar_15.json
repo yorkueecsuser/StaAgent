@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Use of the \"@Async\" annotation on methods declared within a \"@Configuration\" class in Spring Boot",
+  "Bug_Details": "@Configuration is a class-level annotation indicating that an object is a source of bean definitions. @Configuration classes declare beans through @Bean -annotated methods. Calls to @Bean methods on @Configuration classes can\nalso be used to define inter-bean dependencies. The @Bean annotation indicates that a method instantiates, configures, and initializes a\nnew object to be managed by the Spring IoC container.\nAnnotating a method of a bean with @Async will make it execute in a separate thread. In other words, the caller will not wait for the\ncompletion of the called method.\nThe @Async annotation is not supported on methods declared within a @Configuration class. This is because @Async methods are typically used for asynchronous processing, and they require certain infrastructure to be set up, which may not be\navailable or appropriate in a @Configuration class.",
+  "Bug_Explanation": "The '@Async' annotation is used on a method 'init' declared within a class 'AsyncConfig'. This is not supported by Spring Boot and may lead to unexpected behavior.",
+  "Buggy_Line": [
+    18
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The '@Async' annotation on the 'init' method of 'AsyncConfig' class is not supported in Spring Boot, which leads to unexpected behavior when the'showBug' method is called. This causes the JUnit test to fail.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Task performed\n\nTime: 2.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the 'init' method in the 'AsyncConfig' class was executed without any errors, even though it was annotated with '@Async'. The output 'Task performed' was printed immediately after calling the'showBug' method, indicating that the 'init' method was executed synchronously rather than asynchronously. This suggests that the '@Async' annotation on the 'init' method was not properly processed, which is consistent with the known issue that '@Async' annotation is not supported on methods declared within a '@Configuration' class in Spring Boot."
+}

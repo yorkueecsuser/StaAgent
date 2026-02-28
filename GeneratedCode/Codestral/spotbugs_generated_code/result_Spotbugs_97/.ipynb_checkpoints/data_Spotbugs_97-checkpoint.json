@@ -1,0 +1,14 @@
+{
+  "Bug_Title": "IJU: TestCase defines tearDown that doesn\u2019t call super.tearDown() (IJU_TEARDOWN_NO_SUPER)\uf0c1",
+  "Bug_Details": " Class is a JUnit TestCase and implements the tearDown method. The tearDown method should call\nsuper.tearDown(), but doesn't.",
+  "Bug_Explanation": "The bug is that the tearDown method in the BuggyTestCase class does not call super.tearDown(), which is a requirement when overriding the tearDown method in a class that extends junit.framework.TestCase. This can lead to resources not being properly cleaned up or released, which can cause issues in other tests or in the overall application.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test calls the showBug method of BuggyTestCase, which internally calls setUp and tearDown methods. Since the tearDown method does not call super.tearDown(), the value is not reset correctly, causing the test to fail.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n"
+}

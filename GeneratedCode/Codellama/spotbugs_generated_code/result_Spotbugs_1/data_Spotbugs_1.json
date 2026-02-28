@@ -1,0 +1,23 @@
+{
+  "Bug_Explanation": "Super method is annotated with @OverridingMethodsMustInvokeSuper, but the overriding method isn't calling the super method.",
+  "Buggy_Line": [
+    16,
+    3,
+    29
+  ],
+  "Trigger_Explanation": "Super method is annotated with @OverridingMethodsMustInvokeSuper, but the overriding method isn't calling the super method.",
+  "Trigger_Line": [
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

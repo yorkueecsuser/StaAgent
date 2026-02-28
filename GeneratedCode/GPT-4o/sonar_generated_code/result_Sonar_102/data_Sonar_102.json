@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "\"notifyAll()\" should be preferred over \"notify()\"",
+  "Bug_Details": "notify and notifyAll both wake up sleeping threads waiting on the object\u2019s monitor, but notify only wakes up\none single thread, while notifyAll wakes them all up. Unless you do not care which specific thread is woken up, notifyAll should be used instead.\nNoncompliant code example\nclass MyThread implements Runnable {\n  Object lock = new Object();\n\n  @Override\n  public void run() {\n    synchronized(lock) {\n      // ...\n      lock.notify();  // Noncompliant\n    }\n  }\n}\nCompliant solution\nclass MyThread implements Runnable {\n  Object lock = new Object();\n\n  @Override\n  public void run() {\n    synchronized(lock) {\n      // ...\n      lock.notifyAll();\n    }\n  }\n}",
+  "Bug_Explanation": "\"notify()\" is used instead of \"notifyAll()\" which can lead to situations where not all waiting threads are properly notified, causing potential deadlocks or missed updates when multiple threads are involved.",
+  "Buggy_Line": [
+    13
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method triggers the bug by running the showBug method of NotifyExample, which uses notify() instead of notifyAll(), leading to potential improper thread notification. This results in the counter not necessarily reaching the expected value, causing the assertion to fail.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.Final counter value: 10\nE\nTime: 0.01\nThere was 1 failure:\n1) testShowBug(NotifyExampleTest)\njava.lang.AssertionError: Counter value should not match due to improper thread notification.. Actual: 10\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat org.junit.Assert.failEquals(Assert.java:187)\n\tat org.junit.Assert.assertNotEquals(Assert.java:201)\n\tat NotifyExampleTest.testShowBug(NotifyExampleTest.java:12)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test expected the counter value to not match 10 due to improper thread notification, but the final counter value was 10, indicating that all increments were successful and threads were notified as expected."
+}

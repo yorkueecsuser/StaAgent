@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "HardCodedCryptoKey",
+  "Bug_Details": "Do not use hard coded values for cryptographic operations. Please store keys outside of source code.",
+  "Bug_Explanation": "The bug is caused by using a hardcoded cryptographic key in the encrypt and decrypt methods. The key is stored as a string constant in the class, which can be easily extracted and used to encrypt or decrypt data without proper authorization.",
+  "Buggy_Line": [
+    15
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The `testEncryptDecrypt` test case triggers the bug by using the hard-coded crypto key `this_is_a_secret_key` in the `encrypt` and `decrypt` methods.",
+  "Trigger_Line": [
+    22,
+    28
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

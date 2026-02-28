@@ -1,0 +1,24 @@
+class InfiniteRecursion {
+    public static void main(String[] args) {
+        showBug();
+    }
+
+    public static void showBug() {
+        System.out.println("Starting infinite recursion...");
+        infiniteRecursion();
+        System.out.println("Recursion finished.");
+    }
+
+    public static void infiniteRecursion() {
+        System.out.println("Infinite recursion occurred.");
+        infiniteRecursion(); // BUG: Recursion should not be infinite
+    }
+
+    public static boolean getCondition() {
+        return false;
+    }
+
+    public static int getValue() {
+        return 0;
+    }
+}

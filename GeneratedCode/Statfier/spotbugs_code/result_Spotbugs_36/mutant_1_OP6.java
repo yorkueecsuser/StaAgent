@@ -1,0 +1,21 @@
+import java.util.Iterator;
+import java.util.List;
+
+class Bug3330970 {
+  public void go(List list) {
+    Iterator i = list.iterator();
+    while (i.hasNext()) {
+      // do something with the stuff in the list
+    }
+    
+    // Introduced unreachable for loop as per mutation operator
+    boolean conditionFor = getCondition();
+    for (int j = 0; conditionFor; j++) {
+      // This loop is unreachable because conditionFor will always be false
+    }
+  }
+
+  private boolean getCondition() {
+    return false;
+  }
+}

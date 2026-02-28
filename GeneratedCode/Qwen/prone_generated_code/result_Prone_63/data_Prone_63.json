@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "GuiceAssistedInjectScoping",
+  "Bug_Details": "Scope annotation on implementation class of AssistedInject factory is not allowed Classes that AssistedInject factories create may not be annotated with scope\nannotations, such as @Singleton. This will cause a Guice error at runtime. See\nthis bug report\nfor details.",
+  "Bug_Explanation": "The bug is embedded in the code by keeping the @Singleton annotation on the MyClass implementation class, which is not allowed when using AssistedInject in Guice. This will cause a runtime error if the code were to be executed with Guice.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_63/seed_Prone_63.java:9: error: cannot find symbol\n    @Singleton // BUG: GuiceAssistedInjectScoping\n     ^\n  symbol:   class Singleton\n  location: class GuiceAssistedInjectExample\n1 error\n",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug method of GuiceAssistedInjectExample, which creates an instance of MyClass annotated with @Singleton, simulating the Guice error.",
+  "Trigger_Line": [
+    8
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,18 @@
+class Bug2357128 {
+  @Override
+  public boolean equals(Object obj) {
+    // Original code
+    return false;
+
+    // Inserted unreachable for loop
+    boolean conditionFor = getCondition();
+    for (int i = 0; conditionFor; i++) {
+      // This loop is unreachable because getCondition() will always return false
+    }
+  }
+
+  private boolean getCondition() {
+    // This method ensures the condition is dynamically determined at runtime
+    return false;
+  }
+}

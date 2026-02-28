@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "AvoidFieldNameMatchingTypeName",
+  "Bug_Details": "It is somewhat confusing to have a field name matching the declaring type name.\nThis probably means that type and/or field names should be chosen more carefully.\nExamples:\npublic class Foo extends Bar {\n    int foo;    // There is probably a better name that can be used\n}\npublic interface Operation {\n    int OPERATION = 1; // There is probably a better name that can be used\n}",
+  "Bug_Explanation": "The code demonstrates a field named 'Example' within a class also named 'Example'. This could create confusion as it's not clear whether 'Example' refers to the class or the class field.",
+  "Buggy_Line": [
+    3,
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test creates an instance of the Example class where the constructor parameter has the same name as the class field, triggering potential confusion. The assertion checks if the return value matches the expected value, which will fail due to the naming conflict issue.",
+  "Trigger_Line": [
+    10,
+    13
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.005\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully without any assertion errors, which means the bug was not triggered during the test execution."
+}

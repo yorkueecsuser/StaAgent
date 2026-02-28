@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "DoNotCall",
+  "Bug_Details": "This method should not be called. This check prevents calls to methods annotated with Error Prone\u2019s @DoNotCall\nannotation (com.google.errorprone.annotations.DoNotCall). The check disallows invocations and method references of the annotated method. There are a few situations where this can be useful, including methods that are\nrequired to satisfy the contract of an interface, but that are not supported. A method annotated with @DoNotCall should always be final or abstract. If\nan abstract method is annotated @DoNotCall Error Prone will ensure all\nimplementations of that method also have the annotation. Methods annotated with\n@DoNotCall should not be private, since a private method that should not be\ncalled can simply be removed. TIP: Marking methods annotated with @DoNotCall as @Deprecated is\nrecommended, since it provides IDE users with more immediate feedback. Example: java.util.Collection#add should never be called on an immutable collection\nimplementation: package com.google.common.collect.ImmutableList;\n\nclass ImmutableList<E> implements List<E> {\n\n // ...\n\n /**\n  * Guaranteed to throw an exception and leave the list unmodified.\n  *\n  * @deprecated Unsupported operation.\n  */\n @Deprecated\n @DoNotCall(\"guaranteed to throw an exception and leave the list unmodified\")\n @Override\n public final void add(E e) {\n   throw new UnsupportedOperationException();\n }\n} package com.google.common.collect.ImmutableList;\n\nclass ImmutableList<E> implements List<E> {\n\n // ...\n\n /**\n  * Guaranteed to throw an exception and leave the list unmodified.\n  *\n  * @deprecated Unsupported operation.\n  */\n @Deprecated\n @DoNotCall(\"guaranteed to throw an exception and leave the list unmodified\")\n @Override\n public final void add(E e) {\n   throw new UnsupportedOperationException();\n }\n}",
+  "Bug_Explanation": "The bug is embedded in the 'add' method of the ImmutableList class, which is annotated with @Deprecated and throws an UnsupportedOperationException when called. The'showBug' method demonstrates this bug by calling the 'add' method and catching the exception.",
+  "Buggy_Line": [
+    17,
+    131
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_35/seed_Prone_35.java:6: error: ImmutableList is not abstract and does not override abstract method add(E) in List\nclass ImmutableList<E> implements List<E> {\n^\n  where E is a type-variable:\n    E extends Object declared in class ImmutableList\n../prone_clean_java_code/result_Prone_35/seed_Prone_35.java:17: error: add(E#1) in ImmutableList cannot implement add(E#2) in List\n    public void add(E e) { // BUG: DoNotCall\n                ^\n  return type void is not compatible with boolean\n  where E#1,E#2 are type-variables:\n    E#1 extends Object declared in class ImmutableList\n    E#2 extends Object declared in interface List\n../prone_clean_java_code/result_Prone_35/seed_Prone_35.java:16: error: method does not override or implement a method from a supertype\n    @Override\n    ^\n3 errors\n",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug method on an instance of ImmutableList, which internally calls the add method annotated with @DoNotCall.",
+  "Trigger_Line": [
+    39
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

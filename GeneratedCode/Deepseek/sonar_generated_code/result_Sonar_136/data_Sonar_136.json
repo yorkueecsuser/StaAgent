@@ -1,0 +1,19 @@
+{
+  "Bug_Title": "\"InterruptedException\" and \"ThreadDeath\" should not be ignored",
+  "Bug_Details": "If an InterruptedException or a ThreadDeath error is not handled properly, the information that the thread was\ninterrupted will be lost. Handling this exception means either to re-throw it or manually re-interrupt the current thread by calling Thread.interrupt() . Simply logging the exception is not sufficient and counts as ignoring it. Between the moment the exception is caught\nand handled, is the right time to perform cleanup operations on the method\u2019s state, if needed.\nWhat is the potential impact?\nFailing to interrupt the thread (or to re-throw) risks delaying the thread shutdown and losing the information that the thread was interrupted -\nprobably without finishing its task.\nNoncompliant code example\npublic void run () {\n  try {\n    /*...*/\n  } catch (InterruptedException e) { // Noncompliant; logging is not enough\n    LOGGER.log(Level.WARN, \"Interrupted!\", e);\n  }\n}\nCompliant solution\npublic void run () {\n  try {\n    /* ... */\n  } catch (InterruptedException e) { // Compliant; the interrupted state is restored\n    LOGGER.log(Level.WARN, \"Interrupted!\", e);\n    /* Clean up whatever needs to be handled before interrupting  */\n    Thread.currentThread().interrupt();\n  }\n}\n\npublic void run () {\n  try {\n    /* ... */\n  } catch (ThreadDeath e) { // Compliant; the error is being re-thrown\n    LOGGER.log(Level.WARN, \"Interrupted!\", e);\n    /* Clean up whatever needs to be handled before re-throwing  */\n    throw e;\n  }\n}",
+  "Bug_Explanation": "This code demonstrates a common software bug where InterruptedException or ThreadDeath errors are not handled properly. If an InterruptedException or a ThreadDeath error occurs, the program will only log the error and lose the information that the thread was interrupted.",
+  "Buggy_Line": [
+    13,
+    16
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case interrupts the main thread, causing an InterruptedException which is not handled properly in the original code. Without handling the exception, the interrupted state of the thread is lost.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.037\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the InterruptedException was properly caught and logged, but not re-interrupted or re-thrown. This confirms that the bug described in the bug information is present and triggered in the Java code.",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The described bug is present in the provided Java code. The InterruptedException is caught and logged, but not re-thrown or interrupted. This can lead to loss of information about the thread's interrupted state. The cleanup operations on the method's state, if needed, are not performed between the moment the exception is caught and handled. This can delay the thread shutdown and potentially lose the information that the thread was interrupted."
+}

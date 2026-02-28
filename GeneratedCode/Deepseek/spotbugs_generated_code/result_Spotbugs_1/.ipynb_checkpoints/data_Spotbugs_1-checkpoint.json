@@ -1,0 +1,9 @@
+{
+  "Bug_Title": "CN: Super method is annotated with @OverridingMethodsMustInvokeSuper, but the overriding method isn\u2019t calling the super method. (OVERRIDING_METHODS_MUST_INVOKE_SUPER)\uf0c1",
+  "Bug_Details": "Super method is annotated with @OverridingMethodsMustInvokeSuper, but the overriding method isn't calling the super method.",
+  "Bug_Explanation": "The DerivedClass overrides the baseMethod from the BaseClass but doesn't call the super method, which is annotated with @OverridingMethodsMustInvokeSuper.",
+  "Buggy_Line": [
+    14
+  ],
+  "Seed_Compilation_Status": "Successful"
+}

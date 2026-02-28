@@ -1,0 +1,20 @@
+{
+  "Bug_Title": "AvoidArrayLoops",
+  "Bug_Details": "Instead of manually copying data between two arrays, use the more efficient `Arrays.copyOf`\nor `System.arraycopy` method instead.\n\nTo copy only part of the array, use `Arrays.copyOfRange` or `System.arraycopy`.\n\nIf you want to copy/move elements inside the _same_ array (e.g. shift the elements), use `System.arraycopy`.\nExamples:\nclass Scratch {\n    void copy_a_to_b() {\n        int[] a = new int[10];\n        int[] b = new int[10];\n        for (int i = 0; i < a.length; i++) {\n            b[i] = a[i];\n        }\n        // equivalent\n        b = Arrays.copyOf(a, a.length);\n        // equivalent\n        System.arraycopy(a, 0, b, 0, a.length);\n\n        int[] c = new int[10];\n        // this will not trigger the rule\n        for (int i = 0; i < c.length; i++) {\n            b[i] = a[c[i]];\n        }\n    }\n}\n---\nclass Scratch {\n    void shift_left(int[] a) {\n        for (int i = 0; i < a.length - 1; i++) {\n            a[i] = a[i + 1];\n        }\n        // equivalent\n        System.arraycopy(a, 1, a, 0, a.length - 1);\n    }\n    void shift_right(int[] a) {\n        for (int i = a.length - 1; i > 0; i--) {\n            a[i] = a[i - 1];\n        }\n        // equivalent\n        System.arraycopy(a, 0, a, 1, a.length - 1);\n    }\n}",
+  "Bug_Explanation": "The code demonstrates the bug by using manual loops to copy and shift array elements instead of using efficient methods like Arrays.copyOf, Arrays.copyOfRange, or System.arraycopy, which are more performant and concise.",
+  "Buggy_Line": [
+    8,
+    16,
+    24
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit tests fail by asserting that the manually copied arrays via loops are equal to the expected arrays. The manual copying loops in the methods showBug1, showBug2, and showBug3 are less efficient and demonstrate the bug AvoidArrayLoops, which should be replaced with Arrays.copyOf or System.arraycopy for better performance.",
+  "Trigger_Line": [
+    13,
+    22,
+    31
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n...\nTime: 0.005\n\nOK (3 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that all tests passed successfully without any errors or failures, suggesting that the bug was not triggered during the test execution."
+}

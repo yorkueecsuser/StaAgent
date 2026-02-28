@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Spring \"@Controller\" classes should not use \"@Scope\"",
+  "Bug_Details": "Spring @Controller s, @Service s, and @Repository s have singleton scope by default, meaning only\none instance of the class is ever instantiated in the application. Defining any other scope for one of these class types will result in needless churn\nas new instances are created and destroyed. In a busy web application, this could cause a significant amount of needless additional load on the\nserver.\nThis rule raises an issue when the @Scope annotation is applied to a @Controller , @Service , or @Repository with any value but \"singleton\". @Scope(\"singleton\") is redundant, but ignored.\nNoncompliant code example\n@Scope(\"prototype\")  // Noncompliant\n@Controller\npublic class HelloWorld {\nCompliant solution\n@Controller\npublic class HelloWorld {",
+  "Bug_Explanation": "Spring @Controller classes should not use @Scope. In this code, the @Scope annotation is used with a 'prototype' scope for the HelloWorld class, which is a @Controller class. This is a bug because @Controller classes should always have'singleton' scope.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case calls the `showBug` method of the `HelloWorld` class which triggers the bug because it is annotated with `@Controller` and `@Scope` with a value other than'singleton'.",
+  "Trigger_Line": [
+    4
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The provided Java code contains a bug. The @Scope annotation is used on a @Controller class, which is not recommended. The @Controller classes should not use @Scope annotation as they have singleton scope by default. Using any other scope for @Controller, @Service, or @Repository classes will result in needless churn as new instances are created and destroyed. This could cause a significant amount of needless additional load on the server, which is not efficient for a busy web application. The @Scope(\"prototype\") annotation is redundant and ignored in this case."
+}

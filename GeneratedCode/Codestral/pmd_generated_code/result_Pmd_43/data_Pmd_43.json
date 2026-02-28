@@ -1,0 +1,13 @@
+{
+  "Bug_Title": "FinalizeDoesNotCallSuperFinalize",
+  "Bug_Details": "If the finalize() is implemented, its last action should be to call super.finalize. Note that Oracle has declared Object.finalize() as deprecated since JDK 9.\nExamples:\nprotected void finalize() {\n    something();\n    // neglected to call super.finalize()\n}",
+  "Bug_Explanation": "The finalize() method is implemented but it doesn't call super.finalize() as the last action. This may lead to unpredictable behavior as the finalize() method of Object class is not called.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test fails because the FinalizeBug class's finalize() method doesn't call super.finalize(), which can lead to unpredictable behavior as the Object class's finalize() method is not called.",
+  "Trigger_Line": "[4]",
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

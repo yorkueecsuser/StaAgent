@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "Loop conditions should be true at least once",
+  "Bug_Details": "A for loop is a fundamental programming construct\nused to execute a block of code repeatedly. However, if the loop\u2019s condition is false before the first iteration, the loop will never execute.\nfor (int i = 0; i < 0; i++) {  // Noncompliant: the condition is always false, and the loop will never execute\n    // ...\n}\nRewrite the loop to ensure the condition evaluates to true at least once.\nfor (int i = 0; i < 10; i++) {  // Compliant: the condition is true at least once, the loop will execute\n    // ...\n}\nThis bug has the potential to cause unexpected outcomes as the loop might contain critical code that needs to be executed.",
+  "Bug_Explanation": "The loop condition is set to false, making the loop not execute even once. This can lead to unexpected outcomes as the critical code might not get executed.",
+  "Buggy_Line": [
+    4
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case 'testShowBug' calls the'showBug' method in the 'Main' class. The'showBug' method contains a for loop with a condition that will never be true (i.e., i < 0). This will cause the loop to never execute, triggering the bug.",
+  "Trigger_Line": [
+    4
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "Test run results do not show any evidence of the bug being triggered. The loop in the showBug method has a condition that will never be true (i < 0 is always false), so the loop will never be executed. This is consistent with the bug rule and description provided.",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The described bug is present in the provided Java code. The for loop condition is set to false (i < 0) which means the loop will never execute. This bug can cause unexpected outcomes as the loop might contain critical code that needs to be executed. The bug can be fixed by ensuring the loop condition evaluates to true at least once."
+}

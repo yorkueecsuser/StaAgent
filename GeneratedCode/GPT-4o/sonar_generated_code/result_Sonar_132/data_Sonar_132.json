@@ -1,0 +1,21 @@
+{
+  "Bug_Title": "Unnecessary equality checks should not be made",
+  "Bug_Details": "Comparisons of dissimilar types will always return false. The comparison and all its dependent code can simply be removed. This includes:\ncomparing an object with null comparing an object with an unrelated primitive (E.G. a string with an int) comparing unrelated classes comparing an unrelated class and interface comparing unrelated interface types comparing an array to a non-array comparing two arrays\ncomparing an object with null\ncomparing an object with an unrelated primitive (E.G. a string with an int)\ncomparing unrelated classes\ncomparing an unrelated class and interface\ncomparing unrelated interface types\ncomparing an array to a non-array\ncomparing two arrays\nSpecifically in the case of arrays, since arrays don\u2019t override Object.equals() , calling equals on two arrays is the same\nas comparing their addresses. This means that array1.equals(array2) is equivalent to array1==array2 .\nHowever, some developers might expect Array.equals(Object obj) to do more than a simple memory address comparison, comparing for\ninstance the size and content of the two arrays. Instead, the == operator or Arrays.equals(array1, array2) should always be\nused with arrays.\nNoncompliant code example\ninterface KitchenTool { ... };\ninterface Plant {...}\n\npublic class Spatula implements KitchenTool { ... }\npublic class Tree implements Plant { ...}\n//...\n\nSpatula spatula = new Spatula();\nKitchenTool tool = spatula;\nKitchenTool [] tools = {tool};\n\nTree tree = new Tree();\nPlant plant = tree;\nTree [] trees = {tree};\n\n\nif (spatula.equals(tree)) { // Noncompliant; unrelated classes\n  // ...\n}\nelse if (spatula.equals(plant)) { // Noncompliant; unrelated class and interface\n  // ...\n}\nelse if (tool.equals(plant)) { // Noncompliant; unrelated interfaces\n  // ...\n}\nelse if (tool.equals(tools)) { // Noncompliant; array & non-array\n  // ...\n}\nelse if (trees.equals(tools)) { // Noncompliant; incompatible arrays\n  // ...\n}\nelse if (tree.equals(null)) { // Noncompliant\n  // ...\n}",
+  "Bug_Explanation": "The code contains unnecessary equality checks between dissimilar types which will always return false. These include comparisons between unrelated classes, unrelated class and interface, unrelated interfaces, an array with a non-array, two incompatible arrays, and an object with null.",
+  "Buggy_Line": [
+    33,
+    18,
+    21,
+    24,
+    27,
+    30
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The JUnit test case calls the showBug method, which contains multiple unnecessary equality checks that always return false. The test will fail because showBug incorrectly returns true when these equality checks are made, triggering the bug.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.004\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that the test passed successfully with 'OK (1 test)', which means that the method 'showBug' returned 'false' as expected by the test. This does not confirm the bug was triggered, as the presence of the bug would have resulted in a 'true' return, causing the test to fail."
+}

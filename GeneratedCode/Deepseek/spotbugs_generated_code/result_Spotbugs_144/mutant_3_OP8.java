@@ -1,0 +1,20 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class BuggyCode {
+    public static void addToList(List list, Object obj) {
+        list.add(obj);
+    }
+
+    public static Object showBug() {
+        List<String> stringList = new ArrayList<>();
+        Object a = new Object(); // Mutation: Renaming 'anyObject' to 'a'
+        addToList(stringList, a);
+        return stringList.get(0);
+    }
+
+    public static void main(String[] args) {
+        Object result = showBug();
+        System.out.println("Result: " + result);
+    }
+}

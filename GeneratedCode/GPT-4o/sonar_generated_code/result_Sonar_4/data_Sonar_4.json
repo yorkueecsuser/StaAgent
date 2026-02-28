@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "\"Math.clamp\" should be used with correct ranges",
+  "Bug_Details": "Java 21 introduces the new method Math.clamp(value, min, max) that fits a value within a specified interval. Before Java 21, this\nbehavior required explicit calls to the Math.min and Math.max methods, as in Math.min(max, Math.max(value,\nmin)) .\nIf min > max , Math.clamp throws an IllegalArgumentException , indicating an invalid interval. This can\noccur if the min and max arguments are mistakenly reversed.\nNote that Math.clamp is not a general substitute for Math.min or Math.max , but for the combination of both.\nIf value is the same as min or max , using Math.clamp is unnecessary and Math.min or Math.max should be used instead.",
+  "Bug_Explanation": "This code demonstrates a bug where the min and max parameters for Math.clamp are mistakenly reversed. According to Java 21's implementation of Math.clamp, if min is greater than max, an IllegalArgumentException is thrown. This code incorrectly uses Math.clamp with arguments in the wrong order, which can lead to exceptions when executed.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by calling the method `showBug` with reversed min and max values (10.0, 2.0) as arguments. This should result in an IllegalArgumentException being thrown according to the bug description.",
+  "Trigger_Line": [
+    8
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E.\nTime: 0.006\nThere was 1 failure:\n1) testShowBugValidRange(ClampBugDemonstrationTest)\njava.lang.IllegalArgumentException: 10.0 > 2.0\n\tat java.base/java.lang.Math.clamp(Math.java:2274)\n\tat ClampBugDemonstration.showBug(ClampBugDemonstration.java:6)\n\tat ClampBugDemonstrationTest.testShowBugValidRange(ClampBugDemonstrationTest.java:15)\n\nFAILURES!!!\nTests run: 2,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not confirm the bug was triggered during the testShowBugReversedMinMax test. Instead, the failure occurred in testShowBugValidRange, which does not reverse min and max. This suggests an error in the test setup rather than the described bug."
+}

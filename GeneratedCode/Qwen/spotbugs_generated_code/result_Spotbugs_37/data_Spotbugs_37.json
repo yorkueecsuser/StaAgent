@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Nm: Class defines hashcode(); should it be hashCode()? (NM_LCASE_HASHCODE)\uf0c1",
+  "Bug_Details": " This class defines a method called hashcode().\u00a0 This method\ndoes not override the hashCode() method in java.lang.Object,\nwhich is probably what was intended. hashcode() hashCode() java.lang.Object",
+  "Bug_Explanation": "The bug was embedded in the generated code by defining a method named 'hashcode()' instead of 'hashCode()'. This method does not override the 'hashCode()' method in java.lang.Object, which is probably what was intended. This causes issues when the object is used in collections that rely on hashing, such as HashMap.",
+  "Buggy_Line": [
+    16
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggers the bug by calling the showBug method of the HashCodeBugExample class, which uses a HashMap. Since the class defines hashcode() instead of hashCode(), the map does not behave as expected, leading to incorrect size values.",
+  "Trigger_Line": [
+    10,
+    18
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n..\nTime: 0.007\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that both tests passed successfully, which means the map size returned by the showBug method is as expected. However, this does not confirm the absence of the bug because the bug would manifest in unexpected behavior when multiple instances with the same id are added to the map. The test 'testShowBugWithDifferentInstance' should have failed if the bug were triggered, but it passed, suggesting that the bug might not be affecting the test cases as intended. The issue lies in the incorrect method name 'hashcode()' instead of 'hashCode()', which could lead to inconsistent behavior in other scenarios not covered by these tests."
+}

@@ -1,0 +1,1 @@
+return list.toArray(new Integer[2]); // This line contains the bug

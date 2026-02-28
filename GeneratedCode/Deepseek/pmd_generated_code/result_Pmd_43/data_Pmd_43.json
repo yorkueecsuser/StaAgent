@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "FinalizeDoesNotCallSuperFinalize",
+  "Bug_Details": "If the finalize() is implemented, its last action should be to call super.finalize. Note that Oracle has declared Object.finalize() as deprecated since JDK 9.\nExamples:\nprotected void finalize() {\n    something();\n    // neglected to call super.finalize()\n}",
+  "Bug_Explanation": "The finalize() method is called in the BuggyClass, but it does not call super.finalize() in the last step. This is a bug that can lead to resource leakage and can produce unexpected behavior.",
+  "Buggy_Line": [
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the showBug method in BuggyClass. The showBug method sets up a test scenario where finalize is not called on an object. This is done by making a new BuggyClass object and then setting it to null. The garbage collector is then called which should trigger the finalize method on the BuggyClass object. However, because the finalize method does not call super.finalize, the JVM will not run the finalize method on the object, causing the test to fail when it tries to set the object to null.",
+  "Trigger_Line": [
+    3
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

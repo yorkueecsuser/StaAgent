@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "Servlets should not have mutable instance fields",
+  "Bug_Details": "The processHttpRequest method and methods called from it can be executed by multiple threads within the same servlet instance, and\nstate changes to the instance caused by these methods are, therefore, not threadsafe.\nThis is due to the servlet container creating only one instance of each servlet ( javax.servlet.http.HttpServlet ) and attaching a\ndedicated thread to each incoming HTTP request. The same problem exists for org.apache.struts.action.Action but with different\nmethods.\nTo prevent unexpected behavior, avoiding mutable states in servlets is recommended. Mutable instance fields should either be refactored into local\nvariables or made immutable by declaring them final .\nExceptions\nFields annotated with @javax.inject.Inject , @javax.ejb.EJB , @org.springframework.beans.factory.annotation.Autowired , @javax.annotation.Resource Fields initialized in init() or init(ServletConfig config) methods\nFields annotated with @javax.inject.Inject , @javax.ejb.EJB , @org.springframework.beans.factory.annotation.Autowired , @javax.annotation.Resource\nFields initialized in init() or init(ServletConfig config) methods",
+  "Bug_Explanation": "The 'requestCount' field is mutable, which is unsafe in servlets because multiple threads may access and modify it concurrently, leading to race conditions.",
+  "Buggy_Line": [
+    21,
+    30
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test case triggers the bug by calling the `showBug` method on the same `MutableServletExample` instance twice with different `HttpServletResponse` objects. This results in different request counts being printed, which violates the expected behavior for servlets to not have mutable instance fields.",
+  "Trigger_Line": [
+    23,
+    24
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.001\nThere was 1 failure:\n1) initializationError(org.junit.runner.JUnitCommandLineParseResult)\njava.lang.IllegalArgumentException: Could not find class [HttpServletTest]\n\tat org.junit.runner.JUnitCommandLineParseResult.parseParameters(JUnitCommandLineParseResult.java:100)\n\tat org.junit.runner.JUnitCommandLineParseResult.parseArgs(JUnitCommandLineParseResult.java:50)\n\tat org.junit.runner.JUnitCommandLineParseResult.parse(JUnitCommandLineParseResult.java:44)\n\tat org.junit.runner.JUnitCore.runMain(JUnitCore.java:72)\n\tat org.junit.runner.JUnitCore.main(JUnitCore.java:36)\nCaused by: java.lang.ClassNotFoundException: HttpServletTest\n\tat java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)\n\tat java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)\n\tat java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)\n\tat java.base/java.lang.Class.forName0(Native Method)\n\tat java.base/java.lang.Class.forName(Class.java:534)\n\tat java.base/java.lang.Class.forName(Class.java:513)\n\tat org.junit.internal.Classes.getClass(Classes.java:42)\n\tat org.junit.internal.Classes.getClass(Classes.java:27)\n\tat org.junit.runner.JUnitCommandLineParseResult.parseParameters(JUnitCommandLineParseResult.java:98)\n\t... 4 more\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results do not confirm the bug triggering because the test did not execute successfully. The failure was due to a ClassNotFoundException for a class named HttpServletTest, unrelated to the MutableServletExample test, indicating a setup issue rather than a confirmation of the bug."
+}

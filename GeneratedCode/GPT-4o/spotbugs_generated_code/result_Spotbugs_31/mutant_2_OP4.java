@@ -1,0 +1,49 @@
+import java.util.HashSet;
+import java.util.Objects;
+
+class UnhashableClassExample {
+
+    // Inner class that defines equals but not hashCode
+    static class UnhashableClass {
+        private String name;
+
+        public UnhashableClass(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj == null || getClass() != obj.getClass()) return false;
+            UnhashableClass that = (UnhashableClass) obj;
+            return Objects.equals(name, that.name);
+        }
+
+        // BUG: HE: Use of class without a hashCode() method in a hashed data structure (HE_USE_OF_UNHASHABLE_CLASS)
+    }
+
+    // Method to demonstrate the bug
+    public static HashSet<UnhashableClass> showBug(String[] names) {
+        HashSet<UnhashableClass> set = new HashSet<>();
+        boolean condition = getCondition(); // Dynamically determined condition
+        if (condition) {
+            System.out.println("This will never print due to the unreachable condition.");
+        } else {
+            for (String name : names) {
+                set.add(new UnhashableClass(name));
+            }
+        }
+        return set;
+    }
+
+    public static boolean getCondition() {
+        // Always returns false, making the if-branch unreachable
+        return false;
+    }
+
+    public static void main(String[] args) {
+        String[] names = {"Alice", "Bob", "Charlie"};
+        HashSet<UnhashableClass> result = showBug(names);
+        System.out.println("Resulting HashSet size: " + result.size());
+    }
+}

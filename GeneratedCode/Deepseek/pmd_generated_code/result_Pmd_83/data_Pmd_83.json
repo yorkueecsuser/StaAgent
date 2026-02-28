@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "UseCorrectExceptionLogging",
+  "Bug_Details": "To make sure the full stacktrace is printed out, use the logging statement with two arguments: a String and a Throwable.\n\nThis rule only applies to [Apache Commons Logging](https://commons.apache.org/proper/commons-logging/).\nExamples:\npublic class Main {\n    private static final Log _LOG = LogFactory.getLog( Main.class );\n    void bar() {\n        try {\n        } catch( Exception e ) {\n            _LOG.error( e ); //Wrong!\n        } catch( OtherException oe ) {\n            _LOG.error( oe.getMessage(), oe ); //Correct\n        }\n    }\n}",
+  "Bug_Explanation": "The bug in this code is demonstrating the correct way to log an exception using the Java standard logging library. The 'Log' class from Apache Commons Logging is not available in this context, so the equivalent class from the standard Java library, 'Logger', is used. The 'log' method of 'Logger' takes a 'Level' parameter to specify the severity of the message, as well as a 'String' message and a 'Throwable' to log.",
+  "Buggy_Line": [
+    11
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls the showBug method. The showBug method throws an exception, which is then caught. If no exception is thrown, the test fails.",
+  "Trigger_Line": [
+    19
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

@@ -1,0 +1,23 @@
+{
+  "Bug_Title": "\"@NonNull\" values should not be set to null",
+  "Bug_Details": "Fields, parameters and return values marked @NotNull , @NonNull , or @Nonnull are assumed to have non-null\nvalues and are not typically null-checked before use. Therefore setting one of these values to null , or failing to set such a class field\nin a constructor, could cause NullPointerException s at runtime.\nNoncompliant code example\npublic class MainClass {\n\n  @Nonnull\n  private String primary;\n  private String secondary;\n\n  public MainClass(String color) {\n    if (color != null) {\n      secondary = null;\n    }\n    primary = color;  // Noncompliant; \"primary\" is Nonnull but could be set to null here\n  }\n\n  public MainClass() { // Noncompliant; \"primary\" is Nonnull but is not initialized\n  }\n\n  @Nonnull\n  public String indirectMix() {\n    String mix = null;\n    return mix;  // Noncompliant; return value is Nonnull, but null is returned.\n  }",
+  "Bug_Explanation": "The '@NonNull' annotation is used to indicate that the annotated field, method, or parameter cannot be null. However, in this code snippet, the 'primary' field is being set to null in a constructor and'secondary' field is being set to null conditionally. Also, the 'indirectMix' method is returning null.",
+  "Buggy_Line": [
+    6,
+    11,
+    15,
+    20
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The code is triggering the bug because the @NonNull values are not being checked for null before being set, which can lead to a NullPointerException at runtime.",
+  "Trigger_Line": [
+    13,
+    16,
+    19,
+    22
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result",
+  "Model_Confirmed_Buggy": "Yes",
+  "Model_Explanation": "The described bug is present in the code. The @NonNull annotation is used to indicate that a field, parameter or return value should not be null. However, in the provided code, the @NonNull annotation is not being enforced. The 'primary' field is marked as @NonNull but is set to null in the constructor and not initialized in the default constructor. The 'indirectMix' method returns a null value, which is a violation of the @NonNull annotation."
+}

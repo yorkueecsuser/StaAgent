@@ -1,0 +1,13 @@
+{
+  "Buggy_Line": [
+    3,
+    14
+  ],
+  "Trigger_Explanation": "The generated JUnit test case triggered the bug by attempting to call the uncallable method defined in the anonymous class.",
+  "Trigger_Line": [
+    3,
+    14
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

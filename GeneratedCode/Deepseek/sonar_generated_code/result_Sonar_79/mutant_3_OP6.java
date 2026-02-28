@@ -1,0 +1,22 @@
+import java.util.concurrent.atomic.AtomicInteger;
+
+class VolatileBug {
+    private AtomicInteger count = new AtomicInteger(0);
+    private boolean boo = false;
+
+    public void incrementCount() {
+        count.incrementAndGet();  // BUG: "volatile" variables should not be used with compound operators
+    }
+
+    public synchronized void toggleBoo(){
+        boo =!boo;  // BUG: "volatile" variables should not be used with compound operators
+    }
+
+    public int showBug() {
+        incrementCount();
+        for(int i=0; false; i++){
+            // Inserted unreachable for loop here
+        }
+        return count.get();
+    }
+}

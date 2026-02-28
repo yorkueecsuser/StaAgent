@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "AssertJ methods setting the assertion context should come before an assertion",
+  "Bug_Details": "Describing, setting error message or adding a comparator in AssertJ must be done before calling the\nassertion, otherwise, settings will not be taken into account.\nThis rule raises an issue when one of the method (with all similar methods):\nas describedAs withFailMessage overridingErrorMessage usingComparator usingElementComparator extracting filteredOn\nas\ndescribedAs\nwithFailMessage\noverridingErrorMessage\nusingComparator\nusingElementComparator\nextracting\nfilteredOn\nis called without calling an AssertJ assertion afterward.\nNoncompliant code example\nassertThat(actual).isEqualTo(expected).as(\"Description\"); // Noncompliant\nassertThat(actual).isEqualTo(expected).withFailMessage(\"Fail message\"); // Noncompliant\nassertThat(actual).isEqualTo(expected).usingComparator(new CustomComparator()); // Noncompliant\nCompliant solution\nassertThat(actual).as(\"Description\").isEqualTo(expected);\nassertThat(actual).withFailMessage(\"Fail message\").isEqualTo(expected);\nassertThat(actual).usingComparator(new CustomComparator()).isEqualTo(expected);",
+  "Bug_Explanation": "The bug is that assertion context methods like 'as' or 'withFailMessage' are called after the 'isEqualTo' assertion, but these should be called before to set the context properly. The current code incorrectly calls these methods afterward, ignoring the context.",
+  "Buggy_Line": [
+    10,
+    7
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The tests fail because the 'showBug' method in 'AssertionContextBugDemo' calls assertion context methods after performing assertions, which violates AssertJ usage rules.",
+  "Trigger_Line": [
+    9,
+    16
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.This should describe the assertion context\nThis should be the fail message\n.This should describe the assertion context\nThis should be the fail message\n\nTime: 0.004\n\nOK (2 tests)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results indicate that both tests passed successfully, as denoted by 'OK (2 tests)'. There is no evidence from the test results that the bug was triggered, despite the printed messages indicating incorrect usage."
+}

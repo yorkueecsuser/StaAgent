@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "MustBeClosedChecker",
+  "Bug_Details": "This method returns a resource which must be managed carefully, not just left for garbage collection. If it is a constant that will persist for the lifetime of your program, move it to a private static final field. Otherwise, you should use it in a try-with-resources. Methods or constructors annotated with @MustBeClosed require that the returned\nresource is closed. This is enforced by checking that invocations occur within\nthe resource variable initializer of a try-with-resources statement: try (AutoCloseable resource = createTheResource()) {\n  doSomething(resource);\n} try (AutoCloseable resource = createTheResource()) {\n  doSomething(resource);\n} or the return statement of another method annotated with @MustBeClosed: @MustBeClosed\nAutoCloseable createMyResource() {\n  return createTheResource();\n} @MustBeClosed\nAutoCloseable createMyResource() {\n  return createTheResource();\n} To support legacy code, the following pattern is also supported: AutoCloseable resource = createTheResource();\ntry {\n  doSomething(resource);\n} finally {\n  resource.close();\n} AutoCloseable resource = createTheResource();\ntry {\n  doSomething(resource);\n} finally {\n  resource.close();\n}",
+  "Bug_Explanation": "The bug is embedded in the 'createReader' method, which returns a BufferedReader that is not closed after use in the'showBug' method. This violates the MustBeClosedChecker rule, as the returned resource must be managed carefully and closed explicitly.",
+  "Buggy_Line": [
+    17,
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test method testShowBugTriggersMustBeClosedChecker calls the showBug method, which does not close the BufferedReader returned by createReader. This triggers the MustBeClosedChecker bug as the resource is not properly managed.",
+  "Trigger_Line": [
+    10
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.009\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results show that the test passed without any exceptions or errors, indicating that the bug was not triggered based on the provided test execution results."
+}

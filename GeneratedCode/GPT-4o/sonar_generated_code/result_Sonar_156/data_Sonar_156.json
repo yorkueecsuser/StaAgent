@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "Classes should not be compared by name",
+  "Bug_Details": "There is no requirement that class names be unique, only that they be unique within a package. Therefore trying to determine an object\u2019s type based\non its class name is an exercise fraught with danger. One of those dangers is that a malicious user will send objects of the same name as the trusted\nclass and thereby gain trusted access.\nInstead, the instanceof operator or the Class.isAssignableFrom() method should be used to check the object\u2019s underlying\ntype.\nNoncompliant code example\npackage computer;\nclass Pear extends Laptop { ... }\n\npackage food;\nclass Pear extends Fruit { ... }\n\nclass Store {\n\n  public boolean hasSellByDate(Object item) {\n    if (\"Pear\".equals(item.getClass().getSimpleName())) {  // Noncompliant\n      return true;  // Results in throwing away week-old computers\n    }\n    return false;\n  }\n\n  public boolean isList(Class<T> valueClass) {\n    if (List.class.getName().equals(valueClass.getName())) {  // Noncompliant\n      return true;\n    }\n    return false;\n  }\n}\nCompliant solution\nclass Store {\n\n  public boolean hasSellByDate(Object item) {\n    if (item instanceof food.Pear) {\n      return true;\n    }\n    return false;\n  }\n\n  public boolean isList(Class<T> valueClass) {\n    if (valueClass.isAssignableFrom(List.class)) {\n      return true;\n    }\n    return false;\n  }\n}",
+  "Bug_Explanation": "The code incorrectly compares class names as strings to determine the object type, which is unsafe because class names are not unique across different packages. This can lead to incorrect logic execution, for instance, treating objects from different packages as the same if they share a class name.",
+  "Buggy_Line": [
+    21,
+    14
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The test triggers the bug by calling the showBug() method, which executes the faulty logic in hasSellByDate(Object item). This method uses getClass().getSimpleName() to compare class names, causing Pear objects from different packages to be misclassified.",
+  "Trigger_Line": [
+    5
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

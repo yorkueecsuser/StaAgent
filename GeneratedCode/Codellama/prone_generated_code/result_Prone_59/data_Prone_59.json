@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "FuzzyEqualsShouldNotBeUsedInEqualsMethod",
+  "Bug_Details": "DoubleMath.fuzzyEquals should never be used in an Object.equals() method From documentation: DoubleMath.fuzzyEquals is not transitive, so it is not\nsuitable for use in Object#equals implementations.",
+  "Bug_Explanation": "The intentional bug was embedded in the generated code by using the `DoubleMath.fuzzyEquals(0.00001)` method as the third argument of `Arrays.equals()`. This method is not a standard Java method and cannot be used in an `Object.equals()` method.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_59/seed_Prone_59.java:8: error: no suitable method found for equals(double[],double[],double)\n        System.out.println(Arrays.equals(values, otherValues, 0.00001)); // BUG: FuzzyEqualsShouldNotBeUsedInEqualsMethod\n                                 ^\n    method Arrays.<T#1>equals(T#1[],T#1[],Comparator<? super T#1>) is not applicable\n      (cannot infer type-variable(s) T#1\n        (argument mismatch; double cannot be converted to Comparator<? super T#1>))\n    method Arrays.<T#2>equals(T#2[],int,int,T#2[],int,int,Comparator<? super T#2>) is not applicable\n      (cannot infer type-variable(s) T#2\n        (actual and formal argument lists differ in length))\n  where T#1,T#2 are type-variables:\n    T#1 extends Object declared in method <T#1>equals(T#1[],T#1[],Comparator<? super T#1>)\n    T#2 extends Object declared in method <T#2>equals(T#2[],int,int,T#2[],int,int,Comparator<? super T#2>)\nNote: Some messages have been simplified; recompile with -Xdiags:verbose to get full output\n1 error\n",
+  "Trigger_Explanation": "The test case triggers the bug by asserting that the `Arrays.equals()` method returns `false` when comparing two double arrays with a difference smaller than the tolerance.",
+  "Trigger_Line": [
+    14
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

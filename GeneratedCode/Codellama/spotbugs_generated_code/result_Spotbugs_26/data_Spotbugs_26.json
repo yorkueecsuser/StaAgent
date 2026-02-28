@@ -1,0 +1,17 @@
+{
+  "Bug_Title": "Eq: Covariant equals() method defined for enum (EQ_DONT_DEFINE_EQUALS_FOR_ENUM)\uf0c1",
+  "Bug_Details": " This class defines an enumeration, and equality on enumerations are defined\nusing object identity. Defining a covariant equals method for an enumeration\nvalue is exceptionally bad practice, since it would likely result\nin having two different enumeration values that compare as equals using\nthe covariant enum method, and as not equal when compared normally.\nDon't do it.\n",
+  "Bug_Explanation": "The bug was embedded by defining a covariant equals method for an enum value, which is bad practice since it would likely result in having two different enum values that compare as equals using the covariant enum method, and as not equal when compared normally. The equals method was defined in the enum class itself.",
+  "Buggy_Line": [
+    13
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../spotbugs_clean_java_code/result_Spotbugs_26/seed_Spotbugs_26.java:1: error: enum MyEnum is public, should be declared in a file named MyEnum.java\npublic enum MyEnum {\n       ^\n1 error\n",
+  "Trigger_Explanation": "The test case triggers the bug by calling the `equals` method on an enum value with a different enum value as the argument.",
+  "Trigger_Line": [
+    15,
+    21
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}
