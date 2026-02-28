@@ -1,0 +1,35 @@
+"Your task is ANALYZE the details below to determine if the Test Run Results CONFIRM the presence of the described bug in the Java code. "
+"Evaluate: bug information, Java code, test code, and the specific trigger lines.\n\n "
+
+"===== REQUIRED OUTPUT FORMAT =====\n\n"
+"YOUR RESPONSE MUST BE EXACTLY THIS JSON STRUCTURE:\n"
+"```JSON\n"
+"{\n"
+f'  "{mutant_filename_wo_ext}_Bug_Triggered": "[ONLY Yes OR No]",\n'
+f'  "{mutant_filename_wo_ext}_Bug_Trigger_Explanation": "[explanation based on the bug information, java code, and Test Run Results evidence]"\n'
+"}\n"
+"```\n\n"
+
+"===== INPUT DATA =====\n\n"
+"Bug Information:\n"
+f"- Bug Rule: {title}\n"
+f"- Bug Description: {description}\n\n"
+
+"Code Implementation:\n"
+f"- Java Code:\n{java_code}\n\n"
+
+"Test Implementation:\n"
+f"- Java Test Code:\n{java_test_code}\n"
+f"- Lines in Java Test Code that should trigger the bug:\n{trigger_lines}\n\n"
+
+"Test Execution Results:\n"
+f"- Test Run Results:\n{junit_run_result}\n\n"
+
+"===== CRITICAL REQUIREMENTS =====\n\n"
+"1. OUTPUT MUST BE VALID JSON in the exact format shown above.\n"
+"2. The JSON object is the only permitted output. Do not output any additional comments, notes or commentary outside of the JSON object.\n"
+"3. JSON MUST be enclosed in triple backticks (```) as shown in the provided JSON structure.\n"
+"4. Analysis MUST be based SOLELY on the provided test results.\n"
+f"5. \"{mutant_filename_wo_ext}_Bug_Triggered\" field MUST contain ONLY \"Yes\" or \"No\".\n"
+f"6. \"{mutant_filename_wo_ext}_Bug_Trigger_Explanation\" MUST explain whether test results CONFIRM bug triggering.\n\n"
+"Your analysis must focus on the given rule, code, and the test results to determine if the bug is present in the Java code."
