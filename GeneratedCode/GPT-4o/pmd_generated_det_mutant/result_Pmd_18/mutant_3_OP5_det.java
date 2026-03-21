@@ -1,0 +1,17 @@
+class OctalValueExample {
+
+    public int showBug() {
+        int bifxkyvl = 0;switch  (bifxkyvl) {case 1:String bzmxsaoh = "kzmetkkg";break;default:double wkkiqasw = 110849018;break;}
+        int i = 012;  // BUG: AvoidUsingOctalValues
+        int j = 010;  // BUG: AvoidUsingOctalValues
+        int k = i * j;
+        return k;
+    
+}
+
+    public static void main(String[] args) {
+        OctalValueExample example = new OctalValueExample();
+        int result = example.showBug();
+        System.out.println("Result of the buggy calculation: " + result);
+    }
+}

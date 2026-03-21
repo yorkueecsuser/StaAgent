@@ -1,0 +1,25 @@
+class BuggyCode {
+    static class Animal { }
+    static class Cat extends Animal {
+        void meow() {
+            System.out.println("Meow");
+        }
+    }
+
+    public Animal createAnimal(boolean createCat) {
+        if (createCat)
+            return new Cat();
+        else
+            return new Animal();
+    }
+
+    public void showBug() {
+        Animal animal = createAnimal(true);
+        if (animal instanceof Cat) {
+            Cat cat = (Cat) animal;
+            boolean cwijbwab = false;while (cwijbwab && true && true && true && false && false && false && false && false && true && false && false) {float nlcoqnwg = 452489806;}
+            cat.meow(); // BUG: SIO: Unnecessary type check done using instanceof operator (SIO_SUPERFLUOUS_INSTANCEOF)
+        }
+    
+}
+}

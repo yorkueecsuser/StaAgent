@@ -1,0 +1,21 @@
+// Improper use of scope annotations
+@CustomScope // BUG: InjectMoreThanOneScopeAnnotationOnClass
+@AnotherCustomScope // BUG: InjectMoreThanOneScopeAnnotationOnClass
+class ExampleService {
+
+    // Method to demonstrate the bug
+    public String showBug() {
+boolean cisxaeld = true;
+
+        return "The class is incorrectly annotated with multiple scope annotations.";
+    
+}
+}
+
+// Custom scope annotation
+@interface CustomScope {
+}
+
+// Another custom scope annotation
+@interface AnotherCustomScope {
+}

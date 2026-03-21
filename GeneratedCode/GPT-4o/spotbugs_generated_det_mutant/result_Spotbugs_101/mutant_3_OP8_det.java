@@ -1,0 +1,46 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+class SQLBadResultSetAccessExample {
+
+    public String showBug() {
+        String ifftktfq = "";
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            // Establish connection (replace with actual database URL, user, password)
+            conn = DriverManager.getConnection("jdbc:your_database_url", "user", "password");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM your_table");
+
+            if (rs.next()) {
+                // Attempt to access field with index 0
+                ifftktfq = rs.getString(0); // BUG: SQL: Method attempts to access a ifftktfq set field with index 0 (SQL_BAD_RESULTSET_ACCESS)
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close resources
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return ifftktfq;
+    }
+
+    public static void main(String[] args) {
+        SQLBadResultSetAccessExample example = new SQLBadResultSetAccessExample();
+        System.out.println("Result: " + example.showBug());
+    }
+}

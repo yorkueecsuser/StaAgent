@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "NP: close() invoked on a value that is always null (NP_CLOSING_NULL)\uf0c1",
+  "Bug_Details": " close() is being invoked on a value that is always null. If this statement is executed,\na null pointer exception will occur. But the big risk here you never close\nsomething that should be closed.",
+  "Bug_Explanation": "The bug is that the close() method is invoked on a value that is always null. This will lead to a NullPointerException if the statement is executed, but the bigger risk is that something that should be closed is never closed.",
+  "Buggy_Line": [
+    19
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when the testShowBug method is called. This method attempts to close the inputStream, which is initialized as null in the NullCloseBug constructor. Since the inputStream is null, the close() method will throw a NullPointerException.",
+  "Trigger_Line": [
+    5
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed successfully without any exceptions. This indicates that the close() method was not invoked on a null value, which is the bug described. Therefore, the bug was not triggered in this test run."
+}

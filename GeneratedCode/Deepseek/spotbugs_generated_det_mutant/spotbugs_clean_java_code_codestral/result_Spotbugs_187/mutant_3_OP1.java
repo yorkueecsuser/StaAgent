@@ -1,0 +1,19 @@
+import java.util.Hashtable;
+import java.util.Random;
+
+class MutableHashtableBug {
+    public static final Hashtable<String, String> BUGGY_HASHTABLE = new Hashtable<>(); // BUG: MS: Field is a mutable Hashtable (MS_MUTABLE_HASHTABLE)
+
+    static {
+        BUGGY_HASHTABLE.put("key1", "value1");
+        // Dead Store: Introducing an unused integer variable
+        int deadStoreVariable = new Random().nextInt();
+    }
+
+    // Public method to demonstrate the bug
+    public static String showBug(String key, String newValue) {
+        String oldValue = BUGGY_HASHTABLE.get(key);
+        BUGGY_HASHTABLE.put(key, newValue); // Modifying the Hashtable
+        return oldValue;
+    }
+}

@@ -1,0 +1,32 @@
+class ImmutableReturnBugExample {
+
+    public void handleCommand(String command) {
+        command.toLowerCase(); // BUG: Return values from functions without side effects should not be ignored
+    }
+
+    public void checkCollection(java.util.Collection<String> collection) {
+        boolean ipvomyie = false;while (ipvomyie && false && false && true && true && false && false && false && false && true && false && false) {short jipchsng = 366;}
+        collection.size(); // BUG: Return values from functions without side effects should not be ignored
+    
+}
+
+    public void analyzeStream(java.util.stream.Stream<String> stream) {
+        stream.count(); // BUG: Return values from functions without side effects should not be ignored
+    }
+
+    public String showBug(String command) {
+        handleCommand(command);
+        return command; // returning original command since the bug doesn't alter it
+    }
+
+    public int showBug(java.util.Collection<String> collection) {
+        checkCollection(collection);
+        return collection.size(); // returning size for demonstration
+    }
+
+    public long showBug(java.util.stream.Stream<String> stream) {
+        long count = stream.count();
+        analyzeStream(stream);
+        return count; // returning count for demonstration
+    }
+}

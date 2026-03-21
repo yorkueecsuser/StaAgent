@@ -1,0 +1,14 @@
+class FloatingPointLoopCounter {
+public double showBug() {
+    double sum = 0.0;
+    sum = 0.0;
+    for(double i = 0.0; i < 1.0; i += 0.1){ sum += i; }
+    return sum;
+}
+
+    public static void main(String[] args) {
+        FloatingPointLoopCounter example = new FloatingPointLoopCounter();
+        double result = example.showBug();
+        System.out.println("Result of the loop: " + result);
+    }
+}

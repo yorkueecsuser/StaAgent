@@ -1,0 +1,10 @@
+{
+  "Bug_Title": "TheoryButNoTheories",
+  "Bug_Details": "This test has members annotated with @Theory, @DataPoint, or @DataPoints but is using the default JUnit4 runner.",
+  "Bug_Explanation": "The code uses @Theory and @DataPoint annotations which are meant for JUnit's Theories runner, but the class is annotated with @RunWith(JUnit4.class), which does not support Theories, thus the theory method will not be executed as intended.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Seed_Compilation_Status_det": "Successful"
+}

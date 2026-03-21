@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "MF: Class defines field that masks a superclass field (MF_CLASS_MASKS_FIELD)\uf0c1",
+  "Bug_Details": " This class defines a field with the same name as a visible\ninstance field in a superclass.  This is confusing, and\nmay indicate an error if methods update or access one of\nthe fields when they wanted the other.",
+  "Bug_Explanation": "The Subclass defines a field named'message' that masks a visible instance field in the Superclass. When the'showBug' method is called, it returns the message from Subclass, hiding the one in Superclass.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when the subclass hides a field from its superclass with the same name. In this case, the subclass's'message' field masks the superclass's'message' field. The test case expects the superclass's'message', but the subclass's'message' is returned, causing the test to fail.",
+  "Trigger_Line": [
+    9
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

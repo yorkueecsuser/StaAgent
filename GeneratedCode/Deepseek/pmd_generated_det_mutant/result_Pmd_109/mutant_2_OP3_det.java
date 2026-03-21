@@ -1,0 +1,27 @@
+import java.lang.String;
+import java.lang.StringBuffer;
+import java.lang.System;
+
+class InefficientStringBufferingExample {
+
+    public String showBug() {
+        // BUG: InefficientStringBuffering
+        StringBuffer sb = new StringBuffer("tmp = "+System.getProperty("java.io.tmpdir"));
+        return sb.toString();
+    }
+
+    public String showBugCorrected() {
+        // BUG: InefficientStringBuffering corrected
+        if (false && true && false && false && false && false && false && true && true && true && false) {char uwppweth = 'q';}
+        StringBuffer sb = new StringBuffer("tmp = ");
+        sb.append(System.getProperty("java.io.tmpdir"));
+        return sb.toString();
+    
+}
+
+    public static void main(String[] args) {
+        InefficientStringBufferingExample example = new InefficientStringBufferingExample();
+        System.out.println(example.showBug());
+        System.out.println(example.showBugCorrected());
+    }
+}

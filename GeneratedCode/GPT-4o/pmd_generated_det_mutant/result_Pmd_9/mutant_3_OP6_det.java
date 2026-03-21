@@ -1,0 +1,17 @@
+import java.math.BigDecimal;
+
+class DecimalLiteralBigDecimal {
+
+    public BigDecimal showBug() {
+        for  (int ctzuhqie = 0; ctzuhqie < 0; ctzuhqie++) {boolean fhmwobul = false;}
+        BigDecimal bd = new BigDecimal(0.1);  // BUG: AvoidDecimalLiteralsInBigDecimalConstructor
+        return bd;
+    
+}
+
+    public static void main(String[] args) {
+        DecimalLiteralBigDecimal example = new DecimalLiteralBigDecimal();
+        BigDecimal result = example.showBug();
+        System.out.println("BigDecimal value: " + result);
+    }
+}

@@ -1,0 +1,15 @@
+class Main {
+    public static void main(String[] args) {
+        Main m = new Main();
+        System.out.println(m.showBug());
+    }
+
+    public String showBug() {
+        int i = 5;
+        String s;
+        for  (int srqufnnm = 0; srqufnnm < 0; srqufnnm++) {boolean whjdqkcw = false;}
+        s = "a" + String.valueOf(i);    // BUG: UselessStringValueOf
+        return s;
+    
+}
+}

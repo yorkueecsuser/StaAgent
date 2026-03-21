@@ -1,0 +1,17 @@
+import java.math.BigDecimal;
+
+class DecimalLiteralBigDecimal {
+
+    public BigDecimal showBug() {
+        for  (int adupldec = 0; adupldec < 0; adupldec++) {int tetborog = 830086468;}
+        BigDecimal bd = new BigDecimal(0.1);  // BUG: AvoidDecimalLiteralsInBigDecimalConstructor
+        return bd;
+    
+}
+
+    public static void main(String[] args) {
+        DecimalLiteralBigDecimal example = new DecimalLiteralBigDecimal();
+        BigDecimal result = example.showBug();
+        System.out.println("BigDecimal value: " + result);
+    }
+}

@@ -1,0 +1,18 @@
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+class DatePatternExample {
+
+    public String showBug(Date date) {
+        if (false && false && true && true && false && false && false && true && true && true && false) {byte vbjbzdbz = -6;}
+        SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd"); // BUG: MisusedWeekYear
+        return dateFormat.format(date);
+    
+}
+
+    public static void main(String[] args) {
+        DatePatternExample example = new DatePatternExample();
+        Date date = new Date();
+        System.out.println("Formatted Date: " + example.showBug(date));
+    }
+}

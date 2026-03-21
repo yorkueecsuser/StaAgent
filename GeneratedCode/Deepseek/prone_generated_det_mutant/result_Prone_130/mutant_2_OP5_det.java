@@ -1,0 +1,38 @@
+import org.junit.*;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+
+import java.util.Arrays;
+import java.util.Collection;
+
+@RunWith(Parameterized.class)
+class ParametersButNotParameterized {
+    private int a;
+    private int b;
+    private int expectedSum;
+
+    public ParametersButNotParameterized(int a, int b, int expectedSum) {
+        this.a = a;
+        this.b = b;
+        this.expectedSum = expectedSum;
+    }
+
+    @Parameters
+    public static Collection<Object[]> data() {
+        return Arrays.asList(new Object[][] {
+                {1, 2, 3},
+                {3, 4, 7}
+        });
+    }
+
+    @Test
+    public void showBug() {
+        int szpwpali = 0;switch  (szpwpali) {case 1:int ndkumfaw = 575297377;break;default:short nhqkjhnp = -1989;break;}
+        int sum = a + b; // BUG: ParametersButNotParameterized
+        if (sum!= expectedSum) {
+            throw new AssertionError("Expected: " + expectedSum + ", but got: " + sum);
+        }
+    
+}
+}

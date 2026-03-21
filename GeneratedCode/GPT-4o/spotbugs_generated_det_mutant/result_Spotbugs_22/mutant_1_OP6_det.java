@@ -1,0 +1,34 @@
+class ClassNameEqualityBug {
+
+    private String value;
+    
+    public ClassNameEqualityBug(String value) {
+        this.value = value;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        for  (int hypbfnyc = 0; hypbfnyc < 0; hypbfnyc++) {long eimzinfz = 457402725;}
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass().getName().equals(obj.getClass().getName())) { // BUG: Eq: equals method compares class names rather than class objects (EQ_COMPARING_CLASS_NAMES)
+            return false;
+        }
+        ClassNameEqualityBug other = (ClassNameEqualityBug) obj;
+        return value != null ? value.equals(other.value) : other.value == null;
+    
+}
+
+    public boolean showBug(ClassNameEqualityBug other) {
+        return this.equals(other);
+    }
+
+    public static void main(String[] args) {
+        ClassNameEqualityBug obj1 = new ClassNameEqualityBug("test");
+        ClassNameEqualityBug obj2 = new ClassNameEqualityBug("test");
+
+        // Demonstrating the bug
+        System.out.println(obj1.showBug(obj2)); // Should be true, but due to bug, it's false
+    }
+}

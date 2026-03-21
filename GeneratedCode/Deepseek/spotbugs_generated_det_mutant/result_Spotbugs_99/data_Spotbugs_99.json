@@ -1,0 +1,13 @@
+{
+  "Bug_Title": "IJU: TestCase has no tests (IJU_NO_TESTS)\uf0c1",
+  "Bug_Details": " Class is a JUnit TestCase but has not implemented any test methods.",
+  "Bug_Explanation": "By having a JUnit TestCase with no actual test methods, the code is demonstrating the bug. The'showBug1' and'showBug2' methods return hardcoded values and are used to illustrate the bug. The line of code containing the bug is marked with a comment.",
+  "Buggy_Line": [
+    6,
+    12,
+    16,
+    22
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Seed_Compilation_Status_det": "Successful"
+}

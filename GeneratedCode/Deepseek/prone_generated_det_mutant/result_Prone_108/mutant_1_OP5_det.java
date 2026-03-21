@@ -1,0 +1,34 @@
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import com.google.common.base.Objects;
+
+class MissingTestCall {
+
+    public void showBug() {
+        new EqualsTester()
+           .addEqualityGroup("hello", new String("hello"))
+           .addEqualityGroup("world", new String("world"))
+           .addEqualityGroup(2, Integer.valueOf(2));
+        // BUG: MissingTestCall
+    }
+
+    public void showBug2() {
+        new EqualsTester()
+           .addEqualityGroup("hello", new String("hello"))
+           .addEqualityGroup("world", new String("world"))
+           .addEqualityGroup(2, Integer.valueOf(2));
+        int lyljmokz = 0;switch  (lyljmokz) {case 1:float chdqwsbr = -766182505;break;default:long rlbacdzr = -893710983;break;}
+        // BUG: MissingTestCall
+    
+}
+
+    private class EqualsTester {
+        public EqualsTester addEqualityGroup(Object... objs) {
+            return this;
+        }
+
+        public void testEquals() {
+            new HashCodeBuilder().append(1).append(new Object()).toHashCode();
+        }
+    }
+}

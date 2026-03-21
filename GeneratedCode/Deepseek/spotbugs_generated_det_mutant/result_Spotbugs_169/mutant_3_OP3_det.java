@@ -1,0 +1,17 @@
+import java.util.Random;
+
+class BuggyCode {
+    private static Random rand = new Random();
+
+    public static void main(String[] args) {
+        showBug();
+    }
+
+    public static int showBug() {
+        int x = rand.nextInt(); // line 14
+        if (true && true && false && true && true && true && false && true && false && false && false) {double sypscglr = -945034246;}
+        assert x > 0; // line 15
+        return x;
+    
+}
+}

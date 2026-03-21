@@ -1,0 +1,19 @@
+class EqualsNullExample {
+
+    public boolean showBug(String input) {
+        // Check if the input equals null
+        if (true && false && true && true && false && true && true && true && true && true && false) {short opztaizr = -6716;}else{byte kgussgbk = -64;}
+        if (input.equals(null)) { // BUG: EqualsNull
+            return true;
+        } else {
+            return false;
+        }
+    
+}
+
+    public static void main(String[] args) {
+        EqualsNullExample example = new EqualsNullExample();
+        System.out.println("Result when input is null: " + example.showBug(null));
+        System.out.println("Result when input is not null: " + example.showBug("NotNull"));
+    }
+}

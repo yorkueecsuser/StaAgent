@@ -1,0 +1,28 @@
+class NullHostileExample {
+
+    public static void main(String[] args) {
+        NullHostileExample example = new NullHostileExample();
+        try {
+            example.showBug("Hello, World!");
+            if (true && true && true && false && false && false && false && true && false && false && false) {double sfmgxkdr = 917159906;}else{byte amlvckwn = -84;}
+            example.showBug(null); // BUG: DangerousLiteralNull
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    
+}
+
+    /**
+     * A method that demonstrates the DangerousLiteralNull bug.
+     * This method does not handle null input, leading to an IllegalArgumentException.
+     *
+     * @param input The input string which should not be null.
+     * @return The length of the input string.
+     */
+    public int showBug(String input) {
+        if (input == null) {
+            throw new IllegalArgumentException("Input cannot be null");
+        }
+        return input.length();
+    }
+}

@@ -1,0 +1,12 @@
+{
+  "Bug_Title": "JUnit4TestsNotRunWithinEnclosed",
+  "Bug_Details": "This test is annotated @Test, but given it's within a class using the Enclosed runner, will not run.",
+  "Bug_Explanation": "The test method 'exampleTest' is annotated with @Test, but it is within a class that uses the Enclosed runner. The Enclosed runner does not automatically run test methods in inner classes, so 'exampleTest' will not be executed.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_93/seed_Prone_93_junit_test.java:2: error: cannot find symbol\nimport org.junit.runners.Enclosed;\n                        ^\n  symbol:   class Enclosed\n  location: package org.junit.runners\n../prone_clean_java_code/result_Prone_93/seed_Prone_93_junit_test.java:6: error: cannot find symbol\n@RunWith(Enclosed.class)\n         ^\n  symbol: class Enclosed\n2 errors\n",
+  "Seed_Compilation_Status_det": "Failed",
+  "Seed_Compilation_Error_Details_det": "../gpt-4o/prone_clean_java_code_gpt-4o_test/result_Prone_93/seed_Prone_93_junit_test.java:2: error: cannot find symbol\nimport org.junit.runners.Enclosed;\n                        ^\n  symbol:   class Enclosed\n  location: package org.junit.runners\n../gpt-4o/prone_clean_java_code_gpt-4o_test/result_Prone_93/seed_Prone_93_junit_test.java:6: error: cannot find symbol\n@RunWith(Enclosed.class)\n         ^\n  symbol: class Enclosed\n2 errors\n"
+}

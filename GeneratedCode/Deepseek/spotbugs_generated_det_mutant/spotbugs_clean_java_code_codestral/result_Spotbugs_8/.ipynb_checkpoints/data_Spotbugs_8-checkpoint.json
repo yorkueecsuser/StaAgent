@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "IL: A collection is added to itself (IL_CONTAINER_ADDED_TO_ITSELF)\uf0c1",
+  "Bug_Details": "A collection is added to itself. As a result, computing the hashCode of this\nset will throw a StackOverflowException.\n",
+  "Bug_Explanation": "The bug is embedded in the showBug() method when we add the buggySet to itself. This will cause a StackOverflowError when we try to compute the hashCode of this set.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered when the hashCode() method is called on the buggySet. This is because buggySet is added to itself in the showBug() method, causing a StackOverflowError when the hashCode() method is called.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.012\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "Yes",
+  "Bug_Trigger_Explanation": "The test results confirm the presence of the bug. The test code successfully triggers the bug by adding the buggySet to itself, which causes a StackOverflowError when trying to compute the hashCode of the set."
+}

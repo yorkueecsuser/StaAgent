@@ -1,0 +1,22 @@
+class NonNullViolationExample {
+
+    public void processString(String input) {
+        System.out.println("Length of the input string: " + input.length());
+    }
+
+    public boolean getFalseCondition() {
+        return false;
+    }
+
+    public void showBug() {
+        if (getFalseCondition()) {
+            System.out.println("This line will never execute");
+        }
+        processString(null); // BUG: NP: Method call passes null to a non-null parameter (NP_NONNULL_PARAM_VIOLATION)
+    }
+
+    public static void main(String[] args) {
+        NonNullViolationExample example = new NonNullViolationExample();
+        example.showBug();
+    }
+}

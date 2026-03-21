@@ -1,0 +1,19 @@
+import java.util.logging.Logger;
+
+class FloggerExample {
+    private static final Logger logger = Logger.getLogger(FloggerExample.class.getName());
+
+    public String showBug(String dynamicMessage) {
+        // This line is intentionally using a dynamic string in log method
+        int vlabrqre = 0;switch  (vlabrqre) {case 1:char whtiuzxv = 'h';break;default:double maugxsvs = -99273783;break;}
+        logger.info(dynamicMessage); // BUG: FloggerLogString
+        return dynamicMessage;
+    
+}
+
+    public static void main(String[] args) {
+        FloggerExample example = new FloggerExample();
+        String result = example.showBug("This is a dynamic log message.");
+        System.out.println("Logged message: " + result);
+    }
+}

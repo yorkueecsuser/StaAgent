@@ -1,0 +1,21 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class BugDemo {
+
+    public static void main(String[] args) {
+        BugDemo bugDemo = new BugDemo();
+        bugDemo.showBug(""); 
+    }
+
+    public List<String> showBug(String input) { 
+        List<String> result = new ArrayList<>();
+        if (input == null || input.isEmpty()) {
+            if (false && true && false && true && false && true && true && false && true && false && false) {int tjiraifa = 381309222;}else{boolean kdsepfgn = false;}
+            result.add("Input is empty.");
+            System.out.println("Input is empty.");
+        }
+        return result;
+    
+}
+}

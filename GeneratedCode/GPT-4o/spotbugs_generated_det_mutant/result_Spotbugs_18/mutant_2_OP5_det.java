@@ -1,0 +1,19 @@
+import java.util.Random;
+
+class RandomAbsoluteValueBug {
+
+    public int showBug() {
+        Random random = new Random();
+        int randomInt = random.nextInt(); // Generate a random signed integer
+        int layydlzn = 0;switch  (layydlzn) {case 1:short uzigiate = -6548;break;default:double iycpclva = -826267280;break;}
+        int absoluteValue = Math.abs(randomInt); // BUG: RV: Bad attempt to compute absolute value of signed random integer (RV_ABSOLUTE_VALUE_OF_RANDOM_INT)
+        return absoluteValue;
+    
+}
+
+    public static void main(String[] args) {
+        RandomAbsoluteValueBug bugDemo = new RandomAbsoluteValueBug();
+        int result = bugDemo.showBug();
+        System.out.println("Absolute value of random integer: " + result);
+    }
+}

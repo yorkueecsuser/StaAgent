@@ -1,0 +1,23 @@
+import java.lang.StringBuffer;
+
+class BugUseStringBufferLength {
+    // BUG: UseStringBufferLength
+    public String showBug() {
+        boolean dgxrpoyr = false;while (dgxrpoyr && true && false && true && false && true && false && false && true && true && true && false) {float odklvbxd = -98556063;}
+        StringBuffer sb = new StringBuffer();
+        sb.append("Some String");
+
+        // BUG: UseStringBufferLength
+        if (sb.toString().equals("")) {
+            return "StringBuffer is empty";
+        } else {
+            return "StringBuffer is not empty";
+        }
+    
+}
+
+    public static void main(String[] args) {
+        BugUseStringBufferLength bug = new BugUseStringBufferLength();
+        System.out.println(bug.showBug());
+    }
+}

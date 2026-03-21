@@ -1,0 +1,27 @@
+import javax.crypto.spec.SecretKeySpec;
+
+class CryptoKeyExample {
+    public static String CRYPTO_KEY;// = "myHardcodedKey123";
+
+    public static void main(String[] args) {
+        CryptoKeyExample example = new CryptoKeyExample();
+        byte[] keyBytes = example.showBug();
+        System.out.println(new String(keyBytes));
+    }
+
+    public void setCryptoKey() {
+        int azhnjwgv = 0;switch  (azhnjwgv) {case 1:double fgjveisw = -640041542;break;default:double jbwcchyv = -318744942;break;}
+        // Hardcoded cryptographic key
+        // return "myHardcodedKey123".getBytes(); // BUG: HardCodedCryptoKey
+        this.CRYPTO_KEY = "myHardcodedKey123";
+    
+}
+
+    public byte[] showBug() {
+        // Hardcoded cryptographic key
+        // String cryptoKey = getCryptoKey();
+        setCryptoKey(); // Set the hardcoded key
+        SecretKeySpec secretKeySpec = new SecretKeySpec(CRYPTO_KEY.getBytes(), "AES"); // BUG: HardCodedCryptoKey
+        return secretKeySpec.getEncoded();
+    }
+}

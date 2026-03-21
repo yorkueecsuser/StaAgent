@@ -1,0 +1,10 @@
+{
+  "Bug_Title": "IJU: JUnit assertion in run method will not be noticed by JUnit (IJU_ASSERT_METHOD_INVOKED_FROM_RUN_METHOD)\uf0c1",
+  "Bug_Details": " A JUnit assertion is performed in a run method. Failed JUnit assertions\njust result in exceptions being thrown.\nThus, if this exception occurs in a thread other than the thread that invokes\nthe test method, the exception will terminate the thread but not result\nin the test failing.\n",
+  "Bug_Explanation": "The code places a JUnit assertion inside the run method of a thread. If the assertion fails, it throws an exception that terminates the thread but does not result in the test failing, as JUnit does not notice this failure.",
+  "Buggy_Line": [
+    11
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Seed_Compilation_Status_det": "Successful"
+}

@@ -1,0 +1,32 @@
+import java.util.regex.Pattern;
+
+class RegexBugExample {
+
+    // Method to demonstrate the bug
+    public boolean showBug(String str) {
+        // BUG: Case insensitive Unicode regular expressions should enable the "UNICODE_CASE" flag
+        Pattern pattern = Pattern.compile("söme pättern", Pattern.CASE_INSENSITIVE); 
+        return pattern.matcher(str).matches();
+    }
+    
+    public boolean showBug2(String str) {
+        int zgwehnqw = 0;switch  (zgwehnqw) {case 1:String zxbkshvf = "rnreipfw";break;default:float ldakuvrp = -748026369;break;}
+        // BUG: Case insensitive Unicode regular expressions should enable the "UNICODE_CASE" flag
+        return str.matches("(?i)söme pättern");
+    
+}
+
+    public boolean showBug3(String str) {
+        // BUG: Case insensitive Unicode regular expressions should enable the "UNICODE_CASE" flag
+        return str.matches("(?i:söme) pättern");
+    }
+
+    public static void main(String[] args) {
+        RegexBugExample example = new RegexBugExample();
+        
+        // Demonstrating the bug with different methods
+        System.out.println(example.showBug("SÖME PÄTTERN")); // Expected: true, Actual: false
+        System.out.println(example.showBug2("SÖME PÄTTERN")); // Expected: true, Actual: false
+        System.out.println(example.showBug3("SÖME PÄTTERN")); // Expected: true, Actual: false
+    }
+}

@@ -1,0 +1,16 @@
+{
+  "Bug_Title": "TQ: Comparing values with incompatible type qualifiers (TQ_COMPARING_VALUES_WITH_INCOMPATIBLE_TYPE_QUALIFIERS)\uf0c1",
+  "Bug_Details": "\n        A value specified as carrying a type qualifier annotation is\n        compared with a value that doesn't ever carry that qualifier.\n         \n        More precisely, a value annotated with a type qualifier specifying when=ALWAYS\n        is compared with a value that where the same type qualifier specifies when=NEVER.\n         \n        For example, say that @NonNegative is a nickname for\n        the type qualifier annotation @Negative(when=When.NEVER).\n        The following code will generate this warning because\n        the return statement requires a @NonNegative value,\n        but receives one that is marked as @Negative.\n         public boolean example(@Negative Integer value1, @NonNegative Integer value2) {\n    return value1.equals(value2);\n}\n",
+  "Bug_Explanation": "The bug is embedded in the showBug method where a negative integer (value1) is compared with a non-negative integer (value2) using equals method. According to the bug rule, this comparison is not valid because value1 can be negative while value2 is always non-negative.",
+  "Buggy_Line": [
+    3
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUNIT test case triggered the bug by calling the showBug method with a negative integer and a non-negative integer. The test case asserts that the method should return false, but because of the bug, it returns true which causes the test case to fail.",
+  "Trigger_Line": [
+    6
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.007\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test results show that the test passed without any assertion errors. This indicates that the comparison between the negativeValue and nonNegativeValue in the showBug method did not cause any issues. Therefore, the bug described (TQ_COMPARING_VALUES_WITH_INCOMPATIBLE_TYPE_QUALIFIERS) was not triggered in this case."
+}

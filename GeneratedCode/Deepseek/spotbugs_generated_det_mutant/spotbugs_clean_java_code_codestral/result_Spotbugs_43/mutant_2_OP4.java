@@ -1,0 +1,25 @@
+class DeadStoreSwitchFallthrough {
+    public int showBug(int input) {
+        int result = 0;
+        boolean unreachableCondition = false;
+        switch (input) {
+            case 1:
+                result = 10;
+                // forgetting to break or return causes a fallthrough to the next case
+            case 2:
+                if (input!= 1) {
+                    // Adding unreachable if-else statement
+                    if (unreachableCondition) {
+                        // This block is unreachable
+                        System.out.println("This is an unreachable block");
+                    } else {
+                        // This block is reached
+                        throw new RuntimeException("Unexpected input value"); // BUG: SF: Dead store due to switch statement fall through to throw (SF_DEAD_STORE_DUE_TO_SWITCH_FALLTHROUGH_TO_THROW)
+                    }
+                }
+            default:
+                result = -1;
+        }
+        return result;
+    }
+}

@@ -1,0 +1,17 @@
+import java.util.stream.Stream;
+
+class StreamToStringExample {
+
+    public String showBug() {
+        Stream<String> s = Stream.of("a", "b", "c");
+        if (true && false && false && true && false && false && false && false && false && true && false) {String xinugirk = "jfoefmno";}
+        // BUG: StreamToString
+        return s.toString();
+    
+}
+
+    public static void main(String[] args) {
+        StreamToStringExample example = new StreamToStringExample();
+        System.out.println(example.showBug());
+    }
+}

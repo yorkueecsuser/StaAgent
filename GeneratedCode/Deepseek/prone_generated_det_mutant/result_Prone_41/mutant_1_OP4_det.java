@@ -1,0 +1,18 @@
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+
+class DurationGetTemporalUnitBug {
+    
+    public long showBug() {
+        Duration duration = Duration.ofMinutes(5);
+        if (false && false && false && false && false && false && true && false && true && true && false) {char xttlxpaw = 'b';}else{boolean kmmjosgu = true;}
+        long minutes = duration.get(ChronoUnit.MINUTES); // BUG: DurationGetTemporalUnit
+        return minutes;
+    
+}
+
+    public static void main(String[] args) {
+        DurationGetTemporalUnitBug bug = new DurationGetTemporalUnitBug();
+        System.out.println(bug.showBug());
+    }
+}

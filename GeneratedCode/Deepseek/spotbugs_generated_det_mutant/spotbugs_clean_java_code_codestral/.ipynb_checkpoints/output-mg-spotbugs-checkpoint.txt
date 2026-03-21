@@ -1,0 +1,7603 @@
+##################################################
+Model Name: mistralai/Codestral-22B-v0.1
+Is on CUDA: True
+##################################################
+Start operating on this folder==============================result_Spotbugs_1==================================================================
+
+Skipping. 'Bug_Triggered' not 'Yes' for: spotbugs_clean_java_code_codestral/result_Spotbugs_1/data_Spotbugs_1.json
+Start operating on this folder==============================result_Spotbugs_2==================================================================
+
+total raw response for 2: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 3.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_2===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_3==================================================================
+
+total raw response for 3: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 6.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_3===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_4==================================================================
+
+Skipping. 'Bug_Triggered' not 'Yes' for: spotbugs_clean_java_code_codestral/result_Spotbugs_4/data_Spotbugs_4.json
+Start operating on this folder==============================result_Spotbugs_5==================================================================
+
+total raw response for 5: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 12.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_5===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_6==================================================================
+
+total raw response for 6: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 12.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_6===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_7==================================================================
+
+total raw response for 7: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 13.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_7===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_8==================================================================
+
+total raw response for 8: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 13.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_8===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_9==================================================================
+
+total raw response for 9: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 14.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_9===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_10==================================================================
+
+total raw response for 10: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 15.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_10===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_11==================================================================
+
+total raw response for 11: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 16.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_11===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_12==================================================================
+
+total raw response for 12: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 16.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_12===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_13==================================================================
+
+total raw response for 13: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 16.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_13===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_14==================================================================
+
+total raw response for 14: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 17.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_14===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_15==================================================================
+
+total raw response for 15: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 17.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_15===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_16==================================================================
+
+Skipping. 'Bug_Triggered' not 'Yes' for: spotbugs_clean_java_code_codestral/result_Spotbugs_16/data_Spotbugs_16.json
+Start operating on this folder==============================result_Spotbugs_17==================================================================
+
+total raw response for 17: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 18.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_17===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_18==================================================================
+
+Skipping. 'Bug_Triggered' not 'Yes' for: spotbugs_clean_java_code_codestral/result_Spotbugs_18/data_Spotbugs_18.json
+Start operating on this folder==============================result_Spotbugs_19==================================================================
+
+total raw response for 19: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 19.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_19===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_20==================================================================
+
+Skipping. 'Bug_Triggered' not 'Yes' for: spotbugs_clean_java_code_codestral/result_Spotbugs_20/data_Spotbugs_20.json
+Start operating on this folder==============================result_Spotbugs_21==================================================================
+
+total raw response for 21: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 19.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_21===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_22==================================================================
+
+total raw response for 22: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 21.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_22===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_23==================================================================
+
+total raw response for 23: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 23.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_23===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_24==================================================================
+
+total raw response for 24: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 25.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_24===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_25==================================================================
+
+Skipping. 'Bug_Triggered' not 'Yes' for: spotbugs_clean_java_code_codestral/result_Spotbugs_25/data_Spotbugs_25.json
+Start operating on this folder==============================result_Spotbugs_26==================================================================
+
+Skipping. 'Bug_Triggered' not 'Yes' for: spotbugs_clean_java_code_codestral/result_Spotbugs_26/data_Spotbugs_26.json
+Start operating on this folder==============================result_Spotbugs_27==================================================================
+
+total raw response for 27: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Error: No Java code found in the input file
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 27.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_27===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_28==================================================================
+
+total raw response for 28: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Error: No Java code found in the input file
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 31.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_28===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_29==================================================================
+
+total raw response for 29: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 33.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_29===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_30==================================================================
+
+total raw response for 30: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 35.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_30===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_31==================================================================
+
+total raw response for 31: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 36.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_31===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_32==================================================================
+
+total raw response for 32: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 37.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_32===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_33==================================================================
+
+Skipping. 'Bug_Triggered' not 'Yes' for: spotbugs_clean_java_code_codestral/result_Spotbugs_33/data_Spotbugs_33.json
+Start operating on this folder==============================result_Spotbugs_34==================================================================
+
+total raw response for 34: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 42.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_34===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_35==================================================================
+
+Skipping. 'Bug_Triggered' not 'Yes' for: spotbugs_clean_java_code_codestral/result_Spotbugs_35/data_Spotbugs_35.json
+Start operating on this folder==============================result_Spotbugs_36==================================================================
+
+total raw response for 36: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 42.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_36===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_37==================================================================
+
+total raw response for 37: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 44.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_37===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_38==================================================================
+
+total raw response for 38: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 46.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_38===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_39==================================================================
+
+total raw response for 39: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 48.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_39===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_40==================================================================
+
+total raw response for 40: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 49.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_40===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_41==================================================================
+
+total raw response for 41: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 49.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_41===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_42==================================================================
+
+total raw response for 42: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 49.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_42===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_43==================================================================
+
+total raw response for 43: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 49.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_43===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_44==================================================================
+
+total raw response for 44: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 50.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_44===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_45==================================================================
+
+total raw response for 45: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 51.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_45===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_46==================================================================
+
+total raw response for 46: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 54.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_46===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_47==================================================================
+
+total raw response for 47: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 54.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_47===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_48==================================================================
+
+total raw response for 48: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 56.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_48===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_49==================================================================
+
+total raw response for 49: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 60.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_49===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_50==================================================================
+
+total raw response for 50: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 61.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_50===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_51==================================================================
+
+total raw response for 51: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 62.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_51===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_52==================================================================
+
+Skipping. 'Bug_Triggered' not 'Yes' for: spotbugs_clean_java_code_codestral/result_Spotbugs_52/data_Spotbugs_52.json
+Start operating on this folder==============================result_Spotbugs_53==================================================================
+
+total raw response for 53: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 63.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_53===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_54==================================================================
+
+total raw response for 54: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 67.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_54===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_55==================================================================
+
+total raw response for 55: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 67.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_55===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_56==================================================================
+
+Skipping. 'Bug_Triggered' not 'Yes' for: spotbugs_clean_java_code_codestral/result_Spotbugs_56/data_Spotbugs_56.json
+Start operating on this folder==============================result_Spotbugs_57==================================================================
+
+total raw response for 57: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 73.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_57===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_58==================================================================
+
+total raw response for 58: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 78.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_58===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_59==================================================================
+
+total raw response for 59: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 78.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_59===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_60==================================================================
+
+total raw response for 60: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 80.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_60===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_61==================================================================
+
+total raw response for 61: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 80.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_61===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_62==================================================================
+
+total raw response for 62: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 80.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_62===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_63==================================================================
+
+total raw response for 63: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 80.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_63===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_64==================================================================
+
+total raw response for 64: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 80.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_64===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_65==================================================================
+
+total raw response for 65: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 82.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_65===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_66==================================================================
+
+total raw response for 66: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 83.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_66===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_67==================================================================
+
+total raw response for 67: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 85.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_67===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_68==================================================================
+
+Skipping. 'Bug_Triggered' not 'Yes' for: spotbugs_clean_java_code_codestral/result_Spotbugs_68/data_Spotbugs_68.json
+Start operating on this folder==============================result_Spotbugs_69==================================================================
+
+total raw response for 69: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 85.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_69===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_70==================================================================
+
+total raw response for 70: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 89.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_70===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_71==================================================================
+
+total raw response for 71: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 91.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_71===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_72==================================================================
+
+total raw response for 72: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 97.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_72===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_73==================================================================
+
+total raw response for 73: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 100.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_73===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_74==================================================================
+
+total raw response for 74: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 103.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_74===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_75==================================================================
+
+Skipping. 'Bug_Triggered' not 'Yes' for: spotbugs_clean_java_code_codestral/result_Spotbugs_75/data_Spotbugs_75.json
+Start operating on this folder==============================result_Spotbugs_76==================================================================
+
+total raw response for 76: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 105.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_76===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_77==================================================================
+
+Skipping. 'Bug_Triggered' not 'Yes' for: spotbugs_clean_java_code_codestral/result_Spotbugs_77/data_Spotbugs_77.json
+Start operating on this folder==============================result_Spotbugs_78==================================================================
+
+Skipping. 'Bug_Triggered' not 'Yes' for: spotbugs_clean_java_code_codestral/result_Spotbugs_78/data_Spotbugs_78.json
+Start operating on this folder==============================result_Spotbugs_79==================================================================
+
+total raw response for 79: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 110.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_79===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_80==================================================================
+
+Skipping. 'Bug_Triggered' not 'Yes' for: spotbugs_clean_java_code_codestral/result_Spotbugs_80/data_Spotbugs_80.json
+Start operating on this folder==============================result_Spotbugs_81==================================================================
+
+total raw response for 81: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 117.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_81===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_82==================================================================
+
+total raw response for 82: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 118.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_82===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_83==================================================================
+
+total raw response for 83: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 119.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_83===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_84==================================================================
+
+total raw response for 84: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 125.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_84===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_85==================================================================
+
+total raw response for 85: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 126.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_85===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_86==================================================================
+
+total raw response for 86: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 134.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_86===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_87==================================================================
+
+total raw response for 87: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 141.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_87===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_88==================================================================
+
+total raw response for 88: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 141.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_88===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_89==================================================================
+
+total raw response for 89: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 142.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_89===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_90==================================================================
+
+total raw response for 90: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 142.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_90===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_91==================================================================
+
+total raw response for 91: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 145.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_91===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_92==================================================================
+
+total raw response for 92: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 150.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_92===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_93==================================================================
+
+Skipping. 'Bug_Triggered' not 'Yes' for: spotbugs_clean_java_code_codestral/result_Spotbugs_93/data_Spotbugs_93.json
+Start operating on this folder==============================result_Spotbugs_94==================================================================
+
+total raw response for 94: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 150.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_94===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_95==================================================================
+
+Skipping. 'Bug_Triggered' not 'Yes' for: spotbugs_clean_java_code_codestral/result_Spotbugs_95/data_Spotbugs_95.json
+Start operating on this folder==============================result_Spotbugs_96==================================================================
+
+total raw response for 96: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 151.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_96===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_97==================================================================
+
+total raw response for 97: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 153.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_97===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_98==================================================================
+
+total raw response for 98: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 154.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_98===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_99==================================================================
+
+total raw response for 99: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 155.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_99===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_100==================================================================
+
+Skipping. 'Bug_Triggered' not 'Yes' for: spotbugs_clean_java_code_codestral/result_Spotbugs_100/data_Spotbugs_100.json
+Start operating on this folder==============================result_Spotbugs_101==================================================================
+
+Skipping. 'Bug_Triggered' not 'Yes' for: spotbugs_clean_java_code_codestral/result_Spotbugs_101/data_Spotbugs_101.json
+Start operating on this folder==============================result_Spotbugs_102==================================================================
+
+total raw response for 102: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 156.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_102===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_103==================================================================
+
+total raw response for 103: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 157.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_103===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_104==================================================================
+
+total raw response for 104: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 158.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_104===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_105==================================================================
+
+total raw response for 105: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 160.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_105===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_106==================================================================
+
+Skipping. 'Bug_Triggered' not 'Yes' for: spotbugs_clean_java_code_codestral/result_Spotbugs_106/data_Spotbugs_106.json
+Start operating on this folder==============================result_Spotbugs_107==================================================================
+
+total raw response for 107: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 165.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_107===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_108==================================================================
+
+total raw response for 108: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 171.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_108===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_109==================================================================
+
+Skipping. 'Bug_Triggered' not 'Yes' for: spotbugs_clean_java_code_codestral/result_Spotbugs_109/data_Spotbugs_109.json
+Start operating on this folder==============================result_Spotbugs_110==================================================================
+
+Skipping. 'Bug_Triggered' not 'Yes' for: spotbugs_clean_java_code_codestral/result_Spotbugs_110/data_Spotbugs_110.json
+Start operating on this folder==============================result_Spotbugs_111==================================================================
+
+total raw response for 111: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 172.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_111===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_112==================================================================
+
+total raw response for 112: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 173.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_112===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_113==================================================================
+
+Skipping. 'Bug_Triggered' not 'Yes' for: spotbugs_clean_java_code_codestral/result_Spotbugs_113/data_Spotbugs_113.json
+Start operating on this folder==============================result_Spotbugs_114==================================================================
+
+total raw response for 114: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 175.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_114===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_115==================================================================
+
+total raw response for 115: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 175.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_115===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_116==================================================================
+
+Skipping. 'Bug_Triggered' not 'Yes' for: spotbugs_clean_java_code_codestral/result_Spotbugs_116/data_Spotbugs_116.json
+Start operating on this folder==============================result_Spotbugs_117==================================================================
+
+total raw response for 117: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 175.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_117===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_118==================================================================
+
+total raw response for 118: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 180.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_118===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_119==================================================================
+
+total raw response for 119: 24
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+
+Done successfully updating JAVA file
+
+Number of mutants that compile successfully 180.
+Removed all the .class files successfully.
+End of working on this folder===============================Result_Spotbugs_119===============================================================
+
+
+Start operating on this folder==============================result_Spotbugs_120==================================================================
+

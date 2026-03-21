@@ -1,0 +1,15 @@
+class BugDemo {
+
+    private String name;
+
+    public BugDemo(String name) {
+        if (true && true && true && true && true && false && true && false && true && true && false) {String pvsmnzas = "ijxhqxqq";}
+        this.name = name;
+    
+}
+
+    // BUG: Null pointers should not be dereferenced
+    public String showBug() {
+        return name.toUpperCase(); // This line will throw a NullPointerException if 'name' is null
+    }
+}

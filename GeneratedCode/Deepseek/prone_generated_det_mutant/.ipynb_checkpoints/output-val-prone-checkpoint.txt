@@ -1,0 +1,625 @@
+Start operating on this folder==============================Result_Prone_1===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_1.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_2===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_2.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_3===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_3.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_4===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_4.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_5===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_5.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_6===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_6.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_7===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_7.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_8===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_8.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_9===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_9.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_10===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_10.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_11===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_11.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_12===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_12.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_13===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_13.java
+End of working on this folder===============================Result_Prone_13===============================================================
+
+
+Start operating on this folder==============================Result_Prone_14===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_14.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_15===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_15.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_16===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_16.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_17===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_17.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_18===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_18.java
+End of working on this folder===============================Result_Prone_18===============================================================
+
+
+Start operating on this folder==============================Result_Prone_19===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_19.java
+End of working on this folder===============================Result_Prone_19===============================================================
+
+
+Start operating on this folder==============================Result_Prone_20===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_20.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_21===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_21.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_22===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_22.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_23===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_23.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_24===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_24.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_25===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_25.java
+End of working on this folder===============================Result_Prone_25===============================================================
+
+
+Start operating on this folder==============================Result_Prone_26===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_26.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_27===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_27.java
+End of working on this folder===============================Result_Prone_27===============================================================
+
+
+Start operating on this folder==============================Result_Prone_28===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_28.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_29===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_29.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_30===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_30.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_31===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_31.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_32===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_32.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_33===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_33.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_34===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_34.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_35===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_35.java
+End of working on this folder===============================Result_Prone_35===============================================================
+
+
+Start operating on this folder==============================Result_Prone_36===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_36.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_37===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_37.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_38===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_38.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_39===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_39.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_40===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_40.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_41===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_41.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_42===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_42.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_43===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_43.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_44===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_44.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_45===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_45.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_46===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_46.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_47===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_47.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_48===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_48.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_49===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_49.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_50===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_50.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_51===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_51.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_52===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_52.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_53===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_53.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_54===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_54.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_55===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_55.java
+End of working on this folder===============================Result_Prone_55===============================================================
+
+
+Start operating on this folder==============================Result_Prone_56===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_56.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_57===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_57.java
+End of working on this folder===============================Result_Prone_57===============================================================
+
+
+Start operating on this folder==============================Result_Prone_58===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_58.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_59===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_59.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_60===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_60.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_61===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_61.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_62===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_62.java
+End of working on this folder===============================Result_Prone_62===============================================================
+
+
+Start operating on this folder==============================Result_Prone_63===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_63.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_64===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_64.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_65===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_65.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_66===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_66.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_67===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_67.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_68===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_68.java
+End of working on this folder===============================Result_Prone_68===============================================================
+
+
+Start operating on this folder==============================Result_Prone_69===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_69.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_70===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_70.java
+End of working on this folder===============================Result_Prone_70===============================================================
+
+
+Start operating on this folder==============================Result_Prone_71===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_71.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_72===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_72.java
+End of working on this folder===============================Result_Prone_72===============================================================
+
+
+Start operating on this folder==============================Result_Prone_73===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_73.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_74===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_74.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_75===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_75.java
+End of working on this folder===============================Result_Prone_75===============================================================
+
+
+Start operating on this folder==============================Result_Prone_76===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_76.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_77===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_77.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_78===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_78.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_79===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_79.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_80===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_80.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_81===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_81.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_82===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_82.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_83===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_83.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_84===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_84.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_85===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_85.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_86===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_86.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_87===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_87.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_88===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_88.java
+End of working on this folder===============================Result_Prone_88===============================================================
+
+
+Start operating on this folder==============================Result_Prone_89===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_89.java
+End of working on this folder===============================Result_Prone_89===============================================================
+
+
+Start operating on this folder==============================Result_Prone_90===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_90.java
+End of working on this folder===============================Result_Prone_90===============================================================
+
+
+Start operating on this folder==============================Result_Prone_91===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_91.java
+End of working on this folder===============================Result_Prone_91===============================================================
+
+
+Start operating on this folder==============================Result_Prone_92===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_92.java
+End of working on this folder===============================Result_Prone_92===============================================================
+
+
+Start operating on this folder==============================Result_Prone_93===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_93.java
+End of working on this folder===============================Result_Prone_93===============================================================
+
+
+Start operating on this folder==============================Result_Prone_94===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_94.java
+End of working on this folder===============================Result_Prone_94===============================================================
+
+
+Start operating on this folder==============================Result_Prone_95===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_95.java
+End of working on this folder===============================Result_Prone_95===============================================================
+
+
+Start operating on this folder==============================Result_Prone_96===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_96.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_97===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_97.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_98===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_98.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_99===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_99.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_100===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_100.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_101===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_101.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_102===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_102.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_103===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_103.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_104===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_104.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_105===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_105.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_106===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_106.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_107===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_107.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_108===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_108.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_109===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_109.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_110===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_110.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_111===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_111.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_112===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_112.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_113===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_113.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_114===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_114.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_115===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_115.java
+End of working on this folder===============================Result_Prone_115===============================================================
+
+
+Start operating on this folder==============================Result_Prone_116===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_116.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_117===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_117.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_118===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_118.java
+End of working on this folder===============================Result_Prone_118===============================================================
+
+
+Start operating on this folder==============================Result_Prone_119===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_119.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_120===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_120.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_121===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_121.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_122===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_122.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_123===============================================================
+
+NOTE: (No Test file found) The following file does NOT exist test_Prone_123.java
+End of working on this folder===============================Result_Prone_123===============================================================
+
+
+Start operating on this folder==============================Result_Prone_124===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_124.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_125===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_125.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_126===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_126.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_127===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_127.java
+End of working on this folder===============================Result_Prone_127===============================================================
+
+
+Start operating on this folder==============================Result_Prone_128===============================================================
+
+NOTE: (No Test file found) The following file does NOT exist test_Prone_128.java
+End of working on this folder===============================Result_Prone_128===============================================================
+
+
+Start operating on this folder==============================Result_Prone_129===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_129.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_130===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_130.java
+End of working on this folder===============================Result_Prone_130===============================================================
+
+
+Start operating on this folder==============================Result_Prone_131===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_131.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_132===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_132.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_133===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_133.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_134===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_134.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_135===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_135.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_136===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_136.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_137===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_137.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_138===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_138.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_139===============================================================
+
+NOTE: (No Test file found) The following file does NOT exist test_Prone_139.java
+End of working on this folder===============================Result_Prone_139===============================================================
+
+
+Start operating on this folder==============================Result_Prone_140===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_140.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_141===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_141.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_142===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_142.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_143===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_143.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_144===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_144.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_145===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_145.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_146===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_146.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_147===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_147.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_148===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_148.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_149===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_149.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_150===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_150.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_151===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_151.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_152===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_152.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_153===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_153.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_154===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_154.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_155===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_155.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_156===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_156.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_157===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_157.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_158===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_158.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_159===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_159.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_160===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_160.java
+End of working on this folder===============================Result_Prone_160===============================================================
+
+
+Start operating on this folder==============================Result_Prone_161===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_161.java
+End of working on this folder===============================Result_Prone_161===============================================================
+
+
+Start operating on this folder==============================Result_Prone_162===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_162.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_163===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_163.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_164===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_164.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_165===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_165.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_166===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_166.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_167===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_167.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_168===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_168.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_169===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_169.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_170===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_170.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_171===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_171.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_172===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_172.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_173===============================================================
+
+NOTE: (No Seed file found) The following file does NOT exist seed_Prone_173.java
+End of working on this folder===============================Result_Prone_173===============================================================
+
+
+Start operating on this folder==============================Result_Prone_174===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_174.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_175===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_175.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_176===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_176.json - This rule HAS been validated
+Start operating on this folder==============================Result_Prone_177===============================================================
+
+Skipping validation - "Bug_Triggered" found in data_Prone_177.json - This rule HAS been validated
+Done validation tasks!

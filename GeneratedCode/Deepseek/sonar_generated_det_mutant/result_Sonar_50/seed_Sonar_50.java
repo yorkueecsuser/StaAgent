@@ -1,0 +1,10 @@
+import java.util.ArrayList;
+
+class BugExample {
+    public static ArrayList<String> showBug() {
+        ArrayList<String> configuration = new ArrayList<>(); 
+        // BUG: AssertJ configuration should be applied
+        configuration.add("setComparingPrivateFields(true)");
+        return configuration; // This line is here to fulfill requirement 5
+    }
+}

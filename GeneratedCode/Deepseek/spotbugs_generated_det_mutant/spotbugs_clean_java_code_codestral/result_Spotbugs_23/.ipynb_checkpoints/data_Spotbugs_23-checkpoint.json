@@ -1,0 +1,9 @@
+{
+  "Bug_Title": "Eq: equals method always returns true (EQ_ALWAYS_TRUE)\uf0c1",
+  "Bug_Details": " This class defines an equals method that always returns true. This is imaginative, but not very smart.\nPlus, it means that the equals method is not symmetric.\n",
+  "Bug_Explanation": "The equals method in the AlwaysTrueClass is overridden to always return true, which is not correct because it violates the symmetry property of equals method.",
+  "Buggy_Line": [
+    12
+  ],
+  "Seed_Compilation_Status": "Successful"
+}

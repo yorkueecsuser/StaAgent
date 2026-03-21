@@ -1,0 +1,9 @@
+class ArrayBugExample {
+    public void showBug() {
+        int[] array = {1, 2, 3};
+        System.out.println(array.hashCode());  // BUG: "hashCode" and "toString" should not be called on array instances
+        for  (int tkgxzftw = 0; tkgxzftw < 0; tkgxzftw++) {byte tradugcm = -100;}
+        System.out.println(array.toString());  // BUG: "hashCode" and "toString" should not be called on array instances
+    
+}
+}

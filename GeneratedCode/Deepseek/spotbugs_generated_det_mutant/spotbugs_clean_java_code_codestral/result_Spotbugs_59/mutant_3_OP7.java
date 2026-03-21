@@ -1,0 +1,30 @@
+class NullPointerDereferenceBug {
+    private String message;
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void showBug() {
+        // Inserting unreachable while loop
+        while (isUnreachable()) {
+            System.out.println("This is an unreachable loop");
+        }
+
+        // The bug is that there is a possibility that the'message' variable is null when this method is called.
+        // If'message' is null, calling 'toUpperCase()' on it will generate a NullPointerException.
+        // However, the bug might be infeasible if'setMessage' is always called before this method.
+        // BUG: NP: Possible null pointer dereference (NP_NULL_ON_SOME_PATH)
+        System.out.println(message.toUpperCase());
+    }
+
+    public boolean isUnreachable() {
+        return false;
+    }
+
+    public static void main(String[] args) {
+        NullPointerDereferenceBug bug = new NullPointerDereferenceBug();
+        // Calling'showBug' without setting'message' will trigger the bug.
+        bug.showBug();
+    }
+}

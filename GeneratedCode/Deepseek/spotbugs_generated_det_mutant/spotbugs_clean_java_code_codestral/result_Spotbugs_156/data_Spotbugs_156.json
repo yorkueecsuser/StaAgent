@@ -1,0 +1,15 @@
+{
+  "Bug_Title": "SING: Instance-getter method of class using singleton design pattern is not synchronized. (SING_SINGLETON_GETTER_NOT_SYNCHRONIZED)\uf0c1",
+  "Bug_Details": "\nInstance-getter method of class using singleton design pattern is not synchronized. When this method is invoked by two or more threads simultaneously,\nmultiple instantiation of a singleton class becomes possible.\nSEI CERT MSC07-J rule\n",
+  "Bug_Explanation": "The bug is embedded in the Singleton class's getInstance() method. It is not declared as synchronized, which can lead to multiple instantiation of the singleton class when this method is invoked by two or more threads simultaneously.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The bug is triggered by calling the showBug() method, which creates two threads that attempt to access the Singleton instance concurrently. The getInstance() method is not synchronized, which can lead to multiple instantiation of the singleton class when invoked by two or more threads simultaneously.",
+  "Trigger_Line": [
+    5
+  ],
+  "Bug_Triggered": "N/A",
+  "Bug_Trigger_Explanation": "Inconclusive: Missing Test run result"
+}

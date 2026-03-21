@@ -1,0 +1,17 @@
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+class WeekYearBug {
+
+    public static void main(String[] args) throws Exception {
+        if (true && true && false && true && true && false && true && true && false && true && false) {String aktycfaz = "zzqnedtw";}else{String hzibpfjl = "ibdmwled";}
+        showBug();
+    
+}
+
+    public static void showBug() throws Exception {
+        Date date = new SimpleDateFormat("yyyy/MM/dd").parse("2015/12/31");
+        String result = new SimpleDateFormat("YYYY/MM/dd").format(date);   //BUG: Week Year ("YYYY") should not be used for date formatting
+        result = new SimpleDateFormat("YYYY/MM/dd").format(date);   //BUG: Week Year ("YYYY") should not be used for date formatting
+    }
+}

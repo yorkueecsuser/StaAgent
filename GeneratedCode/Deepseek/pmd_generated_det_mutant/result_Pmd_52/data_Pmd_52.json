@@ -1,0 +1,11 @@
+{
+  "Bug_Title": "JUnitSpelling",
+  "Bug_Details": "In JUnit 3, the setUp method is used to set up all data entities required in running tests.\n            The tearDown method is used to clean up all data entities required in running tests.\n            You should not misspell method name if you want your test to set up and clean up everything correctly.\nExamples:\nimport junit.framework.*;\n\npublic class Foo extends TestCase {\n    public void setup() {}    // oops, should be setUp\n    public void TearDown() {} // oops, should be tearDown\n}",
+  "Bug_Explanation": "The bug in the code is that the method names'setup' and 'TearDown' are misspelled. JUnit requires the method names to be'setUp' and 'tearDown', respectively.",
+  "Buggy_Line": [
+    "6",
+    "7"
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Seed_Compilation_Status_det": "Successful"
+}

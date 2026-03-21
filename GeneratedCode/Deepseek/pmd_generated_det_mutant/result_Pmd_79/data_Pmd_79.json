@@ -1,0 +1,12 @@
+{
+  "Bug_Title": "UnnecessaryBooleanAssertion",
+  "Bug_Details": "A JUnit test assertion with a boolean literal is unnecessary since it always will evaluate to the same thing.\nConsider using flow control (in case of `assertTrue(false)` or similar) or simply removing\nstatements like `assertTrue(true)` and `assertFalse(false)`. If you just want a test to halt after finding\nan error, use the `fail()` method and provide an indication message of why it did.\nExamples:\npublic class SimpleTest extends TestCase {\n    public void testX() {\n        assertTrue(true);            // serves no real purpose - remove it\n    }\n}",
+  "Bug_Explanation": "The JUnit test assertion with a boolean literal is unnecessary since it always will evaluate to the same thing. Therefore, the assertion 'Assert.assertTrue(true)' is unnecessary and can be removed.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../pmd_clean_java_code/result_Pmd_79/seed_Pmd_79_junit_test.java:9: error: incompatible types: unexpected return value\n        return testX();\n                    ^\n1 error\n",
+  "Seed_Compilation_Status_det": "Failed",
+  "Seed_Compilation_Error_Details_det": "../deepseek/pmd_clean_java_code_deepseek_test/result_Pmd_79/seed_Pmd_79_junit_test.java:9: error: incompatible types: unexpected return value\n        return testX();\n                    ^\n1 error\n"
+}

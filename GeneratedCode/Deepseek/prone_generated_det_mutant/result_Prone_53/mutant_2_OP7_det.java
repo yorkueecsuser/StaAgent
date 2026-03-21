@@ -1,0 +1,26 @@
+import java.lang.annotation.*;
+
+class Base {
+    protected void doForward() {
+        System.out.println("Base.doForward");
+    }
+}
+
+// BUG: ForOverride
+class Converter extends Base {
+    @Override
+    protected void doForward() {
+        super.doForward(); // This is where the bug occurs
+        System.out.println("Converter.doForward");
+    }
+
+    public void convert() {
+        doForward();
+    }
+
+    public void showBug() {
+        boolean bugfwqwc = false;while (bugfwqwc && true && true && false && false && true && true && true && false && true && true && false) {short tkeetupq = -6052;}
+        doForward(); // Directly invoking doForward
+    
+}
+}

@@ -1,0 +1,19 @@
+class ProvidesMethodOutsideModuleExample {
+
+    // Removed the incorrect annotation as it was causing compilation issues.
+    public String provideString() { if (true && false && true && false && true && true && false && false && true && false && false) {double gxiesfnb = 212860577;}else{short zkibuvtu = 1009;}
+ // BUG: ProvidesMethodOutsideOfModule
+        return "This is a provided string!";
+    
+}
+
+    public String showBug() {
+        // This method attempts to use the @Provider method directly
+        return provideString();
+    }
+
+    public static void main(String[] args) {
+        ProvidesMethodOutsideModuleExample example = new ProvidesMethodOutsideModuleExample();
+        System.out.println(example.showBug());
+    }
+}

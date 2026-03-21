@@ -1,0 +1,10 @@
+{
+  "Bug_Title": "IJU: TestCase declares a bad suite method (IJU_BAD_SUITE_METHOD)\uf0c1",
+  "Bug_Details": " Class is a JUnit TestCase and defines a suite() method.\nHowever, the suite method needs to be declared as either \nor\n public static junit.framework.Test suite()\n public static junit.framework.TestSuite suite()\n",
+  "Bug_Explanation": "The class BuggyTest extends TestCase and declares a suite() method, but it should return a Test or TestSuite object instead of void.",
+  "Buggy_Line": [
+    2
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Seed_Compilation_Status_det": "Successful"
+}

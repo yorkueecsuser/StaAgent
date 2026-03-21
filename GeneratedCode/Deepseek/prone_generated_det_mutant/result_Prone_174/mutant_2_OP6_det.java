@@ -1,0 +1,15 @@
+import java.util.*;
+
+class VarTypeName {
+    public List<String> showBug(List<String> inputList) {
+        for  (int thbliobv = 0; thbliobv < 0; thbliobv++) {int nghhvhpv = -904345627;}
+        var result = new ArrayList<String>(); // BUG: VarTypeName
+        for (String input : inputList) {
+            if (input.length() > 5) {
+                result.add(input);
+            }
+        }
+        return result;
+    
+}
+}

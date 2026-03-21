@@ -1,0 +1,142 @@
+[
+  {
+    "response_index": 71,
+    "title": "Incomparable",
+    "desc": "Types contained in sorted collections must implement Comparable.",
+    "data_json_path": "../deepseek/prone_clean_java_code_deepseek/result_Prone_71/data_Prone_71.json",
+    "analyzer_backlog": [
+      "seed_Prone_71",
+      "mutant_2_OP3",
+      "mutant_2_OP1",
+      "mutant_2_OP6",
+      "mutant_1_OP4",
+      "mutant_3_OP1"
+    ]
+  },
+  {
+    "response_index": 17,
+    "title": "CheckNotNullMultipleTimes",
+    "desc": "A variable was checkNotNulled multiple times. Did you mean to check something else?",
+    "data_json_path": "../deepseek/prone_clean_java_code_deepseek/result_Prone_17/data_Prone_17.json",
+    "analyzer_backlog": [
+      "seed_Prone_17",
+      "mutant_3_OP3",
+      "mutant_1_OP2",
+      "mutant_2_OP3",
+      "mutant_3_OP5",
+      "mutant_2_OP4"
+    ]
+  },
+  {
+    "response_index": 39,
+    "title": "DuplicateMapKeys",
+    "desc": "Map#ofEntries will throw an IllegalArgumentException if there are any duplicate keys JDK 9 has\nMap#ofEntries\nfactory which throws runtime error when provided multiple entries with the same\nkey. For eg, the following code is erroneously adding two entries with Foo as key. Map<String, String> map = Map.ofEntries(\n    Map.entry(\"Foo\", \"Bar\"),\n    Map.entry(\"Ping\", \"Pong\"),\n    Map.entry(\"Kit\", \"Kat\"),\n    Map.entry(\"Foo\", \"Bar\")); Map<String, String> map = Map.ofEntries(\n    Map.entry(\"Foo\", \"Bar\"),\n    Map.entry(\"Ping\", \"Pong\"),\n    Map.entry(\"Kit\", \"Kat\"),\n    Map.entry(\"Foo\", \"Bar\"));",
+    "data_json_path": "../deepseek/prone_clean_java_code_deepseek/result_Prone_39/data_Prone_39.json",
+    "analyzer_backlog": [
+      "seed_Prone_39",
+      "mutant_2_OP1",
+      "mutant_3_OP6",
+      "mutant_3_OP4",
+      "mutant_1_OP5",
+      "mutant_3_OP5"
+    ]
+  },
+  {
+    "response_index": 142,
+    "title": "RandomCast",
+    "desc": "Casting a random number in the range [0.0, 1.0) to an integer or long always results in 0. Math.random(), Random#nextFloat, and Random#nextDouble return results in\nthe range [0.0, 1.0). Therefore, casting the result to (int) or (long)\nalways results in the value of 0.",
+    "data_json_path": "../deepseek/prone_clean_java_code_deepseek/result_Prone_142/data_Prone_142.json",
+    "analyzer_backlog": [
+      "seed_Prone_142",
+      "mutant_3_OP1",
+      "mutant_3_OP3",
+      "mutant_1_OP3",
+      "mutant_1_OP6",
+      "mutant_1_OP4"
+    ]
+  },
+  {
+    "response_index": 58,
+    "title": "FuturesGetCheckedIllegalExceptionType",
+    "desc": "Futures.getChecked requires a checked exception type with a standard constructor. The passed exception type must not be a RuntimeException, and it must expose a\npublic constructor whose only parameters are of type String or Throwable.\ngetChecked will reject any other type with an IllegalArgumentException.",
+    "data_json_path": "../deepseek/prone_clean_java_code_deepseek/result_Prone_58/data_Prone_58.json",
+    "analyzer_backlog": [
+      "seed_Prone_58",
+      "mutant_1_OP3",
+      "mutant_3_OP2",
+      "mutant_3_OP7",
+      "mutant_1_OP2",
+      "mutant_1_OP4"
+    ]
+  },
+  {
+    "response_index": 169,
+    "title": "UnnecessaryCheckNotNull",
+    "desc": "This null check is unnecessary; the expression can never be null",
+    "data_json_path": "../deepseek/prone_clean_java_code_deepseek/result_Prone_169/data_Prone_169.json",
+    "analyzer_backlog": [
+      "seed_Prone_169",
+      "mutant_2_OP4",
+      "mutant_1_OP5",
+      "mutant_3_OP3",
+      "mutant_3_OP6",
+      "mutant_1_OP6"
+    ]
+  },
+  {
+    "response_index": 8,
+    "title": "AsyncFunctionReturnsNull",
+    "desc": "AsyncFunction should not return a null Future, only a Future whose result is null. Methods like Futures.transformAsync and Futures.catchingAsync will throw a\nNullPointerException if the provided AsyncFunction returns a null Future. To\nproduce a Future with an output of null, instead return immediateFuture(null).",
+    "data_json_path": "../deepseek/prone_clean_java_code_deepseek/result_Prone_8/data_Prone_8.json",
+    "analyzer_backlog": [
+      "seed_Prone_8",
+      "mutant_2_OP8",
+      "mutant_3_OP5",
+      "mutant_2_OP5",
+      "mutant_3_OP2",
+      "mutant_2_OP6"
+    ]
+  },
+  {
+    "response_index": 21,
+    "title": "ComparableType",
+    "desc": "Implementing 'Comparable' where T is not the same as the implementing class is incorrect, since it violates the symmetry contract of compareTo. The type argument of Comparable should always be the type of the current\nclass. For example, do this: class Foo implements Comparable<Foo> {\n  public int compareTo(Foo other) { ... }\n} class Foo implements Comparable<Foo> {\n  public int compareTo(Foo other) { ... }\n} not this: class Foo implements Comparable<Bar> {\n  public int compareTo(Bar other) { ... }\n} class Foo implements Comparable<Bar> {\n  public int compareTo(Bar other) { ... }\n} Implementing Comparable for a different type breaks the API contract, which\nrequires x.compareTo(y) == -y.compareTo(x) for all x and y. If x and y\nare different types, this behaviour can\u2019t be guaranteed.",
+    "data_json_path": "../deepseek/prone_clean_java_code_deepseek/result_Prone_21/data_Prone_21.json",
+    "analyzer_backlog": [
+      "seed_Prone_21",
+      "mutant_2_OP5",
+      "mutant_2_OP1",
+      "mutant_2_OP4",
+      "mutant_2_OP3",
+      "mutant_3_OP6"
+    ]
+  },
+  {
+    "response_index": 159,
+    "title": "TemporalAccessorGetChronoField",
+    "desc": "TemporalAccessor.get() only works for certain values of ChronoField. TemporalAccessor.get(ChronoField) only works for certain values of ChronoField. E.g., DayOfWeek only supports DAY_OF_WEEK. All other values are guaranteed to throw an UnsupportedTemporalTypeException.",
+    "data_json_path": "../deepseek/prone_clean_java_code_deepseek/result_Prone_159/data_Prone_159.json",
+    "analyzer_backlog": [
+      "seed_Prone_159",
+      "mutant_1_OP5",
+      "mutant_2_OP1",
+      "mutant_3_OP3",
+      "mutant_2_OP5",
+      "mutant_1_OP4"
+    ]
+  },
+  {
+    "response_index": 154,
+    "title": "SizeGreaterThanOrEqualsZero",
+    "desc": "Comparison of a size >= 0 is always true, did you intend to check for non-emptiness? A standard means of checking non-emptiness of an array or collection is to test\nif the size of that collection is greater than 0. However, one may accidentally\ncheck if the size is greater than or equal to 0, which is always true.",
+    "data_json_path": "../deepseek/prone_clean_java_code_deepseek/result_Prone_154/data_Prone_154.json",
+    "analyzer_backlog": [
+      "seed_Prone_154",
+      "mutant_3_OP5",
+      "mutant_3_OP3",
+      "mutant_1_OP5",
+      "mutant_2_OP1",
+      "mutant_3_OP8"
+    ]
+  }
+]
