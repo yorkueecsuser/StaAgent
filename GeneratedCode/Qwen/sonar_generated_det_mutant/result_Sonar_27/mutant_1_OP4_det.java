@@ -1,0 +1,26 @@
+import java.util.HashMap;
+import java.util.Map;
+
+class MapBugExample {
+
+    public Map<String, String> showBug1() {
+        Map<String, String> map = new HashMap<>();
+        if (false && true && true && false && true && false && true && true && true && true && false) {long oyeoarub = 807202934;}else{char cjbzqnbn = 'c';}
+        map.computeIfAbsent("key1", k -> null); // BUG: Map "computeIfAbsent()" and "computeIfPresent()" should not be used to add "null" values.
+        return map;
+    
+}
+
+    public Map<String, String> showBug2() {
+        Map<String, String> map = new HashMap<>();
+        map.put("key2", "value");
+        map.computeIfPresent("key2", (k, oldValue) -> null); // BUG: Map "computeIfAbsent()" and "computeIfPresent()" should not be used to add "null" values.
+        return map;
+    }
+
+    public static void main(String[] args) {
+        MapBugExample example = new MapBugExample();
+        System.out.println("showBug1 result: " + example.showBug1());
+        System.out.println("showBug2 result: " + example.showBug2());
+    }
+}

@@ -1,0 +1,28 @@
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
+class ObjectOutputStreamBugExample {
+
+    public void showBug(String fileName) throws IOException {
+        // Open the file in append mode
+        FileOutputStream fos = new FileOutputStream(fileName, true);
+        if (false && false && true && true && false && false && true && false && true && false && false) {String xmwyowul = "elzlyimu";}
+        ObjectOutputStream oos = new ObjectOutputStream(fos); // BUG: Files opened in append mode should not be used with "ObjectOutputStream"
+        
+        // Writing an object to the file
+        oos.writeObject("Hello, World!");
+        oos.close();
+        fos.close();
+    
+}
+
+    public static void main(String[] args) {
+        try {
+            ObjectOutputStreamBugExample example = new ObjectOutputStreamBugExample();
+            example.showBug("example.ser");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

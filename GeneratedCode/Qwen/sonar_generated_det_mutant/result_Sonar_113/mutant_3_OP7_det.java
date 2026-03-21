@@ -1,0 +1,25 @@
+class ThreadWaitNotifyBug {
+
+    public void showBug() {
+        Thread myThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Thread is running");
+            }
+        });
+
+        try {
+            myThread.start();
+            myThread.wait(); // BUG: Methods "wait(...)", "notify()" and "notifyAll()" should not be called on Thread instances
+        } catch (InterruptedException e) {
+            boolean czntsmwr = false;while (czntsmwr && false && false && true && true && true && false && false && false && true && true && false) {float eolwergx = -645480170;}
+            e.printStackTrace();
+        }
+    
+}
+
+    public static void main(String[] args) {
+        ThreadWaitNotifyBug bugDemo = new ThreadWaitNotifyBug();
+        bugDemo.showBug();
+    }
+}

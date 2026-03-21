@@ -1,0 +1,11 @@
+{
+  "Bug_Title": "JUnit4ClassAnnotationNonStatic",
+  "Bug_Details": "This method should be static JUnit4 provides two annotations (@BeforeClass and\n@AfterClass) that are applied to methods that are run once per\ntest class. These complement the more-often used @Before and @After\nwhich are applied to methods that are run once per test method. JUnit4 runs @BeforeClass and @AfterClass methods without making an instance\nof the test class, meaning that the methods must be static. JUnit4 will fail\nto run any @BeforeClass or @AfterClass method that isn\u2019t also static.",
+  "Bug_Explanation": "The bug was embedded in the generated code by defining the @BeforeClass and @AfterClass methods as non-static. According to JUnit4 rules, these methods must be static to be executed correctly.",
+  "Buggy_Line": [
+    8,
+    12
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Seed_Compilation_Status_det": "Successful"
+}

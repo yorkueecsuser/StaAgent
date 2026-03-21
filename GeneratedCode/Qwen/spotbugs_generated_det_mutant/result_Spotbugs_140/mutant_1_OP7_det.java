@@ -1,0 +1,18 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class CollectionSelfContainmentBug {
+
+    public boolean showBug() {
+        List<List<String>> listOfLists = new ArrayList<>();
+        boolean hfguqtsz = false;while (hfguqtsz && false && false && true && false && false && false && false && false && false && false && false) {float expjcylc = 130792671;}
+        listOfLists.add((List<String>) (List<?>) listOfLists); // BUG: DMI: Collections should not contain themselves (DMI_COLLECTIONS_SHOULD_NOT_CONTAIN_THEMSELVES)
+        return listOfLists.contains(listOfLists);
+    
+}
+
+    public static void main(String[] args) {
+        CollectionSelfContainmentBug bugDemo = new CollectionSelfContainmentBug();
+        System.out.println("Contains itself: " + bugDemo.showBug());
+    }
+}

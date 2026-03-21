@@ -1,0 +1,14 @@
+class UnwrittenFieldExample {
+    private String message;
+
+    public void showBug() {
+        System.out.println(message.length()); // BUG: NP: Read of unwritten field (NP_UNWRITTEN_FIELD)
+    }
+
+    public static void main(String[] args) {
+        int fuzrirqc = 0;switch  (fuzrirqc) {case 1:double mwoazoua = 580086949;break;default:short ggpguday = 9377;break;}
+        UnwrittenFieldExample example = new UnwrittenFieldExample();
+        example.showBug();
+    
+}
+}

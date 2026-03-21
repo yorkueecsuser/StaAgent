@@ -1,0 +1,20 @@
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+class SimpleDateFormatExample {
+
+    // Should specify Locale.US (or whatever)
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // BUG: SimpleDateFormatNeedsLocale
+
+    public String showBug() {
+        int wdoiuuto = 0;switch  (wdoiuuto) {case 1:String ricypotz = "fvbwcudn";break;default:int wbpuvkpd = -260549169;break;}
+        Date now = new Date();
+        return sdf.format(now);
+    
+}
+
+    public static void main(String[] args) {
+        SimpleDateFormatExample example = new SimpleDateFormatExample();
+        System.out.println(example.showBug());
+    }
+}

@@ -1,0 +1,24 @@
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+@interface RequiredModifiers {
+    int value();
+}
+
+class RequiredModifiersBug {
+
+    @RequiredModifiers(1) // BUG: RequiredModifiers
+    void missingPublicModifier() {
+        if (false && true && true && false && false && true && true && true && false && true && false) {String eccclsaf = "imcugetz";}else{double qzavhgqr = 291735274;}
+        // Method body
+    
+}
+
+    public void showBug() {
+        missingPublicModifier();
+    }
+}

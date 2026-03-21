@@ -1,0 +1,142 @@
+[
+  {
+    "response_index": 143,
+    "title": "RandomModInteger",
+    "desc": "Use Random.nextInt(int).  Random.nextInt() % n can have negative results Random.nextInt() % n has a 1/n chance of being 0\na 1/2n chance of being each number from 1 to n-1 inclusive\na 1/2n chance of being each number from -1 to -(n-1) inclusive Many users expect a uniformly distributed random integer between 0 and n-1\ninclusive, but you must use random.nextInt(n) to get that behavior. If the\noriginal behavior is truly desired, use (random.nextBoolean() ? 1 : -1) *\nrandom.nextInt(n).",
+    "data_json_path": "../qwen/prone_clean_java_code_qwen/result_Prone_143/data_Prone_143.json",
+    "analyzer_backlog": [
+      "seed_Prone_143",
+      "mutant_2_OP6",
+      "mutant_1_OP4",
+      "mutant_1_OP3",
+      "mutant_3_OP3",
+      "mutant_2_OP1"
+    ]
+  },
+  {
+    "response_index": 175,
+    "title": "WrongOneof",
+    "desc": "This field is guaranteed not to be set given it's within a switch over a one_of. When switching over a proto one_of, getters that don\u2019t match the current case\nare guaranteed to be return a default instance: switch (foo.getBlahCase()) {\n  case FOO:\n    return foo.getFoo();\n  case BAR:\n    return foo.getFoo(); // should be foo.getBar()\n} switch (foo.getBlahCase()) {\n  case FOO:\n    return foo.getFoo();\n  case BAR:\n    return foo.getFoo(); // should be foo.getBar()\n}",
+    "data_json_path": "../qwen/prone_clean_java_code_qwen/result_Prone_175/data_Prone_175.json",
+    "analyzer_backlog": [
+      "seed_Prone_175",
+      "mutant_1_OP1",
+      "mutant_2_OP3",
+      "mutant_3_OP3",
+      "mutant_1_OP6",
+      "mutant_2_OP6"
+    ]
+  },
+  {
+    "response_index": 19,
+    "title": "CollectionIncompatibleType",
+    "desc": "Incompatible type as argument to Object-accepting Java collections method Querying a collection for an element it cannot possibly contain is almost\ncertainly a bug. In a generic collection type, query methods such as Map.get(Object) and\nCollection.remove(Object) accept a parameter that identifies a potential\nelement to look for in that collection. This check reports cases where this\nelement cannot be present because its type and the collection\u2019s generic\nelement type are \u201cincompatible.\u201d A typical example: Set<Long> values = ...\nif (values.contains(42)) { ... } Set<Long> values = ...\nif (values.contains(42)) { ... } This code looks reasonable, but there\u2019s a problem: The Set contains Long\ninstances, but the argument to contains is an Integer. Because no instance\ncan be of type Integer and of type Long at the same time, the contains\ncheck always fails. This is clearly not what the developer intended. Why does the collection API permit this kind of mistake? Why not declare the\nmethod as contains(E)? After all, that is what the collections API does for\nmethods that store an element in the collection: They require that passed type\nbe strictly assignable to the collection\u2019s element type. For example: void addIntegerOne(Set<? extends Number> numbers) {\n  numbers.add(42); // won't compile\n} void addIntegerOne(Set<? extends Number> numbers) {\n  numbers.add(42); // won't compile\n} The code above rightly won\u2019t compile, because numbers might be a (for\nexample) Set<Long>, and adding an Integer value would corrupt it. But this restriction is necessary only for methods that insert elements. Methods\nthat only query or remove elements cannot corrupt the collection: void removeIntegerOne(Set<? extends Number> numbers) {\n  numbers.remove(42); // should compile (and does)\n} void removeIntegerOne(Set<? extends Number> numbers) {\n  numbers.remove(42); // should compile (and does)\n} In this case, the Integer 42 might be contained in numbers, and should be\nremoved if it is, but if numbers is a Set<Long>, no harm is done. We\u2019d like to define contains in a way that rejects the bad call but permits\nthe good one. But Java\u2019s type system is not powerful enough. Our solution is\nstatic analysis. The specific restriction we would like to express for the two types is not\nassignability, but \u201ccompatibility\u201d. Informally, we mean that it must at least be\npossible for some instance to be of both types. Formally, we require that a\n\u201ccasting conversion\u201d exist between the types as defined by\nJLS 5.5.1. The result is that the method can be defined as contains(Object), permitting\nthe \u201cgood\u201d call above, but that Error Prone will give errors for incompatible\narguments, preventing the \u201cbad.\u201d We might say: Sure, a buggy remove call can\u2019t corrupt a collection. And sure,\nsomeone might want to pass an Object reference that happens to contain an E.\nBut isn\u2019t that a low standard for an API? We don\u2019t normally write code that way: void throwIfUnchecked(Object throwable) { // no \"need\" to require Throwable\n  if (throwable instanceof RuntimeException) {\n    throw (RuntimeException) throwable;\n  }\n  if (throwable instanceof Error) {\n    throw (Error) throwable;\n  }\n} void throwIfUnchecked(Object throwable) { // no \"need\" to require Throwable\n  if (throwable instanceof RuntimeException) {\n    throw (RuntimeException) throwable;\n  }\n  if (throwable instanceof Error) {\n    throw (Error) throwable;\n  }\n} Such code would invite bugs. To avoid that, we require a Throwable. Users who\nhave an Object reference that might be a Throwable can test instanceof and\ncast. So why not require the same thing in the collections API? Of course, we can\u2019t really change the API of Collection. But if we were\ndesigning a similar API, what would we do \u2013 require E or accept any Object? The burden of proof falls on accepting Object, since doing so permits buggy\ncode. And we\u2019re not going to settle for \u201cit occasionally saves users a cast.\u201d The main reason to accept Object is to permit a fast, type-safe Set.equals\nimplementation. (equals is actually just one example of the general problem, which arises with\nmany uses of wildcards. Once you\u2019ve read the following, consider the problem of\nimplementing Collection.removeAll(Collection<?>) without contains(Object).\nThen consider how the problem would exist even if the signature were\nremoveAll(Collection<? extends E>). The removeAll problem is at least\n\u201csolvable\u201d by changing the signature to removeAll(Collection<E>), but that\nsignature may reject useful calls.) Here\u2019s how: equals necessarily accepts a plain Object. It can test whether\nthat Object is a Set, but it can\u2019t know the element type it was originally\ndeclared with. In short, equals has to operate on a Set<?>. If contains were to require an E, equals would be in trouble because it\ndoesn\u2019t know what E is. In particular, it wouldn\u2019t be able to call\notherSet.contains(myElement) for any of its elements. It would have only two options: It could copy the entire other Set into a\nSet<Object>, or it could perform an unchecked cast. Copying is wasteful, so in\npractice, equals would need an unchecked cast. This is probably acceptable,\nbut we might feel strange for defining an API that can be implemented only by\nperforming unchecked casts. Does a cleaner implementation (and occasional convenience to callers) outweigh\nthe bugs that accepting Object enables? That\u2019s a tough question. The good news\nis that this Error Prone check gives you some of the best of both worlds. It is technically possible for a Set<Integer> to contain a String element,\nbut only if an unchecked warning was earlier ignored or improperly suppressed.\nSuch practice should never be treated as acceptable, so it makes no practical\ndifference to our arguments above.",
+    "data_json_path": "../qwen/prone_clean_java_code_qwen/result_Prone_19/data_Prone_19.json",
+    "analyzer_backlog": [
+      "seed_Prone_19",
+      "mutant_3_OP1",
+      "mutant_2_OP7",
+      "mutant_1_OP6",
+      "mutant_2_OP8",
+      "mutant_2_OP6"
+    ]
+  },
+  {
+    "response_index": 111,
+    "title": "MixedDescriptors",
+    "desc": "The field number passed into #findFieldByNumber belongs to a different proto to the Descriptor. A proto\u2019s Descriptor was created by mixing the Descriptors class from one\nproto with the field number from another. E.g.: Foo.getDescriptors().findFieldByNumber(Bar.ID_FIELD_NUMBER) Foo.getDescriptors().findFieldByNumber(Bar.ID_FIELD_NUMBER) This accesses the Descriptor of a field in Foo with a field number from\nBar. One of these was probably intended: Foo.getDescriptors().findFieldByNumber(Foo.ID_FIELD_NUMBER)\nBar.getDescriptors().findFieldByNumber(Bar.ID_FIELD_NUMBER) Foo.getDescriptors().findFieldByNumber(Foo.ID_FIELD_NUMBER)\nBar.getDescriptors().findFieldByNumber(Bar.ID_FIELD_NUMBER)",
+    "data_json_path": "../qwen/prone_clean_java_code_qwen/result_Prone_111/data_Prone_111.json",
+    "analyzer_backlog": [
+      "seed_Prone_111",
+      "mutant_3_OP2",
+      "mutant_3_OP1",
+      "mutant_2_OP2",
+      "mutant_1_OP4",
+      "mutant_2_OP1"
+    ]
+  },
+  {
+    "response_index": 67,
+    "title": "IdentityBinaryExpression",
+    "desc": "A binary expression where both operands are the same is usually incorrect. Using the same expressions as both arguments to the following binary expressions\nis usually a mistake: a && a, a || a, a & a, or a | a is equivalent to a\na <= a, a >= a, or a == a is always true\na < a, a > a, a != a, or a ^ a is always false\na / a is always 1\na % a or a - a is always 0 If the expression has side-effects, consider refactoring one of the expressions\nwith side effects into a local. For example, prefer this: // check twice, just to be sure\nboolean isTrue = foo.isTrue();\nif (isTrue && foo.isTrue()) {\n  // ...\n} // check twice, just to be sure\nboolean isTrue = foo.isTrue();\nif (isTrue && foo.isTrue()) {\n  // ...\n} to this: if (foo.isTrue() && foo.isTrue()) {\n  // ...\n} if (foo.isTrue() && foo.isTrue()) {\n  // ...\n}",
+    "data_json_path": "../qwen/prone_clean_java_code_qwen/result_Prone_67/data_Prone_67.json",
+    "analyzer_backlog": [
+      "seed_Prone_67",
+      "mutant_1_OP1",
+      "mutant_2_OP8",
+      "mutant_2_OP1",
+      "mutant_1_OP7",
+      "mutant_2_OP3"
+    ]
+  },
+  {
+    "response_index": 14,
+    "title": "BoxedPrimitiveEquality",
+    "desc": "Comparison using reference equality instead of value equality. Reference equality of boxed primitive types is usually not useful, as they are value objects, and it is bug-prone, as instances are cached for some values but not others. Comparison using reference equality instead of value equality. The inputs to\nthis comparison are boxed primitive types, where reference equality is\nparticularly bug-prone: Primitive wrapper classes cache instances for some (but\nusually not all) values, so == may be equivalent to equals() for some values but\nnot others. Additionally, not all versions of the runtime and other libraries\nuse the cache in the same cases, so upgrades may change behavior. Furthermore,\nreference identity is usually not useful for primitive wrappers, as they are\nimmutable types whose equals() method fully compares their values.",
+    "data_json_path": "../qwen/prone_clean_java_code_qwen/result_Prone_14/data_Prone_14.json",
+    "analyzer_backlog": [
+      "seed_Prone_14",
+      "mutant_1_OP8",
+      "mutant_1_OP7",
+      "mutant_3_OP7",
+      "mutant_1_OP3",
+      "mutant_1_OP1"
+    ]
+  },
+  {
+    "response_index": 30,
+    "title": "DangerousLiteralNull",
+    "desc": "This method is null-hostile: passing a null literal to it is always wrong",
+    "data_json_path": "../qwen/prone_clean_java_code_qwen/result_Prone_30/data_Prone_30.json",
+    "analyzer_backlog": [
+      "seed_Prone_30",
+      "mutant_3_OP1",
+      "mutant_3_OP8",
+      "mutant_1_OP1",
+      "mutant_2_OP4",
+      "mutant_1_OP6"
+    ]
+  },
+  {
+    "response_index": 84,
+    "title": "InvalidZoneId",
+    "desc": "Invalid zone identifier. ZoneId.of(String) will throw exception at runtime.",
+    "data_json_path": "../qwen/prone_clean_java_code_qwen/result_Prone_84/data_Prone_84.json",
+    "analyzer_backlog": [
+      "seed_Prone_84",
+      "mutant_2_OP3",
+      "mutant_2_OP1",
+      "mutant_2_OP7",
+      "mutant_3_OP1",
+      "mutant_1_OP1"
+    ]
+  },
+  {
+    "response_index": 142,
+    "title": "RandomCast",
+    "desc": "Casting a random number in the range [0.0, 1.0) to an integer or long always results in 0. Math.random(), Random#nextFloat, and Random#nextDouble return results in\nthe range [0.0, 1.0). Therefore, casting the result to (int) or (long)\nalways results in the value of 0.",
+    "data_json_path": "../qwen/prone_clean_java_code_qwen/result_Prone_142/data_Prone_142.json",
+    "analyzer_backlog": [
+      "seed_Prone_142",
+      "mutant_1_OP4",
+      "mutant_2_OP6",
+      "mutant_2_OP7",
+      "mutant_1_OP8",
+      "mutant_3_OP5"
+    ]
+  },
+  {
+    "response_index": 29,
+    "title": "DaggerProvidesNull",
+    "desc": "Dagger @Provides methods may not return null unless annotated with @Nullable Dagger @Provides methods may not return null unless annotated with\n@Nullable. Such a method will cause a NullPointerException at runtime if the\nreturn null path is ever taken. If you believe the return null path can never be taken, please throw a\nRuntimeException instead. Otherwise, please annotate the method with\n@Nullable.",
+    "data_json_path": "../qwen/prone_clean_java_code_qwen/result_Prone_29/data_Prone_29.json",
+    "analyzer_backlog": [
+      "seed_Prone_29",
+      "mutant_1_OP7",
+      "mutant_3_OP8",
+      "mutant_3_OP7",
+      "mutant_1_OP3",
+      "mutant_3_OP3"
+    ]
+  }
+]

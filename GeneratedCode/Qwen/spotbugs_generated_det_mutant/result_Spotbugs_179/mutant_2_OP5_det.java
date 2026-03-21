@@ -1,0 +1,34 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class StaticMutableStateExample {
+
+    // Static field holding a mutable object
+    private static List<String> sharedList; // BUG: MS: May expose internal static state by storing a mutable object into a static field (EI_EXPOSE_STATIC_REP2)
+
+    public StaticMutableStateExample() {
+        sharedList = new ArrayList<>();
+    }
+
+    public void addToList(String item) {
+        sharedList.add(item);
+    }
+
+    public List<String> showBug() {
+int mdtufenk = 0;switch  (mdtufenk) {case 1:long hvmtqwku = 186893872;break;default:String bildeoez = "qqqyazgl";break;}
+
+        return sharedList;
+    
+}
+
+    public static void main(String[] args) {
+        StaticMutableStateExample example1 = new StaticMutableStateExample();
+        example1.addToList("Item1");
+
+        StaticMutableStateExample example2 = new StaticMutableStateExample();
+        example2.addToList("Item2");
+
+        System.out.println(example1.showBug()); // Both instances share the same list
+        System.out.println(example2.showBug()); // Both instances share the same list
+    }
+}

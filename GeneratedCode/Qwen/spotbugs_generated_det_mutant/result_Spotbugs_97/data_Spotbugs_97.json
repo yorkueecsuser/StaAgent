@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "IJU: TestCase defines tearDown that doesn\u2019t call super.tearDown() (IJU_TEARDOWN_NO_SUPER)\uf0c1",
+  "Bug_Details": " Class is a JUnit TestCase and implements the tearDown method. The tearDown method should call\nsuper.tearDown(), but doesn't.",
+  "Bug_Explanation": "The bug is embedded in the generated code by overriding the tearDown method in the ExampleBug class without calling super.tearDown(). This violates the requirement that tearDown should always call super.tearDown().",
+  "Buggy_Line": [
+    16
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method triggers the bug by creating an instance of ExampleBug and calling the showBug method multiple times. Since the tearDown method in ExampleBug does not call super.tearDown(), the state of the counter is not reset between test runs, causing the second assertion to fail.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.008\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "No",
+  "Bug_Trigger_Explanation": "The test run results indicate that the test passed without any issues. However, the bug rule specifies that the tearDown method in the TestCase class should call super.tearDown(). In the provided Java code, the tearDown method does not call super.tearDown(), which violates the rule. Despite this violation, the test execution results do not show any failure or indication that the absence of super.tearDown() call caused any problem during the test execution. Therefore, based solely on the test results, we cannot confirm that the bug triggered any observable issue.",
+  "Seed_Compilation_Status_det": "Successful",
+  "Seed_Compilation_Error_Details_det": "../qwen/spotbugs_clean_java_code_qwen_test/result_Spotbugs_97/seed_Spotbugs_97_junit_test.java:1: error: package junit.framework does not exist\nimport junit.framework.TestCase;\n                      ^\n../qwen/spotbugs_clean_java_code_qwen_test/result_Spotbugs_97/seed_Spotbugs_97_junit_test.java:3: error: cannot find symbol\nclass ExampleBug extends TestCase {\n                         ^\n  symbol: class TestCase\n../qwen/spotbugs_clean_java_code_qwen_test/result_Spotbugs_97/seed_Spotbugs_97_junit_test.java:7: error: method does not override or implement a method from a supertype\n    @Override\n    ^\n../qwen/spotbugs_clean_java_code_qwen_test/result_Spotbugs_97/seed_Spotbugs_97_junit_test.java:9: error: cannot find symbol\n        super.setUp();\n        ^\n  symbol:   variable super\n  location: class ExampleBug\n../qwen/spotbugs_clean_java_code_qwen_test/result_Spotbugs_97/seed_Spotbugs_97_junit_test.java:13: error: method does not override or implement a method from a supertype\n    @Override\n    ^\n5 errors\n"
+}

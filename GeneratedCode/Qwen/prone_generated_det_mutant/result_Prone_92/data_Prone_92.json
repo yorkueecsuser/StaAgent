@@ -1,0 +1,10 @@
+{
+  "Bug_Title": "JUnit4TestNotRun",
+  "Bug_Details": "This looks like a test method but is not run; please add @Test and @Ignore, or, if this is a helper method, reduce its visibility. Unlike in JUnit 3, JUnit 4 tests will not be run unless annotated with @Test.\nThe test method that triggered this error looks like it was meant to be a test,\nbut was not so annotated, so it will not be run. If you intend for this test\nmethod not to run, please add both an @Test and an @Ignore annotation to make it\nclear that you are purposely disabling it. If this is a helper method and not a\ntest, consider reducing its visibility to non-public, if possible.",
+  "Bug_Explanation": "The method 'intendedTestMethod' is intended to be a test method but lacks the @Test annotation, causing it to not be executed by JUnit.",
+  "Buggy_Line": [
+    9
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Seed_Compilation_Status_det": "Successful"
+}

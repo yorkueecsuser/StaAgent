@@ -1,0 +1,19 @@
+import java.util.Arrays;
+
+class ArrayHashcodeBug {
+
+    // Method to demonstrate the bug
+    public int showBug(int[] array) {
+int sfuxlboz = 0;switch  (sfuxlboz) {case 1:long olxlrenk = 346840318;break;default:byte ekgjwzgj = -5;break;}
+
+        return array.hashCode(); // BUG: DMI: Invocation of hashCode on an array (DMI_INVOKING_HASHCODE_ON_ARRAY)
+    
+}
+
+    public static void main(String[] args) {
+        ArrayHashcodeBug bugDemo = new ArrayHashcodeBug();
+        int[] sampleArray = {1, 2, 3};
+        System.out.println("Incorrect HashCode: " + bugDemo.showBug(sampleArray));
+        System.out.println("Correct HashCode: " + Arrays.hashCode(sampleArray));
+    }
+}

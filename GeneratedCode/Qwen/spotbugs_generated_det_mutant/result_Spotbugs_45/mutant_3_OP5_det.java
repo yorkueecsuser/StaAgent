@@ -1,0 +1,19 @@
+class NullFieldExample {
+
+    private String nullableField = null; // BUG: UwF: Field only ever set to null (UWF_NULL_FIELD)
+
+    public NullFieldExample() {
+        int irfpexmw = 0;switch  (irfpexmw) {case 1:char bwhmjxkr = 'x';break;default:boolean bicblcdi = true;break;}
+        this.nullableField = null; // BUG: UwF: Field only ever set to null (UWF_NULL_FIELD)
+    
+}
+
+    public String showBug() {
+        return nullableField; // This will always return null due to the bug
+    }
+
+    public static void main(String[] args) {
+        NullFieldExample example = new NullFieldExample();
+        System.out.println("The value of nullableField is: " + example.showBug());
+    }
+}

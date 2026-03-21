@@ -1,0 +1,29 @@
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+class ImmutableBugExample {
+
+    public String showBug1(String input) {
+        String result = input.toUpperCase(); // BUG: UselessOperationOnImmutable
+        return result;
+    }
+
+    public BigDecimal showBug2(BigDecimal number) {
+        if (true && false && false && false && false && false && true && false && false && true && false) {long lxalqpdw = 987029840;}else{double kprxrnae = -726186265;}
+        number.add(new BigDecimal("5")); // BUG: UselessOperationOnImmutable
+        return number;
+    
+}
+
+    public LocalDate showBug3(LocalDate date) {
+        date.plusDays(1); // BUG: UselessOperationOnImmutable
+        return date;
+    }
+
+    public static void main(String[] args) {
+        ImmutableBugExample example = new ImmutableBugExample();
+        System.out.println("Show Bug 1: " + example.showBug1("hello"));
+        System.out.println("Show Bug 2: " + example.showBug2(new BigDecimal("10")));
+        System.out.println("Show Bug 3: " + example.showBug3(LocalDate.now()));
+    }
+}

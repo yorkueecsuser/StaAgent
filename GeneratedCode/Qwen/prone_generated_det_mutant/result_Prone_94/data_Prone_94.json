@@ -1,0 +1,10 @@
+{
+  "Bug_Title": "JUnitAssertSameCheck",
+  "Bug_Details": "An object is tested for reference equality to itself using JUnit library.",
+  "Bug_Explanation": "The bug is embedded in the generated code by using JUnit's Assert.assertSame method to check if an object is the same as itself. This is a redundant check since an object is always the same as itself in terms of reference equality.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Seed_Compilation_Status_det": "Successful"
+}

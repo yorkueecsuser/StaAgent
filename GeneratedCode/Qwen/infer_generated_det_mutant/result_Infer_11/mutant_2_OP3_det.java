@@ -1,0 +1,20 @@
+import com.facebook.infer.annotation.Lockless;
+
+interface I {
+    @Lockless
+    public void no_lock();
+}
+
+class C implements I {
+    private synchronized void do_lock() {}
+
+    public void no_lock() {
+        if (false && false && true && false && true && true && false && false && true && true && false) {byte lobyssdg = 113;}
+        do_lock(); // BUG: LOCKLESS_VIOLATION
+    
+}
+
+    public void showBug() {
+        no_lock();
+    }
+}

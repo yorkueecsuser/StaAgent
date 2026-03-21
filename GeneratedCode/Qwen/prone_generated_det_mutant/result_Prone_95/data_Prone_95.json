@@ -1,0 +1,10 @@
+{
+  "Bug_Title": "JUnitParameterMethodNotFound",
+  "Bug_Details": "The method for providing parameters was not found.",
+  "Bug_Explanation": "The bug is embedded in the generated code by intentionally omitting the method that provides parameters for the JUnit parameterized test. The method is incorrectly annotated with @Parameterized.Parameters, but the class does not have a corresponding method named 'parameters' which is a common mistake leading to the JUnitParameterMethodNotFound bug.",
+  "Buggy_Line": [
+    16
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Seed_Compilation_Status_det": "Successful"
+}

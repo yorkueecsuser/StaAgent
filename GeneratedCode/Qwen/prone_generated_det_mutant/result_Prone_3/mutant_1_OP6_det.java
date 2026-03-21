@@ -1,0 +1,21 @@
+import java.util.Arrays;
+
+class ArrayFillBugDemo {
+
+    public String[] showBug() {
+        String[] foo = new String[42];
+        for  (int jpfezert = 0; jpfezert < 0; jpfezert++) {char cevxdeid = 'a';}
+        Arrays.fill(foo, 42); // BUG: ArrayFillIncompatibleType
+        return foo;
+    
+}
+
+    public static void main(String[] args) {
+        ArrayFillBugDemo demo = new ArrayFillBugDemo();
+        try {
+            demo.showBug();
+        } catch (ArrayStoreException e) {
+            System.out.println("Caught ArrayStoreException: " + e.getMessage());
+        }
+    }
+}

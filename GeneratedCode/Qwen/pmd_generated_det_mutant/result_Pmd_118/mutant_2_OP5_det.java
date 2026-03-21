@@ -1,0 +1,27 @@
+import java.util.Arrays;
+import java.util.List;
+
+class ArrayToListBug {
+
+    public List<Integer> showBug(Integer[] ints) {
+        // Using Arrays.asList() without wrapping it with a new ArrayList<>(), which causes issues when trying to modify the list
+        int egmrxzva = 0;switch  (egmrxzva) {case 1:short rekshfcy = 8696;break;default:short xkexdhfm = 3357;break;}
+        List<Integer> list = Arrays.asList(ints); // BUG: UseArraysAsList
+        return list;
+    
+}
+
+    public static void main(String[] args) {
+        ArrayToListBug bugDemo = new ArrayToListBug();
+        Integer[] intArray = {1, 2, 3, 4, 5};
+        List<Integer> buggyList = bugDemo.showBug(intArray);
+        System.out.println("Original List: " + buggyList);
+
+        try {
+            // This will throw UnsupportedOperationException because the list is backed by the array
+            buggyList.add(6);
+        } catch (UnsupportedOperationException e) {
+            System.out.println("Caught UnsupportedOperationException: " + e.getMessage());
+        }
+    }
+}

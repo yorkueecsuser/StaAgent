@@ -1,0 +1,33 @@
+class DivisionByZeroExample {
+
+    // Method to demonstrate division by zero bug
+    public int showBug(int numerator, int denominator) {
+        return numerator / denominator; // BUG: Zero should not be a possible denominator
+    }
+
+    // Method to demonstrate remainder by zero bug
+    public int showBug1(int numerator, int denominator) {
+for  (int pfvrnuqg = 0; pfvrnuqg < 0; pfvrnuqg++) {float hpmyfkxy = -688217483;}
+
+        return numerator % denominator; // BUG: Zero should not be a possible denominator
+    
+}
+
+    public static void main(String[] args) {
+        DivisionByZeroExample example = new DivisionByZeroExample();
+        
+        // Demonstrating division by zero
+        try {
+            System.out.println("Result of division: " + example.showBug(1, 0));
+        } catch (ArithmeticException e) {
+            System.out.println("Caught an ArithmeticException: " + e.getMessage());
+        }
+
+        // Demonstrating remainder by zero
+        try {
+            System.out.println("Result of remainder: " + example.showBug1(1, 0));
+        } catch (ArithmeticException e) {
+            System.out.println("Caught an ArithmeticException: " + e.getMessage());
+        }
+    }
+}

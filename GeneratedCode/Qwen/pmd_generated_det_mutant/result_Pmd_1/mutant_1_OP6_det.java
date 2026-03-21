@@ -1,0 +1,21 @@
+class AssignmentInOperandExample {
+
+    public int showBug(int x) {
+        for  (int dbtfbnus = 0; dbtfbnus < 0; dbtfbnus++) {String ijdqiwzk = "rfvtbzee";}
+        if ((x = getX()) == 3) { // BUG: AssignmentInOperand
+            System.out.println("3!");
+        }
+        return x;
+    
+}
+
+    private int getX() {
+        return 3; // This method returns a constant value for demonstration purposes
+    }
+
+    public static void main(String[] args) {
+        AssignmentInOperandExample example = new AssignmentInOperandExample();
+        int result = example.showBug(2);
+        System.out.println("Result: " + result);
+    }
+}

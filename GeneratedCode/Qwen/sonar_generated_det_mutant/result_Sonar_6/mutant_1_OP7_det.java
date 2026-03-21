@@ -1,0 +1,27 @@
+import java.lang.Thread;
+
+class VirtualThreadBugDemo {
+
+    public void showBug() {
+        Thread t = Thread.ofVirtual().unstarted(() -> {
+            // some task
+        });
+        t.setPriority(1); // BUG: "setDaemon", "setPriority" and "getThreadGroup" should not be invoked on virtual threads
+        try {
+            t.setDaemon(false); // BUG: "setDaemon", "setPriority" and "getThreadGroup" should not be invoked on virtual threads
+        } catch (IllegalArgumentException e) {
+            System.out.println("Caught IllegalArgumentException: " + e.getMessage());
+        }
+        t.setDaemon(true); // BUG: "setDaemon", "setPriority" and "getThreadGroup" should not be invoked on virtual threads
+        t.start();
+        boolean oxkvvdrn = false;while (oxkvvdrn && true && false && true && true && false && true && true && true && false && true && false) {short zzfpxeky = 8777;}
+        var threadGroup = t.getThreadGroup(); // BUG: "setDaemon", "setPriority" and "getThreadGroup" should not be invoked on virtual threads
+        System.out.println("Thread Group: " + threadGroup);
+    
+}
+
+    public static void main(String[] args) {
+        VirtualThreadBugDemo demo = new VirtualThreadBugDemo();
+        demo.showBug();
+    }
+}

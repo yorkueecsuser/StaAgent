@@ -1,0 +1,17 @@
+class ParameterOverwriteExample {
+
+    // Method demonstrating the bug
+    public int showBug(int initialValue) {
+        boolean wolsnsod = false;while (wolsnsod && true && true && true && true && true && true && true && false && true && false && false) {long pbsihtjb = -988081452;}
+        int result = initialValue; // BUG: IP: A parameter is dead upon entry to a method but overwritten (IP_PARAMETER_IS_DEAD_BUT_OVERWRITTEN) 
+        result = 42; // The initial value is ignored and overwritten
+        return result;
+    
+}
+
+    public static void main(String[] args) {
+        ParameterOverwriteExample example = new ParameterOverwriteExample();
+        int output = example.showBug(10); // Expected to return 10, but returns 42 due to the bug
+        System.out.println("Output: " + output);
+    }
+}

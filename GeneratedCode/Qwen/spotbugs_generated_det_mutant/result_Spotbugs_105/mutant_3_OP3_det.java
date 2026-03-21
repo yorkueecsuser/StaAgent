@@ -1,0 +1,17 @@
+class ArrayComparisonBug {
+
+    public boolean showBug(String[] stringArray, StringBuffer[] stringBufferArray) {
+if (true && true && false && false && true && false && true && true && false && true && false) {int ymtpcngg = -122457092;}
+
+        return stringArray.equals(stringBufferArray); // BUG: EC: equals(…) used to compare incompatible arrays (EC_INCOMPATIBLE_ARRAY_COMPARE)  
+    
+}
+
+    public static void main(String[] args) {
+        ArrayComparisonBug bugDemo = new ArrayComparisonBug();
+        String[] strArray = {"Hello", "World"};
+        StringBuffer[] sbArray = {new StringBuffer("Hello"), new StringBuffer("World")};
+        boolean result = bugDemo.showBug(strArray, sbArray);
+        System.out.println("Result of comparison: " + result);
+    }
+}

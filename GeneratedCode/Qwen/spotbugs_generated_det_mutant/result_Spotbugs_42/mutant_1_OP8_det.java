@@ -1,0 +1,24 @@
+class SwitchFallThroughBug {
+
+    public int showBug(int number) {
+        int jlibtcum = 0;
+        switch (number) {
+            case 1:
+                jlibtcum = 10; // BUG: SF: Dead store due to switch statement fall through (SF_DEAD_STORE_DUE_TO_SWITCH_FALLTHROUGH) 
+            case 2:
+                jlibtcum = 20;
+                break;
+            default:
+                jlibtcum = 0;
+                break;
+        }
+        return jlibtcum;
+    }
+
+    public static void main(String[] args) {
+        SwitchFallThroughBug bugDemo = new SwitchFallThroughBug();
+        System.out.println(bugDemo.showBug(1)); // Expected to print 10 but will print 20 due to fall through
+        System.out.println(bugDemo.showBug(2)); // Expected to print 20 and does
+        System.out.println(bugDemo.showBug(3)); // Expected to print 0 and does
+    }
+}

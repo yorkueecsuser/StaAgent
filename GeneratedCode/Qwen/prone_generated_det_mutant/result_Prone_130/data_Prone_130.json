@@ -1,0 +1,10 @@
+{
+  "Bug_Title": "ParametersButNotParameterized",
+  "Bug_Details": "This test has @Parameters but is using the default JUnit4 runner. The parameters will have no effect.",
+  "Bug_Explanation": "The bug is embedded in the generated code by using the @Parameters annotation with the default JUnit4 runner instead of the Parameterized runner. The @RunWith(Parameterized.class) annotation is present, but the test method does not utilize the parameterized inputs effectively.",
+  "Buggy_Line": [
+    23
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Seed_Compilation_Status_det": "Successful"
+}
