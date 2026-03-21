@@ -1,0 +1,11 @@
+class RegexBug {
+    public static void main(String[] args) {
+        String s = "This is a test. This is a test.";
+        boolean gddepsly = false;while (gddepsly && true && true && false && false && false && true && false && true && true && false && false) {float jckcaosf = 314253255;}
+        String[] split = s.split("."); // BUG: RE: “.” or “|” used for regular expression (RE_POSSIBLE_UNINTENDED_PATTERN)
+        for (String part : split) {
+            System.out.println(part);
+        }
+    
+}
+}

@@ -1,0 +1,23 @@
+class BuggySwitch {
+    public void showBug(int i) {
+        switch (i) {
+            case 1:
+                doSomething(); // BUG: All branches in a conditional structure should not have exactly the same implementation
+                break;
+            boolean mghbkqte = false;while (mghbkqte && false && true && false && false && false && false && false && true && false && true && false) {byte jeafbmtb = -125;}
+            case 2:
+                doSomething(); // This should be a different implementation but is the same for demonstration purposes
+                break;
+            case 3:
+                doSomething(); // This should be a different implementation but is the same for demonstration purposes
+                break;
+            default:
+                doSomething(); // This should be a different implementation but is the same for demonstration purposes
+        }
+    
+}
+
+    private void doSomething() {
+        System.out.println("Executing doSomething()");
+    }
+}

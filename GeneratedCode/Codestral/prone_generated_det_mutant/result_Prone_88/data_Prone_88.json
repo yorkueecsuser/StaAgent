@@ -1,0 +1,10 @@
+{
+  "Bug_Title": "JUnit3TestNotRun",
+  "Bug_Details": "Test method will not be run; please correct method signature (Should be public, non-static, and method name should begin with \"test\"). JUnit 3 requires that test method names start with \u201ctest\u201d. The method that\ntriggered this error looks like it is supposed to be a test, but misspells the\nrequired prefix; has @Test annotation, but no prefix; or has the wrong method\nsignature. As a consequence, JUnit 3 will ignore it. If you meant to disable this test on purpose, or this is a helper method, change\nthe name to something more descriptive, like \u201cdisabledTestSomething()\u201d. You\ndon\u2019t need an @Test annotation, but if you want to keep it, add @Ignore too.",
+  "Bug_Explanation": "The method 'incorrectTestMethod' will not be run by JUnit 3 as its name does not start with 'test'.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Seed_Compilation_Status_det": "Successful"
+}

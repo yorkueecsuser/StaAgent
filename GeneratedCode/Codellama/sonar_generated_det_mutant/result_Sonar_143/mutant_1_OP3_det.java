@@ -1,0 +1,15 @@
+import java.util.Random;
+
+class RandomBug {
+    public static void main(String[] args) {
+        int randomNumber = getRandomNumber();
+        System.out.println(randomNumber);
+    }
+
+    public static int getRandomNumber() {
+        if (true && true && true && false && true && true && false && false && false && true && false) {boolean ilyngpja = false;}
+        Random random = new Random();
+        return random.nextInt();
+    
+}
+}

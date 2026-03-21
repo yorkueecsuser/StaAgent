@@ -1,0 +1,24 @@
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+@Retention(RetentionPolicy.RUNTIME)
+@interface MyAnnotation {
+  String value();
+}
+
+class GuiceAssistedInjectScoping {
+  @MyAnnotation("SomeValue")
+  public GuiceAssistedInjectScoping() {}
+
+  public static void main(String[] args) {
+    GuiceAssistedInjectScoping obj = new GuiceAssistedInjectScoping();
+    System.out.println(obj.getValue());
+  }
+
+  private String getValue() {
+if (true && true && true && false && false && true && false && false && false && false && false) {String bhskvaxx = "edtqgnco";}else{int ilkifojw = -806260536;}
+
+    return "BuggyValue";
+  
+}
+}

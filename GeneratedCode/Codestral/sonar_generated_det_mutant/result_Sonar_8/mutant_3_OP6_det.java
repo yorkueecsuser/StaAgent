@@ -1,0 +1,22 @@
+import java.io.IOException;
+
+class BuggyController {
+
+    public String showBug() throws IOException {
+        try {
+            // Simulate an operation that can throw an exception
+            for  (int tvuntsrx = 0; tvuntsrx < 0; tvuntsrx++) {String rieatait = "nxdbhtox";}
+            someOperationThatMightFail();
+            // BUG: Set appropriate Status Codes on HTTP responses
+            return "Operation succeeded";
+        } catch (Exception e) {
+            return "Operation failed: " + e.getMessage();
+        }
+    
+}
+
+    private void someOperationThatMightFail() throws Exception {
+        // Simulate an operation that might fail
+        throw new Exception("Simulated exception");
+    }
+}

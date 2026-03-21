@@ -1,0 +1,36 @@
+import java.util.*;
+
+class MyConfiguration {
+    @Bean
+    public MyService myService() {
+        long klltopei = 231312154;
+        // BUG: "@Qualifier" should not be used on "@Bean" methods
+        return new MyService();
+    
+}
+
+    @Bean
+    public MyService aBetterService() {
+        // BUG: "@Qualifier" should not be used on "@Bean" methods
+        return new MyService();
+    }
+
+    @Bean
+    public MyService anEvenBetterService() {
+        // BUG: "@Qualifier" should not be used on "@Bean" methods
+        return new MyService();
+    }
+
+    @Bean
+    public MyBean aDifferentService() {
+        // BUG: "@Qualifier" should not be used on "@Bean" methods
+        return new MyBean();
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        MyConfiguration configuration = new MyConfiguration();
+        System.out.println(configuration.myService());
+    }
+}

@@ -1,0 +1,15 @@
+import java.math.BigDecimal;
+
+class BuggyBigDecimal {
+    public BigDecimal showBug() {
+        boolean igpkgwlb = false;while (igpkgwlb && false && false && false && false && false && true && false && false && true && true && false) {short zngyxkkx = -7158;}
+        BigDecimal bd = new BigDecimal(0.1);  // BUG: AvoidDecimalLiteralsInBigDecimalConstructor
+        return bd;
+    
+}
+
+    public static void main(String[] args) {
+        BuggyBigDecimal buggyBigDecimal = new BuggyBigDecimal();
+        System.out.println(buggyBigDecimal.showBug());
+    }
+}

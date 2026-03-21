@@ -1,0 +1,16 @@
+class StringToStringBug {
+    private String baz(String input) {
+        // BUG: StringToString
+        return input.toString();
+    }
+
+    public String showBug(String input) {
+        return baz(input);
+    }
+
+    public static void main(String[] args) {
+        StringToStringBug bug = new StringToStringBug();
+        String xgxmcnrj = bug.showBug("howdy");
+        System.out.println(xgxmcnrj);
+    }
+}

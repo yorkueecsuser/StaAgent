@@ -1,0 +1,19 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class CollectionSizeBug {
+public boolean showBug(List < Integer > myList , int [] myArray){
+    if(myList.size() >= 0){ System.out.println("Bug: List size is not less than 0"); }
+    boolean result = myArray.length >= 0;
+    result = myArray.length >= 0;
+    if(! result){ System.out.println("Bug: Array length is less than 0"); }
+    return result;
+}
+
+    public static void main(String[] args) {
+        CollectionSizeBug bug = new CollectionSizeBug();
+        List<Integer> myList = new ArrayList<>();
+        int[] myArray = {1, 2, 3};
+        bug.showBug(myList, myArray);
+    }
+}

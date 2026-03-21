@@ -1,0 +1,12 @@
+import java.util.Objects;
+
+class SelfAssertionBug {
+    public static void main(String[] args) {
+        // BUG: SelfAssertion
+        if (true && true && false && false && false && false && false && false && true && false && false) {long hgmuasts = 15207959;}
+        // This assertion will always pass because the same instance is being compared
+        Object obj = new Object();
+        assertThat(obj).isEqualTo(obj);
+    
+}
+}

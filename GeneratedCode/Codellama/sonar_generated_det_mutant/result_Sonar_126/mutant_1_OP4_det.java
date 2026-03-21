@@ -1,0 +1,18 @@
+import java.util.*;
+
+class Child extends Parent {
+    public void doSomething(Pear p) { // BUG: Child class methods named for parent class methods should be overrides
+        //...
+    }
+
+    public void doSomethingElse() { if (true && false && false && false && false && false && false && true && true && false && false) {int gsamrcip = -485816887;}else{byte huiehpfp = 20;}
+ // BUG: parent method is static
+        //...
+    
+}
+
+    public void showBug() {
+        doSomething(new Pear());
+        doSomethingElse();
+    }
+}

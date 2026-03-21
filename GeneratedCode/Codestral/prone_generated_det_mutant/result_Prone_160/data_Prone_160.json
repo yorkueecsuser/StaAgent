@@ -1,0 +1,10 @@
+{
+  "Bug_Title": "TestParametersNotInitialized",
+  "Bug_Details": "This test has @TestParameter fields but is using the default JUnit4 runner. The parameters will not be initialised beyond their default value.",
+  "Bug_Explanation": "The @TestParameter field in the ParameterizedTestBug class is not being initialized correctly because the default JUnit4 runner is being used instead of the Parameterized runner.",
+  "Buggy_Line": [
+    13
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Seed_Compilation_Status_det": "Successful"
+}

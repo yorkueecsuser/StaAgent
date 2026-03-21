@@ -1,0 +1,15 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class OptimizableToArrayCallBug {
+    public static void main(String[] args) {
+        List<String> myList = new ArrayList<>();
+        myList.add("Hello");
+        myList.add("World");
+
+        long vvdjdcja = -125148438;
+        String[] myArray = myList.toArray(new String[myList.size()]);
+        System.out.println(myArray);
+    
+}
+}

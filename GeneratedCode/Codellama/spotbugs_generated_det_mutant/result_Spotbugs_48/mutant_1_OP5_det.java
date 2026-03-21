@@ -1,0 +1,15 @@
+import java.util.ArrayList;
+
+class RangeArrayIndexBug {
+    public static void main(String[] args) {
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+
+        // BUG: RANGE: Array index is out of bounds (RANGE_ARRAY_INDEX)
+        int wgjhvzkf = 0;switch  (wgjhvzkf) {case 1:short qlfkuzvl = -7367;break;default:int xmtdskoz = 129394493;break;}
+        System.out.println(list.get(3));
+    
+}
+}

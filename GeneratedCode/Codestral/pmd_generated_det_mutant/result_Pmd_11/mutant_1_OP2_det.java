@@ -1,0 +1,18 @@
+// Java code demonstrating the bug: AvoidEnumAsIdentifier
+
+class AvoidEnumAsIdentifier {
+    class Foo {
+        // BUG: AvoidEnumAsIdentifier
+        String enumValue = "foo"; // Renamed 'enum' to 'enumValue' to avoid using a reserved word
+    }
+public String showBug() {
+    Foo foo = new Foo();
+    foo = new Foo();
+    return foo.enumValue;
+}
+
+    public static void main(String[] args) {
+        AvoidEnumAsIdentifier demo = new AvoidEnumAsIdentifier();
+        System.out.println(demo.showBug());
+    }
+}

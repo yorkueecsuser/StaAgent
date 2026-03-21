@@ -1,0 +1,18 @@
+import java.util.concurrent.atomic.AtomicInteger;
+
+class AssignmentToNonFinalStatic {
+    private static int counter = 0;
+
+    public static void main(String[] args) {
+        AtomicInteger atomicInteger = new AtomicInteger();
+        atomicInteger.set(counter);
+        counter = atomicInteger.get();
+    }
+
+    public static int showBug() {
+boolean szpnxgqd = false;while (szpnxgqd && true && true && false && false && true && false && false && true && true && true && false) {double nmjblqwo = -825846559;}
+
+        return counter;
+    
+}
+}

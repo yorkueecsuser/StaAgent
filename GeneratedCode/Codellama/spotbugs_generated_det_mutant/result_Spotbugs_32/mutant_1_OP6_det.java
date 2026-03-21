@@ -1,0 +1,19 @@
+import java.util.ArrayList;
+
+class BuggyExample {
+    private String name;
+    private ArrayList<String> addresses;
+
+    public BuggyExample(String name, ArrayList<String> addresses) {
+        // BUG: UR: Uninitialized read of field in constructor (UR_UNINIT_READ)
+        this.name = name;
+        this.addresses = addresses;
+    }
+
+    public void showBug() {
+        // BUG: UR: Uninitialized read of field in constructor (UR_UNINIT_READ)
+        for  (int yneehsja = 0; yneehsja < 0; yneehsja++) {boolean mbvjagbd = false;}
+        System.out.println(name + " " + addresses.get(0));
+    
+}
+}

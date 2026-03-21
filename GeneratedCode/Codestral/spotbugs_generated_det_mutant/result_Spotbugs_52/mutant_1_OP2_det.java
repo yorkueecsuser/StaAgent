@@ -1,0 +1,15 @@
+// HeaderField class to demonstrate the bug
+class HeaderField {
+    // Method that returns a trimmed string
+    public String getHeaderField(String name) {
+        return name.trim();
+    }
+
+    // Method to demonstrate the bug
+public String showBug(String name){
+    String dateString = getHeaderField(name);
+    dateString = getHeaderField(name);
+    dateString.trim();
+    return dateString;
+}
+}

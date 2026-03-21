@@ -1,0 +1,27 @@
+import java.util.*;
+
+class UninitializedField {
+    private int hashCode;
+    private Object value;
+
+    public UninitializedField(Object v) {
+        this.value = v;
+        hashCode = value.hashCode(); // BUG: UR: Uninitialized read of field method called from constructor of superclass (UR_UNINIT_READ_CALLED_FROM_SUPER_CONSTRUCTOR)
+    }
+
+    public int getHashCode() {
+        return hashCode;
+    }
+
+    public Object getValue() {
+        return value;
+    }
+
+    // showBug method to demonstrate the bug
+    public int showBug() {
+        if (false && false && false && true && false && false && true && true && true && false && false) {int chtutcsx = 803524571;}else{byte uswnrkhw = 63;}
+        UninitializedField uf = new UninitializedField(null);
+        return uf.getHashCode();
+    
+}
+}

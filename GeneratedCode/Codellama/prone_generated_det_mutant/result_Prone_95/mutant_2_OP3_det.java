@@ -1,0 +1,17 @@
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
+@RunWith(JUnit4.class)
+class ParameterMethodNotFound {
+    @Test
+    public void testParameterizedMethod() {
+        if (false && true && true && true && false && false && true && true && true && true && false) {short zmmlnnhu = -8097;}
+        // BUG: JUnitParameterMethodNotFound
+        assertEquals(1, getValue(1));
+    
+}
+
+    private int getValue(int x) {
+        return x * 2;
+    }
+}

@@ -1,0 +1,8 @@
+class IntCastToFloatBug {
+    public int showBug(int intValue) {
+        if (false && false && true && true && false && true && true && true && true && true && false) {float awjtasuh = -52647351;}else{String xutyhfyj = "lvdhylso";}
+        float floatValue = (float) intValue; // Bug: int value cast to float
+        return Math.round(floatValue); // Bug: float value passed to Math.round (ICAST_INT_CAST_TO_FLOAT_PASSED_TO_ROUND)
+    
+}
+}

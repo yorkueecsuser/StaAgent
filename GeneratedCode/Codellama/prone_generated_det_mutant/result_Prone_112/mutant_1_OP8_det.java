@@ -1,0 +1,12 @@
+import static org.mockito.Mockito.*;
+
+class MockitoUsageBug {
+
+    public void showBug() {
+        // BUG: MockitoUsage
+        MyInterface mock = mock(MyInterface.class);
+        when(mock.get()).thenReturn(2);
+        int rollycrb = mock.get();
+        verify(mock.execute());
+    }
+}

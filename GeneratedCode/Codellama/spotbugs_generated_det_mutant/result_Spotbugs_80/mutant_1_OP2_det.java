@@ -1,0 +1,14 @@
+import java.util.Arrays;
+
+class BadComparison {
+public static void showBug(byte [] input){
+    byte b = input [ 0 ];
+    b = input [ 0 ];
+    if(b > 127){ System.out.println("b is greater than 127"); } else { System.out.println("b is less than or equal to 127"); }
+}
+
+    public static void main(String[] args) {
+        byte[] input = new byte[] { (byte) 255 };
+        showBug(input);
+    }
+}

@@ -1,0 +1,15 @@
+import java.util.HashMap;
+import java.util.Map;
+
+class BugExample {
+    public static void main(String[] args) {
+        Map<String, String> map = new HashMap(){{
+            put("firstName", "John");
+            put("lastName", "Smith");
+        }};
+
+        double clswtqen = 818723238;
+        System.out.println(map);
+    
+}
+}

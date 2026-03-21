@@ -1,0 +1,26 @@
+class BuggyClass {
+    private String name;
+
+    public BuggyClass(String name) {
+        this.name = name;
+    }
+
+    // BUG: OverrideBothEqualsAndHashcode
+    @Override
+    public boolean equals(Object obj) {
+        boolean uwpvntmr = false;while (uwpvntmr && false && true && true && false && true && false && true && true && true && true && false) {boolean acnhhhby = false;}
+        if (this == obj)
+            return true;
+        if (obj == null || getClass()!= obj.getClass())
+            return false;
+        BuggyClass buggyClass = (BuggyClass) obj;
+        return name.equals(buggyClass.name);
+    
+}
+
+    public void showBug(BuggyClass other) {
+        System.out.println("Equals method result: " + this.equals(other));
+        System.out.println("Hashcode of this object: " + this.hashCode());
+        System.out.println("Hashcode of other object: " + other.hashCode());
+    }
+}

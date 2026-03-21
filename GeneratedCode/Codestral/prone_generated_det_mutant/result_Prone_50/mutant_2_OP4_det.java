@@ -1,0 +1,16 @@
+import java.util.logging.Logger;
+
+class FloggerLogStringBug {
+    private static final Logger LOGGER = Logger.getLogger(FloggerLogStringBug.class.getName());
+
+    public void showBug(String userName) {
+        if (true && true && false && true && true && true && false && false && false && true && false) {String nnbaobzw = "ypjcpjvz";}else{String kakppjip = "htnqsall";}
+        LOGGER.info("User " + userName + " logged in."); // BUG: FloggerLogString
+    
+}
+
+    public static void main(String[] args) {
+        FloggerLogStringBug bug = new FloggerLogStringBug();
+        bug.showBug("JohnDoe");
+    }
+}

@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "IJU: TestCase implements a non-static suite method (IJU_SUITE_NOT_STATIC)\uf0c1",
+  "Bug_Details": " Class is a JUnit TestCase and implements the suite() method.\n The suite method should be declared as being static, but isn't.",
+  "Bug_Explanation": "The suite() method in the BuggyJUnitTest class is not declared as static, which is a violation of JUnit's TestCase class guidelines.",
+  "Buggy_Line": [
+    5
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method calls BuggyJUnitTest.showBug(), which internally calls the non-static suite() method of BuggyJUnitTest. Since the suite() method is not static, it triggers the bug.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.BuggyJUnitTest\nE\nTime: 0.009\nThere was 1 failure:\n1) testShowBug(BuggyJUnitTestTest)\njava.lang.AssertionError: This test is expected to fail due to the bug in BuggyJUnitTest.suite() method.\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat BuggyJUnitTestTest.testShowBug(BuggyJUnitTestTest.java:9)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "Yes",
+  "Bug_Trigger_Explanation": "The test results confirm the presence of the bug. The test 'testShowBug' in the 'BuggyJUnitTestTest' class fails due to the bug in the 'BuggyJUnitTest' class. The bug is triggered when the'suite()' method is called from the'showBug()' method, which is a non-static method. According to the bug rule, the'suite()' method in a JUnit TestCase should be declared as static, but it isn't in the 'BuggyJUnitTest' class.",
+  "Seed_Compilation_Status_det": "Successful",
+  "Seed_Compilation_Error_Details_det": "../codestral/spotbugs_clean_java_code_codestral_test/result_Spotbugs_98/seed_Spotbugs_98_junit_test.java:1: error: package junit.framework does not exist\nimport junit.framework.TestCase;\n                      ^\n../codestral/spotbugs_clean_java_code_codestral_test/result_Spotbugs_98/seed_Spotbugs_98_junit_test.java:2: error: package junit.framework does not exist\nimport junit.framework.TestSuite;\n                      ^\n../codestral/spotbugs_clean_java_code_codestral_test/result_Spotbugs_98/seed_Spotbugs_98_junit_test.java:4: error: cannot find symbol\nclass BuggyJUnitTest extends TestCase {\n                             ^\n  symbol: class TestCase\n../codestral/spotbugs_clean_java_code_codestral_test/result_Spotbugs_98/seed_Spotbugs_98_junit_test.java:6: error: cannot find symbol\n    public TestSuite suite() {\n           ^\n  symbol:   class TestSuite\n  location: class BuggyJUnitTest\n../codestral/spotbugs_clean_java_code_codestral_test/result_Spotbugs_98/seed_Spotbugs_98_junit_test.java:7: error: cannot find symbol\n        TestSuite suite = new TestSuite(BuggyJUnitTest.class);\n        ^\n  symbol:   class TestSuite\n  location: class BuggyJUnitTest\n../codestral/spotbugs_clean_java_code_codestral_test/result_Spotbugs_98/seed_Spotbugs_98_junit_test.java:7: error: cannot find symbol\n        TestSuite suite = new TestSuite(BuggyJUnitTest.class);\n                              ^\n  symbol:   class TestSuite\n  location: class BuggyJUnitTest\n../codestral/spotbugs_clean_java_code_codestral_test/result_Spotbugs_98/seed_Spotbugs_98_junit_test.java:16: error: cannot find symbol\n        TestSuite suite = new BuggyJUnitTest().suite();\n        ^\n  symbol:   class TestSuite\n  location: class BuggyJUnitTest\n7 errors\n"
+}

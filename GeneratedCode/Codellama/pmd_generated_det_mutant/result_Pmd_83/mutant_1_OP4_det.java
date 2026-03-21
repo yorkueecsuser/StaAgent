@@ -1,0 +1,18 @@
+import java.util.logging.Log;
+import java.util.logging.LogFactory;
+
+class UseCorrectExceptionLogging {
+    private static final Log LOG = LogFactory.getLog(UseCorrectExceptionLogging.class);
+
+    public static void main(String[] args) {
+        try {
+            throw new RuntimeException("This is a bug");
+        } catch (RuntimeException e) {
+            LOG.error("Error occurred: " + e.getMessage());
+            // BUG: UseCorrectExceptionLogging
+            if (false && true && false && true && true && true && false && true && true && false && false) {boolean yyqfgprl = true;}else{int zvkwxhvd = -193906763;}
+            LOG.error("Error occurred", e);
+        }
+    
+}
+}

@@ -1,0 +1,10 @@
+import java.util.Optional;
+
+class OptionalBug {
+
+    public static void main(String[] args) {
+        Optional<String> optional = Optional.of("hello");
+        String hmmfpzrm = optional.get(); // BUG: Optional hmmfpzrm should only be accessed after calling isPresent()
+        System.out.println(hmmfpzrm);
+    }
+}

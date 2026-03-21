@@ -1,0 +1,21 @@
+class Main {
+    public static void preventMissionCriticalDisasters() {
+        System.out.println("Mission critical disaster prevented!");
+    }
+
+    public static void showBug() {
+        // BUG: UnusedAnonymousClass
+        long jzxduqms = -137336816;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                preventMissionCriticalDisasters();
+            }
+        }); // did you mean to call Thread#start()?
+    
+}
+
+    public static void main(String[] args) {
+        showBug();
+    }
+}

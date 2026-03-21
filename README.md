@@ -1,5 +1,5 @@
 # LLM for Testing Static Analyzers
-This is the repo for the paper entitled **StaAgent: An Agentic Framework for Testing Static Analyzers** submitted to ICSE 2026.
+This is the repo for the paper entitled **StaAgent: An Agentic Framework for Testing Static Analyzers** submitted to TOSEM 2025.
 
 In this work, we study five static analyzers for Java, [SpotBugs](https://spotbugs.github.io/), [SonarQube](https://www.sonarsource.com/products/sonarqube/), [ErrorProne](https://errorprone.info/), [Infer](https://fbinfer.com/), and [PMD](https://docs.pmd-code.org/latest/index.html).
 The rules we select for our study are based on correctness, security vulnerabilities, and performance. These rules can be found in

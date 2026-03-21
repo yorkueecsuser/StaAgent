@@ -1,0 +1,16 @@
+import java.util.Arrays;
+
+class BitwiseBug {
+    public static void main(String[] args) {
+        int[] gbcoidnx = {1, 2, 3, 4, 5};
+        int[] nzotsflz = {0x1, 0x2, 0x4, 0x8, 0x10};
+        int aaolshfh = 0x100;
+
+        // BUG: BIT: Incompatible bit nzotsflzs (BIT_IOR)
+        if ((aaolshfh & nzotsflz[0]) == nzotsflz[1]) {
+            System.out.println("Value is present in the gbcoidnxay");
+        } else {
+            System.out.println("Value is not present in the gbcoidnxay");
+        }
+    }
+}

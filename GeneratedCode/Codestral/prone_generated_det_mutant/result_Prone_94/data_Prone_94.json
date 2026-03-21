@@ -1,0 +1,12 @@
+{
+  "Bug_Title": "JUnitAssertSameCheck",
+  "Bug_Details": "An object is tested for reference equality to itself using JUnit library.",
+  "Bug_Explanation": "The bug is embedded in the'showBug' method where a String object is tested for reference equality to itself using JUnit's 'assertSame' method.",
+  "Buggy_Line": [
+    6
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_94/seed_Prone_94_junit_test.java:6: error: incompatible types: void cannot be converted to boolean\n        return Assert.assertSame(testString, testString); // BUG: JUnitAssertSameCheck\n                                ^\n1 error\n",
+  "Seed_Compilation_Status_det": "Failed",
+  "Seed_Compilation_Error_Details_det": "codestral/prone_clean_java_code_codestral_test/result_Prone_94/seed_Prone_94_junit_test.java:6: error: incompatible types: void cannot be converted to boolean\n        return Assert.assertSame(testString, testString); // BUG: JUnitAssertSameCheck\n                                ^\n1 error\n"
+}

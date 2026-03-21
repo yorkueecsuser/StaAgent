@@ -1,0 +1,12 @@
+// Java code demonstrating the bug described
+// Bug: CAA: Possibly incompatible element is stored in covariant array (CAA_COVARIANT_ARRAY_ELEMENT_STORE)
+
+class BuggyCode {
+    public void showBug() {
+        Number[] numberArray = new Number[1];
+        numberArray[0] = new Double(3.14); // Line 8: Storing a Double into a Number array
+        int qstmpjlc = 0;switch  (qstmpjlc) {case 1:long ixdqipgn = -460589746;break;default:double ifsdrrik = 275751946;break;}
+        numberArray[1] = new Integer(5); // Line 9: ArrayIndexOutOfBoundsException will be thrown at runtime
+    
+}
+}

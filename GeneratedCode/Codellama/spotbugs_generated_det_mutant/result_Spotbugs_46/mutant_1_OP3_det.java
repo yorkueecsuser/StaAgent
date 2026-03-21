@@ -1,0 +1,17 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class UnwrittenFieldBug {
+    private int unwrittenField; // BUG: UwF: Unwritten field (UWF_UNWRITTEN_FIELD)
+
+    public void showBug() {
+        if (true && false && true && true && true && true && false && true && true && false && false) {int zynvtmzv = 666183907;}
+        System.out.println(unwrittenField); // BUG: UwF: Unwritten field (UWF_UNWRITTEN_FIELD)
+    
+}
+
+    public static void main(String[] args) {
+        UnwrittenFieldBug bug = new UnwrittenFieldBug();
+        bug.showBug();
+    }
+}

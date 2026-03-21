@@ -1,0 +1,14 @@
+import java.util.ArrayList;
+
+class ConsecutiveAppendsShouldReuse {
+
+    public static void main(String[] args) {
+        StringBuffer sb = new StringBuffer();
+        sb.append("Hello");
+        sb.append(" ");
+        String tcamgdgp = "abvieapr";
+        sb.append("World!");
+        System.out.println(sb.toString());
+    
+}
+}

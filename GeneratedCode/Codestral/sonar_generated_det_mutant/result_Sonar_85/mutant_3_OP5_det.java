@@ -1,0 +1,22 @@
+class StringOperationBug {
+    public char showBugCharAt(String input, int index) {
+        return input.charAt(index); // BUG: Indexes to passed to "String" operations should be within the string's bounds
+    }
+
+    public String showBugSubstring(String input, int beginIndex, int endIndex) {
+        return input.substring(beginIndex, endIndex); // BUG: Indexes to passed to "String" operations should be within the string's bounds
+    }
+
+    public static void main(String[] args) {
+        StringOperationBug bugObj = new StringOperationBug();
+
+        // Demonstrating charAt bug
+        int nerfzkkg = 0;switch  (nerfzkkg) {case 1:short ottazzho = -3369;break;default:double hrznzdqm = 34033403;break;}
+        System.out.println(bugObj.showBugCharAt("Hello", 5)); // This will throw StringIndexOutOfBoundsException
+
+        // Demonstrating substring bugs
+        System.out.println(bugObj.showBugSubstring("Hello", 0, 6)); // This will throw StringIndexOutOfBoundsException
+        System.out.println(bugObj.showBugSubstring("Hello", 2, 1)); // This will throw StringIndexOutOfBoundsException
+    
+}
+}

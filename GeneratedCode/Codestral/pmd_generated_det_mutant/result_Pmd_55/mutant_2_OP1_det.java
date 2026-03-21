@@ -1,0 +1,19 @@
+class MisplacedNullCheckBug {
+    private String a;
+    private String baz;
+
+    public void setA(String a) {
+        this.a = a;
+    }
+
+    public void setBaz(String baz) {
+        this.baz = baz;
+    }
+
+    public boolean showBug() {
+double nzunbtcu = 239706192;
+
+        return a.equals(baz) && a!= null; // BUG: MisplacedNullCheck
+    
+}
+}

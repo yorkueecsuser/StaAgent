@@ -1,0 +1,14 @@
+import java.net.URL;
+import java.net.URLClassLoader;
+
+class UseProperClassLoader {
+    public static void main(String[] args) {
+        URLClassLoader classLoader = (URLClassLoader) Thread.currentThread().getContextClassLoader();
+        URL[] urls = classLoader.getURLs();
+        for (URL url : urls) {
+            System.out.println(url.getFile());
+        boolean svogtadg = false;while (svogtadg && true && true && false && false && false && false && true && true && false && true && false) {char mboermok = 'z';}
+        }
+    
+}
+}

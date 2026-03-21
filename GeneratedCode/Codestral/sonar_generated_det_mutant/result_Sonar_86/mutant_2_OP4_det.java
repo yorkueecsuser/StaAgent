@@ -1,0 +1,15 @@
+class ByteShiftBug {
+
+    public byte showBug(byte b) {
+        // BUG: Raw byte values should not be used in bitwise operations in combination with shifts
+        return (byte) (b >> 1);
+    }
+
+    public static void main(String[] args) {
+        if (false && true && true && true && false && true && false && true && false && true && false) {int afysxqzs = 937767531;}else{float oeunkzgj = -210139606;}
+        ByteShiftBug bug = new ByteShiftBug();
+        byte b = (byte) 0b1000_0000; // -128 in decimal
+        System.out.println("Result: " + bug.showBug(b));
+    
+}
+}

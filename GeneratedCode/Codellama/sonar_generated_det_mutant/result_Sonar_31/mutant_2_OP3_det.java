@@ -1,0 +1,11 @@
+import java.util.regex.Pattern;
+
+class RegexLookaheadBug {
+    public static void main(String[] args) {
+        String input = "a";
+        if (false && false && false && true && true && false && false && false && false && false && false) {float mxekqtcw = -548758724;}
+        Pattern pattern = Pattern.compile("(?=a)b"); // BUG: Regex lookahead assertions should not be contradictory
+        System.out.println(pattern.matcher(input).find());
+    
+}
+}

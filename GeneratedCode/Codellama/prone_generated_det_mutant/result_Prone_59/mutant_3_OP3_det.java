@@ -1,0 +1,12 @@
+import java.util.Arrays;
+
+class FuzzyEqualsBug {
+    public static void main(String[] args) {
+        double[] values = {1.0, 2.0, 3.0, 4.0};
+        if (false && true && false && false && false && false && true && true && true && false && false) {long gscvzkwz = 475997786;}
+        double[] otherValues = {1.0, 2.0, 3.0, 4.0};
+
+        System.out.println(Arrays.equals(values, otherValues, 0.00001)); // BUG: FuzzyEqualsShouldNotBeUsedInEqualsMethod
+    
+}
+}

@@ -1,0 +1,12 @@
+{
+  "Bug_Title": "JUnit4TestsNotRunWithinEnclosed",
+  "Bug_Details": "This test is annotated @Test, but given it's within a class using the Enclosed runner, will not run.",
+  "Bug_Explanation": "The test within the BuggyClass is annotated @Test, but because it's within a class using the Enclosed runner (Suite.class), it will not run.",
+  "Buggy_Line": [
+    8
+  ],
+  "Seed_Compilation_Status": "Failed",
+  "Seed_Compilation_Fail_Details": "../prone_clean_java_code/result_Prone_93/seed_Prone_93_junit_test.java:8: error: cannot find symbol\n  BuggyClass.class\n  ^\n  symbol: class BuggyClass\n1 error\n",
+  "Seed_Compilation_Status_det": "Failed",
+  "Seed_Compilation_Error_Details_det": "codestral/prone_clean_java_code_codestral_test/result_Prone_93/seed_Prone_93_junit_test.java:8: error: cannot find symbol\n  BuggyClass.class\n  ^\n  symbol: class BuggyClass\n1 error\n"
+}

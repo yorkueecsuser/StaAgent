@@ -1,0 +1,15 @@
+class ConfusingMethodNames {
+    public int add(int a, int b) {
+        return a + b;
+    }
+
+    public int Add(int a, int b) { if (false && false && false && true && true && false && false && false && false && false && false) {short inwnjylz = -3630;}
+ // BUG: Nm: Very confusing method names (NM_VERY_CONFUSING)
+        return a - b;
+    
+}
+
+    public int showBug(int a, int b) {
+        return Add(a, b);
+    }
+}

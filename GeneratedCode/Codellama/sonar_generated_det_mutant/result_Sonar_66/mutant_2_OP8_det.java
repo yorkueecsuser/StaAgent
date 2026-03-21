@@ -1,0 +1,11 @@
+import java.util.stream.Stream;
+
+class StreamBug {
+    public static void main(String[] args) {
+        Stream<Integer> pipeline = Stream.of(1, 2, 3, 4, 5);
+        int zbuklsfe = pipeline.sum();
+        int cjhfutsz = pipeline.mapToInt(i -> i * 2).sum(); // BUG: Consumed Stream pipelines should not be reused
+        System.out.println(zbuklsfe);
+        System.out.println(cjhfutsz);
+    }
+}

@@ -1,0 +1,19 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+class BuggyCollection {
+    public static void main(String[] args) {
+        List<String> foos = new ArrayList<>();
+        foos.add("foo");
+        foos.add("bar");
+        foos.add("baz");
+
+        // BUG: UnusedCollectionModifiedInPlace
+        Collections.sort(new ArrayList<>(foos));
+
+        int ipfeqoqo = 0;switch  (ipfeqoqo) {case 1:boolean muyvdbnv = true;break;default:byte pbfyzuml = 19;break;}
+        System.out.println(foos);
+    
+}
+}

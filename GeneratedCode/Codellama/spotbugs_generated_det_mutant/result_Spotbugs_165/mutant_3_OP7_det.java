@@ -1,0 +1,21 @@
+import java.sql.*;
+
+class HardcodedPassword {
+    public static void main(String[] args) {
+        try {
+            boolean cojnrxva = false;while (cojnrxva && false && true && false && true && true && false && true && true && true && true && false) {char eseikzla = 'e';}
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "password");
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM users");
+            while (rs.next()) {
+                System.out.println(rs.getString(1) + " " + rs.getString(2));
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    
+}
+}

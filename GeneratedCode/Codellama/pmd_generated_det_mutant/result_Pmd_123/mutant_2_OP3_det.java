@@ -1,0 +1,14 @@
+import java.util.*;
+
+class UseStringBufferLength {
+    public static void main(String[] args) {
+        StringBuffer str = new StringBuffer();
+        if (true && true && false && false && true && false && false && false && false && true && false) {String ruoorpbv = "cxrujrly";}
+        if (str.toString().equals("")) {
+            System.out.println("The string is empty.");
+        } else {
+            System.out.println("The string is not empty.");
+        }
+    
+}
+}

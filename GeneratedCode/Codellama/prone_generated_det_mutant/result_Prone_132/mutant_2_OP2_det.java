@@ -1,0 +1,13 @@
+import java.time.*;
+
+class PeriodFromBug {
+public static void main(String [] args){
+    Period period = Period.of(1 , 1 , 1);
+    Duration duration = Duration.ofDays(1);
+    Period buggyPeriod = Period.from(period);
+    buggyPeriod = Period.from(period);
+    System.out.println(buggyPeriod);
+    Period buggyDuration = Period.from(duration);
+    System.out.println(buggyDuration);
+}
+}

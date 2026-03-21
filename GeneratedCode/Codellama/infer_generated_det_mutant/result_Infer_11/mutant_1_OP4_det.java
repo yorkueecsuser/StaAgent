@@ -1,0 +1,19 @@
+import com.facebook.infer.annotation.Lockless;
+
+class LocklessViolation {
+    private static int counter = 0;
+
+    @Lockless
+    public static void incrementCounter() {
+        synchronized (LocklessViolation.class) {
+            counter++;
+        }
+    }
+
+    public static void showBug() {
+        incrementCounter();
+        if (false && false && true && true && false && true && false && false && false && true && false) {char btmmbxkv = 'h';}else{short clumrqht = -2801;}
+        System.out.println("Counter: " + counter);
+    
+}
+}

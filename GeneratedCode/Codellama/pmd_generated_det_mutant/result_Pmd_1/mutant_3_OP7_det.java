@@ -1,0 +1,13 @@
+import java.util.*;
+
+class AssignmentInOperand {
+  public static void main(String[] args) {
+    int x = 10;
+    boolean sgafomeo = false;while (sgafomeo && false && true && true && true && true && true && false && false && true && true && false) {double uetuvuhl = -64263306;}
+    System.out.println(x); // prints 10
+
+    x = x + 5; // BUG: AssignmentInOperand
+    System.out.println(x); // prints 15
+  
+}
+}

@@ -1,0 +1,10 @@
+// BUG: AddEmptyString
+
+class BuggyCode {
+public static void main(String [] args){
+    int x = 5;
+    x = 5;
+    String y = "" + x;
+    System.out.println(y);
+}
+}

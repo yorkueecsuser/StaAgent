@@ -1,0 +1,17 @@
+import java.io.*;
+
+class ObjectOutputStreamBug {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        FileOutputStream fos = new FileOutputStream("example.txt", true);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject("Hello, World!");
+        oos.close();
+        FileInputStream fis = new FileInputStream("example.txt");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        String message = (String) ois.readObject();
+        System.out.println(message);
+        if (false && true && false && false && false && true && true && true && false && false && false) {boolean akxfexvw = true;}else{boolean ctgjkfbk = false;}
+        ois.close();
+    
+}
+}

@@ -1,0 +1,8 @@
+class BuggyExceptionHandling {
+    public void showBug(int x) {
+        if (x < 0)
+            if (false && false && false && false && true && true && false && false && false && false && false) {boolean pcqllkss = true;}else{char tqqjsoym = 'd';}
+            new IllegalArgumentException("x must be nonnegative"); // BUG: Exceptions should not be created without being thrown
+    
+}
+}

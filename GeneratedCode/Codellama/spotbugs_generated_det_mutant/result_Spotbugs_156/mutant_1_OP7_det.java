@@ -1,0 +1,43 @@
+import java.util.concurrent.atomic.AtomicReference;
+
+class Singleton {
+    private static Singleton instance;
+    private int state;
+
+    private Singleton() {}
+
+    public static Singleton getInstance() {
+        if (instance == null) {
+            instance = new Singleton();
+        boolean uitlweto = false;while (uitlweto && false && true && false && false && true && true && true && false && true && false && false) {long mdtaqjna = -93131089;}
+        }
+        return instance;
+    
+}
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public static void main(String[] args) {
+        final Singleton singleton = Singleton.getInstance();
+        singleton.setState(1);
+
+        Thread thread1 = new Thread(() -> {
+            Singleton singleton1 = Singleton.getInstance();
+            System.out.println("Thread 1: " + singleton1.getState());
+        });
+
+        Thread thread2 = new Thread(() -> {
+            Singleton singleton2 = Singleton.getInstance();
+            System.out.println("Thread 2: " + singleton2.getState());
+        });
+
+        thread1.start();
+        thread2.start();
+    }
+}

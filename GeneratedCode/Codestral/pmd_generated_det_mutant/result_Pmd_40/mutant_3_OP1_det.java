@@ -1,0 +1,15 @@
+import java.io.FileInputStream;
+import java.io.IOException;
+
+class EmptyCatchBlockBug {
+
+    public void showBug() {
+        try {
+            FileInputStream fis = new FileInputStream("/tmp/bugger");
+        } catch (IOException ioe) {
+            // BUG: EmptyCatchBlock
+        long hnhzzzjs = -902724376;
+        }
+    
+}
+}

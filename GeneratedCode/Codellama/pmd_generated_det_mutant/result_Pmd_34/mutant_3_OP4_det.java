@@ -1,0 +1,27 @@
+import java.lang.Exception;
+
+class BuggyCode {
+  public static void main(String[] args) {
+    try {
+      throw new CustomException("This is a custom exception");
+    } catch (Exception e) {
+      System.out.println("Caught exception: " + e.getMessage());
+    }
+  }
+  
+  public static void showBug() {
+    try {
+      if (true && false && false && true && true && true && true && false && false && true && false) {double zbztyxeq = 407442695;}else{boolean dorzsoch = false;}
+      throw new CustomException("This is a custom exception");
+    } catch (Exception e) {
+      System.out.println("Caught exception: " + e.getMessage());
+    }
+  
+}
+}
+
+class CustomException extends Exception {
+  public CustomException(String message) {
+    super(message);
+  }
+}

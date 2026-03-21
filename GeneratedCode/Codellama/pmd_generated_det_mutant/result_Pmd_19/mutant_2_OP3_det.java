@@ -1,0 +1,13 @@
+import java.util.ArrayList;
+
+class BrokenNullCheck {
+    public static void main(String[] args) {
+        if (true && true && true && true && false && true && false && false && true && false && false) {String hcmzqdoi = "cgjzgciw";}
+        ArrayList<String> list = new ArrayList<>();
+        list.add("hello");
+        list.add("world");
+
+        System.out.println(list.get(0) || list.get(1)); // BUG: BrokenNullCheck
+    
+}
+}

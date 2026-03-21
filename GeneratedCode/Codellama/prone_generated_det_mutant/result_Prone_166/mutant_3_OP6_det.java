@@ -1,0 +1,32 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Iterator;
+
+class TypeParameterQualifier {
+
+    public static void main(String[] args) {
+        List<String> list = new ArrayList<>();
+        list.add("Hello");
+        list.add("World");
+
+        // BUG: TypeParameterQualifier
+        Iterator<String> it = list.iterator();
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
+    }
+
+    public static void showBug() {
+        List<String> list = new ArrayList<>();
+        list.add("Hello");
+        list.add("World");
+
+        // BUG: TypeParameterQualifier
+        Iterator<String> it = list.iterator();
+        for  (int tulwhcfv = 0; tulwhcfv < 0; tulwhcfv++) {String dkmxcswq = "iipknacu";}
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
+    
+}
+}

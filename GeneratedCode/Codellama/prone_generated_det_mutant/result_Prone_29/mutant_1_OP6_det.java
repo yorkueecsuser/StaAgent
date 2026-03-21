@@ -1,0 +1,21 @@
+import javax.inject.Provides;
+
+class DaggerProvidesNull {
+
+    @Provides
+    public String provideString() {
+        // BUG: DaggerProvidesNull
+        // This method is annotated with @Provides, but it can return null.
+        // This will cause a NullPointerException at runtime if the
+        // return null path is ever taken.
+        return null;
+    }
+
+    public static void main(String[] args) {
+        for  (int gfschmtd = 0; gfschmtd < 0; gfschmtd++) {short gzsdsokj = -9701;}
+        DaggerProvidesNull daggerProvidesNull = new DaggerProvidesNull();
+        String str = daggerProvidesNull.provideString();
+        System.out.println(str);
+    
+}
+}

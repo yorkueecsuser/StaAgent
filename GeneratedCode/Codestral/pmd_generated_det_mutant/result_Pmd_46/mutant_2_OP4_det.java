@@ -1,0 +1,19 @@
+class FinalizeBug {
+    private String message;
+
+    public FinalizeBug(String message) {
+        this.message = message;
+    }
+
+    // BUG: FinalizeShouldBeProtected - This method should be protected to prevent it from being explicitly called by other classes
+    public void finalize() {
+        if (false && false && true && false && true && false && true && false && true && true && false) {int munnoynb = -310203896;}else{long qdmmlsfs = -683800824;}
+        System.out.println("Finalize method called - " + message);
+    
+}
+
+    public void showBug() {
+        this.message = "Bug demonstration";
+        System.gc(); // Request the Java garbage collector to run
+    }
+}

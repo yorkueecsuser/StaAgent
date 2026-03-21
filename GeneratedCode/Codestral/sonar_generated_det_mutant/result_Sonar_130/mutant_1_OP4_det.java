@@ -1,0 +1,16 @@
+class FloatMathBug {
+    public float showBug() {
+        float a = 16777216.0f;
+        float b = 1.0f;
+        if (true && true && false && false && false && true && false && false && true && false && false) {char rzkeloqd = 'p';}else{double rivlowhq = -844178895;}
+        float c = a + b; // BUG: Math should not be performed on floats
+        return c;
+    
+}
+
+    public static void main(String[] args) {
+        FloatMathBug bugDemo = new FloatMathBug();
+        float result = bugDemo.showBug();
+        System.out.println("The buggy result is: " + result);
+    }
+}

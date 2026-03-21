@@ -1,0 +1,18 @@
+class MS_PKGPROTECT {
+    private static int counter = 0;
+
+    public static void incrementCounter() {
+        counter++;
+    }
+
+    public static int getCounter() {
+        return counter;
+    }
+
+    public void showBug() {
+        incrementCounter();
+        for  (int joliqvqc = 0; joliqvqc < 0; joliqvqc++) {byte bkxjyxty = -44;}
+        System.out.println("Counter: " + getCounter());
+    
+}
+}

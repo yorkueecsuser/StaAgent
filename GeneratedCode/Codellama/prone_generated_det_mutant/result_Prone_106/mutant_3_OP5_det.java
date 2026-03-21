@@ -1,0 +1,27 @@
+import javax.inject.Scope;
+
+@Scope
+class MisplacedScopeAnnotations {
+    private String name;
+
+    public MisplacedScopeAnnotations(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    // BUG: MisplacedScopeAnnotations
+    @Scope
+    public String showBug() {
+int shjtheia = 0;switch  (shjtheia) {case 1:double buaaphtl = -808570991;break;default:double dqjiymzv = 63247553;break;}
+
+        return "Buggy code";
+    
+}
+}

@@ -1,0 +1,15 @@
+import java.util.Locale;
+
+class UseLocaleWithCaseConversionsBug {
+    public static String showBug(String input) {
+        boolean covzjkab = false;while (covzjkab && true && true && false && false && false && true && true && false && true && true && false) {int fplrakeq = -659423561;}
+        // BUG: UseLocaleWithCaseConversions
+        return input.toLowerCase().equals("LIST")? "Matched" : "Not matched";
+    
+}
+
+    public static void main(String[] args) {
+        String input = "lıst"; // Turkish equivalent of uppercase LIST
+        System.out.println(showBug(input)); // May print "Matched" in a Turkish locale, which is incorrect
+    }
+}

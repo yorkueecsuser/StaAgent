@@ -1,0 +1,142 @@
+[
+  {
+    "response_index": 53,
+    "title": "ForOverride",
+    "desc": "Method annotated @ForOverride must be protected or package-private and only invoked from declaring class, or from an override of the method A method that overrides a @ForOverride method should not be invoked directly.\nInstead, it should be invoked only from the class in which it was declared. For\nexample, if overriding Converter.doForward, you should invoke it through\nConverter.convert. For testing, factor out the code you want to run to a\nseparate method.",
+    "data_json_path": "../codestral/prone_clean_java_code_codestral/result_Prone_53/data_Prone_53.json",
+    "analyzer_backlog": [
+      "seed_Prone_53",
+      "mutant_3_OP2",
+      "mutant_2_OP8",
+      "mutant_1_OP6",
+      "mutant_2_OP3",
+      "mutant_3_OP1"
+    ]
+  },
+  {
+    "response_index": 13,
+    "title": "BanJNDI",
+    "desc": "Using JNDI may deserialize user input via the `Serializable` API which is extremely dangerous JNDI (\u201cJava Naming and Directory Interface\u201d) is a Java JDK API representing an\nabstract directory service such as DNS, a file system or LDAP. Critically, JNDI\nallows Java objects to be serialized and deserialized on the wire in\nimplementing systems. This means that if a Java application is allowed to\nperform a JNDI lookup over some transport protocol then the server it connects\nto can execute arbitrary attacker-defined code. See\nthis\nBlack Hat talk for more information. This checker bans usage of every API in the Java JDK that can result in\ndeserialising an unsafe object via JNDI. The list of APIs is generated from\nstatic callgraph analysis of the JDK, rooted at javax.naming.Context.lookup\nand is as follows: javax.naming.Context.lookup\njavax.jdo.JDOHelper.getPersistenceManagerFactory\njavax.jdo.JDOHelperTest.testGetPMFBadJNDI\njavax.jdo.JDOHelperTest.testGetPMFBadJNDIGoodClassLoader\njavax.jdo.JDOHelperTest.testGetPMFNullJNDI\njavax.jdo.JDOHelperTest.testGetPMFNullJNDIGoodClassLoader\njavax.management.remote.JMXConnectorFactory.connect\njavax.management.remote.rmi.RMIConnector.connect\njavax.management.remote.rmi.RMIConnector.findRMIServer\njavax.management.remote.rmi.RMIConnector.findRMIServerJNDI\njavax.management.remote.rmi.RMIConnector.RMIClientCommunicatorAdmin.doStart\njavax.naming.directory.InitialDirContext.bind\njavax.naming.directory.InitialDirContext.createSubcontext\njavax.naming.directory.InitialDirContext.getAttributes\njavax.naming.directory.InitialDirContext.getSchema\njavax.naming.directory.InitialDirContext.getSchemaClassDefinition\njavax.naming.directory.InitialDirContext.modifyAttributes\njavax.naming.directory.InitialDirContext.rebind\njavax.naming.directory.InitialDirContext.search\njavax.naming.InitialContext.doLookup\njavax.naming.InitialContext.lookup\njavax.naming.spi.ContinuationContext.lookup\njavax.naming.spi.ContinuationDirContext.bind\njavax.naming.spi.ContinuationDirContext.createSubcontext\njavax.naming.spi.ContinuationDirContext.getAttributes\njavax.naming.spi.ContinuationDirContext.getSchema\njavax.naming.spi.ContinuationDirContext.getSchemaClassDefinition\njavax.naming.spi.ContinuationDirContext.getTargetContext\njavax.naming.spi.ContinuationDirContext.modifyAttributes\njavax.naming.spi.ContinuationDirContext.rebind\njavax.naming.spi.ContinuationDirContext.search\njavax.sql.rowset.spi.ProviderImpl.getDataSourceLock\njavax.sql.rowset.spi.ProviderImpl.getProviderGrade\njavax.sql.rowset.spi.ProviderImpl.getRowSetReader\njavax.sql.rowset.spi.ProviderImpl.getRowSetWriter\njavax.sql.rowset.spi.ProviderImpl.setDataSourceLock\njavax.sql.rowset.spi.ProviderImpl.supportsUpdatableView\njavax.sql.rowset.spi.SyncFactory.enumerateBindings\njavax.sql.rowset.spi.SyncFactory.getInstance\njavax.sql.rowset.spi.SyncFactory.initJNDIContext\njavax.sql.rowset.spi.SyncFactory.parseJNDIContext A small subset of these are banned directly. The rest are banned indirectly by\nbanning the lookup(), bind(), rebind(), getAttributes(),\nmodifyAttriutes(), createSubcontext(), getSchema(),\ngetSchemaClassDefinition() and search() methods on any subclass\n(implementer) of javax.naming.Context. The indirect ban is necessary due to\nthese methods being vulnerable in previously noted subclasses in the JDK. If\nthey were not banned at the Context level, a cast to Context would make the\nvulnerable call invisible to static analysis.",
+    "data_json_path": "../codestral/prone_clean_java_code_codestral/result_Prone_13/data_Prone_13.json",
+    "analyzer_backlog": [
+      "seed_Prone_13",
+      "mutant_2_OP7",
+      "mutant_3_OP7",
+      "mutant_1_OP1",
+      "mutant_2_OP2",
+      "mutant_1_OP6"
+    ]
+  },
+  {
+    "response_index": 83,
+    "title": "InvalidTimeZoneID",
+    "desc": "Invalid time zone identifier. TimeZone.getTimeZone(String) will silently return GMT instead of the time zone you intended. TimeZone.getTimeZone(String) silently returns GMT when an invalid time zone\nidentifier is passed in.",
+    "data_json_path": "../codestral/prone_clean_java_code_codestral/result_Prone_83/data_Prone_83.json",
+    "analyzer_backlog": [
+      "seed_Prone_83",
+      "mutant_2_OP6",
+      "mutant_1_OP2",
+      "mutant_3_OP8",
+      "mutant_1_OP7",
+      "mutant_3_OP1"
+    ]
+  },
+  {
+    "response_index": 173,
+    "title": "UnusedCollectionModifiedInPlace",
+    "desc": "Collection is modified in place, but the result is not used Several of the methods in java.util.Collections, such as sort and shuffle,\nmodify collections in place. If you call one of these methods on a\nnewly-allocated collection and don\u2019t use it later, you are doing unnecessary\nwork. You probably meant to keep a reference to the newly-allocated copy of your\ncollection and use that in the rest of your code. For example, this code sorts a new ArrayList and then throws away the result,\nreturning the unsorted original collection: public Collection<String> sort(Collection<String> foos) {\n  Collections.sort(new ArrayList<>(foos));\n  return foos;\n} public Collection<String> sort(Collection<String> foos) {\n  Collections.sort(new ArrayList<>(foos));\n  return foos;\n} The author probably meant: public Collection<String> sort(Collection<String> foos) {\n  List<String> sortedFoos = new ArrayList<>(foos);\n  Collections.sort(sortedFoos);\n  return sortedFoos;\n} public Collection<String> sort(Collection<String> foos) {\n  List<String> sortedFoos = new ArrayList<>(foos);\n  Collections.sort(sortedFoos);\n  return sortedFoos;\n}",
+    "data_json_path": "../codestral/prone_clean_java_code_codestral/result_Prone_173/data_Prone_173.json",
+    "analyzer_backlog": [
+      "seed_Prone_173",
+      "mutant_1_OP7",
+      "mutant_3_OP2",
+      "mutant_1_OP4",
+      "mutant_3_OP5",
+      "mutant_3_OP1"
+    ]
+  },
+  {
+    "response_index": 165,
+    "title": "TryFailThrowable",
+    "desc": "Catching Throwable/Error masks failures from fail() or assert*() in the try block When testing that a line of code throws an expected exception, it is typical to\nexecute that line in a try block with a fail() or assert*() on the line\nfollowing. The expectation is that the expected exception will be thrown, and\nexecution will continue in the catch block, and the fail() or assert*() will\nnot be executed. fail() and assert*() throw AssertionErrors, which are a subtype of\nThrowable. That means that if the catch block catches Throwable, then execution\nwill always jump to the catch block, and the test will always pass. To fix this, you usually want to catch Exception rather than Throwable. If you\nneed to catch throwable (e.g., the expected exception is an AssertionError),\nthen add logic in your catch block to ensure that the AssertionError that was\ncaught is not the same one thrown by the call to fail() or assert*().",
+    "data_json_path": "../codestral/prone_clean_java_code_codestral/result_Prone_165/data_Prone_165.json",
+    "analyzer_backlog": [
+      "seed_Prone_165",
+      "mutant_3_OP1",
+      "mutant_1_OP2",
+      "mutant_2_OP1",
+      "mutant_1_OP1",
+      "mutant_2_OP3"
+    ]
+  },
+  {
+    "response_index": 176,
+    "title": "XorPower",
+    "desc": "The `^` operator is binary XOR, not a power operator. The ^ binary XOR operator is sometimes mistaken for a power operator, but e.g.\n2 ^ 2 evaluates to 0, not 4. Consider expressing powers of 2 using a bit shift instead.",
+    "data_json_path": "../codestral/prone_clean_java_code_codestral/result_Prone_176/data_Prone_176.json",
+    "analyzer_backlog": [
+      "seed_Prone_176",
+      "mutant_2_OP2",
+      "mutant_2_OP7",
+      "mutant_3_OP5",
+      "mutant_3_OP3",
+      "mutant_2_OP3"
+    ]
+  },
+  {
+    "response_index": 45,
+    "title": "EqualsNaN",
+    "desc": "== NaN always returns false; use the isNaN methods instead As per JLS 15.21.1, == NaN comparisons always return false, even NaN == NaN.\nInstead, use the isNaN methods to check for NaN.",
+    "data_json_path": "../codestral/prone_clean_java_code_codestral/result_Prone_45/data_Prone_45.json",
+    "analyzer_backlog": [
+      "seed_Prone_45",
+      "mutant_3_OP1",
+      "mutant_2_OP8",
+      "mutant_1_OP3",
+      "mutant_3_OP6",
+      "mutant_2_OP3"
+    ]
+  },
+  {
+    "response_index": 124,
+    "title": "OptionalEquality",
+    "desc": "Comparison using reference equality instead of value equality Optionals should be compared for value equality using .equals(), and not for\nreference equality using == and !=.",
+    "data_json_path": "../codestral/prone_clean_java_code_codestral/result_Prone_124/data_Prone_124.json",
+    "analyzer_backlog": [
+      "seed_Prone_124",
+      "mutant_2_OP6",
+      "mutant_1_OP6",
+      "mutant_3_OP6",
+      "mutant_2_OP1",
+      "mutant_1_OP4"
+    ]
+  },
+  {
+    "response_index": 39,
+    "title": "DuplicateMapKeys",
+    "desc": "Map#ofEntries will throw an IllegalArgumentException if there are any duplicate keys JDK 9 has\nMap#ofEntries\nfactory which throws runtime error when provided multiple entries with the same\nkey. For eg, the following code is erroneously adding two entries with Foo as key. Map<String, String> map = Map.ofEntries(\n    Map.entry(\"Foo\", \"Bar\"),\n    Map.entry(\"Ping\", \"Pong\"),\n    Map.entry(\"Kit\", \"Kat\"),\n    Map.entry(\"Foo\", \"Bar\")); Map<String, String> map = Map.ofEntries(\n    Map.entry(\"Foo\", \"Bar\"),\n    Map.entry(\"Ping\", \"Pong\"),\n    Map.entry(\"Kit\", \"Kat\"),\n    Map.entry(\"Foo\", \"Bar\"));",
+    "data_json_path": "../codestral/prone_clean_java_code_codestral/result_Prone_39/data_Prone_39.json",
+    "analyzer_backlog": [
+      "seed_Prone_39",
+      "mutant_1_OP1",
+      "mutant_1_OP8",
+      "mutant_3_OP2",
+      "mutant_2_OP5",
+      "mutant_2_OP8"
+    ]
+  },
+  {
+    "response_index": 129,
+    "title": "PackageInfo",
+    "desc": "Declaring types inside package-info.java files is very bad form Classes should not be declared inside package-info.java files. Typically package-info.java contains only a package declaration, preceded\nimmediately by the annotations on the package. While the file could\ntechnically contain the source code for one or more classes with package\naccess, it would be very bad form. \u2013 JLS 7.4",
+    "data_json_path": "../codestral/prone_clean_java_code_codestral/result_Prone_129/data_Prone_129.json",
+    "analyzer_backlog": [
+      "seed_Prone_129",
+      "mutant_3_OP7",
+      "mutant_3_OP5",
+      "mutant_2_OP6",
+      "mutant_2_OP8",
+      "mutant_1_OP7"
+    ]
+  }
+]

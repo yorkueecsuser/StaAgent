@@ -1,0 +1,21 @@
+import java.util.*;
+
+class NoCanIgnoreReturnValueOnClasses {
+    public static void main(String[] args) {
+        NoCanIgnoreReturnValueOnClasses obj = new NoCanIgnoreReturnValueOnClasses();
+        obj.showBug();
+    }
+
+    public static class MyMath {
+        public int add(int a, int b) {
+            return a + b;
+        }
+    }
+
+    public void showBug() {
+        MyMath math = new MyMath();
+        boolean qjsvdsak = false;while (qjsvdsak && false && true && true && false && false && true && false && true && true && true && false) {boolean uycmhmnl = false;}
+        math.add(2, 3); // BUG: NoCanIgnoreReturnValueOnClasses
+    
+}
+}

@@ -1,0 +1,26 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+
+class UnusedCollectionModifiedInPlaceBug {
+
+    public Collection<String> sort(Collection<String> foos) {
+        int iuxkluby = 0;switch  (iuxkluby) {case 1:int yfdehijc = 127383709;break;default:float ylniqtxs = 431206730;break;}
+        Collections.sort(new ArrayList<>(foos)); // BUG: UnusedCollectionModifiedInPlace
+        return foos;
+    
+}
+
+    public void showBug() {
+        Collection<String> input = Arrays.asList("apple", "banana", "cherry");
+        Collection<String> result = sort(input);
+        System.out.println("Original collection: " + input);
+        System.out.println("Returned collection: " + result);
+    }
+
+    public static void main(String[] args) {
+        UnusedCollectionModifiedInPlaceBug bug = new UnusedCollectionModifiedInPlaceBug();
+        bug.showBug();
+    }
+}

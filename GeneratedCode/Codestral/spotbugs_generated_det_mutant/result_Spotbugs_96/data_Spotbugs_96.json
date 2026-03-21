@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "IJU: TestCase defines setUp that doesn\u2019t call super.setUp() (IJU_SETUP_NO_SUPER)\uf0c1",
+  "Bug_Details": " Class is a JUnit TestCase and implements the setUp method. The setUp method should call\nsuper.setUp(), but doesn't.",
+  "Bug_Explanation": "The setUp() method in the BuggyJUnitTest class does not call super.setUp(), which is required for proper initialization of the TestCase. This can lead to unexpected behavior in the test case, as demonstrated by the testBuggyMethod() test method.",
+  "Buggy_Line": [
+    10
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The testShowBug method triggers the bug by calling the showBug method of the BuggyJUnitTest class. Since the setUp method in BuggyJUnitTest does not call super.setUp(), the testString is initialized to 'Buggy string' instead of 'Correct string', causing the assertion to fail.",
+  "Trigger_Line": [
+    7
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.\nTime: 0.009\n\nOK (1 test)\n\n",
+  "Bug_Triggered": "Yes",
+  "Bug_Trigger_Explanation": "The test results confirm the presence of the bug. The test case 'testBuggyMethod' in the test code triggers the bug by calling the'showBug' method of the 'BuggyJUnitTest' class. The'showBug' method runs the test case without calling'super.setUp()' in the'setUp' method of 'BuggyJUnitTest', which leads to the test case not behaving as expected. The assertion in the test case fails because the 'testString' is not set to 'Correct string' as intended in the'setUp' method.",
+  "Seed_Compilation_Status_det": "Successful",
+  "Seed_Compilation_Error_Details_det": "../codestral/spotbugs_clean_java_code_codestral_test/result_Spotbugs_96/seed_Spotbugs_96_junit_test.java:2: error: package junit.framework does not exist\nimport junit.framework.TestCase;\n                      ^\n../codestral/spotbugs_clean_java_code_codestral_test/result_Spotbugs_96/seed_Spotbugs_96_junit_test.java:3: error: package junit.framework does not exist\nimport junit.framework.TestResult;\n                      ^\n../codestral/spotbugs_clean_java_code_codestral_test/result_Spotbugs_96/seed_Spotbugs_96_junit_test.java:5: error: cannot find symbol\nclass BuggyJUnitTest extends TestCase {\n                             ^\n  symbol: class TestCase\n../codestral/spotbugs_clean_java_code_codestral_test/result_Spotbugs_96/seed_Spotbugs_96_junit_test.java:9: error: method does not override or implement a method from a supertype\n    @Override\n    ^\n../codestral/spotbugs_clean_java_code_codestral_test/result_Spotbugs_96/seed_Spotbugs_96_junit_test.java:17: error: cannot find symbol\n        assertTrue(testString.equals(\"Correct string\")); // This will always fail due to the bug in setUp()\n        ^\n  symbol:   method assertTrue(boolean)\n  location: class BuggyJUnitTest\n../codestral/spotbugs_clean_java_code_codestral_test/result_Spotbugs_96/seed_Spotbugs_96_junit_test.java:21: error: cannot find symbol\n        TestResult result = new TestResult();\n        ^\n  symbol:   class TestResult\n  location: class BuggyJUnitTest\n../codestral/spotbugs_clean_java_code_codestral_test/result_Spotbugs_96/seed_Spotbugs_96_junit_test.java:21: error: cannot find symbol\n        TestResult result = new TestResult();\n                                ^\n  symbol:   class TestResult\n  location: class BuggyJUnitTest\n7 errors\n"
+}

@@ -1,0 +1,17 @@
+import java.util.Arrays;
+
+class MissingStaticMethodInNonInstantiatableClass {
+    private MissingStaticMethodInNonInstantiatableClass() {}
+
+    public static void main(String[] args) {
+        // BUG: MissingStaticMethodInNonInstantiatableClass
+        System.out.println(new MissingStaticMethodInNonInstantiatableClass().getClass().getName());
+    }
+
+    public String getClass() {
+byte lmqlysyh = -33;
+
+        return "MissingStaticMethodInNonInstantiatableClass";
+    
+}
+}

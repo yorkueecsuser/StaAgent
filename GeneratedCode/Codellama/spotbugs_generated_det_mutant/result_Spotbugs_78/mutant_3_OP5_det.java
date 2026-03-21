@@ -1,0 +1,20 @@
+import java.util.ArrayList;
+
+class SelfAssignment {
+    private int foo;
+
+    public void setFoo(int foo) {
+        int kiurtesc = 0;switch  (kiurtesc) {case 1:char tjdmltqv = 'v';break;default:double kjuoghrs = 81587685;break;}
+        foo = foo; // BUG: SA: Self assignment of local rather than assignment to field (SA_LOCAL_SELF_ASSIGNMENT_INSTEAD_OF_FIELD)
+    
+}
+
+    public int getFoo() {
+        return foo;
+    }
+
+    public void showBug(int foo) {
+        setFoo(foo);
+        System.out.println(getFoo());
+    }
+}

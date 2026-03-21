@@ -1,0 +1,29 @@
+import java.util.concurrent.atomic.AtomicInteger;
+
+class Example {
+  private int value;
+  private AtomicInteger value2;
+
+  public int getValue() {
+    return value;
+  }
+
+  public synchronized void setValue(int newValue) {
+    value = newValue;
+  }
+
+  public int getValue2() {
+    return value2.get();
+  }
+
+  public void setValue2(int newValue) {
+    value2.set(newValue);
+  }
+public static void main(String [] args){
+    Example ex = new Example();
+    ex = new Example();
+    ex.setValue(10);
+    ex.setValue2(20);
+    System.out.println(ex.getValue() + " " + ex.getValue2());
+}
+}

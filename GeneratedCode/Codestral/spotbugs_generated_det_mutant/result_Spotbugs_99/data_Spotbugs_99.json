@@ -1,0 +1,18 @@
+{
+  "Bug_Title": "IJU: TestCase has no tests (IJU_NO_TESTS)\uf0c1",
+  "Bug_Details": " Class is a JUnit TestCase but has not implemented any test methods.",
+  "Bug_Explanation": "The bug is embedded in the MyTest class which is a JUnit TestCase but does not have any implemented test methods. This violates the rule that a TestCase should contain at least one test method.",
+  "Buggy_Line": [
+    2
+  ],
+  "Seed_Compilation_Status": "Successful",
+  "Trigger_Explanation": "The generated JUnit test case triggers the bug by calling the showBug method of MyTest, which is a JUnit TestCase without any test methods. The test is designed to fail explicitly using the fail() method to demonstrate the absence of actual test methods in MyTest.",
+  "Trigger_Line": [
+    9
+  ],
+  "Test_Run_Result": "JUnit version 4.13.2\n.E\nTime: 0.006\nThere was 1 failure:\n1) testShowBug(MyTestTest)\njava.lang.AssertionError: This test is expected to fail because MyTest has no test methods\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat MyTestTest.testShowBug(MyTestTest.java:11)\n\nFAILURES!!!\nTests run: 1,  Failures: 1\n\n",
+  "Bug_Triggered": "Yes",
+  "Bug_Trigger_Explanation": "The test results confirm the presence of the bug. The test 'testShowBug' in the test code 'MyTestTest' is expected to fail because the class 'MyTest' is a JUnit TestCase but has not implemented any test methods, which violates the bug rule 'IJU: TestCase has no tests (IJU_NO_TESTS)'. The test fails with an AssertionError as expected, indicating that no test methods were found in 'MyTest'.",
+  "Seed_Compilation_Status_det": "Successful",
+  "Seed_Compilation_Error_Details_det": "../codestral/spotbugs_clean_java_code_codestral_test/result_Spotbugs_99/seed_Spotbugs_99_junit_test.java:1: error: package junit.framework does not exist\nimport junit.framework.TestCase;\n                      ^\n../codestral/spotbugs_clean_java_code_codestral_test/result_Spotbugs_99/seed_Spotbugs_99_junit_test.java:3: error: cannot find symbol\nclass MyTest extends TestCase {\n                     ^\n  symbol: class TestCase\n2 errors\n"
+}

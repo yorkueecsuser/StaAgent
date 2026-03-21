@@ -1,0 +1,12 @@
+import java.util.Random;
+
+class RandomCastBug {
+public static void main(String [] args){
+    Random random = new Random();
+    int randomInt =(int)random.nextDouble();
+    randomInt =(int)random.nextDouble();
+    long randomLong =(long)random.nextDouble();
+    System.out.println("Random int: " + randomInt);
+    System.out.println("Random long: " + randomLong);
+}
+}
